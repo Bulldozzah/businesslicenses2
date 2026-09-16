@@ -2,7 +2,8 @@
 # Alpine base: the Debian 11 (bullseye) php:7.4 images can no longer apt-get their -dev packages.
 FROM php:7.4-fpm-alpine3.16
 
-RUN apk add --no-cache nginx icu-libs libzip libpng libjpeg-turbo freetype gmp gnu-libiconv \
+# GNU grep: JMSDiExtraBundle shells out to grep with flags BusyBox grep lacks.
+RUN apk add --no-cache grep nginx icu-libs libzip libpng libjpeg-turbo freetype gmp gnu-libiconv \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev libzip-dev libpng-dev libjpeg-turbo-dev freetype-dev gmp-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" pdo_mysql intl zip gd gmp opcache \
