@@ -1,0 +1,52 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'policy.add_new_policy' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'policy.add_new_policy' | trans }}</h5>
+                <span>{{ 'policy.add_new_policy' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>
+                {{ 'policy.policy_edit' | trans }}
+            </h6>
+            <div class="num">
+                <a href="{{ path('manage_policy') }}" title="{{ 'news.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'news.back_to_list' | trans }}</a>
+            </div>
+        </div>
+        {{ form(form) }}
+        </div>
+        <div class="clear"></div>
+    </div>
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+            $(document).ready(function () {
+            CKEDITOR.replace("policy_content");
+            $("#policy_title").addClass("w3-input w3-border w3-round");
+            $("#policy_seo_description").addClass("w3-input w3-border w3-round");
+            $("#policy_seo_keywords").addClass("w3-input w3-border w3-round");
+            $("#policy_type_title").addClass("w3-input w3-border w3-round");
+        });
+    </script>
+{% endblock %}

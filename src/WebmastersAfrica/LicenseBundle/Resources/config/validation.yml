@@ -1,0 +1,66 @@
+WebmastersAfrica\LicenseBundle\Entity\LicenseDownload:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+WebmastersAfrica\LicenseBundle\Entity\BusinessActivity:
+    properties:
+        name:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\BusinessType:
+    properties:
+        name:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\BusinessIndustry:
+    properties:
+        name:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\BusinessLocation:
+    constraints: 
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\LicenseDownload:
+    properties:
+        name:
+            - NotBlank: ~
+        issuing_body:
+            - NotBlank: ~
+        file:
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\LicenseRequirement:
+    properties:
+        description:
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\BusinessAgency:
+    properties:
+        name:
+            - NotBlank: ~
+        address:
+            - NotBlank: ~
+        telephone:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+        location:
+            - NotBlank: ~
+WebmastersAfrica\LicenseBundle\Entity\BusinessAgencyOffice:
+    properties:
+        name:
+            - NotBlank: ~
+        address:
+            - NotBlank: ~
+        telephone:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+        location:
+            - NotBlank: ~

@@ -1,0 +1,11 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+Dear {{ comment.user.firstName }}, 
+<p>{{ reply_message|raw }}</p>
+
+<blockquote>
+    {{ comment.comment }}
+</blockquote>
+
+Regards,
+{{ 'team'|trans }}

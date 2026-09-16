@@ -1,0 +1,8 @@
+
+/* override styles when printing */
+@media print {
+  .page_title {
+  	color: green;
+  }
+}
+

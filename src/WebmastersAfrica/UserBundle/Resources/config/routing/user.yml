@@ -1,0 +1,38 @@
+manageusers:
+  pattern: /users
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:publicUsers" }
+
+manage_admins:
+  pattern: /admin
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:index" }
+
+manageuserslogs:
+  pattern: /log
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:log" }
+
+manageusers_show:
+  pattern: /{id}/show
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:show" }
+
+manageusers_new:
+  pattern: /new
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:new" }
+
+manageusers_create:
+  pattern: /create
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:create" }
+  requirements: { _method: post }
+
+manageusers_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:edit" }
+
+manageusers_update:
+  pattern: /{id}/update
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:update" }
+  requirements: { _method: post|put }
+
+manageusers_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: "WebmastersAfricaUserBundle:User:delete" }
+  requirements: { _method: post|delete }

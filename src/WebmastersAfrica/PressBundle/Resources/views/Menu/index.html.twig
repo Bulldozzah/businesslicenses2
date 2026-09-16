@@ -1,0 +1,69 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block page_title %}Uganda - Manage Pages{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Menu</h5>
+            <span>Manage menus for the frontend</span>
+        </div>
+        <div class="controlB">
+                <ul>
+                    <li><a href="{{ path("managemenus_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/plus.png') }}" alt="" /><span>Add New Menu</span></a></li>
+                    <li><a href="{{ path("managepages_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/hire-me.png') }}" alt="" /><span>Add New Page</span></a></li>
+                    <li><a href="{{ path("managepages") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>List Of Pages</span></a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>List of menus</h6></div>
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+        <thead>
+            <tr>
+                <td>#</th>
+                <td class="sortCol"><div>Title<span></span></div></td>
+                <td>Published</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td><a href="{{ path('managemenus_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.title }}</td>
+                <td>
+                {% if entity.published == true %}
+                <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published">
+                {% else %}
+                <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published">
+                {% endif %}
+                </td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('managemenus_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/pencil.png') }}" alt="Edit"></a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+    {% endblock %}

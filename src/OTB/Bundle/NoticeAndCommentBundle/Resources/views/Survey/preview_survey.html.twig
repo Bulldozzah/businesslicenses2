@@ -1,0 +1,127 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+    {{ entity.keywords }}
+{% endblock %}
+{% block sitetitle %}
+    {{ entity.title }}
+{% endblock %}
+{% block sitedescription %}
+    {{ survey.surveyName }}
+{% endblock %}
+{% block sitetwitterdescription %}
+    {{ survey.surveyName }}
+{% endblock %}
+{% block sitetwittertitle %}
+    {{ survey.surveyName }}
+{% endblock %}
+{% block sitetwitterurl %}
+    {{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}
+{% endblock %}
+{% block page_title %}
+    {{ survey.surveyName }}
+{% endblock %}
+
+{% block body %}
+    <main class="single" role="main">
+        <div class="jumbotronZ clearfix">
+            <div class="container text-left">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="jumboZ_in_2 jumboZ_in">
+                            <div class="text-center">
+                                {{ survey.surveyName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_main_content col-md-12 clearfix">
+                        <div class="home_content_A">
+                            <div class="box_style_2  info">
+                                <form class="form">
+                                	<input type="hidden" id="survey_id" name="survey_id" value="{{ survey.id }}" />
+                                	<ol>
+                                	{% for question in  survey.questions %}
+	                                		{% if question.questionsType == 'input' %}
+	                                			<li>
+	                                			<div class="form-group">
+																				    <label class="question_text" for="question_id_{{question.id}}" data-question_id="{{ question.id }}" data-question_type="{{question.questionsType}}" data-is_required="{{ question.isRequired}}" id="question_label_{{question.id}}">{{question.questionText}}</label>
+																				    <input type="input" class="form-control" id="question_input_{{question.id}}" name="question_id[{{question.id}}]">
+																				</div>
+																			</li>
+	                                		{% endif %}
+
+	                                		{% if question.questionsType == 'radio' %}
+	                                			<li>
+	                                			<div class="form-group">
+	                                			<label class="col-form-label question_text" data-question_id="{{ question.id }}" data-question_type="{{question.questionsType}}" data-is_required="{{ question.isRequired}}" id="question_label_{{question.id}}">{{question.questionText}}</label>
+																	      	{% for choices_radio in question.choices %}
+																		        <div class="form-check">
+																		          <input class="form-check-input" type="radio" name="question_id[{{question.id}}][]" value="{{ choices_radio.choiceText }}">
+																		          <label class="form-check-label question_text" for="question_id_{{choices_radio.id}}">
+																		          	{{ choices_radio.choiceText }}
+																		          </label>
+																		        </div>
+																	        {% endfor %}
+																				  </div>
+																				</li>
+	                                		{% endif %}
+	                                		
+	                                		{% if question.questionsType == 'checkbox' %}
+	                                			<li>
+	                                			<div class="form-group">
+	                            					<label class="col-form-label question_text" data-question_id="{{ question.id }}" data-question_type="{{question.questionsType }}" data-is_required="{{ question.isRequired}}" id="question_label_{{question.id}}">{{question.questionText}}</label>
+	                                				{% for choices_checkbox in question.choices %}
+	                                					<div class="form-check">
+																						  <input class="form-check-input" type="checkbox" value="{{ choices_checkbox.choiceText }}" id="question_checkbox_{{question.id }}" name="question_id[{{question.id}}][]" >
+																						  <label class="form-check-label" for="question_checkbox_{{question.id}}">
+																						    {{ choices_checkbox.choiceText }}
+																						  </label>
+																						</div>
+	                                				{% endfor %}
+	                              				</div>
+	                              			</li>
+	                                	{% endif %}
+                                	
+                                {% endfor %}
+															</ol>
+                                <input type="submit" class="btn btn-primary btn-md disabled" value="submit" id="submitButton" title="This is a review. Submission disabled">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <style type="text/css">
+    .incomplete {
+    	color: red;
+		}
+    </style>
+{% endblock %}
+{% block comments %}
+	<script type="text/javascript">
+
+	$(document).ready(function () {
+		$('.question_text[data-is_required="1"]').each(function(i, obj) {
+			var questionID = $(this).data('question_id');
+			$("#question_label_" + questionID + "").append("<i style='color:red'>*</i>");
+	  });
+	});
+	$(function()
+	{
+	    $('#submitButton').button().click(function()
+	    {
+	        // return validateForm();
+	    });
+	});
+	</script>
+{% endblock %}

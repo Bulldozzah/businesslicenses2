@@ -1,0 +1,286 @@
+{% extends 'NoticeCommentBundle::base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block STYLES %}
+    <link href="{{ asset('bundles/OTB/global/plugins/select2/select2.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'manage_regulations.manage_comments' | trans }}
+{% endblock %}
+
+{% block CONTENT %}
+    <div class="page-content-wrapper">
+        <div
+            class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">
+                {{ 'manage_regulations.comments_title' | trans }}
+                <small>{{ 'manage_regulations.comments_description' | trans }}</small>
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="{{ path('webmasters_africa_admin_homepage')}}">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <i aria-hidden="true" class="fa fa-file-text-o"></i>
+                        <a href="{{ path('regulations_show', {'id': regulation.id })}}">{{'manage_regulations.regulations_description' | trans}}</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">{{ 'manage_regulations.manage_comments' | trans }}</a>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    <div class="btn-group pull-right">
+                        <a href="{{ path('regulations') }}" class="btn btn-fit-height green" href="#">
+                            {{ 'manage_regulations.list_of_regulations' | trans }}
+                            <i aria-hidden="true" class="fa fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--END PAGE HEADER-->
+            <!-- DISPLAY ALERT NOTIFICATION MESSAGES -->
+            {% for flashMessage in app.session.flashbag.get('create') %}
+                <div class="nNote nSuccess hideit">
+                    <div class="note note-success">
+                        <p>
+                            Success:
+                            {{ 'licenses.created_item_notice' | trans }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('delete') %}
+                <div class="nNote nSuccess hideit">
+                    <p>
+                        <strong>Success:
+                        </strong>
+                        {{ 'licenses.deleted_item_notice' | trans }}
+                    </p>
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('update') %}
+                <div class="nNote nSuccess hideit">
+                    <p>
+                        <strong>Success:
+                        </strong>
+                        {{ 'licenses.updated_item_notice' | trans }}
+                    </p>
+                </div>
+            {% endfor %}
+            <!--END DISPLAY ALERT NOTIFICATION MESSAGES-->
+
+            <!-- START SHOWING THE LIST OF ALL COMMENTS -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="page-title">
+                        {{ regulation.title }}
+                        <small>{{ regulation.description|raw }}</small>
+                    </h3>
+                    <p>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="dashboard-stat blue-madison">
+                                    <div class="visual">
+                                        <i class="fa fa-comments"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="number" id="number_comments">
+                                            {{ regulation.comments|length }}
+                                        </div>
+                                        <div class="desc">
+                                            Number of Comments
+                                        </div>
+                                    </div>
+                                    <a class="more" href="#">
+                                        View more
+                                        <i class="m-icon-swapright m-icon-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="dashboard-stat red-intense">
+                                    <div class="visual">
+                                        <i aria-hidden="true" class="fa fa-thumbs-o-up"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="number" id="comments_agree">
+                                            0
+                                        </div>
+                                        <div class="desc">
+                                            Agree
+                                        </div>
+                                    </div>
+                                    <a class="more" href="#">
+                                        View more
+                                        <i class="m-icon-swapright m-icon-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="dashboard-stat green-haze">
+                                    <div class="visual">
+                                        <i aria-hidden="true" class="fa fa-meh-o"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="number" id="comments_neutral">
+                                            0
+                                        </div>
+                                        <div class="desc">
+                                            Agree with Reservations
+                                        </div>
+                                    </div>
+                                    <a class="more" href="#">
+                                        View more
+                                        <i class="m-icon-swapright m-icon-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="dashboard-stat purple-plum">
+                                    <div class="visual">
+                                        <i aria-hidden="true" class="fa fa-thumbs-down"></i>
+                                    </div>
+                                    <div class="details">
+                                        <div class="number" id="comments_disagree">
+                                            0
+                                        </div>
+                                        <div class="desc">
+                                            Disagree
+                                        </div>
+                                    </div>
+                                    <a class="more" href="#">
+                                        View more
+                                        <i class="m-icon-swapright m-icon-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>
+                                {{ 'manage_regulations.regulation_comment_list'|trans }}
+                            </div>
+                        </div>
+
+                        <div class="portlet-body flip-scroll">
+                            <div class="table-toolbar">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn-group pull-right">
+                                            <button class="btn dropdown-toggle" data-toggle="dropdown">Tools
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="#">
+                                                        Print
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        Save as PDF
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        Export to Excel
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered table-striped table-condensed flip-content" id="comments_table">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Comment</th>
+                                        <th>Likes</th>
+                                        <th>Replies</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Comment</th>
+                                        <th>Likes</th>
+                                        <th>Replies</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for comment in regulation.comments %}
+                                        <tr>
+                                            <td>{{comment.id}}</td>
+                                            <td>{{comment.comment }}</td>
+
+                                            <td>{{comment.likes|length }}</td>
+                                            <td>{{comment.children|length }}</td>
+                                            <td>
+                                                <a href="#" title="Delete">
+                                                    <i aria-hidden="true" class="fa fa-trash"></i>
+                                                </a>
+                                                <a href="#" title="Mark as Abusive">
+                                                    <i aria-hidden="true" class="fa fa-ban"></i>
+                                                </a>
+                                                <a href="#" title="Reply">
+                                                    <i aria-hidden="true" class="fa fa-reply"></i>
+                                                </a>
+                                                <a href="#" title="View Replies">
+                                                    <i aria-hidden="true" class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block JAVASCRIPTS %}
+    <script charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript"></script>
+
+    <script>
+        var getSearchTerms = setInterval(getSearchTerms, 1000);
+        $(document).ready(function () {
+            $('#comments_table').DataTable();
+        });
+
+        function getSearchTerms() {
+            var agreementCount = $.ajax({
+                url: '/consultation/regulations/' + {{ regulation.id }} + '/comment_count',
+                type: 'get',
+                data: {},
+                datatype: 'JSON'
+            });
+
+            agreementCount.done(function (response) {
+                response = JSON.parse(response);
+                $("#number_comments").html((response[1] + response[2] + response[3]))
+                $("#comments_agree").html(response[1])
+                $("#comments_neutral").html(response[2])
+                $("#comments_disagree").html(response[3])
+            });
+        }
+    </script>
+{% endblock %}
+

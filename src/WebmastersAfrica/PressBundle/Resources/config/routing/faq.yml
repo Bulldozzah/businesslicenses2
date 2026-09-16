@@ -1,0 +1,71 @@
+managefaq:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:index" }
+
+managefaq_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:show" }
+
+managefaq_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:new" }
+
+managefaq_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:create" }
+    requirements: { _method: post }
+
+managefaq_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:edit" }
+
+managefaq_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:update" }
+    requirements: { _method: post|put }
+
+managefaq_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:Faq:delete" }
+    requirements: { _method: post|delete }
+
+managefaq_adjust_orderLevel:
+  pattern: update/position
+  defaults: { _controller: "WebmastersAfricaPressBundle:Faq:updateOrderLevel" }
+  requirements: { _method: post }
+
+nc_managefaq_adjust_orderLevel:
+  pattern: nc/update/position
+  defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:updateOrderLevel" }
+  requirements: { _method: post }
+
+managencfaq:
+    pattern:  /nc/
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:index" }
+
+managencfaq_show:
+    pattern:  /nc/{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:show" }
+
+managencfaq_new:
+    pattern:  /nc/new
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:new" }
+
+managencfaq_create:
+    pattern:  /nc/create
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:create" }
+    requirements: { _method: post }
+
+managencfaq_edit:
+    pattern:  /nc/{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:edit" }
+
+managencfaq_update:
+    pattern: /nc/{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:update" }
+    requirements: { _method: post|put }
+
+managencfaq_delete:
+    pattern:  /nc/{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:delete" }
+    requirements: { _method: post|delete }

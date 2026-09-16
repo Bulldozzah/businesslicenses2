@@ -1,0 +1,128 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'groups.manage_groups' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'groups.groups' | trans }}</h5>
+            <span>{{ 'groups.groups_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+<div class="wrapper w3-center">
+    <div class="w3-show-inline-block">
+    <div class="w3-bar">
+					<a href="{{ path("managegroups_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-blue w3-large" title="" href="#">
+				    <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+					<span>{{ 'groups.add_group' | trans }}</span>
+					</a>				    
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.created_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'groups.list_groups' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_groups") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="usergroups">
+        <thead>
+            <tr>
+                <td width="3%"><div>&middot;&middot;&middot;</div></td>
+                <td width="3%"><div>#</div></td>
+                <td ><div>{{ 'groups.group_name' | trans }}</div></td>
+                <td width="60px">{{ 'groups.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td><input type="checkbox" name="batch_items[]]" value="{{ entity.id }}"></td>
+                <td align="center">{{ entity.id }}</td>
+                <td><a href="{{ path('managegroups_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                <td align="center">
+                <ul>
+                    <li>
+                         <a  title="{{ 'groups.edit' | trans }}" href="{{ path('managegroups_edit', { 'id': entity.id }) }}" class="smallButton">
+                         <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+                         </a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+         </tbody>
+            <thead>
+                 <tr style="border-top:1px solid #CDCDCD">
+                <td colspan="4" style="padding:10px;">
+                        <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'groups.batch_confirm_1' | trans }} ' + this.value + ' {{ 'groups.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                            <option>{{ 'groups.select_batch' | trans }}...</option>
+                            <option value="delete">{{ 'groups.delete' | trans }}</option>
+                        </select>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+        </form>
+        </table>
+    </div>
+
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+</div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+<script>
+    $(document).ready( function () {
+      $('#usergroups').DataTable();
+    } );
+  </script>
+{% endblock %}

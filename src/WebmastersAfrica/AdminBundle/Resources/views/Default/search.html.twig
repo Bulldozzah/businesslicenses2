@@ -1,0 +1,497 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+{% block page_title %}{{ site_title}}, {{ 'search.search' | trans }}{% endblock %}
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'search.search' | trans }}</h5>
+            <span>
+                {{ 'search.search_description' | trans }}<br>
+                <div class="searchWidget">
+                    <form action="{{ path('search') }}" method='post'>
+                        <input type="text" name="search" placeholder="{{ 'search.enter_search_term' | trans }}..." value="{{ searchterm }}" />
+                        <input type="submit" name="find" value="" />
+                        {% if is_expr_granted("hasRole('LICENSE_DELETE')") %}
+                        <label class="" style="margin-top:10px; float:left;pa"><input class="m-t-10" type="checkbox" name="_with_trashed" {{ trashed ?  'checked' :  ''}} value="1"> <span> Include Removed Licenses<span></label>
+                        {% endif %}
+                    </form>
+                </div>
+            </span>
+        </div>
+        <div class="clear"></div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+{% block body %}
+    {% set found = 0 %}
+    <!-- Accordion -->
+    <div class="toggle acc">
+        {% if licenses | length > 0 %}
+            {% set found = 1 %}
+            <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" >
+                <h6>{{ 'search.licenses.licenses' | trans }} ({{ licenses | length }})</h6>
+            </div>
+            <div class="menu_body p-0">
+                <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>{{ 'search.licenses.name' | trans }}</td>
+                            <td>{{ 'search.licenses.purpose' | trans }}</td>
+                            <td>{{ 'search.licenses.description' | trans }}</td>
+                            <td>{{ 'search.licenses.agency' | trans }}</td>
+                            <td>{{ 'search.licenses.status' | trans }}</td>
+                            <td>{{ 'search.licenses.universal' | trans }}</td>
+                            <td>{{ 'search.licenses.views' | trans }}</td>
+                            <td>{{ 'search.licenses.actions' | trans }}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in licenses %}
+                        <tr>
+                            <td><a href="{{ path('managelicenses_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td>{{ entity.name }}</td>
+                            <td>{{ entity.purpose | raw }}</td>
+                            <td>{{ entity.description | raw }}</td>
+                            <td>{{ entity.agency }}</td>
+                            <td>{{ entity.status }}</td>
+                            <td>{{ entity.universal }}</td>
+                            <td>{{ entity.views }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a class="smallButton" href="{{ path('managelicenses_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        {# Business Agency #}
+        {% if business_agency|length > 0 %}
+            {% set found = 1 %}
+            <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" >
+                <h6>{{ 'search.business_agency.business_agency' | trans }} ({{ business_agency | length }})</h6>
+            </div>
+            <div class="menu_body p-0">
+                <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>{{ 'search.business_agency.name' | trans }}</td>
+                            <td>{{ 'search.business_agency.actions' | trans }}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in business_agency %}
+                        <tr>
+                            <td><a href="{{ path('manageagencies_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td>{{ entity.name }}</td>
+                            
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a class="smallButton" href="{{ path('manageagencies_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        {% if locations | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.locations.locations' | trans }} ({{ locations | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.locations.name' | trans }}</td>
+                        <td>{{ 'search.locations.is_default' | trans }}</td>
+                        <td>{{ 'search.locations.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in locations %}
+                    <tr>
+                        <td><a href="{{ path('managelocations_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.name }}</td>
+                        <td>
+                            {% if entity.isdefault == true %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Default">
+                            {% else %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Default">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('managelocations_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if industries | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.industries.industries' | trans }} ({{ industries | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.industries.name' | trans }}</td>
+                        <td>{{ 'search.industries.description' | trans }}</td>
+                        <td>{{ 'search.industries.business_types' | trans }}</td>
+                        <td>{{ 'search.industries.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in industries %}
+                    <tr>
+                        <td><a href="{{ path('manageindustries_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.description }}</td>
+                        <td>
+                            {% for businesstype in entity.businesstypes %}
+                            {{ businesstype.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('manageindustries_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if businesstypes | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.business_types.business_types' | trans }} ({{ businesstypes | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.business_types.name' | trans }}</td>
+                        <td>{{ 'search.business_types.description' | trans }}</td>
+                        <td>{{ 'search.business_types.industry' | trans }}</td>
+                        <td>{{ 'search.business_types.is_common' | trans }}</td>
+                        <td>{{ 'search.business_types.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in businesstypes %}
+                    <tr>
+                        <td><a href="{{ path('managebusinesstypes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.description }}</td>
+                        <td>
+                            {% for industry in entity.industries %}
+                            {{ industry.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if entity.showinbrowse == true %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Common">
+                            {% else %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Common">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('managebusinesstypes_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if activities | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.activities.activities' | trans }} ({{ activities | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.activities.name' | trans }}</td>
+                        <td>{{ 'search.activities.description' | trans }}</td>
+                        <td>{{ 'search.activities.business_types' | trans }}</td>
+                        <td>{{ 'search.activities.licenses' | trans }}</td>
+                        <td>{{ 'search.activities.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in activities %}
+                    <tr>
+                        <td><a href="{{ path('manageactivities_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.description }}</td>
+                        <td>
+                            {% for businesstype in entity.businesstypes %}
+                            {{ businesstype.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for license in entity.licenses %}
+                            {{ license.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('manageactivities_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if faqs | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.frequently_asked_questions.frequently_asked_questions' | trans }} ({{ faqs | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.frequently_asked_questions.question' | trans }}</td>
+                        <td>{{ 'search.frequently_asked_questions.answer' | trans }}</td>
+                        <td>{{ 'search.frequently_asked_questions.published' | trans }}</td>
+                        <td>{{ 'search.frequently_asked_questions.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in faqs %}
+                    <tr>
+                        <td><a href="{{ path('managefaq_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.question }}</td>
+                        <td>{{ entity.answer }}</td>
+                        <td>
+                            {% if entity.published == true %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published">
+                            {% else %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('managefaq_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if pages | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.pages.pages' | trans }} ({{ pages | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.pages.page_title' | trans }}</td>
+                        <td>{{ 'search.pages.published' | trans }}</td>
+                        <td>{{ 'search.pages.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in pages %}
+                    <tr>
+                        <td width="5%"><a href="{{ path('managepages_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.pagetitle }}</td>
+                        <td>
+                            {% if entity.published == true %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published">
+                            {% else %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('managepages_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if news | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.news.news' | trans }} ({{ news | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.news.title' | trans }}</td>
+                        <td>{{ 'search.news.hits' | trans }}</td>
+                        <td>{{ 'search.news.published' | trans }}</v>
+                        <td>{{ 'search.news.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in news %}
+                    <tr>
+                        <td><a href="{{ path('managenews_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.title }}</td>
+                        <td>{{ entity.hits }}</td>
+                        <td>
+                            {% if entity.published == true %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published">
+                            {% else %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('managenews_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if newsletters | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.newsletters.newsletters' | trans }} ({{ newsletters | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.newsletters.subject' | trans }}</td>
+                        <td>{{ 'search.newsletters.sent' | trans }}</td>
+                        <td>{{ 'search.newsletters.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in newsletters %}
+                    <tr>
+                        <td><a href="{{ path('managenewsletters_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.subject }}</td>
+                        <td>{% if entity.sent == true %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Sent">
+                            {% else %}
+                            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Sent">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('managenewsletters_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if users | length > 0 %}
+        {% set found = 1 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.users.users' | trans }} ({{ users | length }})</h6>
+        </div>
+        <div class="menu_body p-0">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ 'search.users.first_name' | trans }}</td>
+                        <td>{{ 'search.users.last_name' | trans }}</td>
+                        <td>{{ 'search.users.username' | trans }}</td>
+                        <td>{{ 'search.users.email' | trans }}</td>
+                        <td>{{ 'search.users.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in users %}
+                    <tr>
+                        <td><a href="{{ path('manageusers_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.firstName }}</td>
+                        <td>{{ entity.lastName }}</td>
+                        <td>{{ entity.username }}</td>
+                        <td>{{ entity.email }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a class="smallButton" href="{{ path('manageusers_edit', { 'id': entity.id }) }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}" alt="Edit"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% if found == 0 %}
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/tags.png') }}" alt="" class="titleIcon" />
+            <h6>{{ 'search.no_results' | trans }}</h6>
+        </div>
+        <div class="menu_body p-0">
+            {{ 'search.could_not_find' | trans }} '{{ searchterm }}'
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

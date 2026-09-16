@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta name="author" content="{% block siteauthor %}{% endblock %}">
+    <meta name="keywords" content="{% block sitekeywords %}{% endblock %}">
+    <title>{{ site_title }}: {% block page_title %}{% endblock %}</title>
+
+    {% block css %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:css")) }} {% endblock %}
+    {% block js %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:js")) }} {% endblock %}
+  </head>
+  <body>
+    <div class="body-wrapper">
+
+      <!-- header -->
+      {% block header %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:header")) }} {% endblock %}
+      <!--/header-->
+
+       <div class="black-background">
+          <div class="container">
+               <!--header title-->
+                  <div class="header-title box_white">
+                      <div class="header-title-content text-left">
+                          <h1 class="text-red">{% block pageheader %} {% endblock %}</h1>
+                      </div>
+                      <div class="title-corner-orange">{% block breadcrumb %} {% endblock %}</div>
+                  </div>
+                  <!--/header title-->
+          </div>
+      </div><!--/header title-->
+      
+      <!-- middle -->
+      <div class="white-background">
+          <div class="container ">
+              <div>
+                  <!-- content -->
+                  <div class="content" role="main">
+                    {% block body %}{% endblock %}            
+                   </div>
+                  <!--/content-->
+                <div class="clear"></div>
+            </div><!--/middle-->
+        </div><!--/container-->
+    </div><!--/white-background--> 
+
+       <!-- footer -->
+       {% block footer %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:footer")) }} {% endblock %}
+       <!--/footer -->
+
+  </div>
+<!--/middle-->
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-10179244-12', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

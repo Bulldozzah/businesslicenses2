@@ -1,0 +1,172 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+    Eregistry |
+    {{ 'manage_regulations.regulations_description' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'manage_regulations.regulations_title' | trans }}</h5>
+                <span>Ongoing Consultation</span>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <div class="line"></div>
+
+    <div class="statsRow">
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+
+                    <a href="{{ path("regulations_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+                        <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                        <span>{{ 'manage_regulations.add_new_regulation' | trans }}</span>
+                    </a>
+
+                     <a href="{{ path("regulations_unpublished") }}" title="" class="w3-button w3-hover-red w3-round-large w3-red w3-medium" title="" href="#">
+                        <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit-column.png') }}" alt=""/>
+                        <span>Unpublished Regulations</span>
+                    </a>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('publish') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ flashMessage }}
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="widget">
+        <div class="title">
+            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/docs.png') }}" alt="" class="titleIcon"/>
+            <h6>List of open Consultations</h6>
+        </div>
+
+        <form id="batch_form" name="batch_form" action="{{ path("batch_regulations_delete") }}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%" class="w3-striped w3-bordered w3-card-4" id="regulations_table">
+                <thead>
+                    <tr class="w3-pale-blue">
+                        <th width="40px;">
+                            <div>&middot;&middot;&middot;</div>
+                        </th>
+                        <th width="40px;">
+                            <div>#</div>
+                        </th>
+                        <th>
+                            {{ 'manage_regulations.title' | trans }}
+                        </th>
+                        <th>
+                            {{ 'manage_regulations.agency' | trans }}
+                        </th>
+                        <th>
+                            {{ 'manage_regulations.closing_date' | trans }}
+                        </th>
+                        <th>
+                            {{ 'manage_regulations.is_published' | trans }}
+                        </th>
+                        <th>Manage Comments</th>
+                        <th class="numeric" width="40px;">
+                            {{ 'manage_regulations.actions' | trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <div class="itemActions">
+                                <select id="batch_select" name="batch_select" class="form-control" onchange="if(atLeastOne()){ if(confirm('{{ 'locations.batch_confirm_1' | trans }} ' + this.value + ' {{ 'locations.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                    <option>{{ 'locations.select_batch' | trans }}...</option>
+                                    <option value="unpublish">Unpublish</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="batch_items[]" value="{{ entity.id }}">
+                            </td>
+                            <td align="center">
+                                <a href="{{ path('regulations_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            </td>
+                            <td>{{ entity.title }}</td>
+                            <td>{{ entity.agency }}</td>
+                            <td class="center">
+                                {% if entity.closingDate %}
+                                    {{ entity.closingDate|date('g:ia / l M j, Y') }}
+
+                                {% endif %}
+                            </td>
+                            <td align="center">
+                                {% if entity.published == true %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                                {% else %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="pull-left" href="{{path('manage_comment_list', { 'id': entity.id }) }}">
+                                    <span class="badge badge-primary">
+                                        {{ entity.comments|length}}<i aria-hidden="true" class="fa fa-comments-o fa-2x"></i>
+                                    </span>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href="{{path('regulations_edit',{'id':entity.id})}}" class="smallButton">
+                                    <img alt="{{'locations.edit'|trans}}" src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#regulations_table').DataTable();
+        });
+    </script>
+{% endblock %}

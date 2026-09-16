@@ -1,0 +1,35 @@
+WebmastersAfricaUserBundle_manageusers:
+        resource: "@WebmastersAfricaUserBundle/Resources/config/routing/user.yml"
+        prefix:   /login-admin/manageusers
+
+WebmastersAfricaUserBundle_managegroups:
+        resource: "@WebmastersAfricaUserBundle/Resources/config/routing/group.yml"
+        prefix:   /login-admin/managegroups
+
+WebmastersAfricaUserBundle_manageroles:
+        resource: "@WebmastersAfricaUserBundle/Resources/config/routing/role.yml"
+        prefix:   /login-admin/manageroles
+
+WebmastersAfricaUserBundle_setting:
+        resource: "@WebmastersAfricaUserBundle/Resources/config/routing/setting.yml"
+        prefix:   /login-admin/setting
+
+batch_users:
+    pattern:  /batch/users
+    defaults: { _controller: "WebmastersAfricaUserBundle:User:batch" }
+    requirements: { _method: post|put }
+
+search_user_details:
+    pattern:  login-admin/manageusers/search_user_details/
+    defaults: { _controller: "WebmastersAfricaUserBundle:User:searchUserDetails" }
+    requirements: { _method: post|put }
+    
+front_end_batch_users:
+    pattern:  /batch/enduser/users
+    defaults: { _controller: "WebmastersAfricaUserBundle:User:batchFrontEndUsers" }
+    requirements: { _method: post|put }
+
+batch_groups:
+    pattern:  /batch/groups
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:batch" }
+    requirements: { _method: post|put }

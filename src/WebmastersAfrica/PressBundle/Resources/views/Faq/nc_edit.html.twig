@@ -1,0 +1,62 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'faqs.edit_faq' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'faqs.edit_faq' | trans }}</h5>
+            <span>{{ 'faqs.edit_faq_description' | trans }}</span>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>
+      {{ 'faqs.edit_faq' | trans }}
+    </h6>
+
+    <div class="num">
+      <a href="{{ path('managencfaq') }}" title="{{ 'faqs.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red"><span>{{ 'faqs.back_to_list' | trans }}</span></a>
+	  </div>
+    </div>
+
+ <form action="{{ path('managencfaq_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form">
+        <input type="hidden" name="_method" value="PUT" />
+		{{ form_row(edit_form.question) }}
+        {{ form_row(edit_form.answer) }}
+        {{ form_row(edit_form.orderLevel) }}
+        {{ form_row(edit_form.published) }}
+
+          {{ form_row(edit_form.submit, { 'attr':  {'class':'w3-right w3-center w3-button w3-blue w3-round-medium w3-hover-teal', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'} }) }}
+        <div style="display: none;">
+        {{ form_rest(edit_form) }}
+        </div>
+	</form>
+    <div>
+    	{{ form(delete_form) }}
+</div>
+<div class="clear"></div>
+</div>
+
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+   <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+$('#webmastersafrica_pressbundle_faq_orderLevel').clone().attr('type', 'number').insertAfter('#webmastersafrica_pressbundle_faq_orderLevel').prev().remove();
+</script>
+{% endblock %}

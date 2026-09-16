@@ -1,0 +1,55 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaMessageBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'messages.view_message' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'messages.view_message' | trans }}</h5>
+            <span>{{ 'messages.view_message_description' | trans }}</span>
+        </div>
+        <div class="controlB">
+                <ul>
+                    <li><a href="{{ path("fos_message_thread_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/plus.png') }}" alt="" /><span>{{ 'messages.new_message' | trans }}</span></a></li>
+                    <li><a href="{{ path("fos_message_sent") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>{{ 'messages.outbox' | trans }}</span></a></li>
+                    <li><a href="{{ path("fos_message_deleted") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>{{ 'messages.deleted' | trans }}</span></a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+<h2 class="pt20">{{ thread.subject }}</h2>
+
+{% for message in thread.messages %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/clipboard.png') }}" alt="" class="titleIcon" /><h6>{% trans with {'%sender%': message.sender|e, '%date%': message.createdAt|date} from 'FOSMessageBundle' %}message_info{% endtrans %}</h6></div>
+    <div class="body">
+        <div class="messenger_thread_message_body" id="message_{{ message.id }}">
+            <p>{{ message.body }}</p>
+        </div>
+    </div>
+</div> 
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/clipboard.png') }}" alt="" class="titleIcon" /><h6>{{ 'messages.reply' | trans }}</h6></div>
+    <div class="body">
+        <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post" class="form">
+            {{ form_widget(form) }}
+            <div class="formRow">
+                <button type="submit" />{{ 'messages.send' | trans }}</button>
+            </div>
+        </form>
+    </div>
+</div> 
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'news.add_news_article' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'news.add_news_article' | trans }}</h5>
+                <span>{{ 'news.add_news_description' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>
+                {{ 'news.edit_news_article' | trans }}
+            </h6>
+
+            <div class="num">
+                <a href="{{ path('managenews') }}" title="{{ 'news.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'news.back_to_list' | trans }}</a>
+            </div>
+        </div>
+
+        <form action="{{ path('managenews_create') }}" method="post" {{ form_enctype(form) }} class="form">
+            {{ form_row(form.title) }}
+            {{ form_row(form.article) }}
+            {{ form_row(form.published) }}
+            <div class="formSubmit">
+                {{ form_row(form.update, { 'attr': {'class':'w3-right w3-center w3-button w3-blue w3-round-medium', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'} }) }}
+                <div style="display: none;">
+                    {{ form_rest(form) }}
+                </div>
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+</script>
+{% endblock %}

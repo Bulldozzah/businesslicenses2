@@ -1,0 +1,43 @@
+# Messages
+messages:
+    new_message: New Message 
+    new_message_description: Send a new message to another user 
+
+    inbox: Inbox 
+    outbox: Outbox 
+
+    recipient: Recipient 
+    subject: Subject 
+    body: Body 
+
+    send_message: Send Message 
+
+    inbox_description: Received Messages 
+
+    list_of_messages: List Of Messages 
+    subject: Subject 
+    starter: Starter 
+    start_date: Start Date 
+    messages: Messages 
+    last_message: Last Message 
+    actions: Actions 
+
+    delete: Delete 
+    undelete: Undelete
+
+    no_thread: No Messages Found
+
+    outbox_description: Sent Messages 
+    deleted: Deleted 
+    deleted_description: Deleted Messages 
+
+    go_to_last: Go To Last
+
+    by: By 
+
+    view_message: View Message
+    view_message_description: See your message and all replies
+    on: On 
+    reply: Reply 
+    body: Body 
+    send: Send 

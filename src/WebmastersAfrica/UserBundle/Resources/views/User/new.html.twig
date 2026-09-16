@@ -1,0 +1,59 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'users.add_user' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'users.add_user' | trans }}</h5>
+                <span>{{ 'users.add_user_description' | trans }}</span>
+            </div>
+            <div class="middleNav" style="border: none;">
+                <a href="{{ path('manage_admins') }}" title="{{ 'users.back_to_list' | trans }}" class="w3-button w3-round-large w3-grey w3-hover-red">
+                    <span>{{ 'users.back_to_list' | trans }}</span>
+                </a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <form action="{{ path('manageusers_create') }}" method="post" {{ form_enctype(form) }} class="form">
+        {{ form_row(form.first_name) }}
+        {{ form_row(form.last_name) }}
+        {{ form_row(form.phone_number) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.agencies) }}
+        {{ form_row(form.groups) }}
+        {{ form_row(form.enabled) }}
+        {{ form_row(form.submit , { 'attr': {'class':'w3-right w3-center w3-button w3-blue w3-round-medium', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'}}) }}
+        <div style="display: none;">
+            {{ form_rest(form) }}
+        </div>
+    </form>
+
+    <script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+    <script language="javascript">
+        jQuery(document).ready(function () {
+            var demo1 = $('select[name="webmastersafrica_userbundle_user[agencies][]"]').bootstrapDualListbox({'helperSelectNamePostfix': false});
+            var demo2 = $('select[name="webmastersafrica_userbundle_user[groups][]"]').bootstrapDualListbox({'helperSelectNamePostfix': false});
+        });
+        $(".label-required").append("<i style='color: red;'>*</i> ");
+        $(".form").validate();
+    </script>
+
+{% endblock %}

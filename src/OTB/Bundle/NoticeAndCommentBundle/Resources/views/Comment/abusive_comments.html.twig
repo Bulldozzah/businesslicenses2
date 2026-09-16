@@ -1,0 +1,149 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+
+{% block page_title %}
+    {{ site_title }},
+            Manage Abusive Comments
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea" style="margin-top: 10px;">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>Manage Abusive Comments</h5>
+                <h5>Comment flagged as Abusive: {{ comments|length }}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="line" style="margin-left: 35px; margin-right: 35px;"></div>
+    <div class="statsRow" style="margin-left: 35px; margin-right: 35px;">
+
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    <a href="#" class="w3-button w3-red w3-border w3-border-blue" onclick="document.getElementById('regulation_reply').style.display='block'">
+                        <span><i class="fa fa-plus"></i> Build A dictionary of Abusive Terms</span>
+                    </a>
+                     <a href="{{ path("manageabusiveterms_index") }}" title="" class="w3-button w3-hover-blue w3-blue w3-medium" title="" href="#">
+                        <i class="fa fa-bars"></i>  List of Abusive terms in Dictionary
+                    </a>
+                    <div class="w3-container">
+                        <div id="regulation_reply" class="w3-modal">
+                            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+                                <div class="w3-center"><br>
+                                    terms (separated by commas)
+                                    <form class="w3-container" id="reply_form" action="{{path('manageabusiveterms_create') }}" method="POST">
+                                        <div class="w3-section">
+                                            <textarea class="w3-input w3-border w3-margin-bottom" id="reply_message" placeholder="Add to the terms list..." name="terms"></textarea>
+                                            <p id="error_message"></p>
+                                        </div>
+                                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" id="reply_button_action">Create</button>
+                                    </form>
+
+                                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                        <button onclick="document.getElementById('regulation_reply').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block body %}
+
+        {% for flashMessage in app.session.flashbag.get('update') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong>Success:
+                    </strong>
+                    {{ 'updated_item_notice' | trans }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('delete') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong>Success:
+                    </strong>
+                    {{ 'deleted_item_notice' | trans }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('comment_publish') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong>Success:
+                    </strong>
+                    {{ flashMessage }}
+                </p>
+            </div>
+        {% endfor %}
+
+        <div class="widget">
+            <div class="title">
+                <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+                <h6>List of Abusive Comments</h6>
+            </div>
+            <form id="batch_form" name="batch_form" action="{{ path("batch_comments") }}" method="post">
+                <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="nc_abusive_comments_table">
+                    <thead>
+                        <tr class="w3-pale-blue">
+                            <td width="40px;">
+                                <div>&middot;&middot;&middot;</div>
+                            </td>
+                            <td width="40px;">
+                                <div>#</div>
+                            </td>
+                            <td>
+                                Comment Title
+                            </td>
+                            <td>
+                                Regulation Title
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in comments %}
+                            <tr>
+                                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}" class="w3-check"></td>
+                                <td>
+                                    <a href="{{ path('managefaq_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                </td>
+                                <td>{{ entity.comment }}</td>
+                                <td>{{ entity.regulation.title }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr style="border-top:1px solid #CDCDCD">
+                            <td colspan="4" style="padding:10px;">
+                                <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'pages.batch_confirm_1' | trans }} ' + this.value + ' {{ 'pages.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                    <option>{{ 'pages.select_batch' | trans }}...</option>
+                                    <option value="publish">{{ 'pages.publish' | trans }}</option>
+                                    <option value="unpublish">{{ 'pages.unpublish' | trans }}</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    {% endblock %}
+
+    {% block stylesheet_2 %}
+        <script>
+            $(document).ready(function () {
+                $('#nc_abusive_comments_table').DataTable();
+            });
+        </script>
+    {% endblock %}

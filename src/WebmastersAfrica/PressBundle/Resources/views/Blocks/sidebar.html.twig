@@ -1,0 +1,37 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<!--widget categories-->
+
+{{ render(controller("WebmastersAfricaPressBundle:Blocks:commonbusinesses")) }}
+
+ <!--/widget categories-->
+ 
+ <!--Widget Tabs-->
+    <div class="widget-content tf_sidebar_tabs tabs_framed">
+
+        <ul class="tabs">
+            <li><a href="#tf_tabs_1">{{ 'mostviewed'|trans }}</a></li>
+            <li><a href="#tf_tabs_2">{{ 'recentupdates'|trans }}</a></li>
+        </ul>
+        
+        <div id="tf_tabs_1" class="tabcontent">
+        
+            <ul class="post_list recent_posts">
+                {{ render(controller("WebmastersAfricaPressBundle:Blocks:mostviewed")) }}                            
+            </ul>
+            
+        </div>
+        
+        <div id="tf_tabs_2" class="tabcontent">
+        
+            <ul class="post_list popular_posts">
+                 {{ render(controller("WebmastersAfricaPressBundle:Blocks:recentupdates")) }}
+            </ul>
+            
+        </div>
+        
+    </div>
+<!--/widget tabs-->
+
+
+{{ render(controller("WebmastersAfricaPressBundle:Blocks:newsletters")) }}

@@ -1,0 +1,100 @@
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="The Gateway to all Government Services" name="description">
+    <meta content="Webmasters Africa" name="author">
+    <title>
+      {{ site_title }}
+    </title>
+
+    <link href="http://localhost:92/assets_backend/css/style.default.css" rel="stylesheet">
+    <link href="http://localhost:92/assets_backend/css/bootstrap-override.css" rel="stylesheet">
+    <link href="http://localhost:92/assets_backend/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost:92/assets_backend/css/ectzn/custom.css" rel="stylesheet">
+
+    <script src="http://localhost:92/assets_backend/js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:92/assets_backend/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="http://localhost:92/assets_backend/js/bootstrap.min.js"></script>
+    <script src="http://http://localhost:92/assets_backend/js/modernizr.min.js"></script>
+
+    <script src="http://localhost:92/assets_backend/js/bootstrap-wizard.min.js"></script>
+    <script src="http://localhost:92/assets_backend/js/jquery.validate.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  </head>
+  <body class="signin">
+
+    <section>
+      <div class="signinpanel">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="signin-info">
+              <div class="logopanel">
+                <h1>
+                  <!-- OTB patch -->
+                  <img alt=" eServices <span>" height="93px" src="{{ asset('bundles/webmastersafricapress/images/logo.png') }}" width="242px"/>
+                </h1>
+              </div>
+              <!-- logopanel -->
+
+              <div class="mb20"></div>
+              <div class="mb20"></div>
+              <strong>Working!! Not a member? Please contact your System Administrator</strong>
+            </div>
+            <!-- signin0-info -->
+
+          </div>
+
+          <div class="col-md-5">
+            <form class="loginform" id="submitLogin" action="{{ app.request.basepath }}/login-admin/login_check" autocomplete="off" method="post">
+              <h4 class="nomargin">Sign In</h4>
+              {# {% if error %}
+                <div style="color: #FF0000;">{{ 'error'|trans }}
+                </div>
+              {% endif %} #}
+              <p id="error_message" style="color: #FF0000; "></p>
+              <input
+              type="hidden" name="_csrf_token" id="csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}"/>
+              <!--OTB Patch - Display error message on error login -->
+              <p class="mt5 mb20">Login to access your account.</p>
+
+              <input class="form-control uname" id="login_username" name="_username" placeholder="Username / Email Address" size="60" type="text">
+
+              <font color="#FF0000"></font>
+
+              <input class="form-control pword" id="login_password" name="_password" placeholder="Password" size="60" type="password">
+              <font color="#FF0000"></font>
+              <a href="{{ path('fos_user_resetting_request') }}">
+                <small>Forgot Your Password?</small>
+
+              </a>
+
+              <input type="hidden" value="{{ app.request.basepath }}/eregistry/admin">
+
+              <button class="btn btn-success btn-block" id="submit-form" type="submit">Sign In</button>
+              <br>
+              <div align="center">
+                <select id='locale' name='locale' onchange="window.location='/backend.php/languages/setlocale/code/' + this.value;" style="width: 150px; margin-bottom:0">
+                  <option selected value='en_US'>English</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- col-sm-5 -->
+
+        <div class="signup-footer">
+          <div class="pull-left">
+            &copy; 2019. All Rights Reserved.
+          </div>
+        </div>
+
+      </div>
+      <!-- row -->
+    </div>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ 'my_saved_licenses'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'brlicenses'|trans }}</li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'my_saved_licenses'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'my_saved_licenses'|trans }}{% endblock %}
+
+{% block body %}
+
+                     {% if searches|length == 0 %}
+                     <div class="styled-box iconed-box info">
+‌                       <span class="icon">
+                       {{ 'no_saved_licenses'|trans }}
+                     </span>
+                     </div>
+                     {% endif %}
+                                        
+                    
+    {% set count = 0 %}
+    {% for search in searches %}
+        {% set count = count + 1 %}
+                <div class = "toggle {% if count == 1 %}active {% endif %} toggle-saved">
+                                
+                        <div class="toggle-btns-cont">
+                        <a onClick="window.location='{{ app.request.basepath }}/search/share/{{ search.id }}';" href="{{ app.request.basepath }}/search/share/{{ search.id }}" class="btn btn-success"><i class="icon icon-share icon-white"></i> <span>{{ 'share'|trans }}</span> </a>
+                        <a href="#" onClick="if(confirm('{{ 'are_you_sure_delete'|trans }}')){ window.location = '{{ app.request.basepath }}/search/delete/{{ search.id }}'; }else{ return false; }" class="toggle-margin btn btn-danger"><i class="icon icon-remove icon-white"></i> <span>{{ 'delete'|trans }}</span></a>
+                    </div>
+                                
+                    <div class = "toggle-title">
+                            <span class = "indicator"></span><h3>{{ search.name }}</h3>
+                        </div>
+                                    
+                        <div class="styled_table">
+                        <table>
+                        <thead>
+                            <tr>
+                            <th class="order"><h5>#</h5></th>
+                            <th ><h5>{{ 'name'|trans }}</h5></th>
+                            <th  class="lost-col col-head1"><h5>{{ 'issuingagency'|trans }}</h5></th>
+                            <th class="lost-col col-head3"><h5>{{ 'time'|trans }}</h5></th>
+                            <th class="lost-col  col-head1"><h5>{{ 'associatedcosts'|trans }}</h5></th>
+                            <th class="col-head1"><h5>{{ 'remove'|trans }}</h5></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set count = 0 %}
+                            {% for searchitem in search.content %}
+                                 {% set count = count + 1 %}
+                                    <tr class="gradeX">
+                    
+                                      <td><p>{{ count }}</p></td>
+                    
+                      
+                                      <td><a href='{{ app.request.basepath }}/license/id/{{ searchitem.license.id }}'>{{ searchitem.license.name }}</a><p>{{ searchitem.license.purpose }} </p></td> 
+
+                                      <td class="lost-col row-style1">{{ searchitem.license.agency.name }}</td>
+                      
+                      
+                                      <td  class="row-style2">{{ searchitem.license.maxProcessingTime }} <!-- {{ 'days'|trans }} --></td>
+                      
+                      
+                                      <td class="lost-col row-style1">{{ searchitem.license.applicationFee }}</td>
+                                      
+                                      <td class="lost-col row-style1">
+                                      <a href="{{ app.request.basepath }}/user/deletesearchitem/{{ search.id }}/{{ searchitem.id }}"><i class="icon-red icon-remove"></i></a>
+                                      </td>
+
+                           </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                            </div>
+                        </div>
+    {% endfor %}
+          
+{% endblock %}

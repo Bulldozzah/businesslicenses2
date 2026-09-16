@@ -1,0 +1,184 @@
+#Top Navigation Bar
+topbar:
+    #Non-Responsive
+    welcome: Welcome
+    profile: Profile
+    tasks: Tasks
+    messages:
+        messages_title: Messages
+        new_message: New Message
+        inbox: Inbox
+        outbox: Outbox
+        trash: Trash
+    languages: Language
+    settings: Settings
+    logout: Logout
+
+dashboard:
+    page_title: Dashboard
+
+    header_title: Dashboard
+    header_description: Welcome to your Business Licensing Information Portal.
+
+    website_statistics:
+        title: Website statistics
+        stats: Stats
+        description: Description
+        changes: Changes
+
+        published_licenses: Published Licenses
+        unpublished_licenses: Unpublished Licenses
+        locations: Locations
+        industries: Industries
+        business_types: Business Types
+        activities: Activities
+        agencies: Agencies
+        feedback: Feedback
+        news: News
+        newsletters: Newsletters
+        newsletter_subscribers: Newsletter Subscribers
+        users: Users
+        groups: Groups
+
+    my_tasks:
+        title: My Tasks
+        description: Description
+        status: Status
+        acts: Acts
+
+    new_licenses: New licenses
+
+    new_users: New users
+
+    latest_updates:
+        title: Latest updates
+        create: Create
+        update: Update
+        remove: Remove
+        action: action
+        by: by
+
+    search: Enter search text...
+
+sidebar:
+    search: Search...
+
+    dashboard: Dashboard
+    manage_licenses:
+        title: Manage Licenses
+        licenses: Licenses
+        published: Published
+        unpublished: Unpublished
+        locations: Locations
+        industries: Industries
+        business_types: Business Types
+        activities: Activities
+        agencies: Agencies
+        feedback: Feedback
+        fixed_license_fields: Fixed License Fields
+        custom_license_fields: Custom License Fields
+    
+    manage_regulations:
+        title: Manage Regulations
+
+    manage_content:
+        title: Manage Content
+        pages: Pages
+        menus: Menus
+        news: News
+        newsletters: Newsletters
+        subscribers: Newsletter Subscribers
+        faqs: Frequently Asked Questions
+        languages: Languages
+
+    manage_security:
+        title: Manage Security
+        users: Users
+        groups: Groups
+        logs: Logs
+        settings: Settings
+
+    help:
+        title: Help
+        manuals: User Manuals
+        videos: Video Tutorials
+
+help:
+    help_manuals: Help Manuals
+    help_manuals_description: Read the official MasterLMIS user manual
+    help: Help
+
+    help_videos: Help Videos
+    help_videos_description: Watch step-by-step video tutorials to help you learn the system
+
+search:
+    search: Search
+    search_description: Search items in the backend portal
+    enter_search_term: Enter Search Term
+
+    licenses:
+        licenses: Licenses
+        name: Name
+        purpose: Purpose
+        description: Description
+        agency: Agency
+        status: Status
+        universal: Universal
+        views: Views
+        actions: Actions
+    locations:
+        locations: Locations
+        name: Name
+        is_default: Is Default
+        actions: Actions
+    industries:
+        industries: Industries
+        name: Name
+        description: Description
+        business_types: Business Types
+        actions: Actions
+    business_types:
+        business_types: Business Types
+        name: Name
+        description: Description
+        industry: Industry
+        is_common: Is Common
+        actions: Actions
+    activities:
+        activities: Activities
+        name: Name
+        description: Description
+        business_types: Business Types
+        licenses: Licenses
+        actions: Actions
+    frequently_asked_questions:
+        frequently_asked_questions: Frequently Asked Questions
+        question: Question
+        answer: Answer
+        published: Published
+        actions: Actions
+    pages:
+        pages: Pages
+        page_title: Page Title
+        published: Published
+        actions: Actions
+    news:
+        news: News
+        title: Title
+        hits: Hits
+        published: Published
+        actions: Actions
+    newsletters:
+        newsletters: Newsletters
+        subject: Subject
+        sent: Sent
+        actions: Actions
+    users:
+        users: Users
+        first_name: First Name
+        last_name: Last Name
+        email: Email Address
+        username: Username
+        actions: Actions
+    no_results: No Results Found
+    could_not_find: Sorry. Could not find any records matching

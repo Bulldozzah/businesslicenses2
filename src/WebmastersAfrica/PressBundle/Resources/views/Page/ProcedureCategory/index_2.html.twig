@@ -1,0 +1,130 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+  {{ site_title }},
+                            Business Procedure Categories
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>Business Procedure Categories</h5>
+        <span>List of Business Procedure Categories</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+
+  <div class="line"></div>
+
+
+  <div class="statsRow">
+
+    <div class="wrapper">
+      <div class="controlB">
+        <ul>
+          <li>
+            <a href="{{ path("manage_procedures_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/plus.png') }}" alt=""/><span>Add New Business Procedure</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ path("manage_procedure_category_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/plus.png') }}" alt=""/><span>Add New Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ path("manage_procedures") }}" title="">
+              <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt=""/>
+              <span>Business Startup Processes</span>
+            </a>
+          </li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block body %}
+  {% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'deleted_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+      <h6>List Business Procedure Categories</h6>
+    </div>
+    <form id="batch_form" name="batch_form" action="{{ path("batch_procedure_category") }}" method="post">
+      <table cellpadding="0" cellspacing="0" class="sTable" id="res" width="100%">
+        <thead>
+          <tr>
+            <td width="3%">
+              <div>&middot;&middot;&middot;</div>
+            </td>
+            <td width="3%">
+              <div>#</div>
+            </td>
+            <td class="sortCol">
+              <div>{{ 'procedure.procedure_title' | trans }}<span></span>
+              </div>
+            </td>
+            <td align="center" width="60px">{{ 'procedure.procedure_published' | trans }}</td>
+            <td align="center" width="40px">{{ 'procedure.procedure_actions' | trans }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entity in entities %}
+            <tr>
+              <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+              <td align="center">
+                <a href="{{ path('manage_procedure_category_edit',{'id':entity.id}) }}">{{ entity.id }}</a>
+              </td>
+              <td align="center">{{ entity.title }}</td>
+              <td align="center">
+                {% if entity.publish == true %}
+                  <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                {% else %}
+                  <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                {% endif %}
+              </td>
+              <td>
+                <ul>
+                  <li><ahref="{{path('manage_procedure_category_edit',{'id':entity.id})}}" class="smallButton"title="{{ 'news.edit' | trans }}"><img alt="Edit"src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}"></a></li>
+                </ul>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr style="border-top:1px solid #CDCDCD">
+            <td colspan="6" style="padding:10px;">
+              <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){  if(confirm('{{ 'news.batch_confirm_1' | trans }} ' + this.value + ' {{ 'news.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                <option>{{ 'news.select_batch' | trans }}...</option>
+                <option value="publish">{{ 'news.publish' | trans }}</option>
+                <option value="unpublish">{{ 'news.unpublish' | trans }}</option>
+                <option value="delete">{{ 'news.delete' | trans }}</option>
+              </select>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
+  </div>
+</div>{% endblock %}

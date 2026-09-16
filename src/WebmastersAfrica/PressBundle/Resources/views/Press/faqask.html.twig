@@ -1,0 +1,46 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ 'faq_title'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}">{{ 'home'|trans }}</a></li>
+<li><a href="#0">{{ 'faqs'|trans }}</a></li>
+<li>{{ 'feedback'|trans }}</li>
+{% endblock%}
+
+{% block pageheader %}
+<div class="col-md-12 col-sm-12 col-xs-12 title">
+    <h4>{{ 'feedback'|trans }}</h4>
+</div><!-- End sub_content -->
+{% endblock %}
+
+{% block genemu_captcha_javascript %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-9 col-sm-6 col-xs-12">
+<div class="box_style_2 info">
+    <form id="form-comments"  action="{{ app.request.basepath }}/faq/save" method="post" autocomplete="off">
+        <div class="error">
+            {{ form_errors(form) }}
+        </div>
+            {{form_rest(form)}}
+
+            {% if capture_error %}
+                <p class="alert alert-danger">Error! Captcha Error</p>
+            {% endif %}
+            <div class="g-recaptcha" data-sitekey="6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5"></div>
+        <div>
+            <input type="submit" name="wp-submit" id="wp-submit" class="form-button form-button-green m-r-10" onclick='chkLgn()' name="submitbuttonname" value="{{ 'feedback_submit'|trans }}" tabindex="100">
+            <input type="hidden" name="redirect_to" value="">
+            <input type="hidden" name="testcookie" value="1">
+            <input type='reset' class="form-button form-button-red" value="{{ 'feedback_reset'|trans }}">
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+forward_plans_advanced_search:
+  pattern: /search/forward-plans
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:searchForwardPlans" }
+  requirements: { _method: POST }
+
+show_forward_plans:
+  pattern: agency/{slug}
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:showAgencyForwardPlans" }
+  requirements: { _method: GET}
+
+filter_forward_plans:
+  pattern: forward-plans/{character}/filter
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:filterForwardPlans" }
+  requirements: { _method: GET}
+
+forward_plans_frontend_show:
+  pattern: plan/{slug}
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:showFordPlanDetails" }
+  requirements: { _method: GET}
+
+forward_plans_regulation_show:
+  pattern: forward-plans-regulations/{slug}
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:showFordPlanRegulations" }
+  requirements: { _method: GET}
+
+forward_plans_quick_search:
+  pattern: forward-plans-search
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:searchAgencyForwardPlans" }
+  requirements: { _method: POST}

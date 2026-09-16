@@ -1,0 +1,112 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'logs.logs' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'logs.logs' | trans }}</h5>
+            <span>{{ 'logs.logs_description' | trans }}</span>
+        </div>
+        <div class="controlB">
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'logs.list_logs' | trans }}</h6></div>
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="sidebarlog">
+            <thead>
+                <tr>
+                    <td width="5%">#</td>
+                    <td>{{ 'logs.action' | trans }}</td>
+                    <td>{{ 'logs.user' | trans }}</td>
+                    <td>{{ 'logs.affected_item' | trans }}</td>
+                    <td>{{ 'logs.affected_content' | trans }}</td>
+                    <td>{{ 'logs.date' | trans }}</td>
+                    <td width="50px">{{ 'logs.actions' | trans }}</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for update in pagination %}
+                <tr>
+                    <td style="vertical-align: top;">{{ update.id }}</td>
+                    <td style="vertical-align: top;">{{ update.action }}</td>
+                    <td style="vertical-align: top;">{{ update.username }}</td>
+                    <td style="vertical-align: top;">{{ update.objectClass | replace({'WebmastersAfrica': '', 'PressBundle': '', 'LicenseBundle': '', 'UserBundle': '', 'TaskBundle': '', 'MessageBundle': '', 'Entity': '', '\\': '', 'Business': ''}) }}
+                    </td>
+                    <td style="vertical-align: top;">
+                    {% for key, value in update.data %}
+                        {% if value.timestamp is defined %}
+                        <p><b>{{ key }}</b>: {{ value | date("Y-m-d H:i:s") }}</p>
+                        {% else %}
+                        <p><b>{{ key }}</b>: {{ value }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    </td>
+                    <td style="vertical-align: top;">{{ update.loggedAt | date("Y-m-d H:i:s") }}</td>
+                    <td style="vertical-align: top;">
+                    <ul>
+                        <li>
+                            {% set url = '' %}
+                            {% if update.action != 'remove' %}
+                            {% set entity = update.objectClass | replace({'WebmastersAfrica': '', 'PressBundle': '', 'LicenseBundle': '', 'UserBundle': '', 'TaskBundle': '', 'MessageBundle': '', 'Entity': '', '\\': '', 'Business': ''}) %}
+                            {% if entity == 'License' %}
+                                {% set url = path('managelicenses_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'Location' %}
+                                {% set url = path('managelocations_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'Industry' %}
+                                {% set url = path('manageindustries_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'BusinessType' %}
+                                {% set url = path('managebusinesstypes_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'Activity' %}
+                                {% set url = path('manageactivities_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'Feedback' %}
+                                {% set url = path('managefeedback_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'News' %}
+                                {% set url = path('managenews_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'Newsletter' %}
+                                {% set url = path('managenewsletters_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'NewsletterSubscriber' %}
+                                {% set url = path('managesubscribers_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'User' %}
+                                {% set url = path('manageusers_edit', {'id':update.objectId}) %}
+                            {% elseif entity == 'Group' %}
+                                {% set url = path('managegroups_edit', {'id':update.objectId}) %}
+                            {% endif %}
+                            <span class="smallButton"><a title="View" href="{{ url }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/cursor.png') }}" alt="View"></a></a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+</div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+<script>
+    $(document).ready( function () {
+      $('#sidebarlog').DataTable();
+    } );
+  </script>
+{% endblock %}

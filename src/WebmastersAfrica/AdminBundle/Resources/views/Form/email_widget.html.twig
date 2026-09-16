@@ -1,0 +1,6 @@
+{% block email_widget %}
+    <div class="email_widget form-group">
+        {% set type = type|default('text') %}
+        {{ block('form_widget_simple') }}
+    </div>
+{% endblock %}

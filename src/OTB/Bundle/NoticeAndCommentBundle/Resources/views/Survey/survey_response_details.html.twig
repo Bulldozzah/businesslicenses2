@@ -1,0 +1,96 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}{{ site_title }}, Survey Response Details| {{ response.survey.surveyName }} {% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Survey Response Details</h5>
+            <span style="font-weight: bold;">{{ response.timeTaken|date("F jS \\a\\t g:ia") }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+
+<div class="wrapper w3-center">
+    <div class="w3-show-inline-block">
+  <div class="controlC">
+    <div class="clear"></div>
+  </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+{% block body %}
+  {% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('create') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+    <div class="widget">
+      <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+      <h6>
+        Response Details
+      </h6>
+
+      <div class="num">
+         <a href="{{ path('manage_surveys_responses', { 'survey_id': response.survey.id, 'response_id': response.id }) }}" title="Back to responses list" class="greyNum w3-button w3-round-large w3-hover-red">Back to responses list</a>
+      </div>
+      </div>
+      <div style="margin-left: 3%;">
+      {% for response_details in response.surveyAnswers %}
+        <div class="w3-row">
+            <div class="w3-col s2">
+               <b>{{ response_details.question.questionText|raw }}</b>
+            </div>
+            <div class="w3-col s10 text-align">
+                {{ response_details.answerValue|raw }}
+            </div>
+        </div>
+        <hr />
+      {% endfor %}
+      </div>
+    </div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#surver_response_list').DataTable();
+        });
+    </script>
+{% endblock %}

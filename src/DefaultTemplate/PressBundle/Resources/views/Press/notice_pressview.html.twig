@@ -1,0 +1,60 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+    {{ page.seoKeywords }}
+{% endblock %}
+{% block sitetitle %}
+    {{ page.pageTitle }}
+{% endblock %}
+{% block sitedescription %}
+    {{ page.seoDescription }}
+{% endblock %}
+{% block sitetwitterdescription %}
+    {{ page.seoDescription }}
+{% endblock %}
+{% block sitetwittertitle %}
+    {{ page.pageTitle }}
+{% endblock %}
+{% block sitetwitterurl %}
+    {{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}
+{% endblock %}
+{% block page_title %}
+    {{ page.pageTitle }}
+{% endblock %}
+
+
+{% block body %}
+    <main class="single" role="main">
+        <div class="jumbotronZ clearfix">
+            <div class="container text-left">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="jumboZ_in_2 jumboZ_in">
+                            <div class="text-center">
+                                <h2>{{page.pageTitle }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_main_content col-md-12 clearfix">
+                        <div class="home_content_A">
+                            <div class="box_style_2  info">
+                                {{ page.pageContent|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{{ 'hi'|trans }}
+{% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+
+<p>Thank you for subscribing to {{ agency.name }}. You will be notified immediately this agency creates a new consultation.</p>
+<p>
+	Follow this <a class="btn btn-sm btn-primary" href="{{ path ~ path('show_regulations_per_agency', {'slug': agency.slug }) }}">Path to unsubscribe.</a>
+</p>
+
+{{ 'regards'|trans }}
+{{ 'team'|trans }}

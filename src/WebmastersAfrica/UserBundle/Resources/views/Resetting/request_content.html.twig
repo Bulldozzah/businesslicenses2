@@ -1,0 +1,21 @@
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+<div class="col-md-offset-3 col-md-6">
+  <div class="box_style_2 info m-t-20">
+    <h3 class="nomargin_top">Reset Password<i class="icon_lock_alt pull-right"></i></h3>
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" id="validate" class="m-t-20 loginform">
+                <div class="form-group">
+                    {% if invalid_username is defined %}
+                        <div class="alert alert-error">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
+                    {% endif %}
+                    <label for="username">{{ 'resetting.request.username'|trans }}</label>
+                    <div class="loginInput"><input class="form-control" type="text" id="username" name="username" required="required" /></div>
+                    <div class="clear"></div>
+                </div>
+                <div>
+                    <input type="submit" class="form-button form-button-green form-button-massive" value="{{ 'resetting.request.submit'|trans }}" />
+                    <div class="clear"></div>
+                </div>
+            </form>
+    </div>
+</div>

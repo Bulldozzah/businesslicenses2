@@ -1,0 +1,187 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'pages.manage_pages' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'pages.pages' | trans }}</h5>
+            <span>{{ 'pages.pages_description' | trans }}</span>
+        </div>
+        <div style="margin-left: 15px;" class="w3-bar w3-border-bottom w3-light-grey intronav">
+            {% if is_expr_granted("hasRole('PAGES_MANAGE')") %}
+                <a href="{{ path('managepages') }}" class="w3-bar-item w3-button">eRegistry</a>
+            {% endif %}
+            <a href="#" class="w3-bar-item w3-button w3-blue active">Notice && Comment</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="line" style="margin-left: 35px; margin-right: 35px;"></div>
+
+
+<div class="statsRow" style="margin-left: 35px; margin-right: 35px;">
+
+<div class="wrapper w3-center" style="margin-left: 35px; margin-right: 35px;">
+    <div class="w3-show-inline-block">
+        <div class="w3-bar">
+            <a href="{{ path("managencpages_new") }}" title="{{ 'pages.add_page' | trans }}" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium">
+                <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+                <span>{{ 'pages.add_page' | trans }}</span>
+            </a>
+
+            <a href="{{ path("managencpages_unpublished") }}" title="Unpublished Pages" class="w3-button w3-hover-teal w3-round-medium w3-teal w3-medium">
+                <i class="fa fa-bars"></i> 
+                <span>Unpublished Pages</span>
+            </a>
+            <a href="{{ path("managencpages_deleted") }}" title="{{ 'pages.deleted_pages' | trans }}" class="w3-button w3-hover-red w3-round-medium w3-red w3-medium">
+                <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sTrash.png') }}" alt="" />
+                <span>{{ 'pages.deleted_pages' | trans }}</span>
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('create') %}
+    <div class="nNote nSuccess hideit">
+        <p>
+            <strong>Success: </strong>
+        {{ 'created_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>List of published pages (Drag and drop page title to change page order)</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("nc_batch_pages") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="notice_pages_table">
+        <thead>
+            <tr class="w3-pale-blue">
+                <td width="40px;"><div>&middot;&middot;&middot;</div></td>
+                <td width="40px;"><div>#</div></td>
+                <td class="sortCol"><div>{{ 'pages.page_title' | trans }}<span></span></div></td>
+                <td  width="50px" align="center">{{ 'pages.published' | trans }}</td>
+                <td  width="60px" align="center">{{ 'pages.page_order' | trans }}</td>
+                <td width="40px" align="center">{{ 'pages.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr data-index="{{entity.id}}" data-position="{{entity.pageOrder}}">
+                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                <td width="5%"><a href="{{ path('managencpages_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.pagetitle }}</td>
+                <td align="center">
+                {% if entity.published == true %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                {% else %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                {% endif %}
+                </td>
+                <td align="center">
+                    {{ entity.pageOrder }}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('managencpages_edit', { 'id': entity.id }) }}" class="smallButton">
+                                <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr style="border-top:1px solid #CDCDCD">
+                <td colspan="6" style="padding:10px;">
+                    <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'pages.batch_confirm_1' | trans }} ' + this.value.slice(6) + ' {{ 'pages.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                        <option>{{ 'pages.select_batch' | trans }}...</option>
+                        <option value="index_unpublish">{{ 'pages.unpublish' | trans }}</option>
+                        <option value="index_delete">{{ 'pages.delete' | trans }}</option>
+                    </select>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    </form>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#notice_pages_table').DataTable({'ordering': false});
+        $(function () {
+                $("#notice_pages_table tbody").sortable({
+                    cursor: "move",
+                    update: function(event, ui) {
+                        let updated = false;
+                        $(this).children().each(function (index) {
+                            if ($(this).attr('data-position') != (index+1)) {
+                                $(this).attr('data-position', (index+1)).addClass('updated');
+                                updated = true;
+                            }
+                        });
+                        if (updated) {
+                            saveNewPosition();
+                        }
+                    }
+                });
+            });
+
+        function saveNewPosition () {
+            let positions = [];
+            $('.updated').each(function () {
+                positions.push([$(this).attr('data-index'), $(this).attr('data-position')]);
+                $(this).removeClass('updated');
+                let url = "{{ path('managencpages_adjust_orderLevel') }}";
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    dataType: 'text',
+                    data: {
+                        update: 1,
+                        positions: positions
+                    },
+                    success: function (response) {
+                    }
+                });
+            });
+        }
+    });
+</script>
+</div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}

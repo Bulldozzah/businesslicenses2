@@ -1,0 +1,15 @@
+{% block form_row %}
+
+{% spaceless %}
+<div class="formRow">
+        {{ form_label(form) }}
+        <div class="formRight">
+        {{ form_widget(form, { 'attr': {'class': 'form-control'} }) }}
+        <div class="error" >
+            {{ form_errors(form) }}
+        </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+{% endspaceless %}
+{% endblock form_row %}

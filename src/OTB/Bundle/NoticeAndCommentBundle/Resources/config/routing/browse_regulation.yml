@@ -1,0 +1,163 @@
+regulation_show:
+  pattern: /details/{slug}
+  defaults: { _controller: "NoticeCommentBundle:Regulation:frontendShow" }
+  requirements: { _method: GET}
+
+show_regulations_per_agency:
+  pattern: agency/{slug}
+  defaults: { _controller: "NoticeCommentBundle:Regulation:showAgencyRegulations" }
+  requirements: { _method: GET}
+
+show_regulations_per_industry:
+  pattern: industry/{id}/regulations
+  defaults: { _controller: "NoticeCommentBundle:Regulation:showIndustryRegulations" }
+  requirements: { _method: GET}
+
+regulations_list:
+  pattern: /
+  defaults: { _controller: "NoticeCommentBundle:Regulation:frontendList" }
+
+print_regulation_details:
+  pattern: /print/{slug}
+  defaults: { _controller: "NoticeCommentBundle:Regulation:printRegulationDetails" }
+
+regulations_open:
+  pattern: open
+  defaults: { _controller: "NoticeCommentBundle:Regulation:frontendOpen" }
+
+regulations_completed:
+  pattern: completed
+  defaults: { _controller: "NoticeCommentBundle:Regulation:frontendClosed" }
+
+regulations_count:
+  pattern: count
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:countRegulationsPerStage" }
+  requirements: { _method: GET }
+
+regulations_close:
+  pattern: close
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:updateCLosingRegulationsToClosed" }
+  requirements: { _method: GET }
+
+regulation_comments:
+  pattern: /{slug}/comments
+  defaults: { _controller: "NoticeCommentBundle:Regulation:regulationComments" }
+  requirements: { _method: GET }
+
+regulation_stating_your_position:
+  pattern: /{slug}/votting/position
+  defaults: { _controller: "NoticeCommentBundle:Regulation:statePosition" }
+  requirements: { _method: POST }
+
+regulation_comments_api:
+  pattern: /api/{slug}/comments
+  defaults: { _controller: "NoticeCommentBundle:Regulation:getCommentsList" }
+  requirements: { _method: GET }
+
+regulation_comments_api_post:
+  pattern: /api/{regulation_id}/comments
+  defaults: { _controller: "NoticeCommentBundle:Regulation:createComment" }
+  requirements: { _method: POST, regulation_id: \d+ }
+
+regulation_comments_api_update:
+  pattern: /api/{comment_id}/comments/update
+  defaults: { _controller: "NoticeCommentBundle:Regulation:updateComment" }
+  requirements: { _method: POST, comment_id: \d+ }
+
+regulation_comments_api_delete:
+  pattern: /api/{comment_id}/comments/delete
+  defaults: { _controller: "NoticeCommentBundle:Regulation:deleteComment" }
+  requirements: { _method: DELETE, comment_id: \d+ }
+
+
+regulation_comments_api_enabled:
+  pattern: /api/{regulation_id}/comments/enabled
+  defaults: { _controller: "NoticeCommentBundle:Regulation:createCommentEnabled" }
+  requirements: { _method: GET, id: \d+ }
+
+regulation_agencies:
+  pattern: /agencies/list
+  defaults: { _controller: "NoticeCommentBundle:Regulation:getAgencyList" }
+  requirements: { _method: GET }
+
+regulation_industries:
+  pattern: /industry/list
+  defaults: { _controller: "NoticeCommentBundle:Regulation:getIndustryList" }
+  requirements: { _method: GET }
+
+regulation_keywords:
+  pattern: /keywords/list
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:getListOfUniqueKeywords" }
+  requirements: { _method: GET }
+
+regulation_quick_search:
+  pattern: /quick_search/result
+  defaults: { _controller: "NoticeCommentBundle:Regulation:searchRegulations" }
+  requirements: { _method: GET }
+
+regulation_advanced_search:
+  pattern: /search/result
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:advanceSearchRegulations" }
+  requirements: { _method: GET }
+
+regulation_suggest_search:
+  pattern: /search/terms
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:suggestSearchTermsForQuickSearch" }
+  requirements: { _method: GET }
+
+regulation_industry_count:
+  pattern: /industry/count
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:countRegulationsPerIndustry" }
+  requirements: { _method: GET }
+
+regulation_trending_api:
+  pattern: /trends
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:getTopRegulations" }
+  requirements: { _method: GET }
+
+regulation_trending:
+  pattern: /trending
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:getTopTrendingRegulations" }
+  requirements: { _method: GET }
+
+regulation_due_seven_api:
+  pattern: /regulations_closing
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:regulationsDueInSevenDaysApi" }
+  requirements: { _method: GET }
+
+regulation_due_seven:
+  pattern: /closing
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:regulationsDueInSevenDays" }
+  requirements: { _method: GET }
+
+regulation_closed:
+  pattern: /regulations_completed
+  defaults:
+    { _controller: "NoticeCommentBundle:Regulation:closedRegulations" }
+  requirements: { _method: GET }
+
+
+comment_count:
+  pattern: /{id}/comment_count
+  defaults: { _controller: "NoticeCommentBundle:Regulation:commentCount" }
+  requirements: { _method: GET, id: \d+}
+
+
+list_license_name:
+  pattern: /list/license-name
+  defaults: { _controller: "NoticeCommentBundle:Regulation:businessAgencyName" }
+  requirements: { _method: get }
+
+notice_login:
+  pattern: /login
+  

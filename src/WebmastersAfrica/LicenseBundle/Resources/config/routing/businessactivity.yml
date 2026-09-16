@@ -1,0 +1,29 @@
+manageactivities:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:index" }
+
+manageactivities_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:show" }
+
+manageactivities_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:new" }
+
+manageactivities_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:create" }
+    requirements: { _method: post }
+
+manageactivities_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:edit" }
+
+manageactivities_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:update" }
+    requirements: { _method: post|put }
+
+manageactivities_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:delete" }

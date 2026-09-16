@@ -1,0 +1,14 @@
+read_notification:
+  pattern: /list
+  defaults: { _controller: "NoticeCommentBundle:Notifications:getMyNotification" }
+  requirements: { _method: get }
+
+read_notification_count:
+  pattern: /list/count
+  defaults: { _controller: "NoticeCommentBundle:Notifications:getTotalNumberOfUserNotifications" }
+  requirements: { _method: get }
+
+mark_notification_as_read:
+  pattern: /mark/notification/{resource}/read
+  defaults: { _controller: "NoticeCommentBundle:Notifications:markUserNotificationAsRead" }
+  requirements: { _method: get }

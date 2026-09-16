@@ -1,0 +1,135 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}Browse Licenses{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ app.request.basepath }}">Home</a>
+        </li>
+        <li>
+            /
+        </li>
+        <li class="last-child">Licenses</li>
+        <li>
+            /
+        </li>
+        <li class="last-child">Browse</li>
+    </ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}Browse Licenses{% endblock %}
+
+{% block body %}
+<div class="white-background">
+<div class="container ">
+    <div id="middle" class="full_width box_white">
+        <div class="content">
+                
+            <script language="javascript">
+            function atLeastOneRadio() {
+                    return ($('input[type=checkbox]:checked').size() > 0);
+            }
+
+            function check(checked)
+            {
+               if(checked)
+               {
+                   checkAll($('input[type=checkbox]'));
+               }
+               else
+               {
+                   uncheckAll($('input[type=checkbox]'));
+               }
+            }
+
+            function checkAll(field)
+            {
+            for (i = 0; i < field.length; i++)
+                field[i].checked = true ;
+            }
+
+            function uncheckAll(field)
+            {
+            for (i = 0; i < field.length; i++)
+                field[i].checked = false ;
+            }
+            </script>
+                    <div class="title"><h6>Find Licenses</h6></div>
+
+                    {{ render(controller("WebmastersAfricaPressBundle:Press:search")) }}
+                            
+                
+                    {{ render(controller("WebmastersAfricaPressBundle:Press:listlicenses", {'pagination':pagination})) }}
+            
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+    function getIndustries(url, location)
+    {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        }// IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        self.xmlHttpRequest.onreadystatechange = function() {
+    
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+            }
+            else
+            {
+                document.getElementById("industries").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry)
+    {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        }// IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        self.xmlHttpRequest.onreadystatechange = function() {
+    
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+            }
+            else
+            {
+                document.getElementById("businesstypes").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("industry=" + industry);
+    }
+</script>
+{% endblock %}

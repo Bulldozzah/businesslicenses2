@@ -1,0 +1,9 @@
+{
+  "name": "Zambia Eregistry",
+  "short_name": "Zamba Notice & Comment Portal",
+  "theme_color": "#21f356",
+  "background_color": "#2196f3",
+  "display": "browser",
+  "scope": "eregistry.otbafrica.com",
+  "start_url": "eregistry.otbafrica.com/index.php/notices"
+}

@@ -1,0 +1,26 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% block page_title %}Frequently Asked Questions{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">FAQs</li>
+    <li>
+        /
+    </li>
+    <li class="last-child">Feedback</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}Feedback{% endblock %}
+
+{% block body %}
+Feedback sent successfully!
+{% endblock %}

@@ -1,0 +1,51 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'settings.edit_settings' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'settings.edit_settings' | trans }}</h5>
+            <span>{{ 'settings.edit_settings_description' | trans }}</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('webmasters_africa_admin_homepage') }}" title="Back To List" class="wButton redwB ml15 m10"><span>{{ 'settings.back_to_dashboard' | trans }}</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %} 
+
+    <form action="{{ path('setting_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form">
+        <input type="hidden" name="_method" value="PUT" />
+		{{ form_row(edit_form.siteTitle) }}
+        {{ form_row(edit_form.siteDescription) }}
+        {{ form_row(edit_form.siteOwner) }}
+        {{ form_row(edit_form.siteAddress) }}
+        {{ form_row(edit_form.footer) }}
+        {{ form_row(edit_form.siteEmailTitle) }}
+        {{ form_row(edit_form.siteEmailAddress) }}
+        {{ form_row(edit_form.siteKeywords) }}
+        {{ form_row(edit_form.closingDays) }}
+        {{ form_row(edit_form.update) }}
+        <div style="display: none;">
+            {{ form_rest(edit_form) }}
+        </div>
+	</form>
+
+	 <script type="text/javascript">
+        $(document).ready(function() {
+            $('#webmastersafrica_userbundle_setting_closingDays').clone().attr('type', 'number').insertAfter('#webmastersafrica_userbundle_setting_closingDays').prev().remove();
+            $("#webmastersafrica_userbundle_setting_closingDays").addClass("w3-input w3-bordder");
+        });
+    </script>
+{% endblock %}

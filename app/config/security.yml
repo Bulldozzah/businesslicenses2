@@ -1,0 +1,109 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        admin_area:
+            pattern:    ^/login-admin
+            form_login:
+                check_path: /login-admin/login_check
+                login_path: /login-admin/login
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                always_use_default_target_path: false
+                default_target_path: /login-admin/otb-check-is-admin
+            logout:       true
+            anonymous:    true
+            logout:
+                path:   /login-admin/logout
+                target: /login-admin/login
+        main:
+            pattern:    ^/
+            form_login:
+                check_path: /login_check
+                login_path: /login
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                always_use_default_target_path: false
+                default_target_path: /check-is-admin
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                    google:             "/login/check-google"
+                login_path:        /login
+                failure_path:      /login
+                default_target_path: /check-is-admin
+
+                oauth_user_provider:
+                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
+                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
+                    service: my_user_provider
+
+            logout:
+                path:   /logout
+                target: /login
+            anonymous: true
+            #http_basic:
+            #    realm: "Secured Demo Area"
+        
+
+    access_control:
+        - { path: ^/login-admin/admin, access: "hasRole('ACCESS_BACKEND')" }
+        - { path: ^/login-admin/admin/dashboard, access: "hasRole('ACCESS_BACKEND') and hasRole('EREGISTRY_DASHBOARD')" }
+        - { path: ^/login-admin/regulations/admin, access: "hasRole('ACCESS_BACKEND') and hasRole('NOTICECOMMENTS_DASHBOARD')" }
+        - { path: ^/login-admin/manageusers, access: "hasRole('ACCESS_BACKEND') and hasRole('USERS_MANAGE')" }
+        - { path: ^/login-admin/managegroups, access: "hasRole('ACCESS_BACKEND') and hasRole('GROUPS_MANAGE')" }
+        - { path: ^/login-admin/managepages, access: "hasRole('ACCESS_BACKEND') and hasRole('PAGES_MANAGE')" }
+        - { path: ^/login-admin/managebanners, access: "hasRole('ACCESS_BACKEND') and hasRole('PAGES_MANAGE')" }
+        - { path: ^/login-admin/managerenoticeandcommentbanners, access: "hasRole('ACCESS_BACKEND') and hasRole('NC_PAGES_MANAGE')" }
+        - { path: ^/login-admin/managemenus, access: "hasRole('ACCESS_BACKEND') and hasRole('LICENSE_MANAGE')" }
+        - { path: ^/login-admin/managenews, access: "hasRole('ACCESS_BACKEND') and hasRole('NEWS_MANAGE')" }
+        - { path: ^/login-admin/managenewsletters, access: "hasRole('ACCESS_BACKEND') and hasRole('NEWSLETTERS_MANAGE')" }
+        - { path: ^/login-admin/managesubscribers, access: "hasRole('ACCESS_BACKEND') and hasRole('SUBSCRIBERS_MANAGE')" }
+        - { path: ^/login-admin/managefaq, access: "hasRole('ACCESS_BACKEND') and hasRole('FAQS_MANAGE')" }
+        - { path: ^/login-admin/managefaq/nc, access: "hasRole('ACCESS_BACKEND') and hasRole('NC_FAQS_MANAGE')" }
+        - { path: ^/login-admin/managelicenses, access: "hasRole('ACCESS_BACKEND') and hasRole('LICENSE_MANAGE')" }
+        - { path: ^/login-admin/managelocations, access: "hasRole('ACCESS_BACKEND') and hasRole('LOCATIONS_MANAGE')" }
+        - { path: ^/login-admin/manageindustries, access: "hasRole('ACCESS_BACKEND') and hasRole('INDUSTRIES_MANAGE')" }
+        - { path: ^/login-admin/managebusinesstypes, access: "hasRole('ACCESS_BACKEND') and hasRole('BUSINESSTYPES_MANAGE')" }
+        - { path: ^/login-admin/manageactivities, access: "hasRole('ACCESS_BACKEND') and hasRole('ACTIVITIES_MANAGE')" }
+        - { path: ^/login-admin/manageagencies, access: "hasRole('ACCESS_BACKEND') and hasRole('AGENCIES_MANAGE')" }
+        - { path: ^/login-admin/managefeedback, access: "hasRole('ACCESS_BACKEND')" }
+        - { path: ^/login-admin/managecomments, access: "hasRole('ACCESS_BACKEND') and hasRole('MODERATE_COMMENTS')" }
+        - { path: ^/login-admin/manageabusiveterms_create, access: "hasRole('ACCESS_BACKEND') and hasRole('MODERATE_COMMENTS')" }
+        - { path: ^/login-admin/managefields, access: "hasRole('ACCESS_BACKEND') and hasRole('CUSTOMFIELDS_MANAGE')" }
+        - { path: ^/login-admin/managesurveys, access: "hasRole('ACCESS_BACKEND') and hasRole('SURVEYS_MANAGE')" }
+        - { path: ^/login-admin/managefixedfields, access: "hasRole('ACCESS_BACKEND') and hasRole('FIXEDFIELDS_MANAGE')" }
+        - { path: ^/login-admin/managepolicy, access: "hasRole('ACCESS_BACKEND') and hasRole('POLICY_MANAGE')" }
+        - { path: ^/login-admin/managetasks, access: "hasRole('ACCESS_BACKEND')" }
+        - { path: ^/login-admin/managetasks/delete, access: "hasRole('ACCESS_BACKEND') and hasRole('MANAGE_TASK')" }
+        - { path: ^/login-admin/manageregulations, access: "hasRole('ACCESS_BACKEND') and hasRole('MANAGE_REGULATIONS')" }
+        - { path: ^/login-admin/manageforwardplans, access: "hasRole('ACCESS_BACKEND') and hasRole('MANAGE_FORWARD_PLANS')" }
+        - { path: ^/login-admin/manageworkflow, access: "hasRole('ACCESS_BACKEND') and hasRole('MANAGE_WORKFLOW')" }
+        - { path: ^/login-admin/business-startup, access: "hasRole('ACCESS_BACKEND') and hasRole('MANAGE_BUSINESS_STARTUP_PROCEDURE')" }
+        - { path: ^/login-admin/setting, access: "hasRole('ACCESS_BACKEND') and hasRole('MANAGE_SECURITY')" }
+        - { path: ^/login-admin/help, access: "hasRole('ACCESS_BACKEND')" }
+        - { path: ^/login-admin/messages, access: "hasRole('ACCESS_BACKEND')" }
+        - { path: ^/login-admin/locale, access: "hasRole('ACCESS_BACKEND') and hasRole('LANGUAGES_MANAGE')" }
+        - { path: ^/login-admin/manageregulationfixedfields, access: "hasRole('ACCESS_BACKEND') and hasRole('REGULATION_FIXEDFIELDS_MANAGE')" }
+        - { path: ^/login-admin/manageregulationcustomfields, access: "hasRole('ACCESS_BACKEND') and hasRole('REGULATION_CUSTOMFIELDS_MANAGE')" }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login-admin$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/external/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/external/user$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/external/groups$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        #- { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+

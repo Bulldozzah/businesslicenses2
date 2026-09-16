@@ -1,0 +1,42 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block page_title %}Frequently Asked Questions{% endblock %}
+
+{% block body %}
+  <main class="single" role="main">
+    <div class="jumbotronZ clearfix">
+      <div class="container text-left">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <div class="jumboZ_in_2 jumboZ_in">
+              <div class="text-center">
+                <h2>FAQs: Sent</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home_content full_width">
+      <div class="container">
+        <div class="row clearfix">
+          <div class="archive_main_content col-md-12 clearfix">
+              <div class="home_content_A">
+               <div class="card" style="width: 18rem;">
+                <img src="{{ asset('bundles/webmastersafricapress/new/img/success_img.png') }}" class="card-img-top" alt="success" style="width: 50%">
+                <div class="card-body">
+                    <h5 class="card-title">FAQ</h5>
+                    <p class="card-text">FAQ Saved Successfully</p>
+                    <a class="btn btn-success" href="/notices/faqs">Back to FAQs</a>
+                </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

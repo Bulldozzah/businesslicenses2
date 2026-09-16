@@ -1,0 +1,103 @@
+manage_surveys_index:
+  pattern: /
+  defaults: { _controller: "NoticeCommentBundle:Survey:index" }
+
+manage_surveys_show:
+  pattern: /{id}/show
+  defaults: { _controller: "NoticeCommentBundle:Survey:show" }
+
+manage_surveys_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "NoticeCommentBundle:Survey:edit" }
+
+manage_surveys_questions_edit:
+  pattern: survey/question/{id}/edit
+  defaults: { _controller: "NoticeCommentBundle:Survey:editSurveyQuestion" }
+
+manage_surveys_new:
+  pattern: /new
+  defaults: { _controller: "NoticeCommentBundle:Survey:new" }
+
+manage_surveys_new_question:
+  pattern: survey/question/new
+  defaults: { _controller: "NoticeCommentBundle:Survey:newSurveyQuestion" }
+
+manage_surveys_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: "NoticeCommentBundle:Survey:delete" }
+
+manage_surveys_deleted:
+  pattern: /list/deleted
+  defaults: { _controller: "NoticeCommentBundle:Survey:indexDeleted" }
+
+manage_surveys_update:
+  pattern: /{id}/update
+  defaults: { _controller: "NoticeCommentBundle:Survey:update" }
+  requirements: { _method: post|put }
+
+manage_surveys_preview:
+  pattern: /{survey_id}/preview
+  defaults: { _controller: "NoticeCommentBundle:Survey:previewSurvey" }
+  requirements: { _method: get, survey_id: \d+ }
+
+manage_surveys_publish:
+  pattern: /survey/publish
+  defaults: { _controller: "NoticeCommentBundle:Survey:publish" }
+  requirements: { _method: post|put }
+
+manage_surveys_unpublish:
+  pattern: /survey/unpublish
+  defaults: { _controller: "NoticeCommentBundle:Survey:unpublish" }
+  requirements: { _method: post|put }
+
+manage_surveys_batch:
+  pattern: /survey/batch/actions
+  defaults: { _controller: "NoticeCommentBundle:Survey:batch" }
+  requirements: { _method: post|put }
+
+manage_surveys_questions_update:
+  pattern: survey/question/{id}/update
+  defaults: { _controller: "NoticeCommentBundle:Survey:updateSurveyQuestion" }
+  requirements: { _method: post|put }
+
+manage_surveys_create:
+  pattern: /create
+  defaults: { _controller: "NoticeCommentBundle:Survey:create" }
+  requirements: { _method: post }
+
+manage_surveys_questions_create:
+  pattern: survey/question/create
+  defaults: { _controller: "NoticeCommentBundle:Survey:createSurveyQuestion" }
+  requirements: { _method: post }
+
+batch_survey_questions:
+  pattern: survey/question/batch
+  defaults: { _controller: "NoticeCommentBundle:Survey:questionBatch" }
+  requirements: { _method: post }
+
+update_surveys_question_positions:
+  pattern: survey/question/position
+  defaults: { _controller: "NoticeCommentBundle:Survey:orderQuestionPosition" }
+  requirements: { _method: post }
+
+manage_surveys_responses:
+  pattern: survey/responses/{survey_id}
+  defaults: { _controller: "NoticeCommentBundle:Survey:showListOfResponses" }
+  requirements: { _method: get, survey_id: \d+ }
+
+manage_surveys_responses_download:
+  pattern: survey/responses/download/{survey_id}
+  defaults: { _controller: "NoticeCommentBundle:Survey:downloadExcelResponseResult" }
+  requirements: { _method: get, survey_id: \d+ }
+
+manage_surveys_responses_show:
+  pattern: survey/responses/details/{survey_id}
+  defaults: { _controller: "NoticeCommentBundle:Survey:showListOfResponsesDetails" }
+  requirements: { _method: get, survey_id: \d+ }
+
+manage_surveys_show_response:
+  pattern: survey/responses/{survey_id}/{response_id}
+  defaults: { _controller: "NoticeCommentBundle:Survey:showSurveyResponse" }
+  requirements: { _method: get, survey_id: \d+, response_id: \d+ }
+
+ 

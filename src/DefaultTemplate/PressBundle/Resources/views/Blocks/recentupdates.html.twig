@@ -1,0 +1,25 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+<script>
+ $(document).on('mouseenter', ".tooltip-1", function () {
+     var $this = $(this);
+     if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+         $this.tooltip({
+             title: $this.text(),
+             placement: "left"
+         });
+         $this.tooltip('show');
+     }
+ });
+</script>
+
+<div>
+ <div id="cart_box">
+   <h3>{{ 'recentupdates'|trans }}<i class="icon_refresh pull-right"></i></h3>
+   <ul class="side-menu-list">
+     {% for license in licenses %}
+         <li><div data-icon="=" aria-hidden="true" class="fs1"> <a class="tooltip-1" data-toggle="tooltip" data-placement="left" title="{{ license.name }}" href="{{ app.request.basepath }}/license/id/{{ license.id }}">{{ license.name }}</a> </li>
+     {% endfor %}
+</ul>
+<div class="view-more"> <a <a class="btn_more" href="{{ app.request.basepath }}/browse/licenses">{{ 'viewmore'|trans }}</a> </div>
+</div><!-- End cart_box -->
+</div>

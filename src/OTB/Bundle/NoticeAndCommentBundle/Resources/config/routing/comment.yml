@@ -1,0 +1,51 @@
+comments:
+  pattern: /
+  defaults: { _controller: "NoticeCommentBundle:Comment:index" }
+
+comments_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "NoticeCommentBundle:Comment:edit" }
+
+comments_new:
+  pattern: /new
+  defaults: { _controller: "NoticeCommentBundle:Comment:new" }
+  
+comments_create:
+  pattern: /{regulation_id}/create
+  defaults: { _controller: "NoticeCommentBundle:Comment:create" }
+  requirements: { _method: post }
+
+comments_update:
+  pattern: /{id}/update
+  defaults: { _controller: "NoticeCommentBundle:Comment:edit" }
+  requirements: { _method: post|put }
+
+comments_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: "NoticeCommentBundle:Comment:delete" }
+  requirements: { _method: delete }
+
+comments_get_reply:
+  pattern: /{comment_id}/reply/{offset}
+  defaults: { _controller: "NoticeCommentBundle:Comment:getReplies" }
+  requirements: { _method: GET, comment_id: \d+, count: \d+ }
+
+comments_like:
+  pattern: /{id}/like
+  defaults: { _controller: "NoticeCommentBundle:Comment:likeComment" }
+  requirements: { _method: PUT }
+
+comments_like_api:
+  pattern: /api/{id}/like
+  defaults: { _controller: "NoticeCommentBundle:Comment:likeCommentApi" }
+  requirements: { _method: POST, id: \d+, count: \d+ }
+
+comments_mark_abusive:
+  pattern: /api/{id}/mark-abusive
+  defaults: { _controller: "NoticeCommentBundle:Comment:markAsAbusive" }
+  requirements: { _method: GET, id: \d+ }
+
+verify_recaptacha_token:
+  pattern: /api/{token}/verify
+  defaults: { _controller: "NoticeCommentBundle:Comment:verifyReCaptachaToken" }
+  requirements: { _method: GET }

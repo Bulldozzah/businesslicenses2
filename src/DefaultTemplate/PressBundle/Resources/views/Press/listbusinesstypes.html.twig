@@ -1,0 +1,169 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% block sitekeywords %}
+    Zambia, List of Business Types, Activities, View Licenses
+{% endblock %}
+
+{% block page_title %}
+    List of all Business Types & Activities
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}/index.php">
+        {{ 'home'|trans }}
+    </a>
+</li>
+<li>Business Types & Activities
+</li>
+{% endblock%}
+
+{% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>List of all Business Types & Activities</h4>
+    </div>
+    <!-- End sub_content -->
+{% endblock %}
+
+{% block body %}
+    <link href="{{ asset('bundles/webmastersafricapress/new/dt/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <div
+        class="col-md-12 col-sm-12 col-xs-12">
+        <!-- End sub_content -->
+        <div class="box_style_2">
+            <table class="table table-condensed hover bordered" id="dtable2" width="100%">
+                <thead>
+                    <tr>
+                        <th>Business Type</th>
+                        <th>Business Activities</th>
+                        <th>Industry</th>
+                        <th class="text-right">No. of Licenses</th>
+                        <th>View Licenses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for business in businessTypes %}
+
+                        <tr>
+                            <td>{{ business.name }}</td>
+                            <td>
+                                <ul>
+                                    {% for activity in business.activities %}
+                                        <li>{{ activity.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for industry in business.industries %}
+                                        <li>{{ industry.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td class="text-center">
+                                <ul style="list-style-type: none;">
+                                    {% set count = 0 %}
+                                    {% set licenseIds = [] %}
+                                    {% for activity in business.activities %}
+                                        {% if activity.PublishedLicenses|length > 0 %}
+                                            {% for license in activity.PublishedLicenses %}
+                                                {% if license.id in licenseIds %}
+                                                {% else %}
+                                                    {% set count = count + 1 %}
+                                                {% endif %}
+                                                {% set licenseIds = licenseIds|merge([license.id]) %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <li>{{ count }}</li>
+                                </ul>
+                            </td>
+                            <td>
+                                {% if count > 0 %}
+                                    <a class="text-primary" href="{{path('browse_license_business_types', {'id': business.id }) }}">
+                                        <i class="fa fa-share">
+                                            View License (s)
+                                        </i>
+                                    </a>
+                                {% else %}
+                                    
+                                {% endif %}
+                            </td>
+
+                            {% set count = 0 %}
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript_table %}
+    <script src="{{ asset('bundles/webmastersafricapress/new/dt/jquery.dataTables.min_business_type.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#dtable2').DataTable({"pageLength": 5});
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#dtable').DataTable();
+        });
+        function getIndustries(url, location) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("industries").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("businesstypes").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("industry=" + industry);
+    }
+    </script>
+{% endblock %}

@@ -1,0 +1,135 @@
+notice_comment:
+    resource: "@NoticeCommentBundle/Resources/config/routing.yml"
+    prefix: /
+
+webmasters_africa_task:
+    resource: "@WebmastersAfricaTaskBundle/Resources/config/routing.yml"
+    prefix: /
+
+webmasters_africa_message:
+    resource: "@WebmastersAfricaMessageBundle/Resources/config/routing.yml"
+    prefix: login-admin
+
+webmasters_africa_admin:
+    resource: "@WebmastersAfricaAdminBundle/Resources/config/routing.yml"
+    prefix: /
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: login-admin/profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: login-admin/profile
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
+
+webmasters_africa_user:
+    resource: "@WebmastersAfricaUserBundle/Resources/config/routing.yml"
+    prefix: /
+
+webmasters_africa_license:
+    resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing.yml"
+    prefix: /
+
+webmasters_africa_press:
+    resource: "@WebmastersAfricaPressBundle/Resources/config/routing.yml"
+    prefix: /
+
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: login-admin/messages
+
+genemu_base64:
+    resource: "@GenemuFormBundle/Resources/config/routing/base64.xml"
+
+#HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix: /login
+
+facebook_login:
+    pattern: /login/check-facebook
+
+google_login:
+    pattern: /login/check-google
+
+check_is_admin:
+    pattern: /check-is-admin
+    defaults: { _controller: WebmastersAfricaAdminBundle:Default:checkAdmin }
+    requirements: { _method: get }
+
+check_is_online:
+    pattern: /check-user/online
+    defaults: { _controller: WebmastersAfricaAdminBundle:Default:checkUserOnline }
+    requirements: { _method: post }
+
+check_admin:
+    pattern: /check_is_admin
+    defaults: { _controller: WebmastersAfricaAdminBundle:Default:adminCheck }
+    requirements: { _method: POST }
+
+admin_login:
+    pattern: login-admin/login/
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:login }
+#check admin OTB
+otb_check_is_admin:
+    pattern: /login-admin/otb-check-is-admin
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:checkAdminOTB }
+    requirements: { _method: get }
+#redirect dashboard OTB
+otb_africa_admin_homepage:
+  pattern: /login-admin/admin/dashboard
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboard }
+
+admin_login_check:
+  pattern: /login-admin/login_check
+  defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:check }
+  requirements: { _method: POST }
+
+admin_logout:
+    pattern: /login-admin/logout
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:logout }
+admin_reset_backend_password:
+    pattern: /reset/backend/password
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:resetPassword }
+admin_reset_send_code_for_pass:
+    pattern: /reset/send/code
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:sendPasswordResetCode }
+#admin custom reset pass
+admin_reset_check_email:
+    pattern: /reset/send/code
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:checkEmailAction }
+#success message sent for reset password
+admin_reset_password_sent_success:
+    pattern: /reset/send/done
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:passwordResetSuccess }
+#custom admin reset password
+admin_user_reset_password:
+    pattern: /admin/reset/pass/{token}
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:reset }
+#password reset success
+admin_reset_password_was_successful:
+    pattern: /reset/admin/pass/success
+    defaults: { _controller: WebmastersAfricaAdminBundle:OTBLogin:adminReset }

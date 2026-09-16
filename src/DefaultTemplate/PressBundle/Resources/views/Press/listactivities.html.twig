@@ -1,0 +1,215 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}
+  {{ 'businessactivities'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+  <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+</li>
+<li>
+  <a href="#0">{{ 'licenses'|trans }}</a>
+</li>
+<li>{{ 'businessactivities'|trans }}</li>
+{% endblock%}
+
+{% block pageheader %}
+  <div class="col-md-12 col-sm-12 col-xs-12 title">
+    <h4>{{ 'businessactivities'|trans }}</h4>
+  </div>
+  <!-- End sub_content -->
+{% endblock %}
+
+{% block body %}
+
+  {{ 
+      include("WebmastersAfricaPressBundle:Press:quick_search.html.twig")
+  }}
+
+
+  <div class=""></div>
+  {# end quick search #}
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h4>{{ 'filterlicense'|trans }}</h4>
+  </div>
+  <!-- End sub_content -->
+
+  <script language="javascript">
+    function atLeastOneRadio() {
+      return($('input[type=checkbox]:checked').size() > 0);
+    }
+  </script>
+
+  {{ render(controller("WebmastersAfricaPressBundle:Press:search")) }}
+
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h4>Select Business Activity</h4>
+
+    <div class="alert alert-info m-b-10">
+      <span aria-hidden="true" class="icon_lightbulb"></span>
+      {{ 'pleaseselect'|trans }}
+    </div>
+  </div>
+  <!-- End sub_content -->
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <form action="{{ app.request.basepath }}/search/advanced" method="post" id="sf_activity_license_form" name="sf_activity_license_form">
+      <div class="p-0" id="filters_col">
+        <div id="collapseFilters">
+          <div class="filter_type">
+            <ul>
+              {% set results_count = 0 %}
+              {% for activity in activities %}
+                {% if activity.licenses | length > 0 %}
+                  {% set results_count = results_count + 1 %}
+                {% endif %}
+              {% endfor %}
+
+              <li>
+                <h4>{{ results_count }}
+                  {{ 'resultsfound'|trans }}</h4>
+              </li>
+              <li>
+                <label><input id="selectall" type="checkbox">
+                  <strong>{{ 'selectall'|trans }}</strong>
+                </label>
+              </li>
+              {% for activity in activities %}
+                {% if activity.licenses | length > 0 %}
+                  <li>
+                    <label><input type="checkbox" name="activity[ids][]" value="{{ activity.id }}">
+                      <td align="left">{{ activity.name }}</td>
+                    </label>
+                  </li>
+                {% endif %}
+              {% endfor %}
+
+              <li>
+                {% if city %}
+                  <input type="hidden" name="jurisdiction_id" value="{{ city.id }}">
+                {% endif %}
+                <button class="btn_map" name="signin" onclick="if(atLeastOneRadio()){ return true; }else{ alert('{{ 'chooseone'|trans }}'); return false; }" style="width:unset;" type="submit" value="signin">{{ 'viewlicenses'|trans }}</button>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <!--End collapse -->
+      </div>
+      <!--End filters col-->
+    </form>
+  </div>
+  <!--col-md-12 -->
+
+  <style>
+    .active-pink-2 input[type=text]:focus:not([readonly]) {
+      border-bottom: 1px solid #f48fb1;
+      box-shadow: 0 1px 0 0 #f48fb1;
+    }
+    .active-pink input[type=text] {
+      border-bottom: 1px solid #f48fb1;
+      box-shadow: 0 1px 0 0 #f48fb1;
+    }
+    .active-purple-2 input[type=text]:focus:not([readonly]) {
+      border-bottom: 1px solid #ce93d8;
+      box-shadow: 0 1px 0 0 #ce93d8;
+    }
+    .active-purple input[type=text] {
+      border-bottom: 1px solid #ce93d8;
+      box-shadow: 0 1px 0 0 #ce93d8;
+    }
+    .active-cyan-2 input[type=text]:focus:not([readonly]) {
+      border-bottom: 1px solid #4dd0e1;
+      box-shadow: 0 1px 0 0 #4dd0e1;
+    }
+    .active-cyan input[type=text] {
+      border-bottom: 1px solid #4dd0e1;
+      box-shadow: 0 1px 0 0 #4dd0e1;
+    }
+    .active-cyan .fa,
+    .active-cyan-2 .fa {
+      color: #4dd0e1;
+    }
+    .active-purple .fa,
+    .active-purple-2 .fa {
+      color: #ce93d8;
+    }
+    .active-pink .fa,
+    .active-pink-2 .fa {
+      color: #f48fb1;
+    }
+  </style>
+
+  <script language="javascript">
+    $(document).ready(function () {
+      let industry = $("#speedC").val();
+      var url = "{{ app.request.basepath }}/browse/listbusinesstypes";
+      var businessTypes = getBusinesstypes(url, industry);
+    });
+    function getIndustries(url, location) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) { // IE
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("industries").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry) {
+      if (industry == "Select Industry") {
+        document.getElementById("businesstypes").value = "0";
+        return;
+      }
+
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) { // IE
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("businesstypes").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("industry=" + industry);
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+	
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+<script>
+    window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>');
+</script>
+<script crossorigin="anonymous" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" src="{{ asset('bundles/OTB/notice/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('bundles/OTB/notice/js/svgembedder.min.js')}}"></script>
+
+<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+<link crossorigin="anonymous" href="{{ asset('bundles/OTB/notice/css/all.css')}}" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" rel="stylesheet">
+<script src="{{ asset('bundles/OTB/notice/js/bootstrap.min.js')}}"></script>
+<!-- Plugin JavaScript -->
+<script src="{{ asset('bundles/OTB/notice/js/jquery.easing.min.js') }}"></script>
+<!-- Custom JavaScript for this theme -->
+<script src="{{ asset('bundles/OTB/notice/js/scrolling-nav.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/OTB/notice/comments/js/jquery-comments.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/OTB/notice/assets/cool-share/plugin.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/OTB/notice/comments/data/comments-data.js')}}"></script>
+<script type="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // $(window).on('scroll', function (event) {
+        //     var scrollValue = $(window).scrollTop();
+        //     if (scrollValue == settings.scrollTopPx || scrollValue > 100) {
+        //         $('#navbarFix').addClass('fixed-top');
+        //     }
+        // });
+        /*
+    $(document).ready(function () {
+      if (typeof window.orientation == 'undefined') {
+        $("#share_whatsapp").html(`<div class="share_whatsapp">\
+          <a href="https://api.whatsapp.com/send?text=http://www.businesslicenses.gov.zm/consultation/regulations//comments" target="_blank">\
+            <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>\
+          </a>\
+        </div>`);
+      }
+    */
+    });
+</script>
+
+
+<style type="text/css">
+    .affix {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        opacity: 1;
+    }
+
+    .affix-top {
+        position: static;
+        opacity: 0.8;
+    }
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 70) {
+                $("#fixedSideMenu").addClass("fixed-top-B");
+            } else {
+                $("#fixedSideMenu").removeClass("fixed-top-B");
+            }
+        });
+
+        /*
+		$('#fixedSideMenu').affix({
+		    offset:{
+		        top: $('header').height()
+		    }
+		})
+    	*/
+    });
+</script>

@@ -1,0 +1,14 @@
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block pagetitle %}Password Reset{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}">Home</a></li>
+<li>{{ 'reset'|trans }}</li>
+{% endblock%}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+{% endblock fos_user_content %}

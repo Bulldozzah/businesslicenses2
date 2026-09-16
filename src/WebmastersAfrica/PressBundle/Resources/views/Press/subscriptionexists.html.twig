@@ -1,0 +1,37 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% block page_title %}{{ 'newsletter_sign_up'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'newsletter_sign_up'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'newsletter_sign_up'|trans }}{% endblock %}
+
+{% block body %}
+<!-- middle -->
+<div class="white-background">
+    <div class="container ">
+            <!-- content -->
+            <div class="content" role="main">
+        
+				{{ 'subscription_exists' | trans }}
+
+			</div>
+
+	</div>
+</div>
+
+{% endblock %}

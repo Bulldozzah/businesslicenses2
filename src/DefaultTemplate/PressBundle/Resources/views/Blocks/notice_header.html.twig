@@ -1,0 +1,63 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+  <a class="navbar-brand" href="/notices">
+    <img src="{{ asset('bundles/OTB/notice/img/logo.png') }}">
+  </a>
+  <button aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarsExampleDefault" data-toggle="collapse" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      {{ render(controller("WebmastersAfricaPressBundle:Blocks:noticeMenu")) }}
+      <li class="eregistry_url nav-item">
+         <a class="nav-link" target="_blank" href="{{ path('homepage')}}">eRegistry</a>
+    	</li>
+    	<div id="google_translate_element"></div>
+    	<script type="text/javascript">
+				function googleTranslateElementInit() {
+				  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+				}
+			</script>
+
+			<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </ul>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      <div class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto top_right_lists">
+
+          <li class="nav-item dropdown dropdownA_out">
+            <a class="nav-link" href="#" id="dropdownA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-bell"></i><span class="badge badge-default ml-2" id="notification_count"></span>
+            </a>
+            <div id="user-notification-list" class="dropdown-menu" aria-labelledby="dropdownA">
+            </div>
+          </li>   
+
+          <li class="nav-item dropdown dropdownB_out">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdownB" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ app.user.firstname }} {{ app.user.lastname }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownB">
+              {% if is_expr_granted("hasRole('ACCESS_BACKEND')") %}
+                <a class="dropdown-item" href="{{ app.request.basepath }}/admin" title="Administration">
+                  {{ 'administration'|trans }}
+                </a>
+              {% else %}
+              {% endif %}
+              <a class="dropdown-item" href="{{ app.request.basepath }}/edit-my-profile">{{ 'edit_profile'|trans }}</a>
+              <a class="dropdown-item" href="{{ app.request.basepath }}/logout">{{ 'signout'|trans }}</a>
+            </div>
+          </li>   
+
+
+        </ul>
+
+      </div>
+    {% else %}
+      <a class="btn btn-primary my-2 my-sm-0" href="/login">Signup or Login</a>
+    {% endif %}
+  </div>
+</nav>
+

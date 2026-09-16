@@ -1,0 +1,65 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}{{ 'newsletter_sign_up'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a></li>
+<li>{{ 'newsletter_sign_up'|trans }}</li>
+{% endblock%}
+
+{% block pageheader %}
+<div class="col-md-12 col-sm-12 col-xs-12 title">
+    <h4>{{ 'newsletter_sign_up'|trans }}</h4>
+</div><!-- End sub_content -->
+{% endblock %}
+
+{% block body %}
+<!-- middle -->
+<div class="white-background">
+    <div class="container ">
+            <!-- content -->
+            <div class="content" role="main">
+
+                {{ 'subscription_fail' | trans }}
+
+                <br> <br>
+                <h3 class="widget-title">{{ 'newsletter_sign_up'|trans }}</h3>
+                <ul>
+                <li>
+                <div class="widget_login" style="margin-right: 10%;">
+                    <form id="form-comments"  action="{{ app.request.basepath }}/newsletter/subscriptioncheck" method="post" autocomplete="off">
+
+                        {{ form_widget(form.subscribername, { 'attr': {'placeholder': 'newsletter_name'|trans,'class':'inputtext input_middle required'} }) }}
+                        <br>
+                        <div style="color: #FF0000;">
+                            {{ form_errors(form.subscribername) }}
+                        </div>
+                        <br>
+                        {{ form_widget(form.subscriberemail, { 'attr': {'placeholder': 'newsletter_email'|trans,'class':'inputtext input_middle required'} }) }}
+                        <br>
+                        <div style="color: #FF0000;">
+                            {{ form_errors(form.subscriberemail) }}
+                        </div>
+                        <br>
+
+                        {{ form_rest(form) }}
+
+                        <p class="submit">
+                         <input type="submit" name="wp-submit" id="wp-submit" class="btn-submit"  name="submitbuttonname" value="{{ 'feedback_submit'|trans }}" tabindex="100">
+                        </p>
+                    </form>
+                </div>
+                </li>
+                </ul>
+                <div class="clear"></div>
+
+            </div>
+
+    </div>
+</div>
+
+{% endblock %}

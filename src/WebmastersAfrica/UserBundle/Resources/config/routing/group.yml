@@ -1,0 +1,30 @@
+managegroups:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:index" }
+
+managegroups_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:show" }
+
+managegroups_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:new" }
+
+managegroups_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:create" }
+    requirements: { _method: post }
+
+managegroups_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:edit" }
+
+managegroups_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:update" }
+    requirements: { _method: post|put }
+
+managegroups_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaUserBundle:Group:delete" }
+    requirements: { _method: post|delete }

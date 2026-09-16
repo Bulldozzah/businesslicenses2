@@ -1,0 +1,27 @@
+# Manage Tasks 
+tasks:
+    tasks: Tasks 
+    tasks_description: Manage tasks 
+
+    add_new_tasks: Add New Task 
+
+    list_of_tasks: List Of Tasks 
+
+    description: Description 
+    start_date: Start Date 
+    end_date: End Date 
+    assigned_by: Assigned By 
+    status: Status 
+    actions: Actions 
+
+    add_task_description: Create a new task 
+
+    edit_task: Edit Task 
+    edit_task_description: Edit task details
+
+    back_to_list: Back To List 
+
+    assignee: Assignee 
+    license: License 
+
+    update: Update 

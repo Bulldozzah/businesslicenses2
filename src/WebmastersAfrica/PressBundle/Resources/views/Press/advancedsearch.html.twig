@@ -1,0 +1,119 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}{{ 'search'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'licenses'|trans }}</li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'advancedsearch'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'search'|trans }}{% endblock %}
+
+{% block body %}
+<div class="white-background">
+<div class="container ">
+    <div id="middle" class="full_width box_white">
+        <div class="content">
+
+        {{ render(controller("WebmastersAfricaPressBundle:Press:search")) }}
+
+        <div class="widget-content widget_search">
+            <div style="width:100%; text-align:center; margin:20px 0;">{{ 'or'|trans }}</div>
+
+            <form id="form1" name="form1" method="post" action="{{ path('search_advanced') }}">
+                <div>
+                     <input id="keywords" name="keywords" type="text" class="inputField" value="{% if searchterm == "" %}{{ 'search'|trans }}...{% else %}{{ searchterm }}{% endif %}" onfocus="if (this.value == '{{ 'search'|trans }}...') {this.value = '';}" name="q" onblur="if (this.value == '') {this.value = '{{ 'search'|trans }}...';}"/>
+
+                      <input type="submit" name="signin" value="signin" onClick="if(document.getElementById('keywords').value == '' || document.getElementById('keywords').value == '{{ 'search'|trans }}...'){ alert('{{ 'pleaseprovide'|trans }}'); return false; }else{ return true; }" class="btn-submit" value="{{ 'search'|trans }}" />
+                    <div class="clear"></div>
+                </div>
+            </form>
+        </div>
+
+        {{ render(controller("WebmastersAfricaPressBundle:Press:listlicenses", {'pagination':pagination})) }}
+
+        </div>
+    </div>
+</div>
+
+
+<script language="javascript">
+    function getIndustries(url, location)
+    {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        }// IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        self.xmlHttpRequest.onreadystatechange = function() {
+
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+            }
+            else
+            {
+                document.getElementById("industries").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry)
+    {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        }// IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        self.xmlHttpRequest.onreadystatechange = function() {
+
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+            }
+            else
+            {
+                document.getElementById("businesstypes").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("industry=" + industry);
+    }
+</script>
+
+{% endblock %}

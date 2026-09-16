@@ -1,0 +1,29 @@
+manageregulationcustomfields:
+    pattern:  /
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:index" }
+
+manageregulationcustomfields_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:show" }
+
+manageregulationcustomfields_new:
+    pattern:  /new
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:new" }
+
+manageregulationcustomfields_create:
+    pattern:  /create
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:create" }
+    requirements: { _method: post }
+
+manageregulationcustomfields_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:edit" }
+
+manageregulationcustomfields_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:update" }
+    requirements: { _method: post|put }
+
+manageregulationcustomfields_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:delete" }

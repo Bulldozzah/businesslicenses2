@@ -1,0 +1,130 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'banners.manage_banners' | trans }}{% endblock %}
+
+
+{% block header %}
+
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'banners.banners' | trans }}</h5>
+            <span>{{ 'banners.banners_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+<div class="wrapper w3-center">
+    <div class="w3-show-inline-block">
+  <div class="controlC">
+                <ul>
+				    <li>
+					<a href="{{ path("managebanners_new") }}" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+				    <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+					<span>{{ 'banners.add_new_banner' | trans }}</span>
+					</a>
+				    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+			
+{% endblock %}
+
+{% block body %}
+	
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'banners.list_banners' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_banners") }}" method="post">
+        
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+        <thead>
+            <tr>
+                <td><div>&middot;&middot;&middot;</div></td>
+                <td><div>#</div></td>
+                <td><div>{{ 'banners.title' | trans }}</div></td>
+                <td><div>{{ 'banners.description' | trans }}</div></td>
+                <td><div>{{ 'banners.image' | trans }}</div></td>
+                <td align="center">{{ 'banners.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                <td><a href="{{ path('managebanners_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.image }}</td>
+                <td>
+                 <ul>
+                    <li>
+                         <a href="{{ path('managebanners_edit', { 'id': entity.id }) }}" class="smallButton" alt="Edit">
+                         <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+                         </a>
+                    </li>
+                     <li>
+                         <a href="{{ path('managebanners_delete', { 'id': entity.id }) }}" class="smallButton" alt="Reply">
+                             <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/cross.png') }}">
+                         </a>
+                     </li>
+                 </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfooter>
+            <tr style="border-top:1px solid #CDCDCD">
+                <td colspan="8" style="padding:10px;">
+                    <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'banners.batch_confirm_1' | trans }} ' + this.value + ' {{ 'banners.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                        <option>{{ 'banners.select_batch' | trans }}...</option>
+                        <option value="delete">{{ 'banners.delete' | trans }}</option>
+                    </select>
+                </td>
+            </tr>
+        </tfooter>
+    </table>
+    </form>
+</div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+
+		
+{% endblock %}

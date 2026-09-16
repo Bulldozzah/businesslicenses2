@@ -1,0 +1,28 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block page_title %}Uganda - Add Menu{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Add Menu</h5>
+            <span>Create a new menu for the frontend</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('managemenus') }}" title="Back To List" class="wButton redwB ml15 m10"><span>Back To List</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<form action="{{ path('managemenus_create') }}" method="post" {{ form_enctype(form) }} class="form">
+{{ form_widget(form) }}
+</form>
+{% endblock %}

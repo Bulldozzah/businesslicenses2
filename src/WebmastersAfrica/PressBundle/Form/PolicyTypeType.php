@@ -1,0 +1,39 @@
+<?php
+
+namespace WebmastersAfrica\PressBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
+
+class PolicyTypeType extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('title');
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'WebmastersAfrica\PressBundle\Entity\PolicyType'
+        ));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'policy_type';
+    }
+}

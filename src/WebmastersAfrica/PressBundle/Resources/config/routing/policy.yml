@@ -1,0 +1,80 @@
+manage_policy:
+  pattern: /
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:index" }
+
+manage_policy_deleted:
+  pattern: /deleted
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:indexDeleted" }
+
+manage_policy_category:
+  pattern: category
+  defaults: { _controller: "WebmastersAfricaPressBundle:PolicyType:index" }
+
+manage_policy_show:
+  pattern: /{id}/show
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:show" }
+
+manage_policy_new:
+  pattern: /new
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:new" }
+
+manage_policy_category_new:
+  pattern: category/new
+  defaults: { _controller: "WebmastersAfricaPressBundle:PolicyType:new" }
+
+manage_policy_create:
+  pattern: /create
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:Policy:create" }
+  requirements: { _method: post }
+
+manage_policy_category_create:
+  pattern: category/create
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:PolicyType:create" }
+  requirements: { _method: post }
+
+manage_policy_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:edit" }
+
+manage_policy_category_edit:
+  pattern: category/{id}/edit
+  defaults: { _controller: "WebmastersAfricaPressBundle:PolicyType:edit" }
+
+manage_policy_update:
+  pattern: /{id}/update
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:Policy:update" }
+  requirements: { _method: post|put }
+
+manage_policy_category_update:
+  pattern: category/{id}/update
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:PolicyType:update" }
+  requirements: { _method: post|put }
+
+manage_policy_delete:
+  pattern: /{id}/delete
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:Policy:delete" }
+
+manage_policy_category_delete:
+  pattern: category/{id}/delete
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:PolicyType:delete" }
+
+batch_policy:
+  pattern: /batch/policy
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:batch" }
+  requirements: { _method: post|put }
+
+batch_policy_undelete:
+  pattern: /batch/deleted/policy
+  defaults: { _controller: "WebmastersAfricaPressBundle:Policy:batchDeleted" }
+  requirements: { _method: post|put }
+
+batch_policy_category:
+  pattern: category/batch/policy
+  defaults: { _controller: "WebmastersAfricaPressBundle:PolicyType:batch" }
+  requirements: { _method: post|put }

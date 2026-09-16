@@ -1,0 +1,33 @@
+managesubscribers:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:index" }
+
+managesubscribers_filter:
+    pattern:  /filter/{status}
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:indexfilter" }
+
+managesubscribers_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:show" }
+
+managesubscribers_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:new" }
+
+managesubscribers_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:create" }
+    requirements: { _method: post }
+
+managesubscribers_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:edit" }
+
+managesubscribers_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:update" }
+    requirements: { _method: post|put }
+
+managesubscribers_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:delete" }

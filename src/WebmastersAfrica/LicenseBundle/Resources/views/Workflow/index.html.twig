@@ -1,0 +1,140 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'licenses.licenses_workflow' | trans }}
+
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'licenses.licenses_workflow' | trans }}</h5>
+
+                <span>{{ 'licenses.licenses_description_workflow' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <div class="line"></div>
+
+
+    <div class="statsRow">
+
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+
+                    {% if is_expr_granted("hasRole('MANAGE_WORKFLOW')") %}
+
+                        <a href="{{ path("license_workflow_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                            <span>{{ 'licenses.add_new_business_license_stage' | trans }}</span>
+                        </a>
+                    {% endif %}
+
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>{{ 'licenses.list_of_license_stage' | trans }}</h6>
+        </div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_licenses") }}" method="post">
+            <table cellpadding="0" cellspacing="0" class="sTable mTable" id="workflow_res" width="100%">
+                <thead>
+                    <tr>
+                        <th width="40">
+                            <div>&middot;&middot;&middot;</div>
+                        </th>
+                        <th width="100">
+                            <div>#</div>
+                        </th>
+                        <th width="100">Title</th>
+                        <th width="100">Next Stage</th>
+                        <th width="100">Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <div class="itemActions">
+                                <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'licenses.batch_confirm_1' | trans }} ' + this.value + ' {{ 'licenses.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                    <option>{{ 'licenses.select_batch' | trans }}...</option>
+                                    {% if is_expr_granted("hasRole('LICENSE_DELETE')") %}
+                                        <option value="delete">{{ 'licenses.delete' | trans }}</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            {{ knp_pagination_render(pagination) }}
+                        </td>
+                    </tr>
+                </tfoot>
+
+                <tbody>
+                    {% for entity in pagination %}
+                        <tr>
+                            <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                            <td>
+                                <a href="{{ path('license_workflow_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            </td>
+                            <td>{{ entity.title }}</td>
+                            <td>{{ entity.nextStage }}</td>
+                            <td>
+                                {% if is_expr_granted("hasRole('LICENSE_EDIT')") %}
+                                    <ul>
+                                        <li>
+                                            <a href="{{path('license_workflow_edit',{'id':entity.id})}}" class="smallButton" title="">
+                                                <img alt="{{'licenses.edit'|trans}}" src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}"></a>
+                                        </li>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#workflow_res').DataTable();
+            // $(".dataTables_filter input").addClass("w3-input w3-border w3-animate-input");
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,146 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'subscribers.manage_subscribers' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'subscribers.subscribers' | trans }}</h5>
+            <span>{{ 'subscribers.subscribers_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+
+<div class="wrapper w3-center">
+  <div class="controlC">
+                <div class="w3-bar">
+				    
+					<a href="{{ path("managesubscribers_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+				    <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+					<span>{{ 'subscribers.add_new_subscribers' | trans }}</span>
+					</a>
+					</a>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+</div>
+</div>
+
+
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'subscribers.list_of_subscribers' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_subscribers") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="newsletter_subscriber_table">
+        <thead>
+            <tr class="w3-pale-blue">
+                <td colspan="12">
+                    <div style="float: right;">
+                        <select onChange="window.location='/managesubscribers/filter/' + this.value;">
+                            <option>Filter by status...</option>
+                            <option value="0">Not Confirmed</option>
+                            <option value="1">Confirmed</option>
+                        </select>
+                    </div>
+                    <div style="clear: both;"></div>
+                </td>
+            </tr>
+            <tr>
+                <td width="3%"><div>&middot;&middot;&middot;</div></td>
+                <td width="3%"><div>#</div></td>
+                <td class="sortCol"><div>{{ 'subscribers.name' | trans }}<span></span></div></td>
+                <td class="sortCol"><div>{{ 'subscribers.email' | trans }}<span></span></div></td>
+                <td  align="center" width="60px">{{ 'subscribers.confirmed' | trans }}</td>
+                <td  align="center" width="40px">{{ 'subscribers.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.email }}</td>
+                <td align="center">
+                {% if entity.confirmed == true %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Confirmed"></span>
+                {% else %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Not Confirmed"></span>
+                {% endif %}
+                </td>
+                <td>
+                <ul>
+                    <li>
+                         <a href="{{ path('managesubscribers_edit', { 'id': entity.id }) }}" class="smallButton">
+                         <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+                         </a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <thead>
+             <tr style="border-top:1px solid #CDCDCD">
+                <td colspan="6" style="padding:10px;">
+                    <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'subscribers.batch_confirm_1' | trans }} ' + this.value + ' {{ 'subscribers.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                        <option>{{ 'subscribers.select_batch' | trans }}...</option>
+                        <option value="confirm">{{ 'subscribers.confirm' | trans }}</option>
+                        <option value="unconfirm">{{ 'subscribers.unconfirm' | trans }}</option>
+                        <option value="delete">{{ 'subscribers.delete' | trans }}</option>
+                    </select>
+                </td>
+            </tr>
+        </thead>
+    </table>
+    </form>
+</div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+    {% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#newsletter_subscriber_table').DataTable();
+        });
+    </script>
+{% endblock %}
+

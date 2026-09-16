@@ -1,0 +1,129 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% block sitekeywords %}
+    Zambia, List of Jurisdictions, Locations, View Licenses
+{% endblock %}
+{% block page_title %}
+    List of all Jurisdictions
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}/index.php">
+        {{ 'home'|trans }}
+    </a>
+</li>
+<li>Jurisdictions</li>
+{% endblock%}
+
+{% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>List of all Jurisdictions</h4>
+    </div>
+    <!-- End sub_content -->
+{% endblock %}
+
+{% block body %}
+    <link href="{{ asset('bundles/webmastersafricapress/new/dt/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <div
+        class="col-md-12 col-sm-12 col-xs-12">
+        <!-- End sub_content -->
+        <div class="box_style_2">
+            <table class="table table-condensed hover bordered" id="dtable" width="100%">
+                <thead>
+                    <tr>
+                        <th class="text-center">Jurisdictions</th>
+                        <th class="text-center">Number of Licenses</th>
+                        <th class="text-center">View Licenses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for location in locations %}
+                        <tr>
+                            <td class="text-center">{{ location.name }}</td>
+                            <td class="text-center">
+                                {% if location.publishedLicenses|length > 0 %}
+                                    {{ location.publishedLicenses|length }}
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if location.publishedLicenses|length > 0 %}
+                                    <a class="text-primary" href="{{path('browse_license_locations', {'id': location.id }) }}">
+                                        <i class="fa fa-share">
+                                            Click to View Licenses
+                                        </i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript_table %}
+    <script src="{{ asset('bundles/webmastersafricapress/new/dt/jquery.dataTables.min_locations.js') }}">
+    </script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#dtable').DataTable();
+        });
+        function getIndustries(url, location) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("industries").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("businesstypes").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("industry=" + industry);
+    }
+    </script>
+{% endblock %}
+

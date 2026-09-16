@@ -1,0 +1,7 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% for license in licenses %}
+    <li> <a href="{{ app.request.basepath }}/license/id/{{ license.id }}">{{ license.name }}</a> </li>
+{% endfor %}
+
+<li class="view-more"><a href="{{ app.request.basepath }}/browse/licenses">{{ 'viewmore'|trans }}</a> </li>

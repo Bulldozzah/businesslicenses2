@@ -1,0 +1,46 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}News
+{% endblock %}
+
+{% block breadcrumb %}
+  <li>
+    <a href="{{ app.request.basepath }}">{{ 'home'|trans }}</a>
+  </li>
+  <li>{{ 'news_articles'|trans }}</li>
+  {% endblock%}
+
+
+  {% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+      <h4>{{ entity.title }}</h4>
+    </div>
+    <!-- End sub_content -->
+  {% endblock %}
+
+
+  {% block body %}
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('bundles/webmastersafricapress/new/css/blog.css') }}" rel="stylesheet">
+
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="post">
+        <div class="post_info clearfix">
+          <div class="post-left">
+            <ul>
+              <li>
+                <i class="icon-calendar-empty"></i>
+                {{ entity.created|date('Y-m-d') }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>{{ entity.article | raw }}</p>
+      </div>
+      <!-- end post -->
+    </div>
+  {% endblock %}

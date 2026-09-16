@@ -1,0 +1,28 @@
+license_workflow:
+  pattern: /
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:index" }
+license_workflow_show:
+  pattern:  /{id}/show
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:show" }
+
+license_workflow_new:
+  pattern:  /new
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:new" }
+
+license_workflow_create:
+  pattern:  /create
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:create" }
+  requirements: { _method: post }
+
+license_workflow_edit:
+  pattern:  /{id}/edit
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:edit" }
+
+license_workflow_update:
+  pattern:  /{id}/update
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:update" }
+  requirements: { _method: post|put }
+
+license_workflow_delete:
+  pattern:  /{id}/delete
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:Workflow:delete" }

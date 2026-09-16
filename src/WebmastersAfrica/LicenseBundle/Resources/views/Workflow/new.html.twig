@@ -1,0 +1,80 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}
+  {{ site_title }},
+  {{ 'licenses.licenses_workflow' | trans }}
+
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>New Stage</h5>
+
+        <span>Add New Workflow Stage</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block body %}
+  <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+      <h6>Add New Workflow Stage</h6>
+      <div class="num">
+        <a href="{{ path('license_workflow') }}" title="{{ 'licenses.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'licenses.back_to_list' | trans }}</a>
+      </div>
+    </div>
+    {{ form_start(form, {'attr': {'class': 'form', 'novalidate':'novalidate'}}) }}
+    <input name="_method" type="hidden" value="POST"/>
+    <div id="errors">
+      {{ form_errors(form) }}
+    </div>
+                    {{ form_row(form.title, { 'attr': {'class': 'w3-input w3-border form-control'} }) }}
+                    {{ form_row(form.taskDescription )}}
+                    {{ form_row(form.nextStage )}}
+                    {{ form_row(form.sendEmails)}}
+                    {{ form_row(form.agency, { 'attr': {'class': 'chzn-select form-control', 'multiple':'multiple'} }) }}
+                    {{ form_row(form.assignee)}}
+                    {{ form_row(form.notificationsUser, { 'attr': {'class': 'chzn-select form-control', 'multiple':'multiple'} }) }}
+                    {{ form_row(form.accessGroups, { 'attr': {'class': 'chzn-select form-control', 'multiple':'multiple'} }) }}
+                    {{ form_rest(form) }}   
+                    {{ form_end(form) }}
+                    
+  <script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+      var accessGroups = $("#webmastersafrica_licensebundle_workflow_accessGroups").bootstrapDualListbox();
+      $(document).ready(function () {
+        var agencyList = $("#webmastersafrica_licensebundle_workflow_agency").bootstrapDualListbox({
+              nonSelectedListLabel: 'Non-selected',
+              selectedListLabel: 'Selected',
+              preserveSelectionOnMove: 'moved',
+              moveOnSelect: true
+        });
+        $("#webmastersafrica_licensebundle_workflow_notificationsUser").bootstrapDualListbox();
+        $("#webmastersafrica_licensebundle_workflow_assignee").select2();
+        $("#webmastersafrica_licensebundle_workflow_type").change(function() {
+          if ($(this).val() != "assess") {
+              $("#webmastersafrica_licensebundle_workflow_previousStage").parent().hide();
+          } else {
+              $("#webmastersafrica_licensebundle_workflow_previousStage").parent().show();
+          }
+        });
+      });
+    </script>
+    <style type="text/css">
+    .error {
+      color: red;
+    }
+    </style>
+  {% endblock %}

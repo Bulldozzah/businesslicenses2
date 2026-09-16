@@ -1,0 +1,48 @@
+WebmastersAfrica\PressBundle\Entity\Page:
+    properties:
+        page_title:
+            - NotBlank: ~
+        page_breadcrumb_title:
+            - NotBlank: ~
+        page_content:
+            - NotBlank: ~
+        page_order:
+            - NotBlank: ~
+WebmastersAfrica\PressBundle\Entity\News:
+    properties:
+        title:
+            - NotBlank: ~
+        article:
+            - NotBlank: ~
+WebmastersAfrica\PressBundle\Entity\Newsletter:
+    properties:
+        subject:
+            - NotBlank: ~
+        content:
+            - NotBlank: ~
+WebmastersAfrica\PressBundle\Entity\NewsletterSubscriber:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        name:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+        organisation:
+            - NotBlank: ~
+WebmastersAfrica\PressBundle\Entity\Menu:
+    properties:
+        title:
+            - NotBlank: ~
+WebmastersAfrica\PressBundle\Entity\Locale:
+    properties:
+        title:
+            - NotBlank: ~
+        localeCode:
+            - NotBlank: ~
+WebmastersAfrica\PressBundle\Entity\Faq:
+    properties:
+        email:
+            - Email: ~
+        question:
+            - NotBlank: ~

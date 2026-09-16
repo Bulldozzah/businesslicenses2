@@ -1,0 +1,52 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+  {% block header %}
+   
+  {% endblock %}
+
+{% block pagetitle %}Admin Login
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+  <a href="{{ app.request.basepath }}">
+    {{ 'home'|trans }}
+  </a>
+</li>
+<li>{{ 'signin'|trans }}</li>
+{% endblock%}
+
+
+{% block body %}
+  <main role="main">
+
+    <div class="col-md-offset-3 col-md-6">
+      <div class="box_style_2 info m-t-20">
+        <h3 class="nomargin_top">Admin Login
+          <i class="icon_lock-open_alt pull-right"></i>
+        </h3>
+        {% if error %}
+          <div style="color: #FF0000;">{{ 'error'|trans }}</div>
+        {% endif %}
+        <form class="m-t-20 loginform" action="{{ app.request.basepath }}/login_check" method="post">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+          <div class="form-group">
+            <input name="_username" id="user_login" class="form-control" value="" placeholder="{{ 'username'|trans }}" size="20" tabindex="10" type="text" required="required">
+          </div>
+          <div class="form-group m-b-5">
+            <input name="_password" id="user_pass" class="form-control" placeholder="{{ 'password'|trans }}" value="" size="20" tabindex="20" type="password" required="required">
+          </div>
+          <p class="forget_password">
+            <a href="{{ path('fos_user_resetting_request') }}">{{ 'forgotpassword'|trans }}</a>
+          </p>
+          <input class="form-button form-button-green form-button-massive" type="submit" name="signin" id="wp-submit" class="btn-submit" value="{{ 'login'|trans }}" tabindex="100">
+        </form>
+      </div>
+      <!-- End box_style_1 -->
+    </div>
+  </main>
+{% endblock %}

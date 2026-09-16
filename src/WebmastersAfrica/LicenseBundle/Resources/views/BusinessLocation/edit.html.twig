@@ -1,0 +1,61 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'locations.edit_location' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'locations.edit_location' | trans }}</h5>
+            <span>{{ 'locations.edit_location_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+<div class="widget">
+<div class="title">
+<img class="titleIcon" alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/globe.png') }}">
+<h6>{{ 'locations.edit_location' | trans }}</h6>
+
+<div class="num">
+<a href="{{ path('managelocations') }}" title="{{ 'locations.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'locations.back_to_list' | trans }}</a>
+</div>
+</div>
+<div class="body nopadding ">
+ <form action="{{ path('managelocations_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form">
+<input type="hidden" name="_method" value="PUT" />
+{{ form_row(edit_form.name) }}
+{{ form_row(edit_form.parentLocation) }}
+{{ form_row(edit_form.is_default) }}
+<div class="formSubmit">
+{{ form_row(edit_form.update, { 'attr': {'class':'w3-right w3-center w3-button w3-blue w3-round-medium', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'} }) }}
+</div>
+<div class="clear"></div>
+</div>
+<div style="display: none;">
+{{ form_rest(edit_form) }}
+</div>
+</form>
+
+</div>
+</div>
+<style type="text/css">
+.error {
+	color: red;
+}
+</style>
+ <script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+    <script>
+        $(".label-required").append("<i style='color: red;'>*</i> ");
+        $(".form").validate();
+    </script>
+{% endblock %}

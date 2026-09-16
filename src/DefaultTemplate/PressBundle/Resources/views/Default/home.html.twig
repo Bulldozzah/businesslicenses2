@@ -1,0 +1,367 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:homepage.html.twig' %}
+
+{% block page_title %}Home Page
+{% endblock %}
+
+{% block banner %}
+  {{ 
+      include("WebmastersAfricaPressBundle:Blocks:banner.html.twig", {'banners': banners, 'locations': location_count,'licenses': licenses_count, 'business_types': business_types }) }}
+{% endblock %}
+
+{% block body %}
+
+
+  <div class="otb_h2 high_light2">
+    <div class="container center">
+      <div class="main_title nomargin_top">
+        {{ page.pageContent | raw }}
+      </div>
+    </div>
+    <!-- End container -->
+  </div>
+  <!-- End hight_light -->
+
+
+  <div
+    class="otb_hSearch high_light2">
+    <!-- Content ================================================== -->
+    <div class="otb_space_chini container  p-t-20 p-b-0">
+      <div class="main_title">
+        <h2 class="p-t-0">{{ 'advancedsearchlicense'|trans }}</h2>
+        <p>
+          {{ 'searchlicensehmdesc'|trans }}
+        </p>
+
+        <!-- Search ================================================== -->
+        {{include("WebmastersAfricaPressBundle:Press:search.html.twig", {'locations': locations, 'industries': industries, 'businessactivities': businessactivities, 'businesstypes': businesstypes, 'speedB': speedB,'speedC': speedC,'speedD': speedD, 'speedE': speedE })}}
+        <!--
+        <a class="form-button form-button-red form-button-small m-t-20" data-target="#howitworks_1" data-toggle="modal" href="#0">Learn how the search works</a>
+        -->
+
+      </div>
+
+    </div>
+    <!-- End container -->
+  </div>
+
+
+  <div class="white_bg">
+    <div class="container margin_60">
+
+      <div class="main_title">
+        <h2 class="nomargin_top">{{ 'popular'|trans }}</h2>
+        <p>
+          {{ 'populardesc'|trans }}
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          {% set count = 0 %}
+          {% for license in licenses %}
+            {% set count = count + 1 %}
+            <a href="{{ app.request.basepath }}/license/id/{{ license.id }}" class="strip_list">
+              <div class="desc">
+                <h3>{{ license.name }}</h3>
+                <div class="agency">
+                  {% if license.agency.name %}
+                    {{ license.agency.name }}
+                  {% endif %}
+                </div>
+              </div>
+              <!-- End desc-->
+            </a>
+            <!-- End strip_list-->
+            {% if(count == 2) %}
+            </div>
+            <!-- End col-md-6-->
+            <div class="col-md-6">
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="hidden-xs" id="delivery_time">
+          <a class="form-button form-button-massive form-button-default" href="/browse/licenses">{{ 'browsemorelicense'|trans }}</a>
+        </div>
+      </div>
+      <!-- End row -->
+
+    </div>
+  </div>
+  <!-- End white_bg -->
+
+
+  <style type="text/css">
+    .home_boxesA ul {
+      padding-left: 0;
+      list-style: none;
+      margin-top: 6px;
+    }
+    .high_light3 .home_boxesA h3 {
+      font-size: 1.2em;
+    }
+    .high_light3 h3 {
+      color: #111;
+      font-weight: normal;
+      margin: 0;
+      padding: 0;
+    }
+    .home_boxesA .feature {
+      min-height: 180px;
+    }
+
+    .custom-btn {
+      border: 2px solid black;
+      background-color: white;
+      color: black;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+
+    .custom-default {
+      border-color: #2196F3;
+      color: black;
+    }
+    .custom-default:hover {
+      background: #2196F3;
+      color: white;
+    }
+  </style>
+
+
+  <!-- End Content =============================================== -->
+  <div class="high_light3">
+    <div class="container">
+      <div class="main_title">
+        <h2 class="nomargin_top">Business Start Up Procedure</h2>
+        <p>
+          Find detailed requirements to operate a business in Zambia.
+        </p>
+      </div>
+      <div class="home_boxesA row">
+        {% for procedures in business_startup %}
+          <div class="col-md-4 wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
+            <div class="feature">
+              <i class="icon_documents_alt"></i>
+              <h3>{{ procedures.title|raw }}</h3>
+              <ul>
+                {% for business_procedure in procedures.businessProcedure %}
+                  {% if business_procedure.isPublished %}
+                    <li>
+                      <a href="/business-procedures/details/{{ business_procedure.slug }}">
+                        {{ business_procedure.name|raw  }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- End row -->
+    </div>
+  </div>
+
+  <!-- Login modal -->
+  <div aria-hidden="true" aria-labelledby="howitworks" class="modal fade" id="howitworks_1" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content modal-popup">
+
+        <div class="box_style_2" id="main_menu">
+          <h2 class="inner">HOW IT WORKS</h2>
+
+          <p class="main-content">Businesses operating in Zambia are typically required to obtain one or more licenses and permits, depending on the
+            <strong>activities</strong>
+            of their enterprise.</p>
+
+          <h4 class="nomargin_top">How to identify relevant licenses</h4>
+
+          <p>Select your
+            <strong>jurisdiction
+            </strong>
+            (e.g. National, X capital city, Municipalities or Town councils.) followed by the
+            <strong>industry</strong>
+            in which your business operates – this will then display a list of
+            <strong>business types</strong>
+          </p>
+
+          <img width="506" src="{{ asset('bundles/webmastersafricapress/new/img/search-image.png') }}" alt="" data-retina="true" class="hidden-xs m-t-10  m-b-20">
+
+
+          <p>Once you have selected the relevant
+            <strong>Business Type</strong>, the web site will display a
+            <strong>list of Business Activities</strong>
+            commonly associated with this line of business.  Ticking the boxes next to the relevant Business Activities then provide you with the various licenses and permits you will need to obtain.</p>
+
+          <h4 class="nomargin_top">Jurisdiction</h4>
+          <p>
+            This is a set of locations in which a paticular license is obtainable. There are four Jurisdictions in this portal:
+            <strong>National, 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  X capital city,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Municipalities and
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Town councils.</strong>
+          </p>
+          <h5>National</h5>
+          <p>These are licenses which are required nationally.</p>
+          <h5>X Capital City</h5>
+          <p>These are licenses which are required for X Capital City.</p>
+          <h5>Municipalities</h5>
+          <p>These are licenses which are required for any Municipality within Zambia. below is a list of all Municipalities within Zambia.</p>
+          <div class="col-md-3">
+            <ul>
+              <li>Municipalities 1</li>
+              <li>Municipalities 1</li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>Municipalities 2</li>
+              <li>Municipalities 2</li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>Municipalities 3</li>
+              <li>Municipalities 3</li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>Municipalities 4</li>
+              <li>Municipalities 4</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <h5>Town Council</h5>
+          <p>These are licenses which are required for any Town Council within Zambia. below is a list of all Town Councils within Zambia.</p>
+          <div class="col-md-3">
+            <ul>
+              <li>Town 1</li>
+              <li>Town 2</li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>Town 2
+              </li>
+              <li>Town 3
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>Town 4
+              </li>
+              <li>Town 5</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div></div>
+          <div></div>
+        </div>
+        <!-- End box_style_1 -->
+      </div>
+    </div>
+  </div>
+  <!-- End modal -->
+  <script language="javascript">
+    $(document).ready(function () {
+      // let industry = $("#speedC").val();
+      // var url = "{{ app.request.basepath }}/browse/listbusinesstypes";
+      // var businessTypes = getBusinesstypes(url, industry);
+      
+    });
+    function getIndustries(url, location) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("industries").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+          $('#speedD').select2();
+        } else {
+          document.getElementById("businesstypes").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("industry=" + industry);
+    }
+
+    function getBusinessactivities(url, business_type) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businessactivities").innerHTML = self.xmlHttpRequest.responseText;
+          // $('#speedE').select2({multiple: true});
+          $('#speedE').select2({
+                placeholder: "SELECT BUSINESS ACTIVITIES:",
+                multiple: true
+            });
+        } else {
+          document.getElementById("businessactivities").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("businesstype=" + business_type);
+    }
+  </script>
+{% endblock %}

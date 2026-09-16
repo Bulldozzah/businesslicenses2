@@ -1,0 +1,77 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:homepage.html.twig' %}
+
+{% block page_title %}Home Page
+{% endblock %}
+
+
+{% block body %}
+    <div class="box_white" id="middle-home">
+        <div class="row">
+            {{ page.pageContent | raw }}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="our-work">
+        {{ include("WebmastersAfricaPressBundle:Press:searchsave.html.twig", with_context = true) }}
+
+        <div class="clear"></div>
+    </div>
+
+    <script language="javascript">
+        function getIndustries(url, location) {
+            var xmlHttpRequest = false;
+            var self = this;
+
+            // Mozilla/Safari
+            if (window.XMLHttpRequest) {
+                self.xmlHttpRequest = new XMLHttpRequest();
+            } // IE else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        self.xmlHttpRequest.onreadystatechange = function () {
+
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+            } else {
+                document.getElementById("industries").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes (url, industry) {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        } // IE else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    self.xmlHttpRequest.open('POST', url, true);
+    self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+            document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+            document.getElementById("businesstypes").innerHTML = "Loading...";
+        }
+
+    }
+
+    self.xmlHttpRequest.send("industry=" + industry);
+}
+    </script>
+{% endblock %}

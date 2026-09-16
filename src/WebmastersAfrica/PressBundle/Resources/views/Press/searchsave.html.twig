@@ -1,0 +1,66 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ 'save_licenses'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'licenses'|trans }}</li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'save_licenses'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'save_licenses'|trans }}{% endblock %}
+
+{% block body %}
+    <!-- share widget -->
+        <div class="widget-container widget_login">
+            {% if share == false %}
+            <h3>{{ 'enter_search_name'|trans }}</h3>
+            <form id="form-comments" class="loginform" onSubmit="if(document.getElementById('title').value == '' && document.getElementById('existing').value == ''){ alert('{{ 'please_enter_title_or_select_existing_search'|trans }}'); return false; }else{ return true; }" id="form-comments" action="{{ app.request.basepath }}/search/commit" method="post" autocomplete="off">                           
+            <p><label>{{ 'new_search_title'|trans }}</label><br><input type="text" name="title" id="title" size="30" tabindex="10" type="text"></p>
+            
+            <p><label>{{ 'add_to_existing'|trans }}</label><br><select name="existing" id="existing">
+            <option value=""></option>
+            {% for search in searches %}
+            <option value='{{ search.id }}'>{{ search.name }}</option>
+            {% endfor %}
+            </select></p>
+
+            {% else %}
+            <h3>{{ 'enter_email'|trans }}</h3>
+            <form id="form-comments" class="loginform" onSubmit="if(document.getElementById('email').value == ''){ alert('{{ 'please_enter_an_email'|trans }}'); return false; }else{ return true; }" id="form-comments" action="{{ app.request.basepath }}/share/commit" method="post" autocomplete="off">                           
+            <p><label>{{ 'email_address'|trans }}</label><br><input type="text" name="email" id="email" size="30" tabindex="10" type="text"></p>
+
+            {% endif %}
+            
+               {% for license in licenseentities %}
+                 <input type="hidden" value="{{ license.id }}" id="sf_admin_batch_selection_{{ license.id }}" name="sf_admin_batch_selection[]">
+               {% endfor %}
+            
+            {% if share == false %}
+            <p class="submit">
+                <input type="reset" name="wp-submit" id="wp-submit" class="btn-submit" value="{{ 'reset'|trans }}" tabindex="100">
+                <input name="submitbuttonname" type="submit" onclick="chkLgn()" class="btn-submit" tabindex="100" name="submitbuttonname" value="{{ 'save_search'|trans }}">
+            </p>
+            {% else %}       
+            <p class="submit">
+                <input type="reset" name="wp-submit" id="wp-submit" class="btn-submit" value="{{ 'reset'|trans }}" tabindex="100">
+                <input name="submitbuttonname" type="submit" onclick="chkLgn()" class="btn-submit" tabindex="100" name="submitbuttonname" value="{{ 'share_licenses'|trans }}">
+            </p>
+            {% endif %}
+            </form>
+        </div>
+        <!--/ share widget --> 
+{% endblock %}

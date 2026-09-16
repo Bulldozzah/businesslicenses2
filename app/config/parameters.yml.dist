@@ -1,0 +1,27 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_encryption: ~
+    mailer_port:       ~
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
+    site_title: eRegistry
+
+    facebook_client_id: ~
+    facebook_client_secret: ~
+    google_client_id: ~
+    google_client_secret: ~
+    recaptacha_client_site: ~
+    recaptacha_server_side: ~
+
+    app_api_key: ~
+    app_report_url: http://localhost:3000

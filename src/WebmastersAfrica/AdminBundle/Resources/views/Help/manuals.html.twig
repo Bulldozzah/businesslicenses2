@@ -1,0 +1,42 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'help.help_manuals' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'help.help_manuals' | trans }}</h5>
+            <span>{{ 'help.help_manuals_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}   
+<!-- Widgets -->
+<div class="widgets">
+     <!-- Headings -->
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/clipboard.png') }}" alt="" class="titleIcon" /><h6>{{ 'help.help' | trans }}</h6></div>
+        <div class="body">
+            <div class="w3-panel w3-border w3-light-grey w3-round-medium">
+                <h4 class="pt10">User Manuals</h4>
+            </div>
+            <hr />
+            <ul class="w3-ul">
+                <li>
+                    <h6><a href="{{ asset('bundles/webmastersafricaadmin/Zambia eRegistry_System Guide v1.2.pdf') }}" title="Download user manaual" download>1. Download User Manual</a></h6>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,310 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ entity.title}}
+    | Manage Comments
+{% endblock %}
+
+{% block header %}
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ entity.title }}
+                </h5>
+                {% if entity.deleted == 0 %}
+                <p>
+                    <span>
+                        <a class="w3-button w3-border w3-button-medium w3-black" target="_blank" href="{{ path('regulation_comments', {'slug': entity.slug }) }}">view on frontend</a>
+                    </span>
+                </p>
+                {% endif %}
+                {% if entity.deleted == 0 %}
+                    <h5>Manage Comments</h5>
+                {% else %}
+                    <h5>
+                        <a href="#" id="publish_this_regulation" title="Publish This Regulation" class="w3-button w3-green w3-hover-green w3-medium w3-border-green">
+                            <span>Publish This Regulation</span>
+                        </a>
+                    </h5>
+                {% endif %}
+            </div>
+            <div class="middleNav" style="border: none;">
+                {% if entity.deleted == 0 %}
+                    <a href="{{ path('regulations') }}" title="back to list" class="wButton redwB ml15 m10">
+                        <span>BACK TO REGULATIONS</span>
+                    </a>
+                {% else %}
+                    <a href="{{ path('regulations_unpublished') }}" title="back to list" class="wButton redwB ml15 m10">
+                        <span>BACK TO REGULATIONS</span>
+                    </a>
+                {% endif %}
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </p>
+    </div>
+{% endblock %}
+{% block body %}
+    <span id="publish_this_regulation_error"></span>
+    {% for flashMessage in app.session.flashbag.get('create') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('comment_publish') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ flashMessage }}
+            </p>
+        </div>
+    {% endfor %}
+
+    {% if entity.deleted == 0 %}
+        <a href="#" class="w3-button w3-border w3-border-blue" onclick="document.getElementById('regulation_reply').style.display='block'">
+            Make Comments on this Consultation. <i class="fa fa-comment"></i>
+        </a>
+    {% endif %}
+    <a href="{{ path('manage_comment_list', {'id': entity.id }) }}" class="w3-button w3-hover-red w3-border w3-border-black">
+        Comments List <span class="w3-badge">{{ entity.commentsCount|length }}</span>
+    </a>
+
+    {% if entity.commentPendingReview|length > 0 %}
+        <a href="{{ path('pending_review_comment_regulation', {'regulation_id': entity.id }) }}" class="w3-button w3-red w3-hover-red w3-border w3-border-red">
+            Comments Pending Review <span class="w3-badge">{{ entity.commentPendingReview|length }}</span>
+        </a>
+    {% endif %}
+
+    {% if entity.abusiveComments|length > 0 %}
+        <a href="{{ path('comments_reported_abusive_manage', {'regulation_id': entity.id }) }}" class="w3-button w3-hover-green w3-border w3-border-green">
+            Reported Abusive <span class="w3-badge">{{ entity.abusiveComments|length }}</span>
+        </a>
+    {% endif %}
+
+    {% if entity.UnpublishedComments|length > 0 %}
+	    <a href="{{ path('un_published_comment_regulation', {'regulation_id': entity.id }) }}" class="w3-button w3-hover-blue w3-border w3-border-blue">
+	        Unpublished Comments <span class="w3-badge">{{ entity.unpublishedComments|length }}</span>
+	    </a>
+    {% endif %}
+    {% if entity.userDeletedComment|length > 0 %}
+        <a href="{{ path('user_deleted_comments_list', {'regulation_id': entity.id }) }}" class="w3-button w3-hover-red w3-border w3-border-red">
+            User Deleted Comments <span class="w3-badge">{{ entity.userDeletedComment|length }}</span>
+        </a>
+    {% endif %}
+    <div class="w3-container">
+        <div id="regulation_reply" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+                <div class="w3-center"><br>
+                    Your Reply Message
+                    <form class="w3-container" id="reply_form" action="{{path('regulation_comments_reply', {'regulation_id': entity.id }) }}" method="POST">
+                        <div class="w3-section">
+                            <textarea class="w3-input w3-border w3-margin-bottom" id="reply_message" placeholder="Enter your reply message" name="reply"></textarea>
+                            <p id="error_message"></p>
+                        </div>
+                        <input type="hidden" value="{{entity.id}}" id="regulation_id" name="regulation">
+                        <input type="hidden" value="{{entity.id}}" id="comment_id" name="comment_id">
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" id="reply_button_action">Reply</button>
+                    </form>
+
+                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                        <button onclick="document.getElementById('regulation_reply').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="widget">
+            <div class="title">
+                <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+                <h6>List of Comments Pending Review</h6>
+            </div>
+            <form id="batch_form" name="batch_form" action="{{ path("batch_comments") }}" method="post">
+                <table cellpadding="0" cellspacing="0" width="100%" class="sTable w3-table-all w3-card-4" id="nc_abusive_comment_table">
+                    <thead>
+                        <tr class="w3-pale-blue">
+                            <td>
+                                Comment Title
+                            </td>
+                            <td>Attachment</td>
+                            <td>Replies</td>
+                            <td>
+                                Actions
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for comment in comments %}
+                            {% if (comment.pendingReview == 1 ) %}
+
+                                <tr class="w3-hover-blue">
+                                    <td>
+                                        {% if comment.comment %}
+                                            {{ comment.comment }}
+                                        {% else %}
+                                            {% if comment.document %}
+                                            <a href="{{ asset('uploads/documents/' ~ comment.document)}}" target="_blank">
+                                                Document Attached
+                                            </a>
+                                        {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if comment.document %}
+                                            <a href="{{ asset('uploads/documents/' ~ comment.document)}}" target="_blank">
+                                                <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="w3-center">
+                                        <a class="w3-badge color: blue" href="{{ path('comments_show', {'id': comment.id}) }}">{{ comment.childrenRight|length }}</a>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            {% if is_expr_granted("hasRole('MODERATE_COMMENTS')") %}
+                                                <span id="publish_comments_area{{comment.id}}">
+                                                    <a class="w3-button w3-white w3-border w3-border-blue" title="publish" onclick="publishComment({{comment.id }})"><i class="fa fa-check" aria-hidden="true"></i>
+                                                    </a> | 
+                                                    <a class="w3-button w3-white w3-border w3-border-red" title="unpublish" onclick="unpublishComment({{comment.id }})"><i class="fa fa-ban" aria-hidden="true"></i>
+                                                    </a>
+                                                </span>
+                                            {% endif %}
+                                            {% if is_expr_granted("hasRole('DELETE_COMMENT')") %}
+                                            	 <span>
+                                                    <a href="{{path('managecomments_2_delete',{'id':comment.id, 'entity': entity.id})}}" class="w3-button w3-white w3-border w3-border-red" onclick="return confirm('Are you sure you want to delete this comment')">
+                                                        Delete
+                                                    </a>
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    {% endblock %}
+    {% block stylesheet_2 %}
+        <script>
+            $(document).ready(function () {
+                document.getElementById("reply_message").value = "";
+                $('#nc_abusive_comment_table').DataTable();
+                $('#reply_button_action').click(function (e) {
+                    e.preventDefault();
+                    $("textarea#reply_message").val($("#reply_message").val());
+                    if ($("#reply_message").val()) {
+                        $("#reply_form").submit();
+                    } else {
+                        $("#error_message").html(`<span style="color: red;">Message Missing</span>`)
+                    }
+                });
+
+                
+            });
+
+            function publishComment(comment_id)
+            {
+                let loader = `<img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" />`;
+                let notification_area = `#publish_comments_area${comment_id}`;
+                $(notification_area).html(loader);
+                $.ajax({
+                  type: "post",
+                  url: `/login-admin/ajax/managecomments/publishcomment/comments`,
+                  data: {'comment_id': comment_id},
+                  success: function (response) {
+                    let serverResponse = JSON.parse(response);
+                    if (serverResponse.success) {
+                        $("#publish_this_regulation_error").html(`
+                            <div class="nNote nSuccess hideit">
+                            <p>
+                                <strong>Success:
+                                </strong>
+                                ${serverResponse.message}
+                            </p>
+                        `);
+                        $(notification_area).html(
+                            `
+                            <a class="w3-button w3-white w3-border w3-border-red w3-button-medium" title="unpublish" onclick="unpublishComment(${comment_id })">
+                            <i class="fa fa-ban"></i></a>`
+                        );
+                    } else {
+                        $("#publish_this_regulation_error").html(`
+                            <div class="nNote nFailure hideit">
+                            <p>
+                                <strong>Error:
+                                </strong>
+                                ${serverResponse.message}
+                            </p>
+                        `);
+                    }
+                  }
+                });
+            }
+
+            function unpublishComment(comment_id)
+            {
+                let loader = `<img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" />`;
+                $("#publish_comments_area").html(loader);
+                $.ajax({
+                  type: "post",
+                  url: `/login-admin/ajax/managecomments/unpublishcomment/comments`,
+                  data: {'comment_id': comment_id},
+                  success: function (response) {
+                    let serverResponse = JSON.parse(response);
+                    if (serverResponse.success) {
+                        $("#publish_this_regulation_error").html(`
+                            <div class="nNote nSuccess hideit">
+                            <p>
+                                <strong>Success:
+                                </strong>
+                                ${serverResponse.message}
+                            </p>
+                        `);
+                        $("#publish_comments_area").html(
+                            `
+                            <a class="w3-button w3-white w3-border w3-border-blue w3-button-medium" title="publish" onclick="publishComment(${comment_id})">
+                            <i class="fa fa-check"></i></a>`
+                        );
+                    } else {
+                        $("#publish_this_regulation_error").html(`
+                            <div class="nNote nFailure hideit">
+                            <p>
+                                <strong>Error:
+                                </strong>
+                                ${serverResponse.message}
+                            </p>
+                        `);
+                    }
+                  }
+                });
+            }
+        </script>
+    {% endblock %}

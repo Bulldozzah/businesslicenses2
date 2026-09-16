@@ -1,0 +1,38 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaTaskBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'tasks.add_new_tasks' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'tasks.add_new_tasks' | trans }}</h5>
+            <span>{{ 'tasks.add_task_description' | trans }}</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('managetasks') }}" title="{{ 'tasks.back_to_list' | trans }}" class="wButton redwB ml15 m10"><span>{{ 'tasks.back_to_list' | trans }}</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}  
+<form action="{{ path('managetasks_create') }}" method="post" {{ form_enctype(form) }} class="form">
+{{ form_row(form.taskDescription) }}
+{{ form_row(form.taskStartDate) }}
+{{ form_row(form.taskEndDate) }}
+{{ form_row(form.assignee) }}
+{{ form_row(form.license) }}
+{{ form_row(form.update) }}
+<div style="display: none;">
+    {{ form_rest(form) }}
+</div>
+</form>
+{% endblock %}

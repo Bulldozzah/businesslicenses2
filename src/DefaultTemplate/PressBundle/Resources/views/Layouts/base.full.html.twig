@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+
+        <meta name="author" content="{% block siteauthor %}{% endblock %}">
+        <meta name="keywords" content="{% block sitekeywords %}{% endblock %}">
+        <title>{{ site_title }}:
+            {% block page_title %}{% endblock %}
+        </title>
+
+
+            <script src="https://www.google.com/recaptcha/api.js?render=6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5"></script>
+
+        {% block css %}
+            {{ render(controller("WebmastersAfricaPressBundle:Blocks:css")) }}
+        {% endblock %}
+    </head>
+    <body class="eregistry_body" OnLoad="document.search_form.keywords.focus();">
+
+        <div id="preloader">
+            <div class="sk-spinner sk-spinner-wave" id="status">
+                <div class="sk-rect1"></div>
+                <div class="sk-rect2"></div>
+                <div class="sk-rect3"></div>
+                <div class="sk-rect4"></div>
+                <div class="sk-rect5"></div>
+            </div>
+        </div>
+        <!-- End Preload -->
+        <!-- header -->
+        {% block header %}
+            {{ render(controller("WebmastersAfricaPressBundle:Blocks:header")) }}
+        {% endblock %}
+        <!--/header-->
+
+        <!-- Breadcrumb -->
+        <div id="position">
+            <div class="container">
+                <ul>
+                    {% block breadcrumb %}{% endblock %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Content ================================================== -->
+        <div class="container">
+            <div
+                class="row">
+                <!-- Page header -->
+                {% block pageheader %}{% endblock %}
+                <!-- Content -->
+                {% block body %}{% endblock %}
+            </div>
+            <!-- End row -->
+        </div>
+        {% block footer %}
+            {{ render(controller("WebmastersAfricaPressBundle:Blocks:footer")) }}
+        {% endblock %}
+        {% block js %}
+            {{ render(controller("WebmastersAfricaPressBundle:Blocks:js")) }}
+        {% endblock %}
+        <script>
+            $(document).ready(function () {
+                $('#speedB').select2();
+                $('#speedC').select2();
+                $('#speedD').select2();
+                $('#speedE').select2({
+                    placeholder: "SELECT BUSINESS ACTIVITIES:",
+                    multiple: true
+                });
+            });
+        </script>
+        {% block javascript_table %}
+            <script src="{{ asset('bundles/webmastersafricapress/new/dt/jquery.dataTables.min.js') }}"></script>
+            <script>
+                $(document).ready(function () {
+                    var table = $('#dtable').DataTable();
+                    var table2 = $('#dtable2').DataTable({"pageLength": 5});
+                    $("#filter").on('change', function () { // filter by selected value on second column
+                        table.column(3).search($(this).val()).draw();
+                    });
+                });
+            </script>
+        {% endblock %}
+        {% block google_captacha %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block breadcrumb %}
+<li>
+  <a href="{{ app.request.basepath }}">
+    {{ 'home'|trans }}
+  </a>
+</li>
+<li>Check Email</li>
+{% endblock%}
+
+
+{% block body %}
+
+  <div class="feedback_page_wrapper">  
+    <div class="row cleafix">
+      <div class="offset-md-3 col-md-6">
+        <div class="box_style_2 m-t-20">
+          <h2 class="text-center nomargin_top align-center">Thank you!</i></h2>
+
+        <div id="confirm">
+          <i class="icon_check_alt2"></i>
+          <h3 class="text-center">Check your email!</h3>
+          <p>
+            {{ 'registration.check_email'|trans({'%email%': user.email}) }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>{% endblock body %}

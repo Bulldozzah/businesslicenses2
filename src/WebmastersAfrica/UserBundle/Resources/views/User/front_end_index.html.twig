@@ -1,0 +1,166 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}
+  {{ site_title }},
+  {{ 'users.manage_users' | trans }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>{{ 'users.users' | trans }}</h5>
+        <span>{{ 'users.users_frontend_description' | trans }}</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="statsRow">
+    {% if add_user %}
+      <div class="wrapper w3-center">
+        <div class="w3-show-inline-block">      
+          <div class="w3-bar ">
+            <a href="{{ path("manageusers_new") }}" title="" class="w3-button w3-round-large w3-blue w3-hover-teal w3-large" title="" href="#">
+              <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+              <span>{{ 'users.add_user' | trans }}</span>
+            </a>
+            {# {% if is_expr_granted("hasRole('GROUPS_MANAGE')") %}
+              <a href="{{ path("managegroups_new") }}" title="" class="w3-button w3-round-large w3-blue w3-large" title="" href="#">
+                <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                <span>{{ 'users.add_group' | trans }}</span>
+              </a>
+
+              <a href="{{ path("managegroups") }}" title="" class="w3-button w3-round-large w3-red w3-large" title="" href="#">
+                <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit-column.png') }}" alt=""/>
+                <span>{{ 'users.list_groups' | trans }}</span>
+              </a>
+            {% endif %} #}
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+
+{% endblock %}
+
+{% block body %}
+
+  {% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+
+  <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+      <h6>{{ user_heading }}</h6>
+    </div>
+    <form id="batch_form" name="batch_form" action="{{ path("front_end_batch_users") }}" method="post">
+      <table cellpadding="0" cellspacing="0" class="w3-bordered w3-table-all w3-hoverable" id="admin_table" width="100%">
+        <thead>
+          <tr>
+            <td width="3%">
+              <div>&middot;&middot;&middot;</div>
+            </td>
+            <td width="3%">
+              <div>#<span></span>
+              </div>
+            </td>
+            <td>
+              <div>{{ 'users.first_name' | trans }}</div>
+            </td>
+            <td>
+              <div>{{ 'users.last_name' | trans }}</div>
+            </td>
+            <td>
+              <div>{{ 'users.username' | trans }}</div>
+            </td>
+            <td width="20%">
+              <div>{{ 'users.email' | trans }}</div>
+            </td>
+            <td align="center">
+              <div>{{ 'users.enabled' | trans }}</div>
+            </td>
+            <td align="center">{{ 'users.last_login' | trans }}</td>
+          </tr>
+        </thead>
+        <tbody class="table-anchor">
+          {% for entity in pagination %}
+            <tr>
+              <td><input type="checkbox" class="w3-check" name="batch_items[]]" value="{{ entity.id }}"></td>
+              <td>{{ entity.id }}</td>
+              <td>{{ entity.firstname }}</td>
+              <td>{{ entity.lastname }}</td>
+              <td>
+                {{ entity.username }}
+              </td>
+              <td>{{ entity.email }}</td>
+              <td align="center">
+                {% if entity.enabled == true %}
+                  <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Enabled"></span>
+                {% else %}
+                  <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Disabled"></span>
+                {% endif %}
+              </td>
+              <td>
+                {% if entity.lastLogin %}
+                  {{ entity.lastLogin|date('Y-m-d H:i:s') }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr></tr>
+          <tr style="border-top:1px solid #CDCDCD">
+            <td colspan="9" style="padding:10px;">
+              <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'users.batch_confirm_1' | trans }} ' + this.value + ' {{ 'users.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                <option>{{ 'users.select_batch' | trans }}...</option>
+                <option value="enable">{{ 'users.enable' | trans }}</option>
+                <option value="disable">{{ 'users.disable' | trans }}</option>
+              </select>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
+  </div>
+
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+</div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+
+<script>
+
+
+    $(document).ready( function () {
+      $('#admin_table').DataTable();
+      // $(".dataTables_filter input").addClass("w3-input w3-border w3-animate-input");
+    } );
+  </script>
+{% endblock %}

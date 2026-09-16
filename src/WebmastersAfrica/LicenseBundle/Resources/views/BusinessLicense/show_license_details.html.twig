@@ -1,0 +1,512 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+	{{ site_title }},
+	{{ 'licenses.license_details' | trans }}
+{% endblock %}
+
+{% block header %}
+	<!-- Title area -->
+	<div class="titleArea" style="margin-top: -25px;">
+		<div class="wrapper">
+			<div class="pageTitle">
+				<h5>Manage Licenses</h5>
+				<span>License Details</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="wrapper">
+			{% if show_assessment_buttons  %}
+				{% if (entity.stage.type == 'corrections') and (entity.status == 5) %}
+					<a href="{{ path('managelicenses_edit', {'id': entity.id, 'stage_id': entity.stage.id }) }}" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" onclick="return confirm('Confirm Action ?')">Edit license details</a>
+				{% endif %}
+				{% if entity.stage.type == 'assess' and (entity.status == 5) %}
+					<a href="{{ path('managetask_reject', {'id': entity.id, 'stage_id': entity.stage.id}) }}" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium pull-left" onclick="return confirm('Confirm Action ?')">Send to agency</a>
+				{% else %}
+
+					{% if entity.stage.type == 'assess' %}
+						<a href="{{ path('my_task_approve', {'id': entity.id, 'stage_id': entity.stage.id }) }}" class="w3-button w3-hover-teal w3-round-large w3-blue w3-medium " style="width: 120px;" onclick="return confirm('Confirm Action ?')">Approve</a>
+						<a href="{{ path('managetask_reject', {'id': entity.id, 'stage_id': entity.stage.id }) }}" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium pull-left" style="width: 120px;" onclick="return confirm('Confirm Action ?')">Reject</a>
+					{% endif %}
+					{% if entity.stage.type == 'publish' %}
+						<a href="{{ path('my_task_approve_unpublish', {'id': entity.id, 'stage_id': entity.stage.id }) }}" class="w3-button w3-hover-teal w3-round-large w3-blue w3-medium" style="width: 120px;" onclick="return confirm('Confirm Action ?')">Unpublish</a>
+						<a href="{{ path('managelicenses_edit', {'id': entity.id }) }}" class="w3-button w3-hover-red w3-round-large w3-red w3-medium" style="width: 120px;" onclick="return confirm('Confirm Action ?')">Edit</a>
+					{% endif %}
+					{% if entity.stage.type == 'unpublish' %}
+						<a href="{{ path('my_task_approve_publish', {'id': entity.id, 'stage_id': entity.stage.id }) }}" class="w3-button w3-hover-teal w3-round-large w3-blue w3-medium" style="width: 120px;" onclick="return confirm('Confirm Action ?')">Publish</a>
+					{% endif %}
+					{% if entity.stage.type == 'submission' and (entity.status == 5 or entity.status == 2) %}
+						<a href="{{ path('managelicenses_edit', {'id': entity.id, 'stage_id': entity.stage.id }) }}" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" style="width: 120px;" onclick="return confirm('Confirm Action ?')">Edit license details</a>
+					{% endif %}
+				{% endif %}
+				<span style="padding-left : 100px;">
+					<span style="font-size: 18px;">Stage:
+					</span>
+					<span style="font-size: 18px; color: teal;">{{ entity.stage }}</span>
+				</span>
+			{% endif %}
+			{% if is_expr_granted("hasRole('CAN_MOVE_LICENSES')")%}
+				<button onclick="document.getElementById('move_to_modal').style.display='block'" class="w3-button w3-red w3-hover-red;">Open Modal</button>
+				<div id="move_to_modal" class="w3-modal">
+					<div class="w3-modal-content">
+						<div class="w3-container">
+							<span onclick="document.getElementById('move_to_modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+							<ul class="w3-ul w3-card-4" style="width:50%">
+								{% for workflow in workflows %}
+									<li>
+										<a href="{{path('move_license_to', {'id': entity.id, 'stage_id': workflow.id }) }}">{{ Workflow.title }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/webmastersafricaadmin/css/bootstrap-duallistbox.css') }}">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+	<script type="text/javascript" src="{{ asset('bundles/webmastersafricaadmin/js/jquery.bootstrap-duallistbox.js') }}"></script>
+
+
+	<input
+	type="hidden" name="_method" value="PUT"/>
+
+	<!-- Tabs -->
+	<div class="widget">
+		{% for flashMessage in app.session.flashbag.get('update') %}
+			<div class="nNote nFailure hideit">
+				<p>
+					<strong>Success:
+					</strong>
+					{{ flashMessage }}
+				</p>
+			</div>
+		{% endfor %}
+		<div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+			<h6>
+				License Details
+			</h6>
+
+			<div class="num">
+				<a href="{{ path('managelicenses', { id: entity.stage.id }) }}" title="{{ 'licenses.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'licenses.back_to_list' | trans }}</a>
+			</div>
+		</div>
+		<ul class="tabs">
+			<li>
+				<a href="#tab1">{{ 'licenses.license_details' | trans }}</a>
+			</li>
+			<li>
+				<a href="#tab6">License Legal Basis</a>
+			</li>
+			{% if customfields | length > 0 %}
+				<li>
+					<a href="#tab4">{{ 'licenses.license_additional_details' | trans }}</a>
+				</li>
+			{% endif %}
+			<li>
+				<a href="#tab2">{{ 'licenses.license_requirements' | trans }}</a>
+			</li>
+			<li>
+				<a href="#tab3">{{ 'licenses.license_downloads' | trans }}</a>
+			</li>
+			<li>
+				<a href="#tab7">Movement History</a>
+			</li>
+			<li></li>
+			<li>
+				<a href="#tab8">Review History</a>
+			</li>
+			<li></li>
+		</ul>
+		<div class="tab_container">
+			<div id="tab1" class="tab_content nopadding">
+				<div class="w3-row">
+					<div class="w3-col s2">
+						<b>Business License Name:</b>
+					</div>
+					<div class="w3-col s10 text-align">
+						{{ entity.name|raw}}
+					</div>
+				</div>
+				<hr/>
+				{% if ('19' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Jurisdiction</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.location|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				<div class="w3-row">
+					<div class="w3-col s2">
+						<b>Agency:</b>
+					</div>
+					<div class="w3-col s10 text-align">
+						{{ entity.agency|raw}}
+					</div>
+				</div>
+				<hr/>
+				{% if ('4' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Description:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.description|raw }}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+
+				{% if ('3' in showedfields) %}
+
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Purpose:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.purpose|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				<div class="w3-row">
+					<div class="w3-col s2">
+						<b>Keywords:</b>
+					</div>
+					<div class="w3-col s10 text-align">
+						{{ entity.keywords|raw }}
+					</div>
+				</div>
+				<hr/>
+				<div class="w3-row">
+					<div class="w3-col s2">
+						<b>Activities:</b>
+					</div>
+					<div class="w3-col s10 text-align">
+						<ul class="w3-ul w3-item">
+							{% for activity in entity.activities %}
+								<li>{{ activity.name|raw }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<hr/>
+				{% if ('5' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Comments:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.comments|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('6' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Business License No:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.licenseNo|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('7' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Application Fee:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.applicationFee|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('8' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>license Fee:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.licenseFee|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('9' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Maxium Processing Time:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.maxProcessingTime|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('10' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Gazetted On:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.gazettedOn|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('11' in showedfields) %}
+
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Related Website:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.relatedWebsites|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('12' in showedfields) %}
+
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Validity:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.validity|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('13' in showedfields) %}
+
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Enactment:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.enactment|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('14' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Gazetting Reference:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.gazettingRef|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('15' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Contact Office:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.contactOffice|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('16' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Resolution Criteria:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.resolutionCriteria|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+				{% if ('18' in showedfields) %}
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Universal</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.universal|raw}}
+						</div>
+					</div>
+				{% endif %}
+				<hr/>
+			</div>
+			<div id="tab6" class="tab_content nopadding">
+
+				{% if ('24' in showedfields) %}
+					<div class="formRow">
+						<b>Principle Legislation:</b>
+						{{ entity.PrincipleLegislation }}
+						<div class="formRight">
+							{% if entity.principleLegislationAttachment %}
+								<a class="w3-button w3-white w3-border w3-border-blue w3-small" href="{{ app.request.basepath }}/uploads/documents/{{ entity .principleLegislationAttachment }}" target="_blank">Click To Download</a>
+							{% endif %}
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="cLine"></div>
+					{% if entity.subsidiaryLegislation.count > 0 %}
+						Subsidiary Legislation:
+						<div class="clear"></div>
+						{% for docs in entity.SubsidiaryLegislation %}
+							<div class="formRow">
+								{% if docs.name %}
+									{{ docs.name }}
+								{% endif %}
+								{% if docs.filepath %}
+									<div class="formRight">
+										<a class="w3-button w3-white w3-border w3-border-blue w3-small" href="{{ app.request.basepath }}/uploads/documents/{{ docs .filepath }}" target="_blank">Click To Download</a>
+									</div>
+								{% endif %}
+								<div class="clear"></div>
+							</div>
+						{% endfor %}
+					{% endif %}
+					<div class="clear"></div>
+				{% endif %}
+			</div>
+			<div id="tab4" class="tab_content nopadding">
+				{% set value = '' %}
+				{% for field in customfields %}
+					<div class="formRow">
+						<label>{{ field.fieldLabel }}</label>
+						<div class="formRight">
+							{% for data in field.fielddatas %}
+								{% if data.licenseId == entity.id %}
+									{{ data.fielddata|raw }}
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div id="tab2" class="tab_content nopadding">
+				<div class="formRow">
+					<div class="w3-row">
+						<div class="w3-col s2">
+							<b>Requirements:</b>
+						</div>
+						<div class="w3-col s10 text-align">
+							{{ entity.requirements|raw}}
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="cLine"></div>
+
+			</div>
+			<div id="tab3" class="tab_content nopadding">
+				<ul class="downloads">
+					{% set count = 0 %}
+					{% for download in entity.downloads %}
+						{% set count = count + 1 %}
+						<li id='down_{{ count }}'>
+							<div class="formRow">
+								Download Name:
+								<div class="formRight">
+									<b>{{ download.name }}</b>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="formRow">
+								Issuing Body
+								<div class="formRight">
+									{{ download.issuingBody }}
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="formRow">
+								{% if download.filepath %}
+									Download Path
+									<div class="formRight">
+										<a class="w3-button w3-white w3-border w3-border-blue w3-small" target="_blank" href="{{ app.request.basepath }}/uploads/documents/{{ download.filepath }}">Click To Dowload
+										</a>
+									</div>
+
+								{% endif %}
+							</div>
+							<div class="cLine"></div>
+						</li>
+					{% endfor %}
+				</ul>
+				<div class="clear"></div>
+			</div>
+
+			<div id="tab7" class="tab_content nopadding">
+				<div class="w3-responsive">
+					<table class="w3-table w3-table-all">
+						<tr>
+							<th>User</th>
+							<th>Action Taken</th>
+							<th>From
+							</th>
+							<th>To</th>
+						</tr>
+						<tbody>
+							{% for item in entity.history %}
+								<tr>
+									<td>{{ item.user }}</td>
+									<td>{{ item.actionType }}</td>
+									<td>{{ item.previousStage }}</td>
+									<td>{{ item.currentStage }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="tab8" class="tab_content nopadding">
+				<div class="w3-responsive">
+					<table class="w3-table w3-table-all">
+						<tr>
+							<th>Comment</th>
+							<th>From</th>
+						</tr>
+						<tbody>
+							{% for item in entity.tasks %}
+								{% if item.decline == 1 %}
+									<tr>
+										<td>
+											{{ item.taskDescription|raw }}
+										</td>
+										<td>
+											{{ item.assigner }}
+										</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		div#text-align {
+			text-align: justify;
+			text-justify: inter-word;
+		}
+	</style>
+{% endblock %}

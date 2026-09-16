@@ -1,0 +1,181 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'faqs.manage_faqs' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'faqs.faqs' | trans }}</h5>
+                <span>Notice & Comment: {{ 'faqs.faqs_description' | trans }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="statsRow">
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    <a href="{{ path("managencfaq_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="{{ 'faqs.add_new_faq' | trans }}" href="#">
+                        <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                        <span>{{ 'faqs.add_new_faq' | trans }}</span>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('publish') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'publish_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}    
+    {% for flashMessage in app.session.flashbag.get('unpublish') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'unpublish_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="widget">
+        <div class="title">
+            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>{{ 'faqs.list_faqs' | trans }} (Drag and drop question to change order level )</h6>
+        </div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_nc_faqs") }}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="eregistry_faqs_table">
+                <thead>
+                    <tr class="w3-pale-blue">
+                        <td width="40px;">
+                            <div>&middot;&middot;&middot;</div>
+                        </td>
+                        <td>
+                            <div>{{ 'faqs.question' | trans }}</div>
+                        </td>
+                        <td>
+                            <div>{{ 'faqs.answer' | trans }}</div>
+                        </td>
+                        <td align="center" width="60px">{{ 'faqs.published' | trans }}</td>
+                        <td align="center" width="40px">{{ 'faqs.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in pagination %}
+                        <tr data-index="{{entity.id}}" data-position="{{entity.orderLevel}}">
+                            <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}" class="w3-check"></td>
+                            <td>{{ entity.question }}</td>
+                            <td>{{ entity.answer }}</td>
+                            <td align="center">
+                                {% if entity.published == true %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                                {% else %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><a href="{{path('managencfaq_edit',{'id':entity.id})}}" class="smallButton" alt="Edit"><img alt="Edit"src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}"></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <thead>
+                    <tr style="border-top:1px solid #CDCDCD">
+                        <td colspan="5" style="padding:10px;">
+                            <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'pages.batch_confirm_1' | trans }} ' + this.value + ' {{ 'pages.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                <option>{{ 'pages.select_batch' | trans }}...</option>
+                                <option value="publish">{{ 'pages.publish' | trans }}</option>
+                                <option value="unpublish">{{ 'pages.unpublish' | trans }}</option>
+                                <option value="delete">{{ 'pages.delete' | trans }}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#eregistry_faqs_table').DataTable({'ordering': false});
+            $(function () {
+				        $("#eregistry_faqs_table tbody").sortable({
+				        	cursor: "move",
+				        	update: function(event, ui) {
+				        		let updated = false;
+				        		$(this).children().each(function (index) {
+				        			if ($(this).attr('data-position') != (index+1)) {
+				        				$(this).attr('data-position', (index+1)).addClass('updated');
+				        				updated = true;
+				        			}
+				        		});
+				        		if (updated) {
+				        			saveNewPosition();
+				        		}
+				        	}
+				        });
+				    });
+
+				    function saveNewPosition () {
+				    	let positions = [];
+				    	$('.updated').each(function () {
+				    		positions.push([$(this).attr('data-index'), $(this).attr('data-position')]);
+				    		$(this).removeClass('updated');
+				    		let url = "{{ path('nc_managefaq_adjust_orderLevel') }}";
+				    		$.ajax({
+				    			url: url,
+				    			type: 'post',
+				    			dataType: 'text',
+				    			data: {
+				    				update: 1,
+				    				positions: positions
+				    			},
+				    			success: function (response) {
+				    			}
+				    		});
+				    	});
+				    }
+        });
+    </script>
+{% endblock %}

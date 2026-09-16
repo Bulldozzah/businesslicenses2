@@ -1,0 +1,58 @@
+{% block name %}
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5"></script>
+    
+{% endblock %}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+<p>{{ 'newsletter_sign_up'|trans }}</p>
+
+<div id="message-newsletter_2">
+  <form id="form-comments" action="{{ app.request.basepath }}/newsletter/subscriptioncheck" method="post" autocomplete="off">
+    {{ form_errors(form) }}
+    <div class="form-group">
+      {{ form_widget(form.subscribername, { 'attr': {'placeholder': 'newsletter_name'|trans,'class':'form-control required'} }) }}
+    </div>
+    <div class="form-group">
+      {{ form_widget(form.subscriberemail, { 'attr': {'placeholder': 'newsletter_email'|trans,'class':'form-control required'} }) }}
+    </div>
+    {{ form_rest(form) }}
+      
+                        <div class="clearfix"></div>
+      {# <div class="g-recaptcha" data-sitekey="6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5" data-callback="enableBtn"></div> #}
+      <button id="wp_submit_news" class="btn btn-primary" >{{ 'feedback_submit'|trans }}</button>
+      <input type="hidden" name="g-recaptcha-response" value="1">
+  </form>
+</div>
+
+  <style>
+      .g-recaptcha {
+          width: 250;
+      }
+  </style>
+  <script type="text/javascript">
+
+  //  $(document).ready(function() {
+  //     document.getElementById("wp_submit_news").disabled = true;
+  //  });
+
+  // function enableBtn(){
+  //   document.getElementById("wp_submit_news").disabled = false;
+  //  }
+  </script>
+
+  {% block google_captacha %}
+    <script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('wp_submit_news');
+        btn.disabled = true;
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ recaptacha_client_site }}').then(function(token) {
+                // add token
+                document.querySelector('[name="g-recaptcha-response"]').value = token;
+                btn.disabled = false;
+            });
+        });
+    });
+        
+    </script>
+{% endblock %}

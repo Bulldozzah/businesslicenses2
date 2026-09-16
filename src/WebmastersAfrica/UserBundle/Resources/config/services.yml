@@ -1,0 +1,7 @@
+parameters:
+#    webmasters_africa_user.example.class: WebmastersAfrica\UserBundle\Example
+
+services:
+#    webmasters_africa_user.example:
+#        class: %webmasters_africa_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

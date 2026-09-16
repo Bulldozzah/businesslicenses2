@@ -1,0 +1,105 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'feedback.manage_feedback' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'feedback.feedback' | trans }}</h5>
+            <span>{{ 'feedback.feedback_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('email_success') %}
+    <div class="nNote nSuccess hideit">
+        <p>
+            <strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('email_error') %}
+    <div class="nNote nFailure hideit">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'feedback.list_feedback' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_feedback") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="eregistry_feedback_table">
+        <thead>
+            <tr class="w3-pale-blue">
+                <td><div>{{ 'feedback.first_name' | trans }}</div></td>
+                <td><div>{{ 'feedback.last_name' | trans }}</div></td>
+                <td><div>{{ 'feedback_email' | trans }}</div></td>
+                <td><div>{{ 'feedback.subject' | trans }}</div></td>
+                <td><div>{{ 'feedback.message' | trans }}</div></td>
+                <td><div>{{ 'feedback.site' | trans }}</div></td>
+                <td align="center" width="40px">{{ 'feedback.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td>{{ entity.firstName }}</td>
+                <td>{{ entity.lastName }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.subject }}</td>
+                <td>{{ entity.message }}</td>
+                <td>{{ entity.site }}</td>
+                <td>
+                 <ul>
+                     <li>
+                         <a href="{{ path('managefeedback_reply', { 'id': entity.id }) }}" class="smallButton" alt="Reply">
+                             <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/mail.png') }}">
+                         </a>
+                     </li>
+                 </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </form>
+</div>
+</div>
+    {% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#eregistry_feedback_table').DataTable();
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,72 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+  Eregistry | Edit
+  {{ entity.name }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>Manage Forward Plans</h5>
+        <span>Edit Forward Plan</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+  {{ form_start(edit_form, {'attr': {'class': 'form', 'novalidate':'novalidate'}}) }}
+  <div id="errors">
+    {{ form_errors(edit_form) }}
+  </div>
+  <div id="forward-plans-form">
+    <section>
+      <div>
+        {{ form_row(edit_form.name) }}
+      </div>
+      <div>
+        {{ form_row(edit_form.period) }}
+      </div>
+      <div>
+        {{ form_row(edit_form.period2) }}
+      </div>
+
+      <div>{{ form_row(edit_form.description) }}</div>
+      <div>
+        {{ form_row(edit_form.agency) }}
+      </div>
+      <div>{{ form_row(edit_form.published, { 'attr': {'class': 'w3-check form-control'} }) }}</div>
+    </section>
+    {{ form_row(edit_form.submit) }}
+    <div style="display:none;">
+      {{ form_rest(edit_form) }}
+    </div>
+    {{ form_end(edit_form) }}
+  </div>
+
+
+    <style>
+          .error {
+              color: red;
+          }
+     </style>
+{% endblock %}
+{% block stylesheet_2 %}
+	    <script language="javascript">
+    	$(document).ready(function() {
+    		$("#otb_bundle_noticeandcommentbundle_forwardplanmaincategory_period").datepicker(
+    				{ 
+    					changeMonth: true, changeYear: true, dateFormat: 'MM yy',
+    				 }
+    			);
+    	});
+      
+      $("#otb_bundle_noticeandcommentbundle_forwardplanmaincategory_period2").datepicker({ changeMonth: false,
+        changeYear: true});
+      </script>
+
+{% endblock %}

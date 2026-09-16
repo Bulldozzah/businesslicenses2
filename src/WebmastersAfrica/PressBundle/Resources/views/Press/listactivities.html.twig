@@ -1,0 +1,161 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}{{ 'businessactivities'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">Licenses</li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'businessactivities'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'businessactivities'|trans }}{% endblock %}
+
+{% block body %}
+<div class="white-background">
+  <div class="container ">
+      <div id="middle" class="full_width box_white">
+          <div class="content">
+            <script language="javascript">
+            function atLeastOneRadio() {
+                    return ($('input[type=checkbox]:checked').size() > 0);
+            }
+            </script>
+
+
+              <div class="title"><h6>{{ 'findlicenses'|trans }}</h6></div>
+                     
+                     {{ render(controller("WebmastersAfricaPressBundle:Press:search")) }}
+
+
+
+
+
+            <form action="{{ app.request.basepath }}/search/advanced" method="post" id="sf_activity_license_form" name="sf_activity_license_form">
+
+
+            <div class="styled-box iconed-box tip">
+            <span class="icon">
+            {{ 'pleaseselect'|trans }}
+            </span>
+            </div>
+
+            <h3>
+            <span>{{ activities | length }} {{ 'resultsfound'|trans }}</span>
+            </h3>
+
+            <div class= "styled_table">
+                
+
+                <table>
+              <thead>
+                      <tr>     
+                      <th colspan="2">{{ 'selectactivity'|trans }}</th>
+                      </tr>
+                    </thead>
+                    <tbody> 
+              {% for activity in activities %}
+            <tr>
+              <td><input type="checkbox" name="activity[ids][]" value="{{ activity.id }}">&nbsp;</td>
+                <td align="left" >{{ activity.name }}</td>
+                </tr>
+              {% endfor %}
+
+
+
+
+
+
+
+
+            </tbody> 
+            </table>
+
+            <input type="hidden" name="jurisdiction_id" value="{{ city.id }}">
+                                <button class=" btn btn- btn_green" name="signin" value="signin" type="submit"onclick="if(atLeastOneRadio()){ return true; }else{ alert('{{ 'chooseone'|trans }}'); return false; }">{{ 'viewlicenses'|trans }}</button>
+              
+            </form> 
+
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+    function getIndustries(url, location)
+    {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        }// IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        self.xmlHttpRequest.onreadystatechange = function() {
+    
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+            }
+            else
+            {
+                document.getElementById("industries").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry)
+    {
+        var xmlHttpRequest = false;
+        var self = this;
+
+        // Mozilla/Safari
+        if (window.XMLHttpRequest) {
+            self.xmlHttpRequest = new XMLHttpRequest();
+        }// IE
+        else if (window.ActiveXObject) {
+            self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    
+        self.xmlHttpRequest.open('POST', url, true);
+        self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+        self.xmlHttpRequest.onreadystatechange = function() {
+    
+            if (self.xmlHttpRequest.readyState == 4) {
+                document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+            }
+            else
+            {
+                document.getElementById("businesstypes").innerHTML = "Loading...";
+            }
+
+        }
+
+        self.xmlHttpRequest.send("industry=" + industry);
+    }
+</script>
+{% endblock %}

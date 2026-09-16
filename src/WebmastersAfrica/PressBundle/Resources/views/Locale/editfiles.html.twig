@@ -1,0 +1,140 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'languages.manage_languages' | trans }}{% endblock %}
+
+{% block header %}
+
+<link rel="stylesheet" href="/bundles/jsyaml/css/codemirror.css">
+<link rel="stylesheet" href="/bundles/jsyaml/css/codemirror.default.css">
+<link rel="stylesheet" href="/bundles/jsyaml/css/demo.css">
+
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'languages.edit_language_files' | trans }}</h5>
+            <span>{{ 'languages.edit_language_description' | trans }}</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('locale') }}" title="{{ 'languages.back_to_list' | trans }}" class="w3-button w3-round-large w3-grey w3-hover-red"><span>{{ 'languages.back_to_list' | trans }}</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %} 
+ <form action="{{ path('locale_update_files', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form">
+        <br>
+        <div align="center">
+        <select id="bundle" name="bundle" onChange="showDiv(this.value);">
+        <option value="locale_admin_div">Admin Bundle</option>
+        <option value="locale_license_div">License Bundle</option>
+        <option value="locale_message_div">Message Bundle</option>
+        <option value="locale_press_div">Press Bundle</option>
+        <option value="locale_task_div">Task Bundle</option>
+        <option value="locale_user_div">User Bundle</option>
+        </select>
+        </div>
+
+        <br>
+        <br>
+
+        <div id="locale_admin_div" style="display: block;">
+            <div class='src'>
+                <textarea id="locale_admin_div_field" name="locale_admin" style="height: 300px;">{{ locale_admin }}</textarea>
+            </div>
+            <div class='dst' style="padding-left: 10px;">
+                <h4>Results:</h4> (This will indicate an error message if there is any. An error message looks like "JS_YAML: ....")
+                <textarea id="locale_admin_div_result"></textarea>
+            </div>
+        </div>
+
+        <div id="locale_license_div" style="display: none;">
+            <div class='src'>
+                <textarea id="locale_license_div_field" name="locale_license" style="height: 300px;">{{ locale_license }}</textarea>
+            </div>
+            <div class='dst' style="padding-left: 10px;">
+                <h4>Results:</h4> (This will indicate an error message if there is any. An error message looks like "JS_YAML: ....")
+                <textarea id="locale_license_div_result"></textarea>
+            </div>
+        </div>
+
+        <div id="locale_message_div" style="display: none;">
+            <div class='src'>
+                <textarea id="locale_message_div_field" name="locale_message" style="height: 300px;">{{ locale_message }}</textarea>
+            </div>
+            <div class='dst' style="padding-left: 10px;">
+                <h4>Results:</h4> (This will indicate an error message if there is any. An error message looks like "JS_YAML: ....")
+                <textarea id="locale_message_div_result"></textarea>
+            </div>
+        </div>
+
+        <div id="locale_press_div" style="display: none;">
+            <div class='src'>
+                <textarea id="locale_press_div_field" name="locale_press" style="height: 300px;">{{ locale_press }}</textarea>
+            </div>
+            <div class='dst' style="padding-left: 10px;">
+                <h4>Results:</h4> (This will indicate an error message if there is any. An error message looks like "JS_YAML: ....")
+                <textarea id="locale_press_div_result"></textarea>
+            </div>
+        </div>
+
+        <div id="locale_task_div" style="display: none;">
+            <div class='src'>
+                <textarea id="locale_task_div_field" name="locale_task" style="height: 300px;">{{ locale_tasks }}</textarea>
+            </div>
+            <div class='dst' style="padding-left: 10px;">
+                <h4>Results:</h4> (This will indicate an error message if there is any. An error message looks like "JS_YAML: ....")
+                <textarea id="locale_task_div_result"></textarea>
+            </div>
+        </div>
+
+        <div id="locale_user_div" style="display: none;">
+            <div class='src'>
+                <textarea id="locale_user_div_field" name="locale_user" style="height: 300px;">{{ locale_user }}</textarea>
+            </div>
+            <div class='dst' style="padding-left: 10px;">
+                <h4>Results:</h4> (This will indicate an error message if there is any. An error message looks like "JS_YAML: ....")
+                <textarea id="locale_user_div_result"></textarea>
+            </div>
+        </div> <br>
+
+        <br>
+        <div class="clearfix"></div>
+        <button type="submit" class="w3-button w3-hover-teal w3-round-large w3-blue w3-medium" style="padding: 10px 30px 30px 30px; margin-top:15px;">Save Changes</button>
+</form>
+
+
+<script src="/bundles/jsyaml/js/es5-shim.js"></script>
+<script src="/bundles/jsyaml/js/esprima.js"></script>
+<script src="/bundles/jsyaml/js/js-yaml.js"></script>
+<script src="/bundles/jsyaml/js/codemirror.js"></script>
+<script src="/bundles/jsyaml/js/codemirror/yaml.js"></script>
+<script src="/bundles/jsyaml/js/codemirror/javascript.js"></script>
+<script src="/bundles/jsyaml/js/hasher.min.js"></script>
+<script src="/bundles/jsyaml/js/utils.js"></script>
+<script src="/bundles/jsyaml/js/base64.js"></script>
+<script src="/bundles/jsyaml/js/json3.js"></script>
+<script src="/bundles/jsyaml/js/demo.js"></script>
+
+<script language="javascript">
+    runDemo('locale_admin_div');
+    function showDiv(divname)
+    {
+        runDemo(divname);
+        document.getElementById('locale_admin_div').style.display = "none";
+        document.getElementById('locale_license_div').style.display = "none";
+        document.getElementById('locale_message_div').style.display = "none";
+        document.getElementById('locale_press_div').style.display = "none";
+        document.getElementById('locale_task_div').style.display = "none";
+        document.getElementById('locale_user_div').style.display = "none";
+        document.getElementById(divname).style.display = "block";
+    }
+</script>
+{% endblock %}

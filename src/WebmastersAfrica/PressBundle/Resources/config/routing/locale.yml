@@ -1,0 +1,39 @@
+locale:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:index" }
+
+locale_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:show" }
+
+locale_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:new" }
+
+locale_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:create" }
+    requirements: { _method: post }
+
+locale_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:edit" }
+
+locale_edit_files:
+    pattern:  /{id}/editfiles
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:editfiles" }
+
+locale_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:update" }
+    requirements: { _method: post|put }
+
+locale_update_files:
+    pattern:  /{id}/updatefiles
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:updatefiles" }
+    requirements: { _method: post|put }
+
+locale_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:Locale:delete" }
+    requirements: { _method: post|delete }

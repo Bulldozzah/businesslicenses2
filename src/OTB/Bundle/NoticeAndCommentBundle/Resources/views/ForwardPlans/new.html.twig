@@ -1,0 +1,214 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+  Eregistry | Add
+  {{ 'forward_plans.forward_plans' | trans }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>{{ 'forward_plans.add_new_forward_plan' | trans }}</h5>
+        <span>Add Forward Plans Regulations</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block body %}
+  {{ form_start(form, {'attr': {'class': 'form', 'novalidate':'novalidate'}}) }}
+  {{ form_errors(form) }}
+
+  <div id="forward-plans-form">
+    <section>
+      <div>
+        {{ form_row(form.title) }}
+      </div>
+
+      <div>{{ form_row(form.description) }}</div>
+      <div>{{ form_row(form.problemAddressed) }}</div>
+      <div>
+        {{ form_row(form.publicConsultation) }}
+      </div>
+      <div>
+        {{ form_row(form.impact) }}
+      </div>
+    </section>
+    <section>
+      <div style="width:100%">
+        {{ form_row(form.forwardPlanCategory) }}
+      </div>
+      <div>
+        {{ form_row(form.offlineOffice) }}
+      </div>
+      <div>
+        <ul class="downloads" data-prototype="{{ form_widget(form.attachments.vars.prototype)|e }}">
+          {% set count = 0 %}
+          {% for doc in form.attachments %}
+            <li id="down_{{ count }}">
+              <div class="formRow">
+                {{ form_label(doc.file) }}
+                <div>
+                  {{ form_widget(doc.file) }}
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div style="float: right;">
+                <a href="#" onclick="document.getElementById('down_{{ count }}').parentNode.removeChild(document.getElementById('down_{{ count }}'));">{{ 'licenses.delete_this_download' | trans }}</a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        {{ form_row(form.relatedLinks) }}
+      </div>
+    </section>
+    {% if is_expr_granted("hasRole('CAN_PUBLISH_FORWARD_PLAN')")%}
+      <section>
+        <div>
+          {{ form_row(form.published) }}
+        </div>
+      </section>
+    {% endif %}
+    {{ form_row(form.submit) }}
+    <div style="display:none;">
+      {{ form_rest(form) }}
+    </div>
+    {{ form_end(form) }}
+  </div>
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+    var $requirementCollectionHolder;
+
+    var $addRequirementLink = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium add_requirement_link"><span>{{ 'licenses.add_a_requirement' | trans }}</span></a>');
+    var $newRequirementLinkLi = $('<li></li>').append($addRequirementLink);
+
+    function addRequirementForm($requirementCollectionHolder, $newRequirementLinkLi) {
+      var prototype = $requirementCollectionHolder.data('prototype');
+
+      var index = $requirementCollectionHolder.data('index');
+
+      var newForm = prototype.replace(/__name__/g, index);
+
+      $requirementCollectionHolder.data('index', index + 1);
+
+      var $newFormLi = $('<li></li>').append(newForm);
+      addRequirementFormDeleteLink($newFormLi);
+      $newRequirementLinkLi.before($newFormLi);
+
+      $("#webmastersafrica_licensebundle_businesslicense_requirements_" + index + "_description").cleditor({width: "100%", height: "100%", bodyStyle: "margin: 10px; font: 12px Arial,Verdana; cursor:text"});
+    }
+
+    function addRequirementFormDeleteLink($requirementFormLi) {
+      var $removeFormA = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium floatR"><span>{{ 'licenses.delete_this_requirement' | trans }}</span></a><div class="clear"></div><div class="cLine"></div>');
+
+      $requirementFormLi.append($removeFormA);
+
+      $removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // remove the li for the tag form
+        $requirementFormLi.remove();
+      });
+    }
+
+
+    jQuery(document).ready(function () {
+
+      var demo1 = $('select[name="webmastersafrica_licensebundle_businesslicense[activities][]"]').bootstrapDualListbox();
+
+      $requirementCollectionHolder = $('ul.requirements');
+
+      $requirementCollectionHolder.append($newRequirementLinkLi);
+
+      addRequirementFormDeleteLink($(this));
+
+      $requirementCollectionHolder.data('index', $requirementCollectionHolder.find(':input').length);
+
+      $addRequirementLink.on('click', function (e) {
+        e.preventDefault();
+
+        addRequirementForm($requirementCollectionHolder, $newRequirementLinkLi);
+      });
+    });
+
+    // Downloads
+    var $downloadCollectionHolder;
+
+    var $addDownloadLink = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium add_download_link"><span><i class="fa fa-plus"> Add New Supporting Documents (attachments)</i><span></a>');
+    var $newDownloadLinkLi = $('<li></li>').append($addDownloadLink);
+
+    function addDownloadForm($downloadCollectionHolder, $newDownloadLinkLi) {
+      var prototype = $downloadCollectionHolder.data('prototype');
+
+      var index = $downloadCollectionHolder.data('index');
+
+      var newForm = prototype.replace(/__name__/g, index);
+
+      $downloadCollectionHolder.data('index', index + 1);
+
+      var $newFormLi = $('<li></li>').append(newForm);
+      addDownloadFormDeleteLink($newFormLi);
+      $newDownloadLinkLi.before($newFormLi);
+    }
+
+
+    function addDownloadFormDeleteLink($downloadFormLi) {
+      var $removeFormA = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium floatR"><span>    {{ 'licenses.delete_this_download' | trans }}</span></a><div class="clear"></div><div class="cLine"></div>');
+      $downloadFormLi.append($removeFormA);
+
+      $removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // remove the li for the tag form
+        $downloadFormLi.remove();
+      });
+    }
+
+    jQuery(document).ready(function () {
+      $downloadCollectionHolder = $('ul.downloads');
+
+      $downloadCollectionHolder.append($newDownloadLinkLi);
+
+      addDownloadFormDeleteLink($(this));
+
+      $downloadCollectionHolder.data('index', $downloadCollectionHolder.find(':input').length);
+
+      $addDownloadLink.on('click', function (e) {
+        e.preventDefault();
+
+        addDownloadForm($downloadCollectionHolder, $newDownloadLinkLi);
+      });
+    });
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
+      // createAddFile(fileCount);
+      // fileCount ++;
+      $("#forward_plans_agency").addClass("w3-select w3-border w3-round-large");
+      $("#forward_plans_published").addClass("w3-check");
+      $("#forward_plans_agency").select2();
+      CKEDITOR.replace("forward_plans_description");
+      CKEDITOR.replace("forward_plans_problemAddressed");
+      CKEDITOR.replace("forward_plans_publicConsultation");
+      CKEDITOR.replace("forward_plans_offlineOffice");
+      CKEDITOR.replace("forward_plans_impact");
+      CKEDITOR.replace("forward_plans_relatedLinks");
+    });
+  </script>
+  <style type="text/css">
+    .error{color: red;}
+  </style>
+{% endblock %}

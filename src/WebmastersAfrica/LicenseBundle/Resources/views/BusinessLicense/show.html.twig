@@ -1,0 +1,215 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'licenses.business_licenses' | trans }}
+{% endblock %}
+
+{% block w3_style %}
+    <link href="{{ asset('bundles/webmastersafricaadmin/css/w3.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <style>
+        .dataTables_filter {
+            width: 400px;
+            font-size: 10px;
+            padding: 3px;
+            vertical-align: top;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ entity.title }}</h5>
+                <span>{{ entity.agency.title }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="statsRow">
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    {% if entity.workflow.stage == 'assess' %}
+                        <a href="{{ path("managelicenses_new") }}" title="" class="w3-button w3-round-large w3-teal w3-large" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                            <span>{{ 'licenses.add_new_business_license' | trans }}</span>
+                        </a>
+                    {% endif %}
+
+                    {% if is_expr_granted("hasRole('LICENSE_CREATE')") %}
+                        <a href="{{ path("managelicenses_new") }}" title="" class="w3-button w3-round-large w3-teal w3-large" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                            <span>{{ 'licenses.add_new_business_license' | trans }}</span>
+                        </a>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('LOCATIONS_MANAGE')") %}
+                        <a href="{{ path("managelocations_new") }}" title="" class="w3-button w3-round-large w3-blue w3-large" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                            <span>{{ 'licenses.add_new_business_location' | trans }}</span>
+                        </a>
+                        <a href="{{ path("managelocations") }}" class="w3-button w3-round-large w3-red w3-large" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit-column.png') }}" alt=""/>
+                            <span>{{ 'licenses.list_of_business_locations' | trans }}</span>
+                        </a>
+                    {% endif %}
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="w3-bar"></div>
+            </div>
+
+
+        {% endblock %}
+
+        {% block body_2 %}
+
+            <div class="w3-container">
+                {% for flashMessage in app.session.flashbag.get('update') %}
+                    <div class="nNote nSuccess hideit">
+                        <p>
+                            <strong>Success:
+                            </strong>
+                            {{ 'licenses.updated_item_notice' | trans }}
+                        </p>
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('delete') %}
+                    <div class="nNote nSuccess hideit">
+                        <p>
+                            <strong>Success:
+                            </strong>
+                            {{ 'licenses.deleted_item_notice' | trans }}
+                        </p>
+                    </div>
+                {% endfor %}
+                <div class="w3-sidebar w3-bar-block w3-light-grey" style="width:20%">
+                    {% for item in workflow %}
+                        <a class="w3-bar-item w3-button w3-border-bottom" href="{{ path('managelicense_workflow', { 'id': item.id }) }}" {% if workflow_id == item.id %} id="current_link" {% endif %}>{{ item.title }}
+                            <span class="w3-badge">{{ item.activeLicenses|length }}</span>
+                        </a>
+                    {% endfor %}
+
+                </div>
+
+                <div style="margin-left:25%">
+                    <div class="w3-container">
+
+                        <header class="w3-lime">
+                            <h3>Business Licenses -
+                                {{ workflow_title }}
+                            </h3>
+                        </header>
+                        <div class="w3-border">
+                            <form>
+                                <div id="new-search-area"></div>
+                                <table class="w3-table-all w3-centered w3-hoverable w3-card-4" id="business_license_table">
+                                    <thead>
+                                        <tr class="w3-black">
+                                            <td width="40">
+                                                <div>&middot;&middot;&middot;</div>
+                                            </td>
+                                            <td width="40">
+                                                <div>#</div>
+                                            </td>
+                                            <td>{{ 'licenses.name' | trans }}</td>
+                                            <td>{{ 'licenses.purpose' | trans }}</td>
+                                            {% if ('4' in showedfields) %}
+                                                <td>{{ 'licenses.description' | trans }}</td>
+                                            {% endif %}
+                                            <td>{{ 'licenses.agency' | trans }}</td>
+                                            <td width="100">{{ 'licenses.status' | trans }}</td>
+                                            {% if ('18' in showedfields) %}
+                                                <td width="60">{{ 'licenses.universal' | trans }}</td>
+                                            {% endif %}
+                                            <td width="60">{{ 'licenses.views' | trans }}</td>
+                                            <td width="40">{{ 'licenses.actions' | trans }}</td>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="itemActions">
+                                                    <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'licenses.batch_confirm_1' | trans }} ' + this.value + ' {{ 'licenses.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                                        <option>{{ 'licenses.select_batch' | trans }}...</option>
+                                                        {% if is_expr_granted("hasRole('LICENSE_PUBLISH')") %}
+                                                            <option value="publish">{{ 'licenses.publish' | trans }}</option>
+                                                            <option value="unpublish">{{ 'licenses.unpublish' | trans }}</option>
+                                                        {% endif %}
+                                                        <option value="save_draft">{{ 'licenses.save_draft' | trans }}</option>
+                                                        {% if is_expr_granted("hasRole('LICENSE_DELETE')") %}
+                                                            <option value="delete">{{ 'licenses.delete' | trans }}</option>
+                                                        {% endif %}
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for entity in licenses %}
+                                            <tr style="font-size: 15px">
+                                                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                                                <td align="center">
+                                                    <a href="{{ path('managelicenses_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                                </td>
+                                                <td>{{ entity.name }}</td>
+                                                <td style="font-size: 10px">{{ entity.purpose|raw }}</td>
+                                            </tr>
+                                        </ts>
+                                        {% if ('4' in showedfields) %}
+                                            <td style="font-size: 10px">{{ entity.description|raw }}</td>
+                                        </ts>
+                                    {% endif %}
+                                    <td>{{ entity.agency }}</td>
+                                    <td align="center">
+                                        {% if entity.status == "published" or entity.status == "Published" %}
+                                            <span class="green">{{ 'licenses.published' | trans }}</span>
+                                        {% elseif entity.status == "unpublished" or entity.status == "UnPublished" %}
+                                            <span class="red">{{ 'licenses.unpublished' | trans }}</span>
+                                        {% elseif entity.status == "draft" %}
+                                            <span class="lGrey">{{ 'licenses.draft' | trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                    {% if ('18' in showedfields) %}
+                                        {% if entity.universal == 1 %}
+                                            <td align="center">Yes</td>
+                                        {% else %}
+                                            <td align="center">No</td>
+                                        {% endif %}
+                                    {% endif %}
+
+                                    <td align="center">{{ entity.views }}</td>
+                                    <td>
+                                        {% if is_expr_granted("hasRole('LICENSE_EDIT')") %}
+                                            <ul>
+                                                <li>
+                                                    <a href="{{path('managelicenses_edit',{'id':entity.id})}}" class="smallButton" title="">
+                                                        <img alt="{{'licenses.edit'|trans}}" src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}"></a>
+                                                </li>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div></div>{% endblock %}{% block stylesheet_2 %}<script>
+$(document).ready(function () {
+    $('#business_license_table').DataTable({"pagingType": "full_numbers"});
+    $("#current_link").addClass("w3-pale-red");
+
+});</script>{% endblock %}

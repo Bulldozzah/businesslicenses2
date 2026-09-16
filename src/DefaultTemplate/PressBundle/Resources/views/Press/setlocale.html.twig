@@ -1,0 +1,7 @@
+<div class="styled-select">
+		<select class="form-control" name="lang" id="lang">
+{% for locale in locales %}
+<option onClick="window.location = '/setlocalefront/{{ locale.localeCode }}';" value="{{ locale.title }}">{{ locale.title }}</option>
+{% endfor %}
+</select>
+</div>

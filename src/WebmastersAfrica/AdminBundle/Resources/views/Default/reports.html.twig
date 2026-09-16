@@ -1,0 +1,33 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block search %}{% endblock %}
+{% block header %}{% endblock %}
+
+{% block body %}
+<iframe src="{{ report_api_url }}/dashboard/{{ dash }}" style="width: 100%; border: none"></iframe>
+{% endblock %}
+
+{% block stylesheet_2 %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#rightSide').css({
+        paddingBottom: 0
+    });
+
+    $('#rightSide > .wrapper').css({
+        margin: '40px 0px 0px 5px'
+    });
+
+    $('#rightSide > .wrapper > iframe')
+        .css('height', ($('body').height() - $('#rightSide > .topNav').height())+'px')
+        .on('load', function() {
+            try {
+                this.style.height = $(this).contents().height() + 'px';
+            }
+            catch (e) {
+                console.warn(e);
+            }
+        });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'faqs.add_new_faq' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'faqs.add_new_faq' | trans }}</h5>
+            <span>{{ 'faqs.add_faq_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>
+        {{ 'faqs.add_new_faq' | trans }}
+   </h6>
+
+    <div class="num">
+      <a href="{{ path('managencfaq') }}" title="{{ 'faqs.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red"><span>{{ 'faqs.back_to_list' | trans }}</span></a>
+	  </div>
+    </div>
+{{ form(form, { 'attr': {'class':'form'} }) }}
+</div>
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+   <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+    $('#webmastersafrica_pressbundle_faq_orderLevel').clone().attr('type', 'number').insertAfter('#webmastersafrica_pressbundle_faq_orderLevel').prev().remove();
+</script>
+
+{% endblock %}

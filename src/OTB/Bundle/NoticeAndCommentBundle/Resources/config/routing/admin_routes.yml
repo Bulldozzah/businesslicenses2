@@ -1,0 +1,40 @@
+dash_stats:
+  pattern: /dash/stats
+  defaults: { _controller: "NoticeCommentBundle:Default:siteStatistics" }
+  requirements: { _method: GET }
+dash_stats_2:
+  pattern: /dash/stats_2
+  defaults: { _controller: "NoticeCommentBundle:Default:siteStatistics_2" }
+  requirements: { _method: GET }
+dash_stats_3:
+  pattern: /dash/stats_3
+  defaults: { _controller: "NoticeCommentBundle:Default:siteStatistics_3" }
+  requirements: { _method: GET }
+dash_stats_4:
+  pattern: /dash/stats_4
+  defaults: { _controller: "NoticeCommentBundle:Default:siteStatistics_4" }
+  requirements: { _method: GET }
+dash_stats_5:
+  pattern: /dash/stats_5
+  defaults: { _controller: "NoticeCommentBundle:Default:siteStatistics_5" }
+  requirements: { _method: GET }
+
+dash_number_comments:
+  pattern: /dash/no_comments
+  defaults: { _controller: "NoticeCommentBundle:Default:numberOfComments" }
+  requirements: { _method: GET }
+
+dash_comments_stats:
+  pattern: /dash/comments_stats
+  defaults: { _controller: "NoticeCommentBundle:Default:commentStats" }
+  requirements: { _method: GET }
+
+dash_stats_regulations:
+  pattern: /dash/regulation_stats
+  defaults: { _controller: "NoticeCommentBundle:Default:regulationStatistics" }
+  requirements: { _method: GET }
+
+dash_stats_regulations_agency:
+  pattern: /dash/regulation_agency
+  defaults: { _controller: "NoticeCommentBundle:Default:numberOfLicensesPerAgency" }
+  requirements: { _method: GET }

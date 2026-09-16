@@ -1,0 +1,66 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% block page_title %}
+    {{ 'faq_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+</li>
+<li>{{ 'Faqs'|trans }}</li>
+{% endblock%}
+
+{% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>{{ 'faq_title'|trans }}</h4>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-9 col-sm-9 col-xs-12 license_search">
+        <div class="license_panel">
+            <div class="panel-group regulation_faq_wrapper" id="faqWapper">
+                {% for faq in pagination %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#faqWapper" href="#col{{ faq.id }}">{{ faq.question }}<i class="indicator icon_plus_alt2 pull-right"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="col{{ faq.id }}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                {{ faq.answer | raw }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="news-pager text-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+            <!-- End panel-group -->
+            <div class="alert alert-tip m-b-0">
+                <i class="icon_error-oct_alt"></i>
+                {{ 'ask'|trans }}
+                <a href="{{ app.request.basepath }}/faq/ask" onclick="Modalbox.show(this.href, {title: this.title, width: 600}); return false;">
+                    <font color='blue'>{{ 'here'|trans }}</font>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End col-md-9 -->
+
+<script type="text/javascript">
+    $(document).on('click',function(){
+        $('.collapse').collapse('hide');
+    })
+</script>
+
+{% endblock %}

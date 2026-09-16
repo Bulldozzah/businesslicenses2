@@ -1,0 +1,29 @@
+managenews:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:index" }
+
+managenews_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:show" }
+
+managenews_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:new" }
+
+managenews_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:create" }
+    requirements: { _method: post }
+
+managenews_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:edit" }
+
+managenews_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:update" }
+    requirements: { _method: post|put }
+
+managenews_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:News:delete" }

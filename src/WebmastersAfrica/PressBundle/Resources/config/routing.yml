@@ -1,0 +1,348 @@
+WebmastersAfricaPressBundle_managebanners:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/banners.yml"
+  prefix: /login-admin/managebanners
+
+WebmastersAfricaPressBundle_managefeedback:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/feedback.yml"
+  prefix: /login-admin/managefeedback
+
+WebmastersAfricaPressBundle_managefaq:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/faq.yml"
+  prefix: /login-admin/managefaq
+
+WebmastersAfricaPressBundle_managemenus:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/menu.yml"
+  prefix: /login-admin/managemenus
+
+WebmastersAfricaPressBundle_managenews:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/news.yml"
+  prefix: /login-admin/managenews
+
+WebmastersAfricaPressBundle_managenewsletters:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/newsletter.yml"
+  prefix: /login-admin/managenewsletters
+
+WebmastersAfricaPressBundle_managesubcribers:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/newslettersubscriber.yml"
+  prefix: /login-admin/managesubscribers
+
+WebmastersAfricaPressBundle_managepages:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/page.yml"
+  prefix: /login-admin/managepages
+
+WebmastersAfricaPressBundle_locale:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/locale.yml"
+  prefix: /login-admin/locale
+
+WebmastersAfricaPressBundle_business_procedure:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/business_procedure.yml"
+  prefix: /login-admin/business-startup
+
+WebmastersAfricaPressBundle_manage_policy:
+  resource: "@WebmastersAfricaPressBundle/Resources/config/routing/policy.yml"
+  prefix: /login-admin/managepolicy
+
+nc_edit_profile:
+  pattern: /edit-my-profile
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:editprofile" }
+
+nc_edit_profile_update_user_profile:
+  pattern: /update-user-profile/{id}/edit-my-profile
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:updateUserProfile" }
+
+show_agency_plans_and_license:
+  pattern: /agency/{slug}/regulations-list
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:editprofile" }
+
+nc_edit_profile_post:
+  pattern: /edit-my-profile
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:editprofile" }
+  requirements: { _method: post|put }
+
+edit_profile:
+  pattern: /editprofile
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:editsProfile" }
+
+edit_profile_post:
+  pattern: /editprofile
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:editsProfile" }
+  requirements: { _method: post|put }
+
+my_licenses:
+  pattern: /my/licenses
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:mylicenses" }
+
+license_view:
+  pattern: /license/id/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:licenseview" }
+
+view_map_office:
+  pattern: /agency/viewmapoffice/{officeid}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:viewmapoffice" }
+
+view_map:
+  pattern: /agency/viewmap/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:viewmap" }
+
+license_print:
+  pattern: /printlicense/id/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:licenseprint" }
+
+search_delete:
+  pattern: /search/delete/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:searchdelete" }
+
+share_commit:
+  pattern: /share/commit
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:sharecommit" }
+
+search_commit:
+  pattern: /search/commit
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:searchcommit" }
+
+search_save:
+  pattern: /search/save
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:searchsave" }
+
+search_share:
+  pattern: /search/share/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:searchshare" }
+
+search_businesstype:
+  pattern: /search/businesstype/{city}/{businesstype}
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:Press:searchbusinesstype" }
+
+set_locale_front:
+  pattern: /setlocalefront/{locale}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:setlocale" }
+
+set_locale:
+  pattern: /setlocale/{locale}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Locale:setlocale" }
+
+list_activities:
+  pattern: /browse/listactivities
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:listactivities" }
+
+login_admin:
+  pattern: /login-admin/
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:adminLogin" }
+  requirements: { _method: get }
+
+list_industries:
+  pattern: /browse/listindustries
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:listindustries" }
+
+list_businesstypes:
+  pattern: /browse/listbusinesstypes
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:listbusinesstypes" }
+  
+new_list_businesstypes:
+  pattern: /browse/newlistbusinesstypes
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:newListBusinessTypes" }
+  requirements: { _method: post }
+
+list_businesactivities:
+  pattern: /browse/listbusinessactivities
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:listbusinesactivities" }
+  requirements: { _method: post }
+
+browse_businesstypes:
+  pattern: /browse/business-types
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:getBusinessTypes" }
+
+contact_us:
+  pattern: /contactus
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:contactus" }
+
+contact_send:
+  pattern: /contact/send
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:contactsend" }
+  requirements: { _method: post }
+
+faq_save:
+  pattern: /faq/save
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:faqsave" }
+  requirements: { _method: post }
+
+search_advanced:
+  pattern: /search/advanced
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:advancedsearch" }
+
+browse_licenses:
+  pattern: /browse/licenses
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:browseLicenses" }
+
+browse_locations:
+  pattern: /browse/jurisdictions
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:browseLocations" }
+
+browse_license_locations:
+  pattern: /browse/locations/license/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:browseLicensesPerLocation" }
+  requirements: { id: \d+ }
+
+browse_license_business_types:
+  pattern: /browse/business-types/licenses/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:browseLicensesPerBusinessTypes" }
+  requirements: { id: \d+ }
+
+faq_feedback:
+  pattern: /faq/ask
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:faqask" }
+
+faqs_list:
+  pattern: /faqs
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:faqs" }
+
+procedure_list:
+  pattern: /business-procedures
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:businessProcedure" }
+
+procedure_details:
+  pattern: /business-procedures/details/{slug}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:businessProcedureDetails" }
+  requirements: { _method: get }
+
+news_articles:
+  pattern: /news/articles
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:news" }
+
+news_article:
+  pattern: /news/article/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:newsarticle" }
+
+press_view:
+  pattern: /press/{id}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:pressview" }
+
+batch_pages:
+  pattern: /batch/pages
+  defaults: { _controller: "WebmastersAfricaPressBundle:Page:batch" }
+  requirements: { _method: post|put }
+
+nc_batch_pages:
+  pattern: nc/batch/pages
+  defaults: { _controller: "WebmastersAfricaPressBundle:NcPage:batch" }
+  requirements: { _method: post|put }
+
+batch_banners:
+  pattern: /batch/banners
+  defaults: { _controller: "WebmastersAfricaPressBundle:Banner:batch" }
+  requirements: { _method: post|put }
+
+batch_subscribers:
+  pattern: /batch/subscribers
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:NewsletterSubscriber:batch" }
+  requirements: { _method: post|put }
+
+agency_batch_add_subscribers:
+  pattern: /agency/add/subscribers
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:addUserAgencySubscription" }
+  requirements: { _method: post|put }
+
+agency_batch_remove_subscribers:
+  pattern: agency/remove/subscribers
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:Press:removeUserAgencySubscription" }
+  requirements: { _method: post|put }
+
+agency_subscribe_for_regulations:
+  pattern: agency/add/regulation/subscribe
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:addUserAgencySubscription" }
+  requirements: { __method: post|put }
+
+industry_subscribe_for_regulations:
+  pattern: industry/add/regulation/subscribe
+  defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:addUserIndustrySubscription" }
+  requirements: { __method: post|put }
+
+agency_business_licenses:
+  pattern: /browse/licenses-agency/{slug}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:browseAgencyLicenses" }
+  requirements: { _method: get }
+
+batch_newsletters:
+  pattern: /batch/newsletters
+  defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:batch" }
+  requirements: { _method: post|put }
+
+batch_news:
+  pattern: /batch/news
+  defaults: { _controller: "WebmastersAfricaPressBundle:News:batch" }
+  requirements: { _method: post|put }
+
+batch_languages:
+  pattern: /batch/languages
+  defaults: { _controller: "WebmastersAfricaPressBundle:Locale:batch" }
+  requirements: { _method: post|put }
+
+batch_faqs:
+  pattern: /batch/faqs
+  defaults: { _controller: "WebmastersAfricaPressBundle:Faq:batch" }
+  requirements: { _method: post|put }
+
+batch_nc_faqs:
+  pattern: /batch/nc/faqs
+  defaults: { _controller: "WebmastersAfricaPressBundle:NcFaq:batch" }
+  requirements: { _method: post|put }
+
+subscription_check:
+  pattern: /newsletter/subscriptioncheck
+  defaults: { _controller: WebmastersAfricaPressBundle:Press:subscriptioncheck }
+
+unsubscription_check:
+  pattern: /newsletter/unsubscriptioncheck
+  defaults: { _controller: WebmastersAfricaPressBundle:Press:unsubscriptioncheck }
+
+subscription_confirm:
+  pattern: /newsletter/subscriptionconfirm/{skey}
+  defaults:
+    { _controller: WebmastersAfricaPressBundle:Press:subscriptionconfirm }
+
+subscription_success:
+  pattern: /newsletter/subscriptionsuccess
+  defaults:
+    { _controller: WebmastersAfricaPressBundle:Press:subscriptionsuccess }
+
+unsubscription_success:
+  pattern: /newsletter/unsubscriptionsuccess
+  defaults:
+    { _controller: WebmastersAfricaPressBundle:Press:unsubscriptionsuccess }
+
+subscription_fail:
+  pattern: /newsletter/subscriptionfail
+  defaults: { _controller: WebmastersAfricaPressBundle:Press:subscriptionfail }
+
+subscription_exists:
+  pattern: /newsletter/subscriptionexists
+  defaults:
+    { _controller: WebmastersAfricaPressBundle:Press:subscriptionexists }
+
+homepage:
+  pattern: /
+  defaults: { _controller: WebmastersAfricaPressBundle:Default:home }
+
+homepage_notice_comments:
+  pattern: /notices/
+  defaults: { _controller: WebmastersAfricaPressBundle:Default:noticeComment }
+
+notice_comments_news:
+  pattern: /notices/news
+  defaults: { _controller: NoticeCommentBundle:Regulation:news }
+
+notice_comments_planning:
+  pattern: /notices/forward-planning
+  defaults: { _controller: NoticeCommentBundle:ForwardPlans:forwardPlans }
+
+notice_comments_contact_us:
+  pattern: /notices/contact
+  defaults: { _controllier: WebmastersAfricaPressBundle:Press:contactus }
+
+notice_comments_policy:
+  pattern: /policy/{slug}
+  defaults: { _controller: WebmastersAfricaPressBundle:Press:policy }
+
+

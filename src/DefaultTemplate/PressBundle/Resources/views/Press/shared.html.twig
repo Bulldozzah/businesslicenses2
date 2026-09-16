@@ -1,0 +1,38 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+</li>
+<li>
+    <a href="{{ app.request.basepath }}/browse/licenses">{{ 'brlicenses'|trans }}</a>
+</li>
+<li>{{ 'share_licenses'|trans }}</li>
+{% endblock%}
+
+
+{% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>{{ 'share_licenses'|trans }}</h4>
+    </div>
+    <!-- End sub_content -->
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="box_style_2">
+            <h3 class="nomargin_top align-center">Done!</i>
+        </h3>
+        <div id="confirm">
+            <i class="icon_check_alt2"></i>
+            <h3>Successful Share!</h3>
+            <p>{{ 'licenses_shared'|trans }}</p>
+        </div>
+    </div>
+</div>{% endblock %}

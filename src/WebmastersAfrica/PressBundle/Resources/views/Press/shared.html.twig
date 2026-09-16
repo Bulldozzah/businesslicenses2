@@ -1,0 +1,35 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ 'share_licenses'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">
+        <a href="/browse/licenses">{{ 'brlicenses'|trans }}</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'share_licenses'|trans }}</li>
+</ul>
+<!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}
+    {{ 'share_licenses'|trans }}
+{% endblock %}
+
+{% block body %}
+    {{ 'licenses_shared'|trans }}
+{% endblock %}

@@ -1,0 +1,65 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'industries.add_new_industry' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'industries.add_new_industry' | trans }}</h5>
+            <span>{{ 'industries.add_industry_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="widget">
+<div class="title">
+<img class="titleIcon" alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/companies.png') }}">
+<h6>{{ 'industries.add_industry_description' | trans }}</h6>
+
+<div class="num">
+	{# class="w3-bar" #}
+<a href="{{ path('manageindustries') }}" title="{{ 'industries.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'industries.back_to_list' | trans }}</a>
+</div>
+</div>
+<div class="body nopadding ">
+<form action="{{ path('manageindustries_create') }}" method="post" {{ form_enctype(form) }} class="form" novalidate="novalidate">
+{{ form_row(form.name) }}
+{{ form_row(form.description) }}
+{{ form_row(form.businesstypes) }}
+{# {{ form_row(form.agencies) }} #}
+
+<div class="formSubmit">
+{{ form_row(form.submit) }}
+</div>
+<div class="clear"></div>
+<div style="display: none;">
+{{ form_rest(form) }}
+</div>
+</form>
+
+</div>
+</div>
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+jQuery(document).ready(function() {
+
+    var demo1 = $('select[name="webmastersafrica_licensebundle_businessindustry[businesstypes][]"]').bootstrapDualListbox();
+});
+</script>
+
+{% endblock %}

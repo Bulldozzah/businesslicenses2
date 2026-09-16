@@ -1,0 +1,30 @@
+managemenus:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:index" }
+
+managemenus_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:show" }
+
+managemenus_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:new" }
+
+managemenus_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:create" }
+    requirements: { _method: post }
+
+managemenus_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:edit" }
+
+managemenus_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:update" }
+    requirements: { _method: post|put }
+
+managemenus_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:Menu:delete" }
+    requirements: { _method: post|delete }

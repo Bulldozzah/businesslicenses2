@@ -1,0 +1,106 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{# {% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %} #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+
+{% block page_title %}User Registration
+{% endblock %}
+
+
+{% form_theme form _self %}
+
+{% block genemu_captcha_javascript %}
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5"></script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+
+{% endblock %}
+
+{% block body %}
+  <main role="main">
+      <div class="main_auth home_content">
+        <div class="container">
+          <div class="auth_container register_container">
+
+              <div class="box_style_2 info m-t-20">
+                <div class="auth-header">
+                  <h3 class="nomargin_top">{{ 'newuser'|trans }} <i class="icon_pencil-edit pull-right"></i></h3>
+                </div>
+
+                <form class="loginform" onsubmit="javascript:return chkFrm();" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="post"  id="form-comments" name="form-comments" autocomplete="off">
+                    <div id="errors">
+                      {{ form_errors(form) }}
+                    </div>
+                    <div class="form-group">
+                      <label class="label-required">{{ 'username'|trans }}</label>
+                      {{ form_widget(form.username, { 'attr': {'data-prompt': 'Username', 'class': 'form-control' } }) }}
+                        <div  class="error">
+                            {{ form_errors(form.username) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="label-required">{{ 'firstname'|trans }}</label>
+                      {{ form_widget(form.first_name, { 'attr': {'data-prompt': 'First Name', 'class': 'form-control'} }) }}
+                        <div  class="error">
+                            {{ form_errors(form.first_name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="label-required">{{ 'lastname'|trans }}</label>
+                      {{ form_widget(form.last_name, { 'attr': {'data-prompt': 'Last Name', 'class': 'form-control'} }) }}
+                        <div  class="error">
+                            {{ form_errors(form.last_name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="label-required">{{ 'email'|trans }}</label>
+                      {{ form_widget(form.email, { 'attr': {'data-prompt': 'Email', 'class': 'form-control'} }) }}
+                        <div  class="error">
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      {{ form_widget(form.plainPassword) }}
+                      <span class="text-primary">Enter atleast six characters.</span>
+                          <div  class="error">
+                              {{ form_errors(form.plainPassword) }}
+                          </div>
+                    </div>
+                  
+                    {{ form_rest(form) }}
+
+                    {# {% if capture_error %}
+                    <p class="alert alert-danger">Error! Captcha Error</p>
+                    {% endif %} #}
+                    <input type="hidden" name="g-recaptcha-response" id="capture_"value="">
+                    <script>
+                    $('#form-comments').submit(function(e){
+                      e.preventDefault();
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5', {action: '{{ path('fos_user_registration_register') }}'}).then(function(token) {
+                                // add token
+                                $('#form-comments').prepend('<input type="hidden" name="g-recaptcha-response" id="capture_" value="'+token+'">');
+                                $('#form-comments').unbind('submit').submit();
+                            });;
+                        });
+                    });
+                    </script>
+                    <div class="clearfix"></div>
+                    <div>
+                      <input class="btn btn-lg btn-primary" type="submit" name="wp-submit" id="wp-submit" value="{{ 'signup'|trans }}" tabindex="100">
+                      <span></span>
+                      <input class="btn btn-lg btn-danger" name = "submit" type = "reset"  value="{{ 'reset'|trans }}">
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+              </div>
+
+          </div>
+        </div>
+      </div>
+  </main>
+{% endblock %}

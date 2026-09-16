@@ -1,0 +1,429 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+    Eregistry | Add
+    {{ 'manage_regulations.regulations_title' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'manage_regulations.regulations_description' | trans }}</h5>
+                <span>{{ 'manage_regulations.add_new_regulation' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'w3-form form', 'novalidate':'novalidate'}}) }}
+    <input name="_method" type="hidden" value="POST"/>
+    {% if form_errors %}
+        <div class="nNote nFailure hideit">
+            <p>Kindly check for errors in the form</p>
+        </div>
+    {% endif %}
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>{{ 'manage_regulations.add_new_regulation'| trans}}</h6>
+        </div>
+        <div class="num">
+            <a href="{{ path('regulations') }}" title="{{ 'licenses.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'licenses.back_to_list' | trans }}</a>
+        </div>
+        <ul class="tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#tab_1">
+                    {{'manage_regulations.regulation_details'| trans }}
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#tab_2">
+                    {{ 'manage_regulations.regulation_more_details' | trans}}
+                </a>
+            </li>
+            {% if customfields|length > 0 %}
+                <li>
+                    <a data-toggle="tab" href="#tab_5">
+                        {{ 'manage_regulations.regulation_additional_details' | trans}}
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                <a data-toggle="tab" href="#tab_3">
+                    {{ 'manage_regulations.regulation_downloads' | trans}}
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#tab_4">
+                    {{ 'manage_regulations.settings' | trans}}
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-container">
+            <div class="tab_content nopadding" id="tab_1">
+                <div>
+                    {% if ('1' in showedfields) %}
+                        {{ form_row(form.title) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('2' in showedfields) %}
+                        {{ form_row(form.description) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('3' in showedfields) %}
+                        {{ form_row(form.agency) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('4' in showedfields) %}
+                        {{ form_row(form.industry) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('15' in showedfields) %}
+                        {{ form_row(form.expectedOutcome) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('5' in showedfields) %}
+                        {{ form_row(form.regulationType) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('13' in showedfields) %}
+                        {{ form_row(form.stage) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('6' in showedfields) %}
+                        {{ form_row(form.closingDate) }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="tab_content nopadding" id="tab_2">
+                <div>
+                    {% if ('7' in showedfields) %}
+                        {{ form_row(form.specificInstructions) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('8' in showedfields) %}
+                        {{ form_row(form.supportingMaterials) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('9' in showedfields) %}
+                        <div class="formRow">
+                            {{ form_label(form.keywords) }}
+                            <div class="formRight">
+                                {{ form_widget(form.keywords) }}
+                                <div class="error">{{ form_errors(form.keywords) }}</div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if ('10' in showedfields) %}
+                        <div class="formRow">
+                            {{ form_label(form.tags) }}
+                            <div class="formRight">
+                                {{ form_widget(form.tags) }}
+                                <div class="error">{{ form_errors(form.tags) }}</div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {% if ('14' in showedfields) %}
+                        {{ form_row(form.offlineConsultations) }}
+                    {% endif %}
+                </div>
+
+            </div>
+            {% if customfields|length > 0 %}
+                
+                <div class="tab_content nopadding" id="tab_5">
+                    <div>
+                        {% set custom_text_field_count = 0 %}
+                        {% set value = '' %}
+                        {% for field in customfields %}
+                            {% set custom_text_field_count = custom_text_field_count + 1 %}
+                            {% for data in field.fielddatas %}
+                                {% if data.regulationId == entity.id %}
+                                    {% set value = data.fielddata %}
+                                {% else %}
+                                    {% set value = '' %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="formRow">
+                                <label>{{ field.fieldlabel }}</label>
+                                <div class="formRight">
+                                    {% if field.fieldtype == 1 %}
+                                        <input type="text" id="custom[{{ field.id }}]" name="custom[{{ field.id }}]" value="{{ value }}">
+                                    {% elseif field.fieldtype == 2 %}
+                                        <select id="custom[{{ field.id }}]" name="custom[{{ field.id }}]">
+                                            {% set selected = '' %}
+                                            {% for choice in field.fieldchoices %}
+                                                {% if choice.choicename == value %}
+                                                    {% set selected = 'selected' %}
+                                                {% endif %}
+                                                <option value='{{ choice.choicename }}' {{ selected }}>{{ choice.choicename }}</option>
+                                                {% set selected = '' %}
+                                            {% endfor %}
+                                        </select>
+                                    {% elseif field.fieldtype == 3 %}
+                                        <textarea id="custom_text_area_{{custom_text_field_count}}" name="custom[{{ field.id }}]">{{ value }}</textarea>
+                                    {% endif %}
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="cLine"></div>
+                </div>
+            {% endif %}
+
+            <div class="tab_content nopadding" id="tab_3">
+                <div>
+                    {% if ('11' in showedfields) %}
+                        {{ form_row(form.file) }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {% if ('12' in showedfields) %}
+                        <ul class="downloads" data-prototype="{{ form_widget(form.supportingAttachments.vars.prototype)|e }}">
+                            {% set count = 0 %}
+                            {% for doc in form.supportingAttachments %}
+                                <li id="down_{{ count }}">
+                                    <div class="formRow">
+                                        {{ form_label(doc.file) }}
+                                        <div>
+                                            {{ form_widget(doc.file) }}
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="#" onclick="document.getElementById('down_{{ count }}').parentNode.removeChild(document.getElementById('down_{{ count }}'));">{{ 'licenses.delete_this_download' | trans }}</a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="tab_content nopadding" id="tab_4">
+                <div class="formRow">
+                    <div>
+                        {{ form_row(form.isLoginRequired) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.isPublic) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.isReviewComments) }}
+                    </div>
+                    <div>
+                        {{ form_row(form.isAttachmentEnabled) }}
+                    </div>
+                    <div class="formRow">
+                        {{ form_label(form.fileType) }}
+                        <div class="formRight">
+                            {{ form_widget(form.fileType) }}
+                            <p class='error'>Example files extensions (pdf, docx, txt)</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="formRow">
+                        {{ form_label(form.fileSize)}}
+                        <div class="formRight">
+                            {{ form_widget(form.fileSize) }}
+                            <p class='error'>Size in MBs</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    {% if is_expr_granted("hasRole('CAN_PUBLISH_REGULATIONS')")%}
+                        <div>
+                            {{ form_row(form.published) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="cLine"></div>
+                {{ form_row(form.submit) }}
+                <div style="display:none;">
+                    {{ form_rest(form) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+        <script language="javascript">
+            $("#noticeandcommentbundle_regulation_closingDate").datepicker({minDate: new Date()});
+            $(".label-required").append("<i style='color: red;'>*</i> ");
+            CKEDITOR.replace("noticeandcommentbundle_regulation_description");
+            CKEDITOR.replace("noticeandcommentbundle_regulation_specificInstructions");
+            CKEDITOR.replace("noticeandcommentbundle_regulation_supportingMaterials");
+            CKEDITOR.replace("noticeandcommentbundle_regulation_offlineConsultations");
+
+            if (CKEDITOR.instances['noticeandcommentbundle_regulation_expectedOutcome']) {
+                CKEDITOR.remove(CKEDITOR.instances['noticeandcommentbundle_regulation_expectedOutcome']);
+            } else {
+                CKEDITOR.replace('noticeandcommentbundle_regulation_expectedOutcome');
+            }
+
+            // $(".form").validate();
+            // Requirements
+            var $requirementCollectionHolder;
+
+            var $addRequirementLink = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium add_requirement_link"><span> {{ 'licenses.add_a_requirement' | trans }}</span></a>');
+            var $newRequirementLinkLi = $('<li></li>').append($addRequirementLink);
+
+            function addRequirementForm($requirementCollectionHolder, $newRequirementLinkLi) {
+                var prototype = $requirementCollectionHolder.data('prototype');
+
+                var index = $requirementCollectionHolder.data('index');
+
+                var newForm = prototype.replace(/__name__/g, index);
+
+                $requirementCollectionHolder.data('index', index + 1);
+
+                var $newFormLi = $('<li></li>').append(newForm);
+                addRequirementFormDeleteLink($newFormLi);
+                $newRequirementLinkLi.before($newFormLi);
+
+                $("#webmastersafrica_licensebundle_businesslicense_requirements_" + index + "_description").cleditor({width: "100%", height: "100%", bodyStyle: "margin: 10px; font: 12px Arial,Verdana; cursor:text"});
+
+            }
+
+            function addRequirementFormDeleteLink($requirementFormLi) {
+                var $removeFormA = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium floatR"><span> {{ 'licenses.delete_this_requirement' | trans }}</span></a><div class="clear"></div><div class="cLine"></div>');
+
+                $requirementFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // remove the li for the tag form
+                    $requirementFormLi.remove();
+                });
+            }
+
+
+            jQuery(document).ready(function () {
+
+                var demo1 = $('select[name="webmastersafrica_licensebundle_businesslicense[activities][]"]').bootstrapDualListbox();
+
+                $requirementCollectionHolder = $('ul.requirements');
+
+                $requirementCollectionHolder.append($newRequirementLinkLi);
+
+                addRequirementFormDeleteLink($(this));
+
+                $requirementCollectionHolder.data('index', $requirementCollectionHolder.find(':input').length);
+
+                $addRequirementLink.on('click', function (e) {
+                    e.preventDefault();
+
+                    addRequirementForm($requirementCollectionHolder, $newRequirementLinkLi);
+                });
+            });
+
+            // Downloads
+            var $downloadCollectionHolder;
+
+            var $addDownloadLink = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium add_download_link"><span><i class="fa fa-plus"> Add New Supporting Materials</i><span></a>');
+            var $newDownloadLinkLi = $('<li></li>').append($addDownloadLink);
+
+            function addDownloadForm($downloadCollectionHolder, $newDownloadLinkLi) {
+                $(".label-required").append("<i style='color: red;'>*</i> ");
+                var prototype = $downloadCollectionHolder.data('prototype');
+                var index = $downloadCollectionHolder.data('index');
+
+                var newForm = prototype.replace(/__name__/g, index);
+
+                $downloadCollectionHolder.data('index', index + 1);
+
+                var $newFormLi = $('<li></li>').append(newForm);
+                addDownloadFormDeleteLink($newFormLi);
+                $newDownloadLinkLi.before($newFormLi);
+            }
+
+
+            function addDownloadFormDeleteLink($downloadFormLi) {
+                var $removeFormA = $('<a href="#" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium" floatR"><span>    {{ 'licenses.delete_this_download' | trans }}</span></a><div class="clear"></div><div class="cLine"></div>');
+                $downloadFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // remove the li for the tag form
+                    $downloadFormLi.remove();
+                });
+            }
+
+            jQuery(document).ready(function () {
+                $downloadCollectionHolder = $('ul.downloads');
+
+                $downloadCollectionHolder.append($newDownloadLinkLi);
+
+                addDownloadFormDeleteLink($(this));
+
+                $downloadCollectionHolder.data('index', $downloadCollectionHolder.find(':input').length);
+
+                $addDownloadLink.on('click', function (e) {
+                    e.preventDefault();
+
+                    addDownloadForm($downloadCollectionHolder, $newDownloadLinkLi);
+                });
+                if (CKEDITOR.instances['custom_text_area_1']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_1']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_1');
+                }
+                if (CKEDITOR.instances['custom_text_area_2']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_2']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_2');
+                }
+                if (CKEDITOR.instances['custom_text_area_3']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_3']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_3');
+                }
+                if (CKEDITOR.instances['custom_text_area_4']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_4']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_4');
+                }
+                if (CKEDITOR.instances['custom_text_area_5']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_5']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_5');
+                }
+                if (CKEDITOR.instances['custom_text_area_6']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_6']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_6');
+                }
+                if (CKEDITOR.instances['custom_text_area_7']) {
+                    CKEDITOR.remove(CKEDITOR.instances['custom_text_area_7']);
+                } else {
+                    CKEDITOR.replace('custom_text_area_7');
+                }
+            });
+        </script>
+        <style>
+            .error {
+                color: red;
+            }
+        </style>
+    {% endblock %}

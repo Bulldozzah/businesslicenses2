@@ -1,0 +1,71 @@
+manage_procedures:
+  pattern: /
+  defaults: { _controller: "WebmastersAfricaPressBundle:BusinessStartup:index" }
+
+manage_procedure_category:
+  pattern: categories
+  defaults: { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:index" }
+
+manage_procedures_show:
+  pattern: /{id}/show
+  defaults: { _controller: "WebmastersAfricaPressBundle:BusinessStartup:show" }
+
+manage_procedures_new:
+  pattern: /new
+  defaults: { _controller: "WebmastersAfricaPressBundle:BusinessStartup:new" }
+
+manage_procedure_category_new:
+  pattern: category/new
+  defaults: { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:new" }
+
+manage_procedures_create:
+  pattern: /create
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:BusinessStartup:create" }
+  requirements: { _method: post }
+
+manage_procedure_category_create:
+  pattern: category/create
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:create" }
+  requirements: { _method: post }
+
+manage_procedures_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "WebmastersAfricaPressBundle:BusinessStartup:edit" }
+
+manage_procedure_category_edit:
+  pattern: category/{id}/edit
+  defaults: { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:edit" }
+
+manage_procedures_update:
+  pattern: /{id}/update
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:BusinessStartup:update" }
+  requirements: { _method: post|put }
+
+manage_procedure_category_update:
+  pattern: category/{id}/update
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:update" }
+  requirements: { _method: post|put }
+
+manage_procedures_delete:
+  pattern: /{id}/delete
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:BusinessStartup:delete" }
+
+manage_procedure_category_delete:
+  pattern: category/{id}/delete
+  defaults:
+    { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:delete" }
+
+batch_procedure:
+  pattern: /batch/procedure
+  defaults: { _controller: "WebmastersAfricaPressBundle:BusinessStartup:batch" }
+  requirements: { _method: post|put }
+
+batch_procedure_category:
+  pattern: category/batch/procedure
+  defaults: { _controller: "WebmastersAfricaPressBundle:ProcedureCategory:batch" }
+  requirements: { _method: post|put }

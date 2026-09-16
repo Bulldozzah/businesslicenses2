@@ -1,0 +1,7 @@
+parameters:
+#    webmasters_africa_task.example.class: WebmastersAfrica\TaskBundle\Example
+
+services:
+#    webmasters_africa_task.example:
+#        class: %webmasters_africa_task.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

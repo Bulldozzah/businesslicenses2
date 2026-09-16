@@ -1,0 +1,379 @@
+{% extends 'NoticeCommentBundle::base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+{{ site_title }},
+{{ 'manage_regulations.add_new_regulation' | trans }}{% endblock %}{% block STYLES %}{% endblock %}{% block CONTENT %}<!-- BEGIN CONTENT --><div class="page-content-wrapper"><div
+class="page-content">
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+  {{ 'manage_regulations.add_new_regulation' | trans }}
+  <small>{{ 'manage_regulations.add_regulations_description' | trans}}</small>
+</h3>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a href="index.html">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#">{{ 'manage_regulations.regulations_title' | trans }}</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#">{{ 'manage_regulations.add_regulations_description' | trans}}</a>
+    </li>
+  </ul>
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <a href="{{ path('regulations') }}" class="btn btn-fit-height green" type="button">
+        <i class="fa fa-arrow-left fa-fw"></i>
+        Back to the list
+      </a>
+    </div>
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+<span id="errors_list"></span>
+<div class="portlet-body form">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tabbable tabbable-custom boxless tabbable-reversed">
+        <div class="portlet light bg-inverse" id="form_wizard_1">
+          <div class="portlet-body form">
+            <form action="{{path('regulations_create')}}" class="horizontal-form" id="submit_form" method="POST" enctype="multipart/form-data">
+              <div class="form-wizard">
+                <div class="form-body">
+                  <ul class="nav nav-tabs steps" id="regulations_tab">
+                    <li class="active">
+                      <a data-toggle="tab" href="#tab_1">
+                        {{'manage_regulations.regulation_details'| trans }}
+                      </a>
+                    </li>
+                    <li>
+                      <a data-toggle="tab" href="#tab_2">
+                        {{ 'manage_regulations.regulation_additional_details' | trans}}
+                      </a>
+                    </li>
+                    <li>
+                      <a data-toggle="tab" href="#tab_3">
+                        {{ 'manage_regulations.regulation_downloads' | trans}}
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="alert alert-danger display-none">
+                      <button class="close" data-dismiss="alert"></button>
+                      You have some form errors. Please check below.
+                    </div>
+                    <div class="alert alert-success display-none">
+                      <button class="close" data-dismiss="alert"></button>
+                      Your form validation is successful!
+                    </div>
+                    <div class="tab-pane active" id="tab_1">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          <i class="icon-equalizer font-red-sunglo"></i>
+                          <span class="caption-subject font-blue-sunglo bold uppercase">{{ 'manage_regulations.regulations_title' | trans }}</span>
+                          <span class="caption-helper">{{ 'manage_regulations.new' | trans }}</span>
+                        </div>
+                      </div>
+                      <!--START ROW FOR TITLE && CLOSING DATE-->
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="control-label" for="regulation_title">Title
+                              <span class="required">
+                                *
+                              </span>
+                            </label>
+                            <input class="form-control" id="regulation_title" name="regulation_title" placeholder="REGULATION TITLE" type="text">
+                            <span class="help-block"></span>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="control-label">Closing Date
+                              <span class="required">
+                                *
+                              </span>
+                            </label>
+                            <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                              <input class="form-control" id="closing_date" name="closing_date" readonly type="text">
+                              <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                  <i class="fa fa-calendar"></i>
+                                </button>
+                              </span>
+                            </div>
+                            <span class="help-block"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <!--END ROW FOR TITLE && CLOSING DATE-->
+
+                      <!--START ROW FOR AGENCY-->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            {{ form_row(form.agency)}}
+                            <span class="help-block">
+                              {{ form_errors(form.agency) }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <!--END ROW FOR AGENCY-->
+
+                      <!--START ROW FOR INDUSTRY-->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            {{ form_row(form.industry)}}
+                            <span class="help-block">
+                              {{ form_errors(form.industry) }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <!--END ROW FOR INDUSTRY-->
+
+                      <!--START ROW FOR LOGIN REQUIRED AND COMPONENTS AVAILABLE TO PUBLIC-->
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Login Required?
+                              <span class="required">
+                                *
+                              </span>
+                            </label>
+                            <select class="form-control" id="login_required" name="login_required">
+                              <option value="1">YES</option>
+                              <option value="2">NO</option>
+                            </select>
+                          </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Review Comments ?
+                              <span class="required">
+                                *
+                              </span>
+                            </label>
+                            <select class="form-control" id="review_required" name="review_required">
+                              <option value="1">YES</option>
+                              <option value="2">NO</option>
+                            </select>
+                          </div>
+                        </div>
+                        <!--/span-->
+                      </div>
+                      <!--END ROW FOR LOGIN REQUIRED AND COMPONENTS AVAILABLE TO PUBLIC-->
+                    </div>
+                    <div class="tab-pane" id="tab_2">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          <i class="icon-equalizer font-red-sunglo"></i>
+                          <span class="caption-subject font-blue-sunglo bold uppercase">{{ 'manage_regulations.regulation_additional_details' | trans }}</span>
+                          <span class="caption-helper">{{ 'manage_regulations.new' | trans }}</span>
+                        </div>
+                        <div class="tools">
+                          <a class="collapse" href=""></a>
+                          <a class="config" data-toggle="modal" href="#portlet-config"></a>
+                          <a class="reload" href=""></a>
+                          <a class="remove" href=""></a>
+                        </div>
+                      </div>
+                      <div class="form-group"></div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            {{ form_row(form.consultationStage)}}
+                            <span class="help-block">
+                              {{ form_errors(form.consultationStage) }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Regulation Type
+                            <span class="required">
+                              *
+                            </span>
+                          </label>
+                          <div class="form-group">
+                            <select class="form-control" id="regulation_type" name="regulation_type">
+                              <option class="1">Law</option>
+                              <option class="2">By Law</option>
+                              <option class="3">Instructions</option>
+                              <option class="4">Decision</option>
+                              <option class="5">Codes and Standards</option>
+                              <option class="7">RIA</option>
+                              <option class="8">Policy</option>
+                              <option class="9">Other</option>
+                            </select>
+                            <span class="help-block"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="control-label" for="tags">
+                              Tags
+                              <span class="required">*</span>
+                            </label>
+                            <input class="form-control select2" id="tag_list" name="tags" required="required" type="text">
+                            <span class="help-block"></span>
+                          </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="control-label" for="keywords">
+                              Keywords
+                              <span class="required">*</span>
+                            </label>
+                            <input class="form-control select2" id="keyword_list" name="keywords" required="required" type="text">
+                            <span class="help-block"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          {{ form_row(form.description) }}
+                          <span class="help-block"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tab_3">
+                      <div class="portlet-title">
+                        <div class="caption">
+                          <i class="icon-equalizer font-red-sunglo"></i>
+                          <span class="caption-subject font-blue-sunglo bold uppercase">{{ 'manage_regulations.regulation_downloads' | trans }}</span>
+                          <span class="caption-helper">{{ 'manage_regulations.new' | trans }}</span>
+                        </div>
+                      </div>
+                      <div class="form-group"></div>
+                      <div class="row">
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <label class="btn btn-block btn-success" for="my-file-selector">
+                              <input id="my-file-selector" onchange="$('#upload-file-info').html(this.files[0].name)" style="display:none" type="file">
+                              <i class="fa fa-plus"></i>
+                              Regulation Document
+                            </label>
+                            <div class="form-group"></div>
+                            <span class='label label-info' id="upload-file-info"></span>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="btn btn-block btn-warning" for="my-file-selector_2">
+                              <input id="my-file-selector_2" multiple="multiple" name="supporting[]" onchange="$('#upload-file-info_2').html(
+                              (this.files.length > 1) ? this.files.length + ' FILES' : this.files[0].name)" style="display:none" type="file">
+                              <i class="fa fa-plus"></i>
+                              Supporting Documents &hellip;
+                            </label>
+                            <div class="form-group"></div>
+                            <span class='label label-info' id="upload-file-info_2"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group"></div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            {{ form_row(form.specificInstructions) }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-offset-3 col-md-9">
+                      <a class="btn default button-previous" href="javascript:;">
+                        <i class="m-icon-swapleft"></i>
+                        Back
+                      </a>
+                      <a class="btn blue button-next" href="javascript:;">
+                        Continue
+                        <i class="m-icon-swapright m-icon-white"></i>
+                      </a>
+                      <a class="btn green button-submit" href="javascript:;">
+                        Submit
+                        <i class="m-icon-swapright m-icon-white"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block JAVASCRIPTS %}
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{{ asset('bundles/OTB/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}" type="text/javascript"></script><!-- END PAGE LEVEL PLUGINS -->
+<script src="{{ asset('bundles/OTB/global/plugins/select2/select2.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/admin/pages/scripts/form-wizard.js') }}"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/clockface/js/clockface.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/admin/pages/scripts/components-pickers.js') }}"></script>
+<script src="{{ asset('bundles/OTB/admin/pages/scripts/components-dropdowns.js') }}"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-select/bootstrap-select.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/admin/pages/scripts/components-dropdowns.js') }}"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-markdown/lib/markdown.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/global/plugins/bootstrap-summernote/summernote.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/OTB/admin/pages/scripts/components-editors.js') }}"></script>
+<script src="{{ asset('bundles/OTB/ckeditor/ckeditor.js')}}"></script>
+<script src="{{ asset('bundles/OTB/admin/pages/scripts/form-samples.js') }}"></script>
+<script>
+jQuery(document).ready(function () { // initiate layout and plugins
+  Metronic.init(); // init metronic core components
+  Layout.init(); // init current layout
+  FormWizard.init();
+  ComponentsPickers.init();
+  FormFileUpload.init();
+});
+
+$('#continue_button').click(function (e) {
+  e.preventDefault();
+  $('#regulations_tab a[href="#tab_1"]').tab('show');
+})
+$('#continue_button_2').click(function (e) {
+  e.preventDefault();
+  $('#regulations_tab a[href="#tab_2"]').tab('show');
+})
+
+var keywordList = $.ajax({url: '/consultation/regulations/keywords/list', type: 'get', data: {}, datatype: 'JSON'});
+keywordList.done(function (response) {
+  response = JSON.parse(response);
+  var key_list = [];
+  $.each(response, function (key, value) {
+    key_list.push(value);
+  })
+  $("#keyword_list").select2({tags: key_list});
+
+  $("#tag_list").select2({tags: key_list});
+});
+
+CKEDITOR.replace("otb_bundle_noticeandcommentbundle_regulation_specificInstructions");
+
+CKEDITOR.replace("otb_bundle_noticeandcommentbundle_regulation_description");</script>{% endblock %}

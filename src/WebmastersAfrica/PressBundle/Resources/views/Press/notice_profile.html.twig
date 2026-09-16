@@ -1,0 +1,247 @@
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+    {{ user.firstName }}
+    {{ user.lastName }}
+    | Edit Profile
+{% endblock %}
+{% block sitetitle %}
+    {{ user.firstName }}
+    {{ user.lastName }}
+    | Edit Profile
+{% endblock %}
+{% block sitedescription %}
+    {{ user.firstName }}
+    {{ user.lastName }}
+    | Edit Profile
+{% endblock %}
+{% block sitetwitterdescription %}
+    {{ user.firstName }}
+    {{ user.lastName }}
+    | Edit Profile
+{% endblock %}
+{% block sitetwittertitle %}
+    {{ user.firstName }}
+    {{ user.lastName }}
+    | Edit Profile
+{% endblock %}
+{% block sitetwitterurl %}
+    {{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}
+{% endblock %}
+{% block page_title %}
+    {{ user.firstName }}
+    {{ user.lastName }}
+    | Edit Profile
+{% endblock %}
+
+{% block body %}
+    <main style="margin-top: 20px;">
+
+        <div class="container py-4 my-2">
+            {% for flashMessage in app.session.flashbag.get('update') %}
+                <div>
+                    <p class="alert alert-success">
+                        {{ flashMessage}}
+                    </p>
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('update_success') %}
+                <div>
+                    <p class="alert alert-success">
+                        {{ flashMessage}}
+                    </p>
+                </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-4 pr-md-5">
+                    <div class="pt-4 mt-2">
+                        <section class="mb-4 pb-1">
+                            <h3 class="h6 font-weight-light text-secondary text-uppercase">Profile Details</h3>
+                            <div class="work-experience pt-2">
+                                <div class="work mb-4">
+                                    <strong class="h5 d-block text-secondary font-weight-bold mb-1">Full Name</strong>
+                                    <strong class="h6 d-block text-warning mb-1">{{user.firstName}}
+                                        {{user.lastName}}</strong>
+                                </div>
+                                <div class="work mb-4">
+                                    <strong class="h5 d-block text-secondary font-weight-bold mb-1">Email:</strong>
+                                    <strong class="h6 d-block text-warning mb-1">{{user.email}}</strong>
+                                    <p class="text-secondary">{{user.username}}</p>
+                                </div>
+                                <div class="work mb-4">
+                                    <strong class="h5 d-block text-secondary font-weight-bold mb-1">Username:</strong>
+                                    <strong class="h6 d-block text-warning mb-1">{{user.username}}</strong>
+                                </div>
+                                <div class="work mb-4">
+                                    <strong class="h5 d-block text-secondary font-weight-bold mb-1">Comment Anonymously:</strong>
+                                    <strong class="h6 d-block text-warning mb-1">
+                                        {% if user.aliasName %}
+                                            <span id="js-show-loader-id">
+                                            <input type="checkbox" name="hide_profile_2" id="js-show-profile-id" checked>
+                                            <p>Alias Name: {{ user.aliasName }}</p>
+                                            </span>
+                                        {% else %}
+                                            <input type="checkbox" name="hide_profile" id="js-hide-profile-id">
+                                            <span id="js-show-loader-id">
+                                                <div id="js-show-alias-name-form-id">
+                                                    <input type="text" name="alias_name" id="js_my_alias_name" value="Guest User" class="form-control form-control-sm" placeholder="Create an alias name" />
+                                                    <span id="js-show-alias-name-error"></span>
+                                                    <input type="submit" class="btn btn-primary btn-sm" id="js_alias_name_submit">
+                                                </div>
+                                            </span>
+                                        {% endif %}
+                                    </strong>
+                                </div>
+                                <div class="work mb-4">
+                                    <strong class="h5 d-block text-secondary font-weight-bold mb-1">Turn off Email Notifications:</strong>
+                                    <strong class="h6 d-block text-warning mb-1">
+                                        <span id="js-show-email-loader-id">
+                                            {% if user.isReceiveReplyEmail %}
+                                                <input type="checkbox" id="js-stop-email-id" checked>
+                                                </span>
+                                            {% else %}
+                                                <input type="checkbox" id="js-start-email-id">
+                                            {% endif %}
+                                        </span>
+                                    </strong>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <section class="mt-5">
+                        <div class="d-inline-flex p-3">
+                            <div class="pull-left" style="margin-right: 100px;">
+                                <h3 class="h6 font-weight-light text-primary text-uppercase">No Comments & Replies.</h3>
+                                <div class="d-flex align-items-center">
+                                    <strong class="h1 font-weight-bold m-0 mr-3">{{user.comments|length}}</strong>
+                                    <div>
+                                        <input data-filled="fa fa-2x fa-star mr-1 text-warning" data-empty="fa fa-2x fa-star-o mr-1 text-light" value="5" type="hidden" class="rating" data-readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="mt-4">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                    Edit Profile
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content py-4" id="myTabContent">
+                            <div class="tab-pane py-3 fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <form id="form-comments" action="{{ app.request.basepath }}/edit-my-profile" {{ form_enctype(form) }} method="POST">
+                                    <input type="hidden" name="_method" value="PUT"/>
+                                    {{ form_widget(form) }}
+                                    <div>
+                                        <input type="submit" id="wp-submit" class="form-button form-button-default" value="{{ 'profile.edit.submit'|trans }}">
+                                    </div>
+                                    {{ form_rest(form)}}
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <style>
+        div #subscriber_list_id {
+            background-color: lightblue;
+            height: 350px;
+            overflow-y: scroll;
+        }
+        #box_1 {
+            background: #FFF;
+            padding: 15px;
+            margin: 0 0 20px;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+        }
+    </style>
+{% endblock %}
+{% block comments %}
+    <script>
+        $(document).ready(function () {
+            $("#js-show-alias-name-form-id").hide();
+            $("#js-hide-profile-id").click(function (e) {
+                if ($("#js-hide-profile-id").val() === 'on') {
+                    $("#js-show-alias-name-form-id").toggle();
+                }
+            });
+
+            $("#js-stop-email-id").click(function (e) {
+                let loading = `<a href="#" class="disabled" title="alias name set"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+                $("#js-show-email-loader-id").html(loading);
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'turn_off_email': true},
+                    url: `{{ path('nc_edit_profile_update_user_profile', {'id': user.id})}}`,
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
+            $("#js-start-email-id").click(function (e) {
+                let loading = `<a href="#" class="disabled" title="alias name set"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+                $("#js-show-email-loader-id").html(loading);
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'turn_off_email': false},
+                    url: `{{ path('nc_edit_profile_update_user_profile', {'id': user.id})}}`,
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
+            $("#js-show-profile-id").click(function (e) {
+                let loading = `<a href="#" class="disabled" title="alias name set"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+                $("#js-show-loader-id").html(loading);
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    data: {'alias_name': "null"},
+                    url: `{{ path('nc_edit_profile_update_user_profile', {'id': user.id})}}`,
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
+            $("#js_alias_name_submit").click(function (e) {
+                let username = $("#js_my_alias_name").val();
+                let loading = `<a href="#" class="disabled" title="alias name set"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+                let name_size = username.split(' ').length;
+                if (name_size <= 2) {
+                    $("#js-show-alias-name-form-id").html(loading);
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        data: {'alias_name': username},
+                        url: `{{ path('nc_edit_profile_update_user_profile', {'id': user.id})}}`,
+                        success: function(response) {
+                            if (response.success) {
+                                $("#js-show-alias-name-form-id").html(`<p>Alias Name: ${response.alias_name}</p>`);
+                                location.reload();
+                            }
+                        }
+                    });
+                } else {
+                    $("#js-show-alias-name-error").html(
+                        `
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <span>Enter two words only</span>
+                        </div>
+                        `
+                    );
+                }
+            });
+        });
+        
+    </script>
+{% endblock %}

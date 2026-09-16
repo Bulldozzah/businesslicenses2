@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="icon" href="data:,">
+    <title>
+        {% block page_title %}{% endblock %}
+    </title>
+    {% render(controller("WebmastersAfricaAdminBundle:Default:stylesheets")) %}
+    {% block w3_style %}
+    {% endblock %}
+    {% render(controller("WebmastersAfricaAdminBundle:Default:javascripts")) %}
+</head>
+
+<body>
+    {% render(controller("WebmastersAfricaAdminBundle:Default:sidebar", {'routename':app.request.attributes.get('_route')})) %}
+    <!-- Right side -->
+    <div id="rightSide">
+        {% render(controller("WebmastersAfricaAdminBundle:Default:topbar", {'routename':app.request.attributes.get('_route')})) %}
+        {% block search %}
+        <!-- Search widget -->
+        {# <div class="searchWidget_form">
+            <form action="{{ path('search') }}" method="post" class="form-search">
+                <input type="text" name="search" placeholder="search..." id="ac" />
+                <input type="submit" value="" />
+            </form>
+        </div> #}
+        {% endblock %}
+        {% block header %}
+        {% render(controller("WebmastersAfricaAdminBundle:Default:header")) %}
+        {% endblock %}
+        <div class="line"></div>
+        <!-- Main content wrapper -->
+        <div class="wrapper"> {% block body %}{% endblock %}
+        </div>
+        {% block body_2 %}{% endblock %}
+    </div>
+    <div class="clear"></div>
+    {# <script src="{{ asset('bundles/webmastersafricaadmin/choosen/chosen.jquery.js') }}" type="text/javascript"></script> #}
+    <script src="{{ asset('bundles/webmastersafricaadmin/choosen/docsupport/prism.js') }}" type="text/javascript" charset="utf-8"></script>
+    {# // <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> #}
+    <script type="text/javascript">
+    var config = {
+        '.chosen-select': {},
+        '.chosen-select-deselect': {
+            allow_single_deselect: true
+        },
+        '.chosen-select-no-single': {
+            disable_search_threshold: 10
+        },
+        '.chosen-select-no-results': {
+            no_results_text: 'Oops, nothing found!'
+        },
+        '.chosen-select-width': {
+            width: "95%"
+        }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('#admin_table').DataTable();
+        var statistics = $.ajax({ url: '{{ path("task_count") }}', type: 'get', data: {}, datatype: 'JSON' });
+        statistics.done(function(response) {
+            response = JSON.parse(response);
+            $("#task_count").html(response.task_count)
+        });
+
+    });
+    </script>    
+    {% block stylesheet_2 %}{% endblock %}
+</body>
+
+</html>

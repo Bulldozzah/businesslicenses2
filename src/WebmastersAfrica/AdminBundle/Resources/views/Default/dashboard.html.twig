@@ -1,0 +1,300 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block page_title %}{{ site_title }}, {{ 'dashboard.page_title'|trans }}{% endblock %}
+
+{% block header %}
+{% render(controller("WebmastersAfricaAdminBundle:Default:header")) %}
+{% endblock %}
+
+{% block body %}   
+<div class="widgets">
+    <div class="oneTwo">
+    
+        <!-- Website stats widget -->
+        <div class="widget">
+            <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/stats.png') }}" alt="" class="titleIcon" /><h6>{{ 'dashboard.website_statistics.title'|trans }}</h6></div>
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+                <thead>
+                    <tr>
+                        <td width="80">{{ 'dashboard.website_statistics.stats'|trans }}</td>
+                        <td>{{ 'dashboard.website_statistics.description'|trans }}</td>
+                        <td width="80">{{ 'dashboard.website_statistics.changes'|trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+					{% if is_expr_granted("hasRole('LICENSE_MANAGE')") %}
+                    <tr>
+                        <td align="center">
+                            <a href="{{ path('managelicenses_all') }}" title="" class="webStatsLink" id="publishedlicenses">
+                                <img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" />
+                            </a>
+                        </td>
+                        <td><a href="{{ path('managelicenses_all') }}" title="">{{ 'dashboard.website_statistics.published_licenses'|trans }}</a></td>
+                        <td rowspan='2'><span class="statsPlus" id="createdlicenses">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedlicenses">0</span></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="{{ path('managelicenses') }}" title="" class="webStatsLink" id="unpublishedlicenses"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managelicenses') }}" title="">{{ 'dashboard.website_statistics.unpublished_licenses'|trans }}</a></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="{{ path('managelicenses') }}" title="" class="webStatsLink" id="in_review"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managelicenses') }}" title="">{{ 'dashboard.website_statistics.in_review'|trans }}</a></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="{{ path('managelicenses') }}" title="" class="webStatsLink" id="draft_applications"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managelicenses') }}" title="">{{ 'dashboard.website_statistics.as_draft'|trans }}</a></td>
+                    </tr>
+                    {% endif %}
+					{% if is_expr_granted("hasRole('LOCATIONS_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('managelocations') }}" title="" class="webStatsLink" id="locations"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managelocations') }}" title="">{{ 'dashboard.website_statistics.locations'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdlocations">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedlocations">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('INDUSTRIES_MANAGE')") %}
+                    <tr>
+                        <td align="center">
+                        	<a href="{{ path('manageindustries') }}" title="" class="webStatsLink" id="industries_count">
+                        	<img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td>
+                        	<a href="{{ path('manageindustries') }}" title="">{{ 'dashboard.website_statistics.industries'|trans }}</a></td>
+                        <td>
+                        	<span class="statsPlus" id="createdindustries">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedindustries">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('BUSINESSTYPES_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('managebusinesstypes') }}" title="" class="webStatsLink" id="businesstypes"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managebusinesstypes') }}" title="">{{ 'dashboard.website_statistics.business_types'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdbusinesstypes">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedbusinesstypes">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('ACTIVITIES_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('manageactivities') }}" title="" class="webStatsLink" id="activities_count"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('manageactivities') }}" title="">{{ 'dashboard.website_statistics.activities'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdactivities">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedactivities">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('AGENCIES_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('manageagencies') }}" title="" class="webStatsLink" id="agencies"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('manageagencies') }}" title="">{{ 'dashboard.website_statistics.agencies'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdagencies">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedagencies">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('NEWS_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('managenews') }}" title="" class="webStatsLink" id="news"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managenews') }}" title="">Published {{ 'dashboard.website_statistics.news'|trans }}</a></td>
+                        <td><span class="statsPlus" id="creatednews">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removednews">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('NEWSLETTERS_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('managenewsletters') }}" title="" class="webStatsLink" id="newsletters_count"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managenewsletters') }}" title="">{{ 'dashboard.website_statistics.newsletters'|trans }}</a></td>
+                        <td><span class="statsPlus" id="creatednewsletters">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removednewsletters">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('SUBSCRIBERS_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('managesubscribers') }}" title="" class="webStatsLink" id="subscribers"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managesubscribers') }}" title="">{{ 'dashboard.website_statistics.newsletter_subscribers'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdsubscribers">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedsubscribers">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('USERS_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('manageusers') }}" title="" class="webStatsLink" id="users"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('manageusers') }}" title="">{{ 'dashboard.website_statistics.users'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdusers">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedusers">0</span></td>
+                    </tr>
+					{% endif %}
+					{% if is_expr_granted("hasRole('GROUPS_MANAGE')") %}
+                    <tr>
+                        <td align="center"><a href="{{ path('managegroups') }}" title="" class="webStatsLink" id="groups"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a></td>
+                        <td><a href="{{ path('managegroups') }}" title="">{{ 'dashboard.website_statistics.groups'|trans }}</a></td>
+                        <td><span class="statsPlus" id="createdgroups">0</span> &nbsp; &nbsp;
+                        <span class="statsMinus" id="removedgroups">0</span></td>
+                    </tr>
+					{% endif %}
+                </tbody>
+            </table>   
+        </div>
+    
+        <!-- Latest update widget -->
+        <div class="widget">
+            <div class="title"><a href='{{ path('webmasters_africa_admin_homepage') }}'><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/refresh4.png') }}" alt="" class="titleIcon" /></a><h6>{{ 'dashboard.latest_updates.title'|trans }}</h6></div>
+            
+            <div class="updates">
+                {% for update in dashupdates %}
+            	<div class="newUpdate">
+                    {% if update.action == 'create' %}
+                    <div class="uDone">
+                    {% elseif update.action == 'update' %}
+                    <div class="uNotice">
+                    {% elseif update.action == 'remove' %}
+                    <div class="uAlert">
+                    {% else %}
+                    <div class="uDone">
+                    {% endif %}
+                        <a title=""><strong>
+                        {% if update.action == 'create' %}
+                            {{ 'dashboard.latest_updates.create'|trans }}
+                        {% elseif update.action == 'update' %}
+                            {{ 'dashboard.latest_updates.update'|trans }}
+                        {% elseif update.action == 'remove' %}
+                            {{ 'dashboard.latest_updates.remove'|trans }}
+                        {% else %}
+                            {{ update.action }}
+                        {% endif %}
+                         {{ 'dashboard.latest_updates.action'|trans }} {{ 'dashboard.latest_updates.by'|trans }} {{ update.username }}</strong></a>
+                        <span>{{ update.objectClass | replace({'WebmastersAfrica': '', 'PressBundle': '', 'LicenseBundle': '', 'UserBundle': '', 'TaskBundle': '', 'MessageBundle': '', 'Entity': '', '\\': '', 'Business': ''}) }} </span> 
+                    </div>
+                    <div class="uDate"><span class="uDay">{{ update.loggedAt | date('d') }}</span>{{ update.loggedAt | date('M') }}</div>
+
+                    {% if update.action != 'remove' %}
+                    {% set url = '' %}
+                    {% set entity = update.objectClass | replace({'WebmastersAfrica': '', 'PressBundle': '', 'LicenseBundle': '', 'UserBundle': '', 'TaskBundle': '', 'MessageBundle': '', 'Entity': '', '\\': '', 'Business': ''}) %}
+                    {% if entity == 'License' %}
+                        {% set url = path('managelicenses_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'Location' %}
+                        {% set url = path('managelocations_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'Industry' %}
+                        {% set url = path('manageindustries_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'BusinessType' %}
+                        {% set url = path('managebusinesstypes_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'Activity' %}
+                        {% set url = path('manageactivities_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'Feedback' %}
+                        {% set url = path('managefeedback_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'News' %}
+                        {% set url = path('managenews_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'Newsletter' %}
+                        {% set url = path('managenewsletters_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'NewsletterSubscriber' %}
+                        {% set url = path('managesubscribers_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'User' %}
+                        {% set url = path('manageusers_edit', {'id':update.objectId}) %}
+                    {% elseif entity == 'Group' %}
+                        {% set url = path('managegroups_edit', {'id':update.objectId}) %}
+                    {% endif %}
+                    <div class="uDate" style="margin-right: 20px;">
+                        <a href="{{ url }}" style="float: right;"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/magnify.png') }}" alt="view" class="titleIcon" /></a>
+                    </div>
+                    {% endif %}
+
+                    <div class="clear"></div>
+                </div>
+                {% endfor %} 
+            </div>
+        </div>
+    </div>
+
+	<!-- 2 columns widgets -->
+    <div class="oneTwo">
+    
+        <!-- Search -->
+        <div class="searchWidget">
+            <form action="{{ path('search') }}" method='post'>
+                <input type="text" name="search" placeholder="{{ 'dashboard.search'|trans }}" />
+                <input type="submit" name="find" value="" />
+            </form>
+        </div>
+    
+        <!-- My tasks table widget -->
+        <div class="widget">
+            <div class="title"><a href='{{ path("managetasks_new") }}'><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/timer.png') }}" alt="" class="titleIcon" /></a><a href='{{ path("managetasks") }}'><h6>{{ 'dashboard.my_tasks.title'|trans }}</h6></a><div class="num"><a href="#" class="blueNum">+{{ dashtasks | length }}</a></div></div>
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable taskWidget">
+                <thead>
+                    <tr>
+                        <td>{{ 'dashboard.my_tasks.description'|trans }}</td>
+                        <td width="100">{{ 'dashboard.my_tasks.status'|trans }}</td>
+                        <td width="60">{{ 'dashboard.my_tasks.acts'|trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in dashtasks %}
+                    <tr>
+                        <td class="taskPr"><a href="{{ path("managetasks_show", {'id':task.id}) }}" title="">{{ task.taskDescription|striptags|truncate(50, true, "...")|raw }}</a></td>
+                        <td><span class="green f11">{{ task.taskStatus }}</span></td>
+                        <td class="actBtns"><a href="{{ path("managetasks_show", {'id':task.id}) }}" title="Update" class="tipS"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit.png') }}" alt="" /></a></td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table> 
+        </div>              
+        {% if is_expr_granted("hasRole('LICENSE_MANAGE')") %}
+        <!-- New licenses widget -->
+        <div class="widget">
+            <div class="title"><a href='{{ path("managelicenses_new") }}'><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/add.png') }}" alt="New licenses" class="titleIcon" /></a><a href='{{ path("managelicenses") }}'><h6>{{ 'dashboard.new_licenses'|trans }}</h6></a></div>
+            {% for license in dashlicenses %}
+            <div class="wUserInfo">
+                <a target="_blank" href="{{ path("license_view", {'id':license.id}) }}" title="{{ license.name }}" class="wUserPic"><img src="{{ asset('bundles/webmastersafricaadmin/images/user.png') }}" alt="" /></a>
+                <ul class="leftList">
+                    <li><a target="_blank" href="{{ path("license_view", {'id':license.id}) }}" title="{{ license.name }}"><strong>{{ license.name }}</strong></a></li>
+                    <li><a target="_blank" href="{{ path("license_view", {'id':license.id}) }}" title="{{ license.description }}">{{ license.description|striptags|truncate(50, true, "...")|raw }}</a></li>
+                </ul>
+                <ul class="rightList">
+                    <li><a href="#" class="green"><strong>{{ license.created | date('d.m.Y') }}</strong></a></li>
+                    <li><a href="#" class="red">
+                        {{ license.agency }}
+                    </a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+            <div class="cLine"></div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if is_expr_granted("hasRole('USERS_MANAGE')") %}
+        <!-- New users widget -->
+        <div class="widget">
+            <div class="title"><a href='{{ path("manageusers_new") }}'><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/add.png') }}" alt="New users" class="titleIcon" /></a><a href='{{ path("manageusers") }}'><h6>{{ 'dashboard.new_users'|trans }}</h6></a></div>
+            {% for user in dashusers %}
+            <div class="wUserInfo">
+                <a href="{{ path("manageusers_edit", {'id':user.id}) }}" title="{{ user.firstname ~ ' ' ~ user.lastname }}" class="wUserPic"><img src="{{ asset('bundles/webmastersafricaadmin/images/user.png') }}" alt="" /></a>
+                <ul class="leftList">
+                    <li><a href="{{ path("manageusers_edit", {'id':user.id}) }}" title="{{ user.firstname ~ ' ' ~ user.lastname }}"><strong>{{ user.firstname ~ ' ' ~ user.lastname }}</strong></a></li>
+                    <li><a href="{{ path("manageusers_edit", {'id':user.id}) }}" title="{{ user.email }}">{{ user.email }}</a></li>
+                </ul>
+                <ul class="rightList">
+                    <li><a href="#" class="green"><strong>{{ user.created | date('d.m.Y') }}</strong></a></li>
+                    <li><a href="#" class="red">
+                    {% for agency in user.agencies %}
+                        {{ agency }},
+                    {% endfor %}
+                    </a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="cLine"></div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script type="text/javascript" src="{{ asset('bundles/OTB/notice/js/admin_request_dash.js') }}"></script>
+{% endblock %}

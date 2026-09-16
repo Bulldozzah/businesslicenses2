@@ -1,0 +1,28 @@
+parameters:
+  my_user_provider.class: FOS\UserBundle\Security\FOSUBUserProvider
+  
+services:
+  my_user_provider:
+    class: "%my_user_provider.class%"
+    #this is the place where the properties are passed to the UserProvider - see config.yml
+    arguments:
+      [@fos_user.user_manager, { facebook: facebookId, google: googleId }]
+  license_task_create.subscriber.task_registered:
+    class: WebmastersAfrica\LicenseBundle\Subscriber\LicenseTaskSubscriber
+    arguments:
+      - "@logger"
+    tags:
+      - { name: kernel.event_subscriber }
+
+  session.handler.repo:
+    class:     WebmastersAfrica\AdminBundle\Session\Handler\RepositoryHandler
+    arguments: [@doctrine.orm.entity_manager, WebmastersAfrica\AdminBundle\Entity\Session]
+  session.storage.repo:
+    class:     Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage
+    arguments: [%session.storage.options%, @session.handler.repo]
+    
+  kernel.subscriber.subscriber:
+    class: OTB\Bundle\NoticeAndCommentBundle\Event\CommentSubscriber
+    arguments: [@twig, @mailer, Symfony\Component\HttpFoundation\Request]
+    tags:
+      - { name: kernel.event_subscriber}

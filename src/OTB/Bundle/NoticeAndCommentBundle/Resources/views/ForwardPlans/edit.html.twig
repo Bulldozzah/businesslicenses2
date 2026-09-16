@@ -1,0 +1,169 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+  Eregistry | Edit
+  {{ entity.title }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>{{ 'forward_plans.edit_forward_plan' | trans }}</h5>
+        <span>Edit - Regulations</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+  {{ form_start(edit_form, {'attr': {'class': 'form', 'novalidate':'novalidate'}}) }}
+  <div id="errors">
+    {{ form_errors(edit_form) }}
+  </div>
+
+  <div id="forward-plans-form">
+    <section>
+      <div>
+        {{ form_row(edit_form.title) }}
+      </div>
+
+      <div>{{ form_row(edit_form.description) }}</div>
+      <div>{{ form_row(edit_form.problemAddressed) }}</div>
+      <div>
+        {{ form_row(edit_form.publicConsultation) }}
+      </div>
+      <div>
+        {{ form_row(edit_form.impact) }}
+      </div>
+    </section>
+    <section>
+      <div style="width:100%">
+        {{ form_row(edit_form.forwardPlanCategory) }}
+      </div>
+      <div>
+        {{ form_row(edit_form.offlineOffice) }}
+      </div>
+      <div>
+      <div class="cLine"></div>
+        <p>Supporting Documents</p>
+        <ul class="downloads" data-prototype="{{ form_widget(edit_form.attachments.vars.prototype)|e }}">
+          {% set count = 0 %}
+          {% for doc in edit_form.attachments %}
+            {% set count = count + 1 %}
+            <li id="down_{{ count }}">
+              <div class="formRow">
+                {{ form_label(doc.name )}}
+                <div class="formRight">
+                  {{ form_widget(doc.name) }}
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="formRow">
+                {{ form_label(doc.file)}}
+                <div class="formRight" data-file-name="{{ doc.vars.value.filepath }}">
+                  {{ form_widget(doc.file) }}
+                </div>
+                <div class="clear"></div>
+              </div>
+              <a style="cursor: pointer;" class="w3-button w3-hover-red w3-round-medium w3-red w3-medium floatR" onclick="document.getElementById('down_{{ count }}').parentNode.removeChild(document.getElementById('down_{{ count }}'));">
+                <span>{{ 'licenses.delete_this_download' | trans }}</span>
+              </a>
+              <div class="clear"></div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="clear"></div>
+      <div class="cLine"></div>
+      <div>
+        {{ form_row(edit_form.relatedLinks) }}
+      </div>
+    </section>
+    {% if is_expr_granted("hasRole('CAN_PUBLISH_FORWARD_PLAN')") and entity.published == 0 %}
+      <section>
+        <div>
+          {{ form_row(edit_form.published) }}
+        </div>
+      </section>
+    {% endif %}
+
+    {{ form_row(edit_form.submit) }}
+    <div style="display:none;">
+      {{ form_rest(edit_form) }}
+    </div>
+    {{ form_end(edit_form) }}
+  </div>
+  <script language="javascript">
+    // Downloads
+    var $downloadCollectionHolder;
+
+    var $addDownloadLink = $(`<a href="#" class="w3-button w3-hover-green w3-round-medium w3-green w3-medium add_download_link"><span><i class="fa fa-plus"> Add New Supporting Documents (attachments)</i><span></a>`);
+    var $newDownloadLinkLi = $('<li></li>').append($addDownloadLink);
+
+    function addDownloadForm($downloadCollectionHolder, $newDownloadLinkLi) {
+      var prototype = $downloadCollectionHolder.data('prototype');
+
+      var index = $downloadCollectionHolder.data('index');
+
+      var newForm = prototype.replace(/__name__/g, index);
+
+      $downloadCollectionHolder.data('index', index + 1);
+
+      var $newFormLi = $('<li></li>').append(newForm);
+      addDownloadFormDeleteLink($newFormLi);
+      $newDownloadLinkLi.before($newFormLi);
+    }
+
+
+    function addDownloadFormDeleteLink($downloadFormLi) {
+      var $removeFormA = $(`<a href="#" class="w3-button w3-hover-red w3-round-medium w3-red w3-medium floatR"><span>{{ 'licenses.delete_this_download' | trans }}</span></a><div class="clear"></div><div class="cLine"></div>`);
+      $downloadFormLi.append($removeFormA);
+
+      $removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // remove the li for the tag form
+        $downloadFormLi.remove();
+      });
+    }
+
+    jQuery(document).ready(function () {
+
+      var demo1 = $('[id="webmastersafrica_licensebundle_businesslicense_activities"]').bootstrapDualListbox();
+
+      $downloadCollectionHolder = $('ul.downloads');
+
+      $downloadCollectionHolder.append($newDownloadLinkLi);
+
+      addDownloadFormDeleteLink($(this));
+
+      $downloadCollectionHolder.data('index', $downloadCollectionHolder.find(':input').length);
+
+      $addDownloadLink.on('click', function (e) {
+        e.preventDefault();
+
+        addDownloadForm($downloadCollectionHolder, $newDownloadLinkLi);
+      });
+
+    });
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
+      // createAddFile(fileCount);
+      // fileCount ++;
+      $("#forward_plans_agency").addClass("w3-select w3-border w3-round-large");
+      $("#forward_plans_agency").select2();
+      CKEDITOR.replace("forward_plans_description");
+      CKEDITOR.replace("forward_plans_problemAddressed");
+      CKEDITOR.replace("forward_plans_publicConsultation");
+      CKEDITOR.replace("forward_plans_offlineOffice");
+      CKEDITOR.replace("forward_plans_impact");
+      CKEDITOR.replace("forward_plans_relatedLinks");
+    });
+  </script>
+{% endblock %}

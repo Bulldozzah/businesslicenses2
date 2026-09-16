@@ -1,0 +1,79 @@
+{
+    "name": "symfony/framework-standard-edition",
+    "license": "MIT",
+    "type": "project",
+    "description": "The \"Symfony Standard Edition\" distribution",
+    "autoload": {
+        "files": ["mix.php"],
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": ">=2.2.3,<2.5",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "twig/extensions": "^1.5",
+        "symfony/assetic-bundle": "2.3.1",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "sensio/distribution-bundle": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "jms/security-extra-bundle": "1.5.*@dev",
+        "stof/doctrine-extensions-bundle": "1.2.2",
+        "knplabs/knp-menu": "2.0.0",
+        "knplabs/knp-menu-bundle": "2.0.0",
+        "genemu/form-bundle": "2.2.*",
+        "hwi/oauth-bundle": "0.4.0",
+        "kriswallsmith/assetic": "1.1.1",
+        "twig/twig": "1.*",
+        "symfony/event-dispatcher": "2.3.42",
+        "white-october/pagerfanta-bundle": "^1.2",
+        "jms/serializer-bundle": "2.4.4",
+        "friendsofsymfony/rest-bundle": "1.8.0",
+        "symfony/var-dumper": "3.4.20",
+        "cocur/slugify": "^3.2",
+        "snowcap/im-bundle": "1.0.8",
+        "friendsofsymfony/elastica-bundle": "2.*",
+        "richsage/rms-push-notifications-bundle": "^0.2.3",
+        "symfony/mercure": "^0.2.0",
+        "lexik/jwt-authentication-bundle": "1.7.1",
+        "vich/uploader-bundle": "0.14.0",
+        "willdurand/faker-bundle": "^1.4",
+        "liuggio/excelbundle": "2.0.0",
+        "phpoffice/phpspreadsheet": "^1.9",
+        "symfony/browser-kit": "2.3.*"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        }
+    }
+}

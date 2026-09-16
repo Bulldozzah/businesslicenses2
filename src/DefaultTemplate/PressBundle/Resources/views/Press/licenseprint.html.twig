@@ -1,0 +1,232 @@
+<html>
+<head>
+  <title></title>
+</head>
+
+<body>
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+<link href="{{ asset('bundles/webmastersafricapress/new/css/main.css') }}" rel="stylesheet" />
+<link href="{{ asset('bundles/webmastersafricapress/new/css/print.css') }}" rel="stylesheet" />
+
+{% block body %}
+     <div class="col-md-9 col-sm-7 col-xs-12">
+       <div class="box_style_2 info">
+        <div class="print_title text-center">
+            <img src="{{ asset('bundles/webmastersafricapress/new/img/logo.png') }}" alt="" data-retina="true">
+            <h2 class="page_title">{{ license.name|raw }}</h2>
+        </div>
+       <span class="typography">
+       <h3 class="nomargin_top"> <a target="_blank" href="{{ app.request.basepath }}/printlicense/id/{{ license.id }}" title="Print" class="anicon"><i class="icon_printer pull-right"></i></a></h3>
+       
+       <p>{{ license.purpose|raw }}</p>
+       </span>
+       <div class="panel-group m-b-0">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      {# <a class="accordion-toggle" data-toggle="collapse" data-parent="#payment" href="#collapseOne"> #}Details{# <i class="indicator icon_plus_alt2 pull-right"></i></a> #}
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                      {% if ('6' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.licenseno'|trans }}: </span>{{ license.licenseNo|raw }}</li>
+                      {% endif %}
+
+                      {% if ('20' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.agency'|trans }}: </span>{{ license.agency|raw }}</li>
+                      {% endif %}
+
+                      {% if ('3' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.purpose'|trans }}: </span>{{ license.purpose|raw }}</li>
+                      {% endif %}
+
+                      {% if ('19' in showedfields) %}
+                        {% if license.location is sameas("") %}
+                         <li> <span> {{ 'licenses.fieldnames.jurisdiction'|trans }}: </span>{{ license.location.name|raw }}</li>
+                        {% endif %}
+                      {% endif %}
+
+                      {% if ('7' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.applicationfee'|trans }}: </span>{{ license.applicationFee|raw }}</li>
+                      {% endif %}
+
+                      {% if ('8' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.licensefee'|trans }}: </span>{{ license.licenseFee|raw }}</li>
+                      {% endif %}
+
+                      {% if ('9' in showedfields) %}
+                      {# <li> <span> {{ 'licenses.fieldnames.maximumprocessingtime'|trans }}: </span>{{ license.maxProcessingTime|raw }}</li> #}
+                      {% endif %}
+
+                      {% if ('10' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.gazettedon'|trans }}: </span>{{ license.gazettedOn | date("d-m-Y") }}</li>
+                      {% endif %}
+
+                      {% if ('11' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.relatedwebsites'|trans }}: </span>{{ license.relatedWebsites|raw }}</li>
+                      {% endif %}
+
+                      {% if ('12' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.validity'|trans }}: </span>{{ license.validity|raw }}</li>
+                      {% endif %}
+
+                      {% if ('13' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.enactment'|trans }}: </span>{{ license.enactment | date("d-m-Y") }}</li>
+                      {% endif %}
+
+                      {% if ('15' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.contactoffice'|trans }}: </span>{{ license.contactOffice|raw }}</li>
+                      {% endif %}
+
+                      {% if ('16' in showedfields) %}
+                      <li> <span> {{ 'licenses.fieldnames.resolutioncriteria'|trans }}: </span>{{ license.resolutionCriteria|raw }}</li>
+                      {% endif %}
+
+                      {% for field in licensefields %}
+                      <li> <span> {{ field.fieldlabel }}: </span> {% for datafield in fielddatas %}{% if (datafield.fieldId == field.id) %}{{ datafield.fielddata }}{% endif %}{% endfor %}</li>
+                      {% endfor %}
+                    </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      Requirements
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                       {{ license.requirements|raw }}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                     {#  <a class="accordion-toggle" data-toggle="collapse" data-parent="#payment" href="#collapseThree"> #}Download Forms/Info{# <i class="indicator icon_plus_alt2 pull-right"></i></a> #}
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                        {% for download in license.downloads %}
+                            <li><a href="{{ app.request.basepath }}/uploads/documents/{{ download.filepath }}">{{ download.name|raw }}</a></li>
+                        {% endfor %}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      {# <a class="accordion-toggle" data-toggle="collapse" data-parent="#payment" href="#collapseFour"> #}Agencies{# <i class="indicator icon_plus_alt2 pull-right"></i></a> #}
+                    </h4>
+                  </div>
+                  <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                                <li>
+                                      <h4><a>{{ license.agency.name }} - Head Office</a></h4>
+                                      <div class="tbbd-acc_acc-section">
+                                          <div class="tbbd-acc_acc-content">
+
+                                      <ul>
+                                        <li>Tel: {{ license.agency.telephone|raw }} </li>
+                                        <li>Physical Address:  {{ license.agency.address|raw }} </li>
+                                        <li>Postal Address:  {{ license.agency.postalAddress|raw }} </li>
+                                        <li>City: {{ license.agency.location.name|raw }} </li>
+                                        <li>
+                                        <div id='basic-modal'>Email Address: {{ license.agency.email|raw }} <a href="{{ app.request.basepath }}/email/agency/{{ license.agency.id }}" title="Email this Agency" class="basic">Email this Agency</a> </div> </li>
+                                        <li>Website: <a href="{% if  'http' in license.agency.website %}{{ license.agency.website }}{% else %}http://{{ license.agency.website }}{% endif %}" target="_blank">{{ license.agency.website }}</a> </li>
+                                        <li>Operating Hours: {{ license.agency.hours|raw }} </li>
+
+                                        {% if license.agency.mapScan!= '' %}
+
+                                          <li>Directions:
+                                          <a href="{{ app.request.basepath }}/uploads/map_scans/{{ license.agency.mapScan }}" title="Get Directions" alt="Get Directions" target="_blank">View Directions</a>
+                                        </li>
+
+                                        {% endif %}
+
+
+                                        {% if license.agency.latitude and license.agency.longitude %}
+
+                                        <li>Directions:
+                                        <a href="{{ app.request.basepath }}/agency/viewmap/{{ license.agency.id }}" title="View Directions" onclick="
+                                      Modalbox.show(this.href, {title: this.title, width: 460, afterLoad: function(){initialize({{ license.agency.latitude }}, {{ license.agency.longitude }});}}); return false;">View Directions</a>
+                                        </li>
+
+                                        {% endif  %}
+                                      </ul>
+                                                                  </div>
+                                                              </div>
+                                      </li>
+
+                                      {% for agencyoffice in license.agency.agencyoffices %}
+                                      <li id="no_bglist">
+                                                              <h4><a>{{ agencyoffice.name|raw }}</a></h4>
+                                                              <div class="tbbd-acc_acc-section">
+                                                                  <div class="tbbd-acc_acc-content">
+                                       <ul>
+                                        <li>Tel: {{ agencyoffice.telephone|raw }} </li>
+                                        <li>Physical Address: {{ agencyoffice.address|raw }} </li>
+                                        <li>Postal Address:  {{ agencyoffice.postalAddress|raw }} </li>
+
+                                        <li>
+                                        <div id='basic-modal'>Email Address: {{ agencyoffice.email|raw }} <a href="{{ app.request.basepath }}/email/agency/{{ agencyoffice.id }}" title="Email this Agency" class="basic">Email this Agency</a> </div> </li>
+                                        <li>Website: <a href="{{ agencyoffice.website }}" target="_blank">{{ agencyoffice.website|raw }}</a> </li>
+                                        <li>Operating Hours: {{ agencyoffice.hours|raw }} </li>
+
+
+                                        {% if license.agency.mapScan!= '' %}
+
+                                          <li>Directions:
+                                          <a href="{{ app.request.basepath }}/uploads/map_scans/{{ agencyoffice.mapScan }}" title="Get Directions" alt="Get Directions" target="_blank">View Directions</a>
+                                        </li>
+
+                                        {% endif %}
+
+                                         {% if license.agency.latitude and license.agency.longitude %}
+
+                                        <li>Directions:
+                                        <a href="{{ app.request.basepath }}/agency/viewmap/{{ agencyoffice.id }}" title="View Directions" onclick="
+                                      Modalbox.show(this.href, {title: this.title, width: 460, afterLoad: function(){initialize({{ agencyoffice.latitude }}, {{ agencyoffice.longitude }});}}); return false;">View Directions</a>
+                                        </li>
+
+                                        {% endif  %}
+                                      </ul>                           </div>
+                                                              </div>
+                                                          </li>
+                                      {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+        </div>
+
+    </div>
+
+    <p id="page_url" class="text-center"></p>
+
+  </div>
+{% endblock %}
+
+
+<script language="javascript">
+  document.getElementById("page_url").innerHTML = "Document Source: " + window.location.href;
+</script>
+
+<script language="javascript">
+  window.print();
+</script>
+</body>
+</html>

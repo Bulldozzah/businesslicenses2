@@ -1,0 +1,35 @@
+{# src/WebmastersAfrica/UserBundle/Resources/views/Group/edit.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block page_title %}{{ site_title }}, - {{ 'profile.my_profile'|trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'profile.my_profile'|trans }}</h5>
+            <span>{{ 'profile.view_profile_settings'|trans }}</span>
+        </div>
+        
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('webmasters_africa_admin_homepage') }}" title="{{ 'profile.back_dashboard'|trans }}" class="wButton redwB ml15 m10"><span>{{ 'profile.back_dashboard'|trans }}</span></a>
+            <div class="clear"></div>
+        </div>
+
+        
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('fos_user_profile_edit') }}" title="{{ 'profile.edit_profile_settings'|trans }}" class="wButton redwB ml15 m10"><span>{{ 'profile.edit_profile_settings'|trans }}</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+{% block body %}
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+{% endblock body %}

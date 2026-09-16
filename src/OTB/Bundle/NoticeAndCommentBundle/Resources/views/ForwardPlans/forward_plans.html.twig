@@ -1,0 +1,185 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+    Forward Plans, Zambia Agency, Agency Forward Plans
+{% endblock %}
+{% block sitetitle %}
+    {{ agency.title }}
+    Forward Plans
+{% endblock %}
+{% block sitedescription %}
+    {{ agency.title }}
+    Forward Plans
+{% endblock %}
+{% block sitetwitterdescription %}
+    {{ agency.slug }}
+{% endblock %}
+{% block sitetwittertitle %}
+    {{ agency.slug }}
+{% endblock %}
+{% block sitetwitterurl %}
+    {{ path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) }}
+{% endblock %}
+
+
+{% block page_title %}
+    Notice-and-Comment |
+    {{ agency.title }}
+{% endblock %}
+{% block body %}
+
+
+    <main class="single" role="main">
+
+        <div class="jumbotronZ clearfix">
+            <div class="container text-left">
+                <div class="row clearfix">
+                    <div class="col-md-4">
+                        <div class="jumboZ_in_1 jumboZ_in">
+                            <div class="single_post_details">
+                                <table class="table">
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Agency</th>
+                                      <td><a href="{{ path('show_forward_plans', {'slug': agency.slug })}}" target="_blank">{{ agency.name }}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Address</th>
+                                      <td>{{ agency.address }}</td>
+                                    </tr>    
+                                    <tr>
+                                      <th scope="row">Email</th>
+                                      <td><a href="mailto:{{ agency.email }}" target="_blank">{{ agency.email }}</a></td>
+                                    </tr>    
+                                    <tr>
+                                      <th scope="row">Website</th>
+                                      <td><a href="{{ agency.website }}" target="_blank">{{ agency.website }}</a></td>
+                                    </tr>    
+                                    <tr>
+                                      <th scope="row">Location</th>
+                                      <td>{{ agency.location }}</td>
+                                    </tr>                                                                                                                                              
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="jumboZ_in_1 jumboZ_in">
+                            <h2 class="display-3">Forward Plans:
+                                {{agency.title}}
+                            </h2>
+                            <ul class="share_icons_A">
+                                <li class="s_title">SHARE:
+                                </li>
+                                <li class="s_fb">
+                                   <div class="fb-share-button" data-href="http://www.businesslicenses.gov.zm{{ currentPath }}" data-layout="button_count" data-size="large">
+								                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.businesslicenses.gov.zm{{ currentPath }}" class="fb-xfbml-parse-ignore">Share</a>
+								                  </div>
+                                </li>
+                                <li class="s_tw">
+                                    <a href="https://twitter.com/intent/tweet?text=http://www.businesslicenses.gov.zm{{ currentPath }}" data-size="large">
+                                        <ion-icon aria-label="logo twitter" class="hydrated" name="logo-twitter" role="img"></ion-icon>
+                                    </a>
+                                </li>
+                                <li class="s_mail">
+                                    {% set regulation_body = agency.title|raw %}
+                                    <a href="mailto:?Subject={{ agency.title }}&amp;Body={{ regulation_body }}" target="_blank">
+                                        <ion-icon aria-label="mail" class="hydrated" name="mail" role="img"></ion-icon>
+                                    </a>
+                                </li>
+                                <li class="s_copy">
+                                    <div class="share_whatsapp">
+                                        <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm{{ currentPath }}" target="_blank">
+                                            <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_agency_A archive_main_content col-md-12 clearfix">
+                        <div class="home_content_A">
+                            <div class="tab-pane container active" id="all">
+
+                                {% if agency.ForwardPlans|length > 0 %}
+                                    {% set count = 0 %}
+                                    {% for forward_plans in agency.forwardPlans %}
+                                        {% if forward_plans.forwardPlans|length > 0 %}
+                                            {% if forward_plans.published == 1 %}
+                                                {% set count = count + 1 %}
+
+                                                    <div class="card_B">
+                                                        <div class="row clearfix">
+                                                            <div class="col-md-7">
+                                                                <h2 class="">{{ forward_plans.name|raw }}</h2>
+                                                            </div>
+                                                            <div class="col-md-5 pull-right">
+                                                                <p class="badge badge-danger badge-pill">
+                                                                    {{ forward_plans.period|date("F Y") }} to {{ forward_plans.period2|date("F Y") }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <p class="card_B_desc">{{ forward_plans.description|raw }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="list_B2">
+                                                            {% for regulations_forward_plan in forward_plans.forwardPlans %}
+                                                                <li class="list_B2_li">
+                                                                    <a href="{{ path('forward_plans_frontend_show', {'slug': regulations_forward_plan.slug })}}">
+                                                                        {{ regulations_forward_plan.title }}
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if count == 0 %}
+                                        <p class="alert alert-danger">No Results Found</p>
+                                        <p>
+                                            <span>
+                                                <a class="btn btn-primary btn-md " href="{{ path('notice_comments_planning') }}">Back to Forward List</a>
+                                            </span>
+                                        </p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="alert alert-danger">No Results Found</p>
+                                    <p>
+                                        <span>
+                                            <a class="btn btn-primary btn-md " href="{{ path('notice_comments_planning') }}">Back to Forward List</a>
+                                        </span>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript">
+        /* $( document ).ready(function() { */
+        $(window).on('scroll', function (event) {
+            var scrollValue = $(window).scrollTop();
+            if (scrollValue == settings.scrollTopPx || scrollValue > 100) {
+                $('#navbarFix').addClass('fixed-top');
+            }
+        });
+        /* });       */
+    </script>
+{% endblock %}

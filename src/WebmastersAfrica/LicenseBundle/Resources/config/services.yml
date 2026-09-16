@@ -1,0 +1,7 @@
+parameters:
+#    webmasters_africa_license.example.class: WebmastersAfrica\LicenseBundle\Example
+
+services:
+#    webmasters_africa_license.example:
+#        class: %webmasters_africa_license.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

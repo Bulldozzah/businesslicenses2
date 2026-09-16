@@ -1,0 +1,140 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+{% block page_title %}
+    Eregistry | show
+    {{ entity.name }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h3>
+                    <b>Name:</b>
+                    {{ entity.name }}</h3>
+                <h3>
+                    <b>Period:</b>
+                    <span>{{ entity.period }}
+                        -
+                        {{ entity.period2 }}</span>
+                </h3>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="statsRow">
+            <div class="wrapper w3-center">
+                <div class="w3-show-inline-block">
+                    <div class="w3-bar">
+
+                        <a href="{{ path("forward_plans_new", {'id': entity.id }) }}" title="" class="w3-button w3-hover-red w3-round-large w3-green w3-medium" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                            <span>Add New Forward Regulation</span>
+                        </a>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('create') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.created_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'licenses.deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="widget">
+        <div class="title">
+            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/docs.png') }}" alt="" class="titleIcon"/>
+            <h6>List of Forward Plans</h6>
+        </div>
+
+        <form id="batch_form" name="batch_form" action="{{ path("batch_forward_plans", {'id': entity.id}) }}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="forward_plans_table">
+                <thead>
+                    <tr class="w3-pale-blue">
+                        <th width="40px;">
+                            <div>&middot;&middot;&middot;</div>
+                        </th>
+                        <th width="40px;">
+                            <div>#</div>
+                        </th>
+                        <th>Title</th>
+                        <th>Agency</th>
+                        <th width="40px;">Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div class="itemActions">
+                                <select id="batch_select" name="batch_select" class="form-control" onchange="if(atLeastOne()){ if(confirm('{{ 'locations.batch_confirm_1' | trans }} ' + this.value + ' {{ 'locations.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                    <option>{{ 'locations.select_batch' | trans }}...</option>
+                                    <option value="delete">{{ 'locations.delete' | trans }}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for entity in entity.forwardPlans %}
+                        {% if entity.deleted == 0 %}
+
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="batch_items[]" value="{{ entity.id }}">
+                                </td>
+                                <td align="center">
+                                    <a href="{{ path('forward_plans_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                </td>
+                                <td>{{ entity.title }}</td>
+                                <td>{{ entity.forwardPlanCategory.agency }}</td>
+                                <td>
+                                    <ul>
+                                        <li><a href="{{path('forward_plans_edit',{'id':entity.id})}}" class="smallButton">
+                                        <img alt="{{'locations.edit'|trans}}"src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}"></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#forward_plans_table').DataTable();
+        });
+    </script>
+{% endblock %}

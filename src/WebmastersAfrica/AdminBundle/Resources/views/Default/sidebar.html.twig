@@ -1,0 +1,424 @@
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+
+{% if routename == 'managefaq' or routename == 'managefaq_new' or routename == 'managefaq_create' or routename == 'managefaq_update' or routename == 'managencfaq' or routename == 'managencfaq_new' or routename == 'managencfaq_create' or routename == 'managencfaq_update' %}
+    {% set managefaq = true %}
+{% else %}
+    {% set managefaq = false %}
+{% endif %}
+
+{% if routename == 'managepages' or routename == "managepages_deleted" or routename == "managencpages_deleted" or routename == 'managepages_new' or routename == 'managepages_create' or routename == 'managepages_update' or routename == 'managencpages' or routename == 'managencpages_new' or routename == 'managencpages_create' or routename == 'managencpages_update' or routename == 'managepages_unpublished'  or routename == 'managencpages_unpublished' %}
+    {% set managepages = true %}
+{% else %}
+    {% set managepages = false %}
+{% endif %}
+
+{% if routename == 'managegroups' or routename == "managegroups_deleted" or routename == 'managegroups_new' or routename == 'managegroups_create' or routename == 'managegroups_update' or routename == 'managegroups_edit' %}
+    {% set managegroups = true %}
+{% else %}
+    {% set managegroups = false %}
+{% endif %}
+
+{% if routename == 'regulations'  or routename == 'regulations_new' or routename == 'regulations_create' or routename == 'regulations_update' or routename == 'regulations_edit' %}
+    {% set manage_regulations = true %}
+{% else %}
+    {% set manage_regulations = false %}
+{% endif %}
+
+{% if routename == 'forwardplanmaincategory'  or routename == 'forwardplanmaincategory_new' or routename == 'forwardplanmaincategory_create' or routename == 'forwardplanmaincategory_update' or routename == 'forwardplanmaincategory_edit' or routename == 'forwardplanmaincategory_show' or routename == 'forward_plans' or routename == 'forward_plans_new' or routename == 'forward_plans_edit' %}
+    {% set manage_forward_plans = true %}
+{% else %}
+    {% set manage_forward_plans = false %}
+{% endif %}
+
+{% if routename == 'managesubscribers'  or routename == 'managesubscribers_new' or routename == 'managesubscribers_create' or routename == 'managesubscribers_update' or routename == 'managesubscribers_edit' %}
+    {% set managesubscribers = true %}
+{% else %}
+    {% set managesubscribers = false %}
+{% endif %}
+
+{% if routename == 'managenewsletters'  or routename == 'managenewsletters_new' or routename == 'managenewsletters_create' or routename == 'managenewsletters_update' or routename == 'managenewsletters_edit' %}
+    {% set managenewsletters = true %}
+{% else %}
+    {% set managenewsletters = false %}
+{% endif %}
+{% if routename == 'managesurveys' or routename == 'manage_surveys_index' or routename == 'manage_surveys_show' or routename == 'manage_surveys_edit' or routename == 'manage_surveys_new' or routename == 'manage_surveys_deleted' or routename == 'manage_surveys_update' %}
+    {% set managesurveys = true %}
+{% else %}
+    {% set managesurveys = false %}
+{% endif %}
+
+
+{% if routename == "manage_procedures" or routename == "manage_procedures_new" or routename == "manage_procedures_edit" or routename == "manage_procedure_category" or routename == "manage_procedure_category_new" or routename == "manage_procedure_category_edit" %}
+    {% set manage_procedures = true %}
+{% else %}
+    {% set manage_procedures = false %}
+{% endif %}
+
+{% if routename == 'manageagencies_office' or routename == 'manageagencies_office_edit' or routename == 'manageagencies_office_update' or routename == 'manageagencies_office_new' or routename == 'manageagencies' or routename == 'manageagencies_edit' or routename == 'manageagencies_new' or routename == 'manageagencies_create' or routename == 'manageagencies_deleted' or routename == 'manageagencies_update' or routename == 'manageagencies_show' %}
+    {% set manageagencies = true %}
+{% else %}
+    {% set manageagencies = false %}
+{% endif %}
+
+{% if routename == 'manageindustries' or routename == 'manageindustries_edit' or routename == 'manageindustries_new' or routename == 'manageindustries_create' or routename == 'manageindustries_delete' or routename == 'manageindustries_update' %}
+    {% set manageindustries = true %}
+{% else %}
+    {% set manageindustries = false %}
+{% endif %}
+
+{% if routename == 'managebusinesstypes' or routename == 'managebusinesstypes_edit' or routename == 'managebusinesstypes_new' or routename == 'managebusinesstypes_create' or routename == 'managebusinesstypes_delete' or routename == 'managebusinesstypes_update' %}
+    {% set managebusinesstypes = true %}
+{% else %}
+    {% set managebusinesstypes = false %}
+{% endif %}
+
+{% if routename == 'manageactivities' or routename == 'manageactivities_edit' or routename == 'manageactivities_new' or routename == 'manageactivities_create' or routename == 'manageactivities_delete' or routename == 'manageactivities_update' %}
+    {% set manageactivities = true %}
+{% else %}
+    {% set manageactivities = false %}
+{% endif %}
+
+{% if routename == 'manageregulationcustomfields' or routename == 'manageregulationcustomfields_edit' or routename == 'mmanageregulationcustomfields_new' or routename == 'manageregulationcustomfields_create' or routename == 'manageregulationcustomfields_delete' or routename == 'manageregulationcustomfields_update' %}
+    {% set manageregulationcustomfields = true %}
+{% else %}
+    {% set manageregulationcustomfields = false %}
+{% endif %}
+
+
+
+<div id="leftSide">
+    <div class="logo">
+        <a href="{{ path('webmasters_africa_admin_homepage') }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/logo.png') }}" alt=""/></a>
+    </div>
+
+    <div class="sidebarSep mt0"></div>
+
+    <!-- Left navigation -->
+    <ul class="nav" id="menu">
+        <li class="dash">
+            <a href="#" title="{{ 'sidebar.dashboard'|trans }}" class="exp {% if routename == 'webmasters_africa_admin_homepage' or routename == 'webmasters_africa_notice_homepage' %}active{% endif %}" {% if routename == 'webmasters_africa_admin_homepage' or routename == 'webmasters_africa_notice_homepage' %} id="current" {% endif %}>
+                <span>{{ 'sidebar.dashboard'|trans }}</span>
+            </a>
+            <ul class="sub">
+                {% if is_expr_granted("hasRole('EREGISTRY_DASHBOARD')") %}
+                    <li {% if routename == 'webmasters_africa_admin_homepage' %} class="this" {% endif %}>
+                        <a href="{{ path('webmasters_africa_admin_homepage') }}" title="{{ 'sidebar.eregistry'|trans }}">{{ 'sidebar.eregistry'|trans }}</a>
+                    </li>
+                {% endif %}
+                {% if is_expr_granted("hasRole('NOTICECOMMENTS_DASHBOARD')") %}
+                    <li {% if routename == 'webmasters_africa_notice_homepage' %} class="this" {% endif %}>
+                        <a href="{{ path('webmasters_africa_notice_homepage') }}" title="{{ 'sidebar.notice'|trans }}">{{ 'sidebar.notice'|trans }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </li>
+        {% if is_expr_granted("hasRole('MANAGE_LICENSE')") %}
+            <li class="tables">
+                <a href="#" title="" class="exp {% if routename == 'managelicenses' or routename =='my_task' or routename == 'managelicenses_all' or routename == 'managetasks_start' or routename == 'managelicenses_new' or routename == 'license_workflow_edit' or routename == 'managelicense_workflow' or routename == 'managelocations' or routename == 'license_workflow' or routename == 'managebusinesslocationcategory' or routename == 'managefixedfields' or routename == 'managefields' %}active{% endif %}" {% if routename == 'managelicenses' or routename == 'managelocations' or routename == 'managefixedfields' or routename == 'managefields' or routename == 'license_workflow' or routename == 'managelicense_workflow' or routename == 'license_workflow_edit' or routename == 'managelicenses_new' or routename == 'managebusinesslocationcategory' or routename == 'managelicenses_all' or routename == 'managetasks_start' or routename == 'my_task' or routename == 'managelicenses_edit' %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_licenses.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    {% if is_expr_granted("hasRole('LICENSE_MANAGE')") %}
+                        <li {% if routename == 'managelicenses' or routename == 'managelicenses_all' or routename == 'managelicense_workflow' or routename == 'managelicenses_new' or routename == 'managelicenses_edit' %} class="this" {% endif %}>
+                            <a href="{{ path('managelicenses') }}" title="{{ 'sidebar.manage_licenses.licenses'|trans }}">{{ 'sidebar.manage_licenses.licenses'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('LOCATIONS_MANAGE')") %}
+                        <li {% if routename == 'managelocations' %} class="this" {% endif %}>
+                            <a href="{{ path('managelocations') }}" title="{{ 'sidebar.manage_licenses.locations'|trans }}">{{ 'sidebar.manage_licenses.locations'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('FIXEDFIELDS_MANAGE')") %}
+                        <li {% if routename == 'managefixedfields' %} class="this" {% endif %}>
+                            <a href="{{ path('managefixedfields') }}" title="{{ 'sidebar.manage_licenses.fixed_license_fields'|trans }}">{{ 'sidebar.manage_licenses.fixed_license_fields'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('CUSTOMFIELDS_MANAGE')") %}
+                        <li {% if routename == 'managefields' %} class="this" {% endif %}>
+                            <a href="{{ path('managefields') }}" title="{{ 'sidebar.manage_licenses.custom_license_fields'|trans }}">{{ 'sidebar.manage_licenses.custom_license_fields'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('MANAGE_WORKFLOW')") %}
+                        <li {% if routename == 'license_workflow' or routename == 'license_workflow_edit' %} class="this" {% endif %}>
+                            <a href="{{ path('license_workflow') }}" title="Manage License Workflow">Manage License Workflow</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('MANAGE_REGULATIONS')") %}
+            <li class="tables">
+                <a href="#" title="" class="exp {% if manage_regulations or routename == 'manageabusiveterms_create' or routename == 'manageabusiveterms_index' or routename == 'regulations_unpublished' or routename == 'regulations_open_admin' or routename == 'regulations_complete_admin' or routename == 'regulations_completing_admin' or routename == 'comments_show' or routename == 'regulation_managefixedfields_index' or routename == 'manage_comment_list' or  routename == 'comments_abusive_comments' or manageregulationcustomfields %}active{% endif %}" {% if routename == 'comments_abusive_comments' or routename == 'manage_comment_list' or manage_regulations or routename == 'manageabusiveterms_create' or routename == 'comments_show' or routename == 'manageabusiveterms_index' or routename == 'regulations_unpublished' or routename == 'regulations_open_admin' or routename == 'regulation_managefixedfields_index' or routename == 'regulations_complete_admin' or routename == 'regulations_completing_admin' or manageregulationcustomfields %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_regulations.title'|trans }}</span>
+                </a>
+
+                <ul class="sub">
+                    {% if is_expr_granted("hasRole('MANAGE_REGULATIONS')") %}
+                        <li {% if routename == 'regulations' or routename == 'regulations_unpublished' or routename == 'regulations_open_admin' or routename == 'regulations_complete_admin' or routename == 'regulations_completing_admin' or routename == 'manage_comment_list' or routename == 'comments_show' %} class="this" {% endif %}>
+                            <a href="{{ path('regulations') }}" title="{{ 'sidebar.manage_regulations.title'|trans }}">{{ 'sidebar.manage_regulations.title'|trans }}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_expr_granted("hasRole('REGULATION_FIXEDFIELDS_MANAGE')") %}
+                        <li {% if routename == 'regulation_managefixedfields_index' %} class="this" {% endif %}>
+                            <a href="{{ path('regulation_managefixedfields_index') }}" title="{{ 'sidebar.manage_regulations.fixed_regulation_fields'|trans }}">{{ 'sidebar.manage_regulations.fixed_regulation_fields'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('REGULATION_CUSTOMFIELDS_MANAGE')") %}
+                        <li {% if manageregulationcustomfields %} class="this" {% endif %}>
+                            <a href="{{ path('manageregulationcustomfields') }}" title="{{ 'sidebar.manage_regulations.custom_regulation_fields'|trans }}">{{ 'sidebar.manage_regulations.custom_regulation_fields'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    
+                    {% if is_expr_granted("hasRole('MODERATE_COMMENTS')") %}
+                        <li {% if routename == 'comments_abusive_comments' or routename == 'manageabusiveterms_index' or routename == 'manageabusiveterms_create' %} class="this" {% endif %}>
+                            <a href="{{ path('comments_abusive_comments') }}" title="{{ 'sidebar.manage_comments_abusive.title'|trans }}">{{ 'sidebar.manage_comments_abusive.title'|trans }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('MANAGE_FORWARD_PLANS')") %}
+            <li class="tables">
+                <a href="#" title="" class="exp {% if manage_forward_plans %}active{% endif %}" {% if manage_forward_plans %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_forward_plans.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    {% if is_expr_granted("hasRole('MANAGE_FORWARD_PLANS')") %}
+                        <li {% if routename == 'forwardplanmaincategory'%} class="this" {% endif %}>
+                            <a href="{{ path('forwardplanmaincategory') }}" title="{{ 'sidebar.manage_forward_plans.title'|trans }}">{{ 'sidebar.manage_forward_plans.title'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('MANAGE_FORWARD_PLANS')") %}
+                        <li {% if routename == 'forward_plans'%} class="this" {% endif %}>
+                            <a href="{{ path('forward_plans') }}" title="{{ 'sidebar.manage_forward_regulations.title'|trans }}">{{ 'sidebar.manage_forward_regulations.title'|trans }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+
+
+        {% if is_expr_granted("hasRole('INDUSTRIES_MANAGE')") %}
+            <li class="forms">
+                <a href="#" class="exp {% if manageindustries or managebusinesstypes or manageactivities %}active{% endif %}" {% if manageindustries or managebusinesstypes or  manageactivities %}id="current" {% endif %}><span>MANAGE INDUSTRIES</span></a>
+                <ul class="sub">
+                    {% if is_expr_granted("hasRole('INDUSTRIES_MANAGE')") %}
+                        <li {% if routename == 'manageindustries' %} class="this" {% endif %}>
+                            <a href="{{ path('manageindustries') }}" title="{{ 'sidebar.manage_licenses.industries'|trans }}">{{ 'sidebar.manage_licenses.industries'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('BUSINESSTYPES_MANAGE')") %}
+                        <li {% if routename == 'managebusinesstypes' %} class="this" {% endif %}>
+                            <a href="{{ path('managebusinesstypes') }}" title="{{ 'sidebar.manage_licenses.business_types'|trans }}">{{ 'sidebar.manage_licenses.business_types'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('ACTIVITIES_MANAGE')") %}
+                        <li {% if manageactivities %} class="this" {% endif %}>
+                            <a href="{{ path('manageactivities') }}" title="{{ 'sidebar.manage_licenses.activities'|trans }}">{{ 'sidebar.manage_licenses.activities'|trans }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+
+        {% if is_expr_granted("hasRole('AGENCIES_MANAGE')") %}
+            <li class="forms">
+                <a href="#" class="exp {% if manageagencies %}active{% endif %}" {% if manageagencies %} id="current" {% endif %}>
+                    <span>ISSUING AUTHORITIES</span></a>
+                <ul class="sub">
+                    <li {% if manageagencies %} class="this" {% endif %}>
+                        <a href="{{ path('manageagencies') }}" title="{{ 'sidebar.manage_licenses.agencies'|trans }}">{{ 'sidebar.manage_licenses.agencies'|trans }}</a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('SURVEYS_MANAGE')") %}
+            <li class="forms">
+                <a href="#" class="exp {% if managesurveys %}active{% endif %}" {% if managesurveys %} id="current" {% endif %}>
+                    <span>MANAGE SURVEYS</span></a>
+                <ul class="sub">
+                    <li {% if managesurveys %} class="this" {% endif %}>
+                        <a href="{{ path('manage_surveys_index') }}" title="{{ 'sidebar.manage_licenses.survey'|trans }}">{{ 'sidebar.manage_licenses.survey'|trans }}</a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('MANAGE_REPORTS')") %}
+            <li class="tables">
+                <a href="#" title="" class="exp {% if routename == 'webmasters_africa_admin_reports' %}active{% endif %}" {% if routename == 'webmasters_africa_admin_reports' %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_report.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    <li {% if routename == 'managereports' %} class="this" {% endif %}>
+                        <a href="{{ path('webmasters_africa_admin_reports', {'dash': 1}) }}" title="Business Licenses Report">Business Licenses</a>
+                    </li>
+                    <li {% if routename == 'managereports' %} class="this" {% endif %}>
+                        <a href="{{ path('webmasters_africa_admin_reports', {'dash': 7}) }}" title="Consultations Report">Consultations</a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('MANAGE_CONTENT')") %}
+            <li class="forms">
+                <a href="#" title="" class="exp {% if routename == 'managepages' or manage_procedures or routename == 'manage_policy_category' or routename == 'managefeedback' or routename == 'managefeedback_replied' or routename == 'managefeedback_reply' or routename == 'manage_policy_category_show' or routename == 'manage_policy_category_new' or routename == 'manage_policy' or routename == 'manage_policy_show' or routename == 'manage_policy_new' or routename == 'manage_policy_create' or routename == 'manage_policy_edit' or routename == 'managemenus' or routename == 'managenews' or managesubscribers or routename == 'managefaq' or managenewsletters or routename == 'locale' or managepages or managefaq %}active{% endif %}" {% if routename == 'managepages' or routename == 'managemenus' or routename == 'managenews' or managenewsletters or managesubscribers or routename == 'managefaq' or routename == 'locale' or routename == "manage_procedures" or routename == "manage_procedures_show" or routename == "manage_procedures_new" or routename == "manage_procedures_create" or routename == "manage_procedures_edit" or routename == "manage_policy" or routename == "manage_policy_show" or routename == "manage_policy_new" or routename == "manage_policy_create" or routename == "manage_policy_edit" or routename == "manage_policy_category" or routename == "manage_policy_category_show" or routename == "manage_policy_category_new" or routename == 'managefeedback' or routename == "managefeedback_reply" or manage_procedures or managefaq or managepages or routename == "managefeedback_replied" %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_content.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    {% if is_expr_granted("hasRole('PAGES_MANAGE')") %}
+                        <li {% if routename == 'managepages' or managepages %} class="this" {% endif %}>
+                            <a href="{{ path('managepages') }}" title="{{ 'sidebar.manage_content.pages'|trans }}">{{ 'sidebar.manage_content.pages'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('NC_PAGES_MANAGE')") %}
+                        <li class="tables">
+                            <a>{{ 'sidebar.manage_content.nc_pages'|trans }}</a>
+                            <ul>
+                                <li {% if routename == 'managencpages' or managepages %} class="this" {% endif %}>
+                                    <a href="{{ path('managencpages') }}" title="{{ 'sidebar.manage_content.nc_pages'|trans }}">{{ 'sidebar.manage_content.nc_pages'|trans }}</a>
+                                </li>
+                                {% if is_expr_granted("hasRole('POLICY_MANAGE')") %}
+                                <li {% if routename == 'manage_policy' %} class="this" {% endif %}>
+                                    <a href="{{ path('manage_policy') }}" title="{{ 'sidebar.manage_content.policy'|trans }}">{{ 'sidebar.manage_content.policy'|trans }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% endif %}
+                    <li class="tables">
+                        <a>Banners</a>
+                        <ul>
+                            {% if is_expr_granted("hasRole('PAGES_MANAGE')") %}
+                                <li {% if routename == 'managebanners' %} class="this" {% endif %}>
+                                    <a href="{{ path('managebanners') }}" title="{{ 'sidebar.manage_banners.pages'|trans }}">{{ 'sidebar.manage_content.banners'|trans }}</a>
+                                </li>
+                            {% endif %}
+                            {% if is_expr_granted("hasRole('PAGES_MANAGE')") %}
+                                <li {% if routename == 'regulations_managebanners' %} class="this" {% endif %}>
+                                    <a href="{{ path('regulations_managebanners') }}" title="{{ 'sidebar.manage_banners.pages'|trans }}">{{ 'sidebar.manage_content.nc_banners'|trans }}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {% if is_expr_granted("hasRole('MANAGE_BUSINESS_STARTUP_PROCEDURE')") %}
+                        <li {% if manage_procedures %} class="this" {% endif %}>
+                            <a href="{{ path('manage_procedures') }}" title="{{ 'sidebar.manage_content.newsletters'|trans }}">{{ 'sidebar.manage_content.business_startup'|trans }}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_expr_granted("hasRole('NEWS_MANAGE')") %}
+                        <li {% if routename == 'managenews' %} class="this" {% endif %}>
+                            <a href="{{ path('managenews') }}" title="{{ 'sidebar.manage_content.news'|trans }}">{{ 'sidebar.manage_content.news'|trans }}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_expr_granted("hasRole('NEWSLETTERS_MANAGE')") %}
+                        <li {% if managenewsletters %} class="this" {% endif %}>
+                            <a href="{{ path('managenewsletters') }}" title="{{ 'sidebar.manage_content.newsletters'|trans }}">{{ 'sidebar.manage_content.newsletters'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('SUBSCRIBERS_MANAGE')") %}
+                        <li {% if managesubscribers %} class="this" {% endif %}>
+                            <a href="{{ path('managesubscribers') }}" title="{{ 'sidebar.manage_content.subscribers'|trans }}">{{ 'sidebar.manage_content.subscribers'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('FAQS_MANAGE')") %}
+                        <li>
+                            <a>{{ 'sidebar.manage_content.faqs'|trans }}</a>
+                            <ul class="sub">
+                                <li {% if routename == 'managefaq' %} class="this" {% endif %}>
+                                    <a href="{{ path('managefaq') }}" title="{{ 'sidebar.manage_content.faqs'|trans }}">eRegistry FAQs</a>
+                                </li>
+                                <li {% if routename == 'managencfaq' %} class="this" {% endif %}>
+                                    <a href="{{ path('managencfaq') }}" title="{{ 'sidebar.manage_content.nc_faqs'|trans }}">Notice and Comments FAQs</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('FAQS_MANAGE')") %}
+                        <li>
+                            <a>Feeback List</a>
+                            <ul>
+                                <li {% if routename == 'managefeedback' or routename == "managefeedback_reply" %} class="this" {% endif %}>
+                                    <a href="{{ path('managefeedback') }}" title="{{ 'sidebar.manage_content.feedback'|trans }}">Unreplied</a>
+                                </li>
+                                <li {% if routename == 'managefeedback_replied' %} class="this" {% endif %}>
+                                    <a href="{{ path('managefeedback_replied') }}" title="Replied Feedback">Replied</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('LANGUAGES_MANAGE')") %}
+                        <li class="last {% if routename == 'locale' %}this{% endif %}">
+                            <a href="{{ path('locale') }}" title="{{ 'sidebar.manage_content.languages'|trans }}">{{ 'sidebar.manage_content.languages'|trans }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('USERS_MANAGE')") %}
+            <li class="tables">
+                <a href="#" title="" class="exp {% if routename == 'manageusers' or routename == 'manage_admins'%}active{% endif %}" {% if routename == 'manageusers' or routename == 'manage_admins' %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_users.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    <li {% if routename == 'manageusers' %} class="this" {% endif %}>
+                        <a href="{{ path('manageusers') }}" title="{{ 'sidebar.manage_security.users'|trans }}">{{ 'sidebar.manage_security.users'|trans }}</a>
+                    </li>
+                    <li {% if routename == 'manage_admins' %} class="this" {% endif %}>
+                        <a href="{{ path('manage_admins') }}" title="{{ 'sidebar.manage_admins.title'|trans }}">{{ 'sidebar.manage_admins.title'|trans }}</a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_expr_granted("hasRole('MANAGE_SECURITY')") %}
+            <li class="ui">
+                <a href="#" title="" class="exp {% if managegroups or routename == 'setting_edit' or routename == 'manageuserslogs' %}active{% endif %}" {% if managegroups or routename == 'setting_edit' or routename == 'manageuserslogs' %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.manage_security.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    {% if is_expr_granted("hasRole('GROUPS_MANAGE')") %}
+                        <li {% if managegroups %} class="this" {% endif %}>
+                            <a href="{{ path('managegroups') }}" title="{{ 'sidebar.manage_security.groups'|trans }}">{{ 'sidebar.manage_security.groups'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('SETTINGS_MANAGE')") %}
+                        <li {% if routename == 'setting_edit' %} class="this" {% endif %}>
+                            <a href="{{ path('setting_edit', {'id':'1'}) }}" title="{{ 'sidebar.manage_security.settings'|trans }}">{{ 'sidebar.manage_security.settings'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    {% if is_expr_granted("hasRole('LOGS_VIEW')") %}
+                        <li class="last {% if routename == 'manageuserslogs' %}this{% endif %}">
+                            <a href="{{ path('manageuserslogs') }}" title="{{ 'sidebar.manage_security.logs'|trans }}">{{ 'sidebar.manage_security.logs'|trans }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        <ul>
+            <li class="errors">
+                <a href="#" title="Help" class="exp {% if routename == 'help_manuals' or routename == 'help_videos' %}active{% endif %}" {% if routename == 'help_manuals' or routename == 'help_videos' %} id="current" {% endif %}>
+                    <span>{{ 'sidebar.help.title'|trans }}</span>
+                </a>
+                <ul class="sub">
+                    <li {% if routename == 'help_manuals' %} class="this" {% endif %}>
+                        <a href="{{ path("help_manuals") }}" title="{{ 'sidebar.help.manuals'|trans }}">{{ 'sidebar.help.manuals'|trans }}</a>
+                    </li>
+                    {# <li class="last {% if routename == 'help_videos' %}this{% endif %}">
+                        <a href="{{ path("help_videos") }}" title="{{ 'sidebar.help.videos'|trans }}">{{ 'sidebar.help.videos'|trans }}</a>
+                    </li> #}
+                </ul>
+            </li>
+        </ul>
+        <br />
+        <br />
+        <select id='languages' name='languages' onchange="window.location='/setlocale/' + this.value;">
+            <option>{{ 'topbar.languages'|trans }}</option>
+            {% for language in languages %}
+                <option value="{{ language.localeCode }}" {% if currentlocale == language.localeCode %} selected {% endif %}>
+                    {{ language.title }}
+                </option>
+            {% endfor %}
+        </select>
+    </ul>
+</div>

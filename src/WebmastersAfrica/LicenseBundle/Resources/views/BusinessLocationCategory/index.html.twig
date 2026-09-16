@@ -1,0 +1,159 @@
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+  {{ site_title }},
+  {{ 'locations.business_locations' | trans }} Categories
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>{{ 'locations.business_locations' | trans }}</h5>
+        <span>{{ 'locations.business_locations_description' | trans }}</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+
+  <div class="line"></div>
+
+  <div class="statsRow">
+    <div class="wrapper w3-center">
+      <div class="w3-show-inline-block">
+        <div class="w3-bar ">
+          <a href="{{ path("businesslocationcategory_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+            <span>New Jurisdiction Category</span>
+          </a>
+          <a href="{{ path("managelocations") }}" title="" class="w3-button w3-hover-red w3-round-large w3-red w3-medium" title="" href="#">
+            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit-column.png') }}" alt=""/>
+            <span>Jurisdictions List</span>
+          </a>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+          <p>
+            <strong>Success:
+            </strong>
+            {{ 'licenses.updated_item_notice' | trans }}
+          </p>
+        </div>
+      {% endfor %}
+      {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+          <p>
+            <strong>Success:
+            </strong>
+            {{ 'licenses.deleted_item_notice' | trans }}
+          </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('publish_category') %}
+      <div class="nNote nSuccess hideit">
+        <p>
+          <strong>Success:
+          </strong>
+          {{ flashMessage }}
+        </p>
+      </div>
+    {% endfor %}    
+    {% for flashMessage in app.session.flashbag.get('unpublish_category') %}
+      <div class="nNote nSuccess hideit">
+        <p>
+          <strong>Success:
+          </strong>
+          {{ flashMessage }}
+        </p>
+      </div>
+    {% endfor %}    
+    {% for flashMessage in app.session.flashbag.get('unsuccessdelete') %}
+      <div class="nNote nFailure hideit">
+        <p>
+          <strong>Success:
+          </strong>
+          {{ flashMessage }}
+        </p>
+      </div>
+    {% endfor %}
+
+      <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/globe.png') }}" alt="" class="titleIcon"/>
+      <h6>{{ 'locations.list_of_locations' | trans }} Category</h6>
+    </div>
+    <form id="batch_form" name="batch_form" action="{{ path("batch_locations_category") }}" method="post">
+      <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable" id="locations_table">
+        <thead>
+          <tr>
+            <td width="40">
+              <div>&middot;&middot;&middot;</div>
+            </td>
+            <td width="40">
+              <div>#</div>
+            </td>
+            <td>{{ 'locations.name' | trans }}</td>
+            <td>Published</td>
+            <td class="text-center">Action</td>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <div class="itemActions">
+                <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'locations.batch_confirm_1' | trans }} ' + this.value + ' {{ 'locations.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                  <option>{{ 'locations.select_batch' | trans }}...</option>
+                  <option value="unpublish">Unpublish</option>
+                  <option value="publish">Publish</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for entity in entities %}
+            <tr>
+              <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+              <td align="center">
+                <a href="#">{{ entity.id }}</a>
+              </td>
+              <td align="center">{{ entity.name }}</td>
+              <td align="center">
+                  {% if entity.published %}
+                      <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                  {% else %}
+                      <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                  {% endif %}
+              </td>
+              <td align="center">
+                <ul>
+                  <li><a href="{{ path('businesslocationcategory_edit', { 'id': entity.id }) }}" class="smallButton">
+                  <img alt="{{ 'locations.edit' | trans }}"src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}"></a></li>
+                </ul>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+  </div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+  <script>
+    $(document).ready(function () {
+      $('#locations_table').DataTable();
+    });
+  </script>
+{% endblock %}

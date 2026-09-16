@@ -1,0 +1,17 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block pagetitle %}Password Reset{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}">Home</a></li>
+<li>{{ 'reset'|trans }}</li>
+{% endblock%}
+
+
+{% block body %}
+{% include "WebmastersAfricaUserBundle:Resetting:request_content.html.twig" %}
+{% endblock body %}

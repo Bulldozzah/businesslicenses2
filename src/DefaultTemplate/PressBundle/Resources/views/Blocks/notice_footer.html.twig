@@ -1,0 +1,74 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<div class="footer_wrapper notice_footer">
+    <footer class="container">
+        <div class="row clearfix">
+            <div class="col-md-7 clearfix">
+                <!--<h4>Address</h4>-->
+                <h3>{{ 'org-orgnization'|trans }}</h3>
+                <p>
+                    {{ 'org-city'|trans }}.
+                    {{ 'org-address'|trans }}<br>
+                     BRRA General Line: <a href="tel:{{ 'org-telephone'|trans }}">{{ 'org-telephone'|trans }}.</a><br>
+                    Call Center:  <a href="tel:{{ 'org-postaladdress'|trans }}">{{ 'org-postaladdress'|trans }}</a><br>
+                    Website: <a href="http://www.brra.org.zm/" target="_blank">http://www.brra.org.zm</a>
+                </p>
+                <p>
+                    {{ 'copyright'|trans }}
+                    {{ "now"|date('Y') }}
+                    © {{ 'org-orgnization'|trans }}
+                    <br>
+                    {{ 'allrightsreserved'|trans }}.
+                </p>                
+            </div>
+            <div class="col-md-3 clearfix">
+                <h4>Quick links</h4>
+                <ul>
+                    <li>
+                        <a href="/" target="_blank">
+                            eRegistry</a>
+                    </li>
+                    {% for policy in policies %}
+                        <li>
+                            <a href="/policy/{{ policy.slug }}">{{ policy.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>            
+            <div class="col-md-2 clearfix">
+                <h4>Social Media Accounts</h4>
+                <div id="social_footer">
+                    <ul>
+                        <li class="facebook">
+                            <a href="https://www.facebook.com/businessregulatoryreview2019" target="_blank">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+  <script type="text/javascript">
+    function clickNotification(value) {
+        let url = `/notifications/mark/notification/${value}/read`;
+
+        $.ajax({
+            type: 'get',
+            url: url,
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    $("#notification_count").html(`<span class="badge badge-primary ml-2">0</span>`
+                    );
+                }
+            }
+        });
+
+    }
+    window.onload = function() {
+      //document.getElementById('collapse12').className = 'show';
+    };
+  </script>

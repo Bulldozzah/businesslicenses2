@@ -1,0 +1,439 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block page_title %}
+  Republic of Zambia - Unified Notice-and-Comment Consultation Portal
+{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="https://getbootstrap.com/docs/4.3/examples/carousel/carousel.css"/>
+  <main role="main">
+
+  <!-- DO NOT REMOVE THIS!!! FOR SOME REASON, THE SECOND CAROUSEL AUTO SLIDES ONLY WHEN THIS FIRST ONE IS THERE :-/ :-O :>) OKAY NOTED-->
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="display:none;">
+   {# <!--
+      <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img class="bd-placeholder-img" width="100%" height="100%" src="{{ asset('bundles/OTB/notice/img/banner.jpg') }}" preserveaspectratio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/>
+          </div>
+          <div class="carousel-item">
+              <img class="bd-placeholder-img" width="100%" height="100%" src="{{ asset('bundles/webmastersafricapress/new/img/6.jpg') }}" preserveaspectratio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/>
+          </div>
+          <div class="carousel-item">
+              <img class="bd-placeholder-img" width="100%" height="100%" src="{{ asset('bundles/webmastersafricapress/new/img/7.jpg') }}" preserveaspectratio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/>
+          </div>
+      </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+      </a>
+    --> #}
+  </div>
+  
+
+
+  <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-interval="3000" data-ride="carousel" style="display:block;">
+    <ol class="carousel-indicators">
+      {% for banner in banners %}
+        {% if banner.id == banner_id %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      {% else %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{ banner.id }}"></li>
+      {% endif %}
+      {% endfor %}
+    </ol>
+    
+      
+      <div class="carousel-inner">
+        {% for banner in banners %}
+          {% if banner.id == banner_id %}
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="{{ asset('bundles/OTB/notice/img/banner.jpg') }}" alt="">
+            </div>
+          {% else %}
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{{ asset('bundles/webmastersafricapress/new/img/6.jpg') }}" alt="">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{{ asset('bundles/webmastersafricapress/new/img/7.jpg') }}" alt="">
+            </div>
+          {% endif %}
+          {% endfor %}
+      </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <div class="main-textX">
+      <div class="col-md-12 text-center">
+        <h1 class="display-3">Business Regulations Consultation Platform</h1>
+        <p>A one-stop shop for all public consultations on proposed new or amended laws, bylaws and regulations</p>
+          <form class="form_A" action="{{path('regulation_quick_search')}}" method="GET">
+            <div class="form_A_in form-row">
+
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="quick_search_terms" name="search_key" placeholder="Find laws & Regulations by typing here">
+                <div class="input-group-append">
+                  <button class="nc_search btn btn-primary" id=""><ion-icon name="search"></ion-icon> Search</button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+      </div>
+  </div>
+
+  <style type="text/css">
+   
+  </style>
+
+
+
+    <div class="home_stats full_width">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-15">
+            <div class="stat stat_1 text-center">
+              <a class="stat_1" href="/consultation/regulations/open">
+                <h3 class="open_all">0</h3>
+                <p>Ongoing Consultations</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-15">
+            <div class="stat stat_2 text-center">
+              <a class="stat_2" href="/consultation/regulations/trending">
+                <h3 class="trending_all">0</h3>
+                <p>Trending Consultations</p>
+              </a>
+            </div>
+          </div>
+
+          
+          
+          <div class="col-md-15">
+            <div class="stat stat_3 text-center">
+              <a class="stat_3" href="/consultation/regulations/closing">
+                <h3 class="seven_all">0</h3>
+                <p>Consultations Due in {{ closing_date_value }} Days</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-15">
+            <div class="stat stat_4 text-center">
+              <a class="stat_4" href="/consultation/regulations/completed">
+                <h3 class="closed_all">0</h3>
+                <p>Completed Consultations</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-15">
+            <div class="stat stat_5 text-center">
+              <a class="stat_5" href="/consultation/regulations">
+                <h3 class="published_all">0</h3>
+                <p>All Consultations</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /container -->
+    </div>
+
+
+    <div class="home_content full_width">
+      <div class="container">
+        <div class="row clearfix">
+          <div class="col-md-8 clearfix">
+            <div class="home_content_A">
+              <div class="home_content_A_in">
+                <div class="dropdown">
+                  {# <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" type="button">
+                    Ongoing Consultations
+                  </button> #}
+                  <p aria-expanded="false" aria-haspopup="true" class="btn btn-secondary btn-lg">
+                    Ongoing Consultations
+                  </p>
+                  {# <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+                    <a class="dropdown-item" href="/consultation/regulations/">All Consultations <ion-icon name="arrow-forward"></ion-icon></a>
+                    <a class="dropdown-item" href="/consultation/regulations/open">Open Consultations <ion-icon name="arrow-forward"></ion-icon></a>
+                    <a class="dropdown-item" href="/consultation/regulations/completed">Completed Consultations <ion-icon name="arrow-forward"></ion-icon></a>
+                  </div> #}
+                </div>
+              </div>
+              {% for regulation in regulations %}
+                <div class="box_1">
+                  <a target="_blank" href="/consultation/regulations/{{regulation.slug}}/comments">
+                    <ul class="box_heading">
+                      <li class="box_title">
+                        <h3>{{ regulation.title }}</h3>
+                      </li>
+                      <li class="box_comments">
+                        <h4>
+                          <ion-icon name="chatboxes"></ion-icon>
+                        </h4>
+                        <p>{{regulation.comments|length }}</p>
+                      </li>
+                    </ul>
+                  
+
+                    <div class="box_1_items row clearfix">
+                      <div class="box_1_A col-md-1">
+                        <figure class="box_1_image">
+                          <img src="{{ asset('bundles/OTB/notice/img/holder.png') }}">
+                        </figure>
+                      </div>
+                      <div class="box_1_B col-md-11">
+                        <table class="box_details">
+                          <tr>
+                            <th>Agency</th>
+                            <td class="text-primary">
+                              {{ regulation.agency.name }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Period</th>
+                            <td>{{ regulation.publishDate | date("M d Y", false) }}
+
+                              -
+                              {{ regulation.closingDate | date("M d Y", false) }}</td>
+
+                          </tr>
+                        </table>
+                        <table class="box_details">
+                          <tr>
+                            <th>Status</th>
+                            <td class="badge badge-danger badge-pill">{{ regulation.consultationStage }}</td>
+                          </tr>
+                          <tr>
+                            <th>Industry</th>
+                            {% if regulation.industry %}
+                              <td>{{ regulation.industry.name }}</td>
+                            {% endif %}
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="col-md-6"></div>
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+              <a class="btn btn-success btn-arrow-link-lg" href="/consultation/regulations/" title="Regulations List">Browse More
+                <ion-icon name="return-right"></ion-icon>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4 clearfix">
+            <div class="home_content_B">
+              <h2>Sectors</h2>
+              {% set count = 0 %}
+              {% for item in industries %}
+                {% if count == 0 %}
+
+                    <div class="sector_wrapper_in row clearfix">
+                  {% endif %}
+                    {% if count == 0 %}
+                        <div class="t_B_1 col-md-6 col-sm-6 col-6 clearfix">
+                            <a title="{{ item.name|capitalize }}" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                          <div class="panels_A">
+                            <div class="row clearfix panels_A_in">
+                              <div class="pB col-md-12 clearfix">
+                                <h5>{{ item.regulationCount.count }}</h5>
+                                <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                              </div>
+                            </div>
+                          </div>
+                          </a>
+                        </div>
+                    {% endif %}
+
+                    {% if count == 1 %}
+                        <div class="t_B_2 col-md-6 col-sm-6 col-6 clearfix">
+                            <div class="panels_A">
+                                <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                                <div class="row clearfix panels_A_in">
+                                  <div class="pB col-md-12 clearfix">
+                                    <h5>{{ item.regulationCount.count }}</h5>
+                                    <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                                  </div>
+                                </div>
+                                    </a>
+                              </div>
+                        </div>
+                                    {% endif %}
+                                {% if count == 1 %}
+                  </div>
+                  {% endif %}
+
+                  {% if count == 2 %}
+                  <div class="row clearfix">
+                  {% endif %}
+                    {% if count == 2 %}
+                    <div class="t_B_3 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                              <div class="pB col-md-12 clearfix">
+                                <h5>{{ item.regulationCount.count }}</h5>
+                                <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                              </div>
+                            </div>
+                        </a>
+                      </div>
+                    </div>
+                                    {% endif %}
+                                    {% if count == 3 %}
+                    <div class="t_B_4 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                              <div class="pB col-md-12 clearfix">
+                                <h5>{{ item.regulationCount.count }}</h5>
+                                <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                              </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if count == 3 %}
+                  </div>
+                  {% endif %}
+
+                  {% if count == 4 %}
+                  <div class="row clearfix">
+                  {% endif %}
+                  {% if count == 4 %}
+                    <div class="t_B_5 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                                  <div class="pB col-md-12 clearfix">
+                                    <h5>{{ item.regulationCount.count }}</h5>
+                                    <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                                  </div>
+                            </div>
+                          </a>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if count == 5 %}
+                    <div class="t_B_6 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                              <div class="pB col-md-12 clearfix">
+                                <h5>{{ item.regulationCount.count }}</h5>
+                                <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                              </div>
+                            </div>
+                        </a>
+                      </div>
+                    </div>
+                    {% endif %}
+                  {% if count == 5 %}
+                  </div>
+                  {% endif %}
+
+                  {% if count == 6 %}
+                    <div class="row clearfix">
+                                {% endif %}
+
+                                {% if count == 6 %}
+                    <div class="t_B_7 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}"  style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                                  <div class="pB col-md-12 clearfix">
+                                    <h5>{{ item.regulationCount.count }}</h5>
+                                    <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                                  </div>
+                            </div>
+                        </a>
+                      </div>
+                    </div>
+                  {% endif  %}
+
+                  {% if count == 7 %}
+                    <div class="t_B_8 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                              <div class="pB col-md-12 clearfix">
+                                <h5>{{ item.regulationCount.count }}</h5>
+                                <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                              </div>
+                            </div>
+                          </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if count ==  7 %}
+                  </div>
+
+                  {% endif %}
+                  {% if count == 8 %}
+                  <div class="row clearfix">
+                  {% endif %}
+                  {% if count == 8 %}
+                    <div class="t_B_9 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                                  <div class="pB col-md-12 clearfix">
+                                    <h5>{{ item.regulationCount.count }}</h5>
+                                    <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                                  </div>
+                            </div>
+                          </a>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% if count == 9 %}
+                    <div class="t_B_10 col-md-6 col-sm-6 col-6 clearfix">
+                      <div class="panels_A">
+                        <a title="{{ item.name|capitalize }}" style="text-decoration:none;" href="{{ path('regulation_advanced_search', {'agency': "0", 'industry': item.name, 'keywords': ''}) }}">
+                            <div class="row clearfix panels_A_in">
+                                  <div class="pB col-md-12 clearfix">
+                                    <h5>{{ item.regulationCount.count }}</h5>
+                                    <p>{{ item.name|capitalize|slice(0, 20) ~ '...' }}</p>
+                                  </div>
+                            </div>
+                          </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if count == 9 %}
+                  </div>
+                  {% endif %}
+                  {% set count = count + 1 %}
+              {% endfor %}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

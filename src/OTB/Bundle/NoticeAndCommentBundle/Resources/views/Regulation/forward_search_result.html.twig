@@ -1,0 +1,96 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block page_title %}
+  Notice-and-Comment | Regulations List
+{% endblock %}
+{% block body %}
+  <main class="archive" role="main">
+    <div class="jumbotronX">
+
+      <div clanew.ss="container text-center">
+        <form action="{{ path('forward_plans_advanced_search') }}" class="form_A" method="POST">
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <select class="form-control col-md-12" id="selectKeywords" name="agency" placeholder="Search by Agency">
+                <option value="">Search by Agency</option>
+                {% for item in agencies %}
+                  <option value="{{ item.id }}">{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="search_form_A form-group col-md-3">
+              <button class="btn btn-primary text-center" type="submit">Search By Agency</button>
+
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="home_content full_width">
+      <div class="container">
+        <div class="row clearfix">
+          <div class="archive_main_content col-md-9 clearfix">
+            <div class="home_content_A">
+              <div class="tab-content">
+                <div class="tab-pane container active" id="all">
+                  <div
+                    class="box_1">
+                    {# {{ path('regulation_show', {'slug': regulation.slug })}} #}
+                    <a href="#">
+                      <ul class="box_heading">
+                        <li class="box_title">
+                          <h3>{{ agency.title }}</h3>
+                        </li>
+                        <li class="box_comments">
+                          <h4>
+                            <ion-icon name="document"></ion-icon>
+                          </h4>
+                          <p>{{agency.regulations|length }}</p>
+                        </li>
+                      </ul>
+                    </a>
+
+                    <div class="box_1_items row clearfix">
+                      <div class="box_1_A col-md-1">
+                        <figure class="box_1_image">
+                          <img src="{{ asset('bundles/OTB/notice/img/holder.png') }}">
+                        </figure>
+                      </div>
+                      <div class="box_1_B col-md-11">
+                        <table class="box_details">
+                          <tr>
+                            <th>Address</th>
+                            <td>
+                              {{ agency.address }}</td>
+                          </tr>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Website</th>
+                      <td>
+                        <a href="" target="_blank">{{ agency.website }}</a>
+                      </td>
+                    </tr>
+                  </table>
+                  <table class="box_details">
+                    <tr>
+                      <th>Location</th>
+                      <td>{{ agency.location }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-md-6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include "NoticeCommentBundle:Regulation:side_stats.html.twig" %}
+  </div>
+</div></div></main>{% endblock %}

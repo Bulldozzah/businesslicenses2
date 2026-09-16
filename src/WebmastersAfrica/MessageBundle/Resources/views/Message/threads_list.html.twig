@@ -1,0 +1,83 @@
+{% trans_default_domain 'WebmastersAfricaMessageBundle' %}
+
+<div class="widget">
+<div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'messages.list_of_messages' | trans }}</h6></div>
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable" id="res">
+    <thead>
+        <tr>
+            <td>{{ 'messages.subject' | trans }}</td>
+            <td>{{ 'messages.starter' | trans }}</td>
+            <td>{{ 'messages.start_date' | trans }}</td>
+            <td>{{ 'messages.messages' | trans }}</td>
+            <td>{{ 'messages.last_message' | trans }}</td>
+            <td>{{ 'messages.actions' | trans }}</td>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% if threads %}
+        {% for thread in threads %}
+            <tr {% if not fos_message_is_read(thread) %} style="font-weight: 800;" {% endif %}>
+                <td>
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                        {{ thread.subject }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                    {{ thread.createdBy }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                    {{ thread.createdAt|date }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                    {{ thread.messages|length }}
+                    </a>
+                </td>
+                <td>
+                    {% if thread.lastMessage %}
+                        <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}#message_{{ thread.lastMessage.id }}" title="{% trans from 'FOSMessageBundle' %}goto_last{% endtrans %}">
+                            →
+                        </a>
+                        {% trans with {'%date%': thread.lastMessage.createdAt|date} from 'FOSMessageBundle' %}on{% endtrans %}
+                        <br />
+                        {% trans with {'%sender%': thread.lastMessage.sender|e } from 'FOSMessageBundle' %}by{% endtrans %}
+                    {% else %}
+                        ----
+                    {% endif %}
+                </td>
+                <td align="center">
+                    {% if fos_message_can_delete_thread(thread) %}
+                        {% if fos_message_deleted_by_participant(thread) %}
+                            {% set formAction %}{{ url('fos_message_thread_undelete', {'threadId': thread.id}) }}{% endset %}
+                            {% set submitValue %}{{ 'messages.undelete' | trans }}{% endset %}
+                        {% else %}
+                            {% set formAction %}{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}{% endset %}
+                            {% set submitValue %}{{ 'messages.delete' | trans }}{% endset %}
+                        {% endif %}
+                        <form action="{{ formAction }}" method="post">
+                                <button type="submit">{{ submitValue }}</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="6">
+                {{ 'messages.no_thread' | trans }}.
+            </td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+
+</table>
+</div>
+</div>

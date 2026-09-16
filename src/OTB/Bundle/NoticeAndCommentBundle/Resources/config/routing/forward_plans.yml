@@ -1,0 +1,71 @@
+forward_plans:
+  pattern: /
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:index" }
+
+forward_plans_show:
+  pattern: /{id}/show
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:show" }
+
+forward_plans_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:edit" }
+
+forward_plans_new:
+  pattern: /new
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:new" }
+
+forward_plans_create:
+  pattern: /create
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:create" }
+  requirements: { _method: post }
+
+forward_plans_update:
+  pattern: /{id}/update
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:update" }
+  requirements: { _method: post|put }
+
+batch_forward_plans:
+  pattern: /{id}/batch/forwardplans
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:batch" }
+  requirements: { _method: post|put }
+
+batch_forward_plans_2:
+  pattern: /batch/forwardplans
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:batch2" }
+  requirements: { _method: post|put }
+
+forward_plans_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlans:delete" }
+
+forwardplanmaincategory:
+  pattern: /main
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:index" }
+
+forwardplanmaincategory_show:
+  pattern: /main/{id}/show
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:show" }
+
+forwardplanmaincategory_edit:
+  pattern: /main/{id}/edit
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:edit" }
+
+forwardplanmaincategory_new:
+  pattern: /main/new
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:new" }
+
+forwardplanmaincategory_create:
+  pattern: /main/create
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:create" }
+  requirements: { _method: post }
+
+forwardplanmaincategory_update:
+  pattern: /main/{id}/update
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:update" }
+  requirements: { _method: post|put }
+
+forwardplanmaincategory_delete:
+  pattern: /main/{id}/delete
+  defaults: { _controller: "NoticeCommentBundle:ForwardPlanMainCategory:delete" }
+
+

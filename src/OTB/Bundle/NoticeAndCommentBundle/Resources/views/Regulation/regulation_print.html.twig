@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Regulation: {{ entity.title }}</title>
+</head>
+<body>
+	<link media="screen" href="{{ asset('bundles/webmastersafricapress/new/css/print.css') }}" rel="stylesheet" />
+	<link media="print" type="text/css" href="{{ asset('bundles/	webmastersafricapress/new/css/main.css') }}" rel="stylesheet" />
+	{% block body %}
+		     <div class="col-md-9 col-sm-7 col-xs-12">
+       <div class="box_style_2 info">
+       <span class="typography">
+       <h3 class="nomargin_top"> <a target="_blank" href="{{ path('print_regulation_details', {'slug': entity.slug }) }}" title="Print" class="anicon"><i class="icon_printer pull-right"></i></a></h3>
+       <h2 class="page_title">{{ entity.title|raw }}</h2>
+       </span>
+       <div class="panel-group m-b-0">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                    	Summary
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                      {% if ('2' in showedfields) %}
+								       <li>{{ entity.description|raw }}</li>
+								      {% endif %}
+                    </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      Documments &amp; Supporting Materials
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+	                       
+	                      {% if ('11' in showedfields) %}
+	                        {% if entity.document %}
+	                          <li>
+	                          	<span>Main Document: </span><a href="{{ asset('uploads/documents/' ~ entity.document)}}" target="_blank">
+	                            <h6><ion-icon name="document"></ion-icon> {{ entity.title }}</h6>
+	                          </a>
+	                        </li>
+	                        {% endif %}
+	                        {% if ('12' in showedfields) %}
+		                        <li>
+		                          {% if entity.supportingAttachments %}
+		                            {% for attachment in entity.supportingAttachments %}
+		                              {% if attachment.filepath %}
+		                                <h6><a target="_blank" href="{{ asset('uploads/documents/' ~ attachment.filepath) }}"><ion-icon name="document"></ion-icon> {{ attachment.name }}</a></h6>
+		                              {% endif %}
+		                            {% endfor %}
+		                          {% endif %}
+		                        </li>
+		                      {% endif %}
+	                      {% endif %}
+	                      {% if ('8' in showedfields) %}
+	                      	<li> <span> Supporting Materials: </span>{{ entity.supportingMaterials|raw }}</li>
+	                      {% endif %}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                    	Affected Sector(s) and Expected Impact
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                        {% if ('4' in showedfields) %}
+	                      <li> {{ entity.industry|raw }}</li>
+	                      {% endif %}
+                      {% if entity.expectedOutcome %}
+                          <li>
+                            <div class="card-body">
+                            {{ entity.expectedOutcome|raw }}
+                          </div>
+                        </li>
+                      {% endif %}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                    	Specific Instructions:
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                        {% if ('7' in showedfields) %}
+	                      <li>{{ entity.specificInstructions|raw }}</li>
+	                      {% endif %}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+                {% if fielddatas|length > 0 %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      Additional Information:
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                        {% for field in regulationfields %}
+                          <li>
+                            <p>{{ field.fieldlabel|raw }}</p>
+                            {% for datafield in fielddatas %}
+                              {% if datafield.fieldId == field.id %}
+                                <span>{{ datafield.fielddata|raw }}</span>
+                              {% endif %}
+                            {% endfor %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+                {% endif %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                    	Offline Consultations:
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                        {% if ('14' in showedfields) %}
+	                      <li>{{ entity.offlineConsultations|raw }}</li>
+	                      {% endif %}
+                      </ul>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                    	Agencies
+                    </h4>
+                  </div>
+                  <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <ul>
+                                <li>
+                                      <h4><a>{{ entity.agency.name }} - Head Office</a></h4>
+                                      <div class="tbbd-acc_acc-section">
+                                          <div class="tbbd-acc_acc-content">
+
+                                      <ul>
+                                        <li>Tel: {{ entity.agency.telephone|raw }} </li>
+                                        <li>Physical Address:  {{ entity.agency.address|raw }} </li>
+                                        <li>Postal Address:  {{ entity.agency.postalAddress|raw }} </li>
+                                        <li>City: {{ entity.agency.location.name|raw }} </li>
+                                        <li>
+                                        <div id='basic-modal'>Email Address: {{ entity.agency.email|raw }} <a href="{{ app.request.basepath }}/email/agency/{{ entity.agency.id }}" title="Email this Agency" class="basic">Email this Agency</a> </div> </li>
+                                        <li>Website: <a href="{% if  'http' in entity.agency.website %}{{ entity.agency.website }}{% else %}http://{{ entity.agency.website }}{% endif %}" target="_blank">{{ entity.agency.website }}</a> </li>
+                                        <li>Operating Hours: {{ entity.agency.hours|raw }} </li>
+
+                                        {% if entity.agency.mapScan!= '' %}
+
+                                          <li>Directions:
+                                          <a href="{{ app.request.basepath }}/uploads/map_scans/{{ entity.agency.mapScan }}" title="Get Directions" alt="Get Directions" target="_blank">View Directions</a>
+                                        </li>
+
+                                        {% endif %}
+
+
+                                        {% if entity.agency.latitude and entity.agency.longitude %}
+
+                                        <li>Directions:
+                                        <a href="{{ app.request.basepath }}/agency/viewmap/{{ entity.agency.id }}" title="View Directions" onclick="
+                                      Modalbox.show(this.href, {title: this.title, width: 460, afterLoad: function(){initialize({{ entity.agency.latitude }}, {{ entity.agency.longitude }});}}); return false;">View Directions</a>
+                                        </li>
+
+                                        {% endif  %}
+                                      </ul>
+                                                                  </div>
+                                                              </div>
+                                      </li>
+
+                                      {% for agencyoffice in entity.agency.agencyoffices %}
+                                      <li id="no_bglist">
+                                                              <h4><a>{{ agencyoffice.name|raw }}</a></h4>
+                                                              <div class="tbbd-acc_acc-section">
+                                                                  <div class="tbbd-acc_acc-content">
+                                       <ul>
+                                        <li>Tel: {{ agencyoffice.telephone|raw }} </li>
+                                        <li>Physical Address: {{ agencyoffice.address|raw }} </li>
+                                        <li>Postal Address:  {{ agencyoffice.postalAddress|raw }} </li>
+
+                                        <li>
+                                        <div id='basic-modal'>Email Address: {{ agencyoffice.email|raw }} <a href="{{ app.request.basepath }}/email/agency/{{ agencyoffice.id }}" title="Email this Agency" class="basic">Email this Agency</a> </div> </li>
+                                        <li>Website: <a href="{{ agencyoffice.website }}" target="_blank">{{ agencyoffice.website|raw }}</a> </li>
+                                        <li>Operating Hours: {{ agencyoffice.hours|raw }} </li>
+
+
+                                        {% if entity.agency.mapScan!= '' %}
+
+                                          <li>Directions:
+                                          <a href="{{ app.request.basepath }}/uploads/map_scans/{{ agencyoffice.mapScan }}" title="Get Directions" alt="Get Directions" target="_blank">View Directions</a>
+                                        </li>
+
+                                        {% endif %}
+
+                                         {% if entity.agency.latitude and entity.agency.longitude %}
+
+                                        <li>Directions:
+                                        <a href="{{ app.request.basepath }}/agency/viewmap/{{ agencyoffice.id }}" title="View Directions" onclick="
+                                      Modalbox.show(this.href, {title: this.title, width: 460, afterLoad: function(){initialize({{ agencyoffice.latitude }}, {{ agencyoffice.longitude }});}}); return false;">View Directions</a>
+                                        </li>
+
+                                        {% endif  %}
+                                      </ul>                           </div>
+                                                              </div>
+                                                          </li>
+                                      {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+        </div>
+
+    </div>
+  </div>
+	{% endblock %}
+	<script language="javascript">
+  window.print();
+</script>
+</body>
+</html>

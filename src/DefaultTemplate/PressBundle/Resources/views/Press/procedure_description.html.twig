@@ -1,0 +1,68 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ procedure.name|capitalize }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>
+        <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+    </li>
+    <li>
+        <a href="/press/10">e-Services</a>
+    </li>
+    <li>
+        <a href="{{ path('procedure_list') }}">Business Procedures</a>
+    </li>
+    <li>Business Procedure Details</li>
+{% endblock %}
+{% block body %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="container">
+                <div class="main_title text-center">
+                    <h2 class="nomargin_top">{{ procedure.name }}</h2>
+                </div>
+                <div class="main_body">
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <p>
+                            {{ procedure.description|raw }}
+                        </p>
+                        <p>
+                            <span>
+                                Read More At
+                                {{ procedure.links|raw }}</span>
+                        </p>
+                    </div>
+
+                    <div class="col-md-3 col-sm-5 col-xs-12" id="sidebar">
+                        {% for categories in main_categories %}
+                            <div id="cart_box">
+                                <h3>{{ categories.title }}<i class="icon_tags_alt pull-right"></i>
+                                </h3>
+                                <ul class="side-menu-list">
+                                    {% for item in categories.businessProcedure %}
+                                        {% if item.isPublished %}
+                                            <li>
+                                                <a aria-hidden="true" class="fs1" data-icon="=" href="{{ path('procedure_details', {'slug': item.slug })}}">
+                                                    {{ item.name }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block sidebar %}{% endblock %}

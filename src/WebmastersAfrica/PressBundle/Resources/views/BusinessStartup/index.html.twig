@@ -1,0 +1,147 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'procedure.manage_startup' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'procedure.procedure' | trans }}</h5>
+                <span>{{ 'procedure.procedure_description' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <div class="line"></div>
+
+
+    <div class="statsRow">
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    <a href="{{ path("manage_procedures_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium">
+                        <i class="fa fa-plus"></i>
+                        <span>Add New Business Procedure</span>
+                    </a>
+
+                    <a href="{{ path("manage_procedure_category_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-blue w3-medium">
+                        <i class="fa fa-plus"></i>
+                        <span>Add New Category</span>
+                    </a>
+                    <a href="{{ path("manage_procedure_category") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium">
+                        <i class="fa fa-bars"></i>
+                        <span>Categories</span>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('procedure_update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('procedure_create') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'created_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>{{ 'procedure.list_procedure' | trans }}</h6>
+        </div>
+
+        <form id="batch_form" name="batch_form" action="{{ path("batch_procedure") }}" method="post">
+            <table cellpadding="0" cellspacing="0" class="sTable mTable w3-table-all w3-card-4" id="business_startup_table" width="100%">
+                <thead>
+                    <tr class="w3-pale-blue">
+                        <td width="40px;">
+                            <div>&middot;&middot;&middot;</div>
+                        </td>
+                        <td width="40px">
+                            <div>#</div>
+                        </td>
+                        <td>
+                            {{ 'procedure.procedure_title' | trans }}
+                        </td>
+                        <td align="center" width="60px">{{ 'procedure.procedure_published' | trans }}</td>
+                        <td align="center" width="40px">{{ 'procedure.procedure_actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="batch_items[]" value="{{ entity.id }}">
+                            </td>
+                            <td align="center">
+                                <a href="{{ path('manage_procedures_edit',{'id':entity.id}) }}">{{ entity.id }}</a>
+                            </td>
+                            <td>{{ entity.name }}</td>
+                            <td>
+                                {% if entity.isPublished == true %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                                {% else %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><a href="{{path('manage_procedures_edit',{'id':entity.id})}}" class="smallButton"title="{{ 'news.edit' | trans }}"><img alt="Edit"src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}"></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr style="border-top:1px solid #CDCDCD">
+                        <td colspan="6" style="padding:10px;">
+                            <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){  if(confirm('{{ 'news.batch_confirm_1' | trans }} ' + this.value + ' {{ 'news.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                <option>{{ 'news.select_batch' | trans }}...</option>
+                                <option value="publish">{{ 'news.publish' | trans }}</option>
+                                <option value="unpublish">{{ 'news.unpublish' | trans }}</option>
+                                <option value="delete">{{ 'news.delete' | trans }}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#business_startup_table').DataTable();
+        });
+    </script>
+{% endblock %}

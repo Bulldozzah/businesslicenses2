@@ -1,0 +1,202 @@
+edit_profile: Editar Perfil
+
+# Manage Users
+users:
+  manage_users: Manage Users
+  users: Users
+  users_description: Manage users who will be able login to the backend
+  add_user: Add New User
+  add_group: Add New Group
+  list_groups: List Of Groups
+  list_users: List Of Users
+
+  first_name: First Name 
+  last_name: Last Name 
+  phone_number: Phone Number
+  username: Username 
+  email: Email Address 
+  password: Password
+  enabled: Enabled 
+  security_question: Security Question 
+  security_answer: Security Answer 
+  agencies: Agencies 
+  groups: Groups
+  last_login: Last Login 
+  actions: Actions 
+
+  create: Create
+  update: Update 
+
+  back_to_list: Back To List
+
+  select_batch: Select Batch Action 
+  batch_confirm_1: Are you sure you want to 
+  batch_confirm_2: the selected items? 
+  enable: Enable 
+  disable: Disable 
+  delete: Delete 
+  edit: Edit
+
+  add_user: Add User
+  add_user_description: Create a new user and assign credentials
+
+  edit_user: Edit User 
+  edit_user_description: Edit a user's details and credentials 
+
+# Manage Groups
+groups:
+  manage_groups: Manage Groups
+  groups: Groups
+  groups_description: Manage groups of users and assign credentials to these groups
+  add_group: Add New Group
+  edit_group: Edit Group 
+  add_user: Add New User 
+  list_users: List Of Users 
+
+  add_group_description: Create a new group and assign credentials 
+  edit_group_description: Edit a group's details and credentials
+
+  list_groups: List Of Groups 
+  group_name: Group Name 
+  actions: Actions 
+
+  group_roles: Group Roles 
+  back_to_list: Back to List 
+
+  update: Update 
+
+  select_batch: Select Batch Action 
+  batch_confirm_1: Are you sure you want to 
+  batch_confirm_2: the selected items? 
+  delete: Delete 
+  edit: Edit
+
+#Settings
+settings:
+  edit_settings: Edit Settings
+  edit_settings_description: Change site settings
+  back_to_dashboard: Back to Dashboard 
+  site_title: Site Title 
+  site_description: Site Description 
+  site_owner: Site Owner 
+  site_address: Site Address 
+  footer: Footer 
+  site_email_title: Site Email Title 
+  site_email_address: Site Email Address 
+  site_keywords: Site Keywords 
+  update: Update 
+  delete: Delete 
+
+#Logs 
+logs:
+  logs: Logs 
+  logs_description: Audit trail of users' activities in the system 
+  list_logs: List Of Logs 
+
+  action: Action 
+  user: User 
+  affected_item: Affected Item 
+  affected_content: Affected Content
+  date: Date 
+  actions: Actions 
+
+# Group
+group:
+    edit:
+        submit: Atualizar Grupo
+    show:
+        name: Nome do Grupo
+    new:
+        submit: Criar Grupo
+#    flash:
+#        updated: The group has been updated
+#        created: The group has been created
+#        deleted: The group has been deleted
+
+"Bad credentials": Utilizador e/ou password inválidos
+
+# Security
+security:
+    login:
+        username: "Utilizador:"
+        password: "Password:"
+        remember_me: Lembrar-me
+        submit: Entrar
+
+# Profile
+profile:
+    my_profile: My Profile 
+    edit_profile_settings: Edit My Profile Details
+    back_dashboard: Back To Dashboard
+    show:
+        username: Utilizador
+        email: Email
+    edit:
+        submit: Atualizar conta
+#   flash:
+#       updated: The profile has been updated
+
+# Password change
+change_password:
+    submit: Mudar a password
+#    flash:
+#        success: The password has been changed
+
+# Registration
+registration:
+    check_email: Foi enviado um email para %email%. Este contém um link de ativação que terá de visitar para ativar a sua conta.
+    confirmed: Parabéns %username%, a sua conta foi confirmada.
+    #back: Back to the originating page.
+    submit: Registar
+    #flash:
+    #    user_created: The user has been created successfully
+    email:
+        subject: Bem-vindo(a) %username%!
+        message: |
+            Olá %username%!
+
+            Para completar a validação da sua conta, por favor visite o seguinte link: %confirmationUrl%
+
+            Cumprimentos,
+            A equipa.
+
+# Password resetting
+resetting:
+    password_already_requested: Uma password para este utilizador já foi requisitada nas últimas 24 horas.
+    check_email: Foi enviado um email para %email%. Este contém um link que terá de visitar para puder recuperar a sua password.
+resetting:
+    request:
+        #invalid_username: The username or email address "%username%" does not exist.
+        username: "Utilizador:"
+        submit: Recuperar password
+    reset:
+        submit: Alterar password
+    #flash:
+    #    success: The password has been reset successfully
+    email:
+        subject: Bem-vindo(a) %username%!
+        message: |
+            Olá %username%!
+
+            Para recuperar a password, por favor visite o seguinte link: %confirmationUrl%
+
+            Cumprimentos,
+            A equipa.
+
+# Global strings
+layout:
+    logout: Sair
+    login: Entrar
+    register: Registar
+    logged_in_as: Entrou como %username%
+
+# Form field labels
+form:
+    group_name: "Nome do Grupo:"
+    username: "Utilizador:"
+    email: "Email:"
+    current_password: "Password atual:"
+    password: "Password:"
+    password_confirmation: "Verificar:"
+    new_password: "Nova password:"
+    new_password_confirmation: "Verificar:"

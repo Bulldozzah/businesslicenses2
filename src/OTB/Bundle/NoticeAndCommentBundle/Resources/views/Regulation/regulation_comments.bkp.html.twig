@@ -1,0 +1,383 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+  {{ regulation.keywords }}
+{% endblock %}
+{% block sitetitle %}
+  {{ regulation.title }}
+  comments
+{% endblock %}
+{% block sitedescription %}
+  {{ regulation.title }}
+{% endblock %}
+
+{% block page_title %}
+  Notice-and-Comment |
+  {{ regulation.title }}
+{% endblock %}
+
+{% block body %}
+  <main class="single" role="main">
+    <div class="jumbotronZ clearfix">
+      <div class="container text-left">
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <div class="jumboZ_in_2 jumboZ_in">
+              <div class="single_post_details">
+                <p>
+                  <span>Agency</span>
+                  —
+                  <a href="#nogo">{{ regulation.agency.name }}</a>
+                </p>
+                <p>
+                  <span>Period</span>
+                  &mdash;
+                  {{ regulation.publishDate | date("M d Y", false) }}
+                  TO
+                  {{ regulation.closingDate | date("M d Y", false)}}</p>
+              </p>
+              <p>
+                <span>Stage</span>
+                &mdash;
+                {{ regulation.consultationStage }}</p>
+              <p>
+                <span>Industry</span>
+                &mdash;
+                {{ regulation.industry.name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+          <div class="jumboZ_in_1 jumboZ_in">
+            <h1 class="display-3">{{regulation.title}}</h1>
+            <ul class="share_icons_A">
+              <li class="s_title">SHARE:
+              </li>
+              <li class="s_fb">
+                <div class="fb-share-button" data-href="http://www.businesslicenses.gov.zm{{ currentPath }}" data-layout="button_count" data-size="small">
+                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.businesslicenses.gov.zm{{ currentPath }}" class="fb-xfbml-parse-ignore">Share</a>
+                </div>
+
+              </li>
+              <li class="s_tw">
+                <a href="https://twitter.com/intent/tweet?text=http://www.businesslicenses.gov.zm{{ currentPath }}" data-size="large">
+                  <ion-icon aria-label="logo twitter" class="hydrated" name="logo-twitter" role="img"></ion-icon>
+                </a>
+              </li>
+              <li class="s_mail">
+                {% set regulation_body = regulation.description|raw %}
+                <a href="mailto:?Subject={{ regulation.title }} Comments &amp;Body={{ regulation_body }}" target="_blank">
+                  <ion-icon aria-label="mail" class="hydrated" name="mail" role="img"></ion-icon>
+                </a>
+              </li>
+              <li class="s_copy">
+                <div class="share_whatsapp">
+                  <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm{{ currentPath }}" target="_blank">
+                    <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home_content full_width">
+    {% if open_for_comments == false %}
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong>
+        This Regulation is no longer available for making comments
+      </div>
+    {% endif %}
+    <div class="container">
+      <div class="row clearfix">
+
+        <div class="side_content_C col-md-3 clearfix">
+
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action active js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#description">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Description</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#documents">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Consultation Documents</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#sectors">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Sector Affected</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#instructions">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Specific Instructions</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#materials">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Supporting Materials</p>
+              </div>
+            </a>
+
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#offline">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Offline Consultations</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#contact">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Contact Office</p>
+              </div>
+            </a>
+            <a class="comments_link_A list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}/comments">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Comments</p>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="archive_main_content col-md-9 clearfix">
+          <div class="home_content_A">
+            <div class="header_A">
+              <h2 class="style_A">Comments
+              </h2>
+              <span id="error_message"></span>
+            </div>
+            <div class="home_content_A_in">
+              <div class="single_box_main box_1">
+                <div class="comment_in_B">
+                  <section id="comments">
+                    <div class="container">
+                      <div class="mx-auto">
+                        <div id="comments-container"></div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
+
+{% block comments %}
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (typeof window.orientation == 'undefined') {
+        $("#share_whatsapp").html('<div class="share_whatsapp">\
+                  <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm/consultation/regulations/                      {{ regulation.id }}/comments" target="_blank">\
+                    <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>\
+                  </a>\
+          </div>');
+      }
+
+      $(".marked-abusive").addClass("text-success");
+    });
+    let replying = $.getJSON(`/consultation/regulations/api/{{ regulation.id }}/comments/enabled`);
+    replying.done(function (response) {
+      let reply = response.status;
+
+      var saveComment = function (data) { // Convert pings to human readable format
+        $(Object.keys(data.pings)).each(function (index, userId) {
+          var fullname = data.pings[userId];
+          var pingText = '@' + fullname;
+          data.content = data.content.replace(new RegExp('@' + userId, 'g'), pingText);
+        });
+        return data;
+      }
+      $('#comments-container').comments({
+
+        profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png',
+        currentUserId: 1,
+        roundProfilePictures: true,
+        textareaRows: 1,
+        enableAttachments: true,
+        enableHashtags: true,
+        enablePinging: true,
+        textareaPlaceholderText: 'Leave a comment..',
+        editText: 'Edit',
+        enableUpvoting: true,
+        enableDeletingCommentWithReplies: false,
+        enableEditing: false,
+        enableHashtags: false,
+        postCommentOnEnter: true,
+        maxRepliesVisible: 3,
+        maxRepliesVisible: 3,
+        enableReplying: reply,
+        searchUsers: function (term, success, error) {
+          setTimeout(function () {
+            success(usersArray.filter(function (user) {
+              var containsSearchTerm = user.fullname.toLowerCase().indexOf(term.toLowerCase()) != -1;
+              var isNotSelf = user.id != 1;
+              return containsSearchTerm && isNotSelf;
+            }));
+          }, 500);
+        },
+        getComments: function (success, error) {
+          $.ajax({
+            type: 'get',
+            url: `/consultation/regulations/api/{{ regulation.slug }}/comments`,
+            success: function (commentList) {
+              let commentsArray = JSON.parse(commentList);
+              success(commentsArray);
+            },
+            error: error
+          });
+
+        },
+        postComment: function (commentPost, success, error) {
+          grecaptcha.ready(function () {
+            grecaptcha.execute('{{ recaptacha_client_site }}', {action: 'social'}).then(function (token) {
+              var data = {
+                "response": token
+              };
+              var url = `/comments/api/${token}/verify`;
+              $.ajax({
+                type: "get",
+                url: url,
+                data: data,
+                success: function (data) {
+                  let response = JSON.parse(data)
+                  if (response.success) {
+                    var commentSend = commentPost
+                    $.ajax({
+                      type: "post",
+                      url: `/consultation/regulations/api/{{ regulation.id }}/comments`,
+                      data: commentSend,
+                      success: function (comment) {
+                        let this_comment = JSON.parse(comment)
+                        success(this_comment)
+                      },
+                      error: error
+                    });
+                  } else {
+                    $(".textarea").html(`<p class="alter alert-danger">Error! Reload Page to post a comment </p>`);
+                  }
+                }
+              });
+            });
+          });
+        },
+        putComment: function (data, success, error) {
+          setTimeout(function () {
+            success(saveComment(data));
+          }, 500);
+        },
+        deleteComment: function (data, success, error) {
+          setTimeout(function () {
+            success();
+          }, 500);
+        },
+        upvoteComment: function (commentJSON, success, error) {
+          var commentUrl = "/comments/api/" + commentJSON.id + "/like";
+          $.ajax({
+            type: 'post',
+            url: commentUrl,
+            data: {
+              comment: commentJSON.id
+            },
+            success: function (data) {
+              let comment = JSON.parse(data);
+              if (comment.success == false) {
+                $("#error_message").html("<div class='alert alert-danger' role='alert'>" + comment.error + "</div>");
+                alert(comment.error);
+              } else {
+                success(comment.like_count)
+              }
+            },
+            error: function (data) {
+              let errorData = JSON.parse(data);
+              if (errorData.success == false) {
+                $("#error_message").html("<div class='alert alert-danger' role='alert'>" + errorData.error + "</div>");
+              }
+            }
+          });
+        },
+        uploadAttachments: function (commentArray, success, error) {
+          grecaptcha.ready(function () {
+            grecaptcha.execute('{{ recaptacha_client_site }}', {action: 'social'}).then(function (token) {
+              var responseData = {
+                "response": token
+              };
+              var url = `/comments/api/${token}/verify`;
+              $.ajax({
+                type: "get",
+                url: url,
+                data: responseData,
+                success: function (serverResponse) {
+                  let serverResponseData = JSON.parse(serverResponse)
+                  if (serverResponseData.success) {
+                    var responses = 0;
+                    var successfulUploads = [];
+
+                    var serverResponded = function () {
+                      responses++;
+
+                      if (responses == commentArray.length) {
+                        if (successfulUploads.length == 0) {
+                          error();
+                        } else {
+                          success(successfulUploads);
+                        }
+                      }
+                    }
+
+                    $(commentArray).each(function (index, commentJSON) {
+                      var formData = new FormData();
+                      $(Object.keys(commentJSON)).each(function (index, key) {
+                        var value = commentJSON[key];
+                        if (value) {
+                          formData.append(key, value)
+                        }
+                      });
+                      $.ajax({
+                        url: `/consultation/regulations/api/{{ regulation.id }}/comments`,
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (commentJSON) {
+                          let commentCreated = JSON.parse(commentJSON);
+                          successfulUploads.push(commentCreated);
+                          serverResponded();
+                        },
+                        error: function (data) {
+                          serverResponded()
+                        }
+                      });
+                    });
+                  } else {
+                    $(".textarea").html(`<p class="alter alert-danger">Error! Reload Page to post a comment </p>`);
+                  }
+                }
+              });
+            });
+          });
+        },
+        refresh: function () {
+          $('#comments-container').addClass('rendered');
+        }
+      });
+
+      // Hide this
+      if (! reply) {
+        $(".commenting-field").hide();
+      }
+    });
+  </script>
+{% endblock %}

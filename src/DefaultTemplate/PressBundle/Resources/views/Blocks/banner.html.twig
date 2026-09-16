@@ -1,0 +1,250 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<link href="{{ asset('bundles/webmastersafricapress/new/css/slick-slider.css') }}" rel="stylesheet">
+<div id="full-slider-wrapper">
+  <!--// Main Banner \\-->
+  <div class="wm-banner">
+    {% for banner in banners %}
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('uploads/' ~ banner.image) }}" alt="{{ banner.title }}">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>{{ banner.title }}</h1>
+            <p>{{ banner.description }}</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                      <span class="input-group-btn">
+                        <input class="btn_search" type="submit" value="submit"> Search
+                      </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+    {% endfor %}
+    {#
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/1.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/2.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+
+
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/3.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+
+
+
+
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/4.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+
+
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/6.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+
+
+
+
+
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/7.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div>
+
+
+
+
+      <div class="wm-banner-wrap">
+        <span class="wm-transparent-layer"></span>
+
+        <img src="{{ asset('bundles/webmastersafricapress/new/img/8.jpg') }}" alt="">
+        <form action="/search/advanced" class="wm-listing-search" method="post">
+          <div class="wm-caption">
+            <h1>Your Business Licensing Starts Here</h1>
+            <p>Find Hundreds of Business Licences</p>
+          </div>
+          <div class="wm-c">
+            <div class="wm-d">
+              <form action="/search/advanced" class="hidden-xs" method="post">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" name="keywords" class=" search-query" placeholder="{{ 'findsearchdesc'|trans }}">
+                    <span class="input-group-btn">
+                      <input class="btn_search" type="submit" value="submit"> Search
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+        <!--// Listing Search \\-->
+      </div> --> #}
+
+
+
+
+
+
+  </div>
+  <!--// Main Banner \\-->
+  <div class="hidden-xs" id="count">
+    <ul>
+      <li><a href="/browse/jurisdictions" style="color: black;"><span class="number">{{ locations }}</span>Jurisdictions</a></li>
+      <li><a href="/browse/business-types" style="color: black;"><span class="number">{{ business_types }}</span>Business Types</a></li>
+      <li><a href="/browse/licenses" style="color: black;"><span class="number">{{ licenses }}</span>Licenses Published</a></li>
+    </ul>
+  </div>
+</div>
+<div class="clearfix"></div>

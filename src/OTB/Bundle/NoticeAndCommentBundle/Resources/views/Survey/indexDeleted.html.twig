@@ -1,0 +1,192 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}{{ site_title }}, Manage Surveys {% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Manage Surveys</h5>
+            <span>List of published Surveys</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+
+<div class="wrapper w3-center">
+    <div class="w3-show-inline-block">
+  <div class="controlC">
+    <a href="{{ path("manage_surveys_new") }}" title="" class="w3-button w3-hover-blue w3-round-large w3-green w3-medium" title="" href="#">
+    <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+    <span>Create a new survey</span>
+    </a>
+    <a href="{{ path("manage_surveys_index") }}" title="" class="w3-button w3-hover-red w3-round-large w3-red w3-medium" title="" href="#">
+    <i class="fa fa-bars"></i>
+    <span>published Surveys</span>
+    </a>
+    <div class="clear"></div>
+  </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+{% block body %}
+  {% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('create') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('publish') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ flashMessage }}
+      </p>
+    </div>
+  {% endfor %}
+  	<div id="js-alert-messages">
+  	</div>
+    <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/home2.png') }}" alt="" class="titleIcon" />
+    <h6>List of unpublished Surveys</h6></div>
+    <form id="batch_form" name="batch_form" action="{{ path("manage_surveys_batch") }}" method="post">
+	    <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable" id="surver_list">
+	        <thead>
+	            <tr>
+	                <td width="40"><div>&middot;&middot;&middot;</div></td>
+	                <td>Title</td>
+	                <td>Consultation</td>
+	                <td>Number of Questions</td>
+	                <td>Published ?</td>
+	                <td>Action</td>
+	            </tr>
+	        </thead>
+	        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <div class="itemActions">
+                        <select id="batch_select" name="batch_select" class="form-control" onchange="if(atLeastOne()){ if(confirm('{{ 'locations.batch_confirm_1' | trans }} ' + this.value + ' {{ 'locations.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                            <option>{{ 'locations.select_batch' | trans }}...</option>
+                            <option value="publish">Publish</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        	</tfoot>
+	        <tbody>
+		        {% for entity in entities %}
+		            <tr>
+		                <td align="center"><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+		                <td>{{ entity.surveyName }}</td>
+		                <td>{{ entity.regulation }}</td>
+		                <td align="center">{{ entity.questions|length }}</td>
+		                <td>
+		                		<span id="published_status">
+			                    {% if entity.published == true %}
+			                        <a class="smallButton" onclick="unpublishFunction({{entity.id}})" href="#"><img title="Published" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></a>
+			                    {% else %}
+			                        <a class="smallButton" onclick="publishFunction({{entity.id}})" href="#"><img title="Not Published" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></a>
+			                    {% endif %}
+		                  	</span>
+		                </td>
+		                <td>
+		                <ul>
+		                    <li>
+		                        <a href="{{ path('manage_surveys_edit', { 'id': entity.id }) }}" class="smallButton"  title="Edit Survey Details">
+		                            <img alt="Edit survey Details" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+		                        </a> |
+		                        <a href="{{ path('manage_surveys_show', { 'id': entity.id }) }}" class="smallButton"  title="View the question details">
+		                            <i class="fa fa-eye"></i>
+		                        </a>
+		                    </li>
+		                </ul>
+		                </td>
+		            </tr>
+		        {% endfor %}
+	      	</tbody>
+	    </table>
+	  </form>
+</div>
+</div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#surver_list').DataTable();
+        });
+
+          function publishFunction(id) {
+	        var url = "{{ path('manage_surveys_publish') }}";
+	        var asset = "{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}"
+	        $.ajax({
+	        	url: url,
+	        	type: 'post',
+	        	dataType: 'json',
+	        	data: {id: id},
+	        	success: function(response) {
+	        		if (response.success) {
+	        			$("#published_status").html('<a class="smallButton"><img title="Published" src="'+ asset +'" alt="Published" onClick="unpublishFunction("' + id + '")"></a>');
+	        			$("#js-alert-messages").html("<div class='nNote nSuccess hideit'><p class='alert alert-success'>"+ response.message + "</p></div>");
+	        		} else {
+	        			$("#js-alert-messages").html("<div class='nNote nFailure hideit'><p class='alert alert-error'>"+ response.message + "</p></div>");
+	        		}
+
+	        	}
+	        });
+        }
+
+        function unpublishFunction(id) {
+	        var url = `{{ path('manage_surveys_unpublish') }}`;
+	        var asset = "{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}"
+	        $.ajax({
+	        	url: url,
+	        	type: 'post',
+	        	dataType: 'json',
+	        	data: {id: id},
+	        	success: function(response) {
+	        		if (response.success) {
+	        			$("#published_status").html('<a class="smallButton"><img title="Published" src="' + asset +'" alt="Published" onClick="publishFunction("' + id + '")"></a>');
+	        			$("#js-alert-messages").html("<div class='nNote nSuccess hideit'><p class='alert alert-success'>"+ response.message + "</p></div>");
+	        		} else {
+	        			$("#js-alert-messages").html("<div class='nNote nFailure hideit'><p class='alert alert-error'>"+ response.message + "</p></div>");
+	        		}
+	        	}
+	        });
+        }
+    </script>
+{% endblock %}

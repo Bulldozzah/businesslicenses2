@@ -1,0 +1,21 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+            <div>
+				<div id="cart_box">
+					<h3>{{ 'commonbusiness'|trans }}<i class="icon_tags_alt pull-right"></i></h3>
+          <ul class="side-menu-list" >
+            <div id="tools">
+              <li class="styled-select">
+                <select class="form-control" name="businesstype" id="businesstype">
+      {% for city in cities %}
+      <option {% if city.isDefault is odd %}selected{% endif %} value="{{ city.id }}">{{ city.name }}</option>
+      {% endfor %}
+      </select>
+    </div>
+      </li>
+        {% for businesstype in businesstypes %}
+        <li><div data-icon="=" aria-hidden="true" class="fs1"> <a class="tooltip-1" data-toggle="tooltip" data-placement="left" title="{{ businesstype.name }}" onClick="window.location='{{ app.request.basepath }}/search/businesstype/' + document.getElementById('businesstype').value + '/{{ businesstype.id }}';" href="#">{{ businesstype.name }}</a></div> </li>
+      {% endfor %}
+      </ul>
+			</div><!-- End cart_box -->
+      </div>

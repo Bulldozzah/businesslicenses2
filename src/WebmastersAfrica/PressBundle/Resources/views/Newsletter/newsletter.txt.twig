@@ -1,0 +1,9 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% block subject %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ content }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

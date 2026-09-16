@@ -1,0 +1,77 @@
+# Cache and logs (Symfony2)
+zambiaeregistry_*
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+
+# Email spool folder
+/app/spool/*
+
+# Cache, session files and logs (Symfony3)
+/var/cache/*
+/var/logs/*
+/var/sessions/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+!var/sessions/.gitkeep
+
+# Logs (Symfony4)
+/var/log/*
+!var/log/.gitkeep
+
+# Parameters
+/app/config/parameters.yml
+/app/config/parameters.ini
+
+# Managed by Composer
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/symfony_requirements
+
+# Assets and user uploads
+#/web/bundles/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Build data
+/build/
+
+# Composer PHAR
+/composer.phar
+
+# Backup entities generated with doctrine:generate:entities command
+**/Entity/*~
+
+# Embedded web-server pid file
+/.web-server-pid
+
+# Jetbrains 
+/.idea
+
+# VSCode
+/.vscode
+/.vagrant
+
+# Ignore web index
+# copy index.php.dist
+# (vendor/, composer.lock, app/bootstrap.php.cache, web/index.php and web/uploads/ are
+#  committed on purpose: the Symfony 2.3 dependency set can no longer be reliably reinstalled)
+
+# Secrets and local-only files - never commit
+/app/config/parameters.yml.*
+!/app/config/parameters.yml.dist
+railway token.txt
+*.token.txt
+.env
+*.swp
+*.sql
+*.sql.gz
+web/error_log
+error_log
+/web/app_latest.php
+/app/config/config_latest.yml
+/data.csv

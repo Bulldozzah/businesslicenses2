@@ -1,0 +1,37 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block page_title %}
+    Republic of Zambia - Unified Notice-and-Comment Consultation Portal | Comment Policy
+{% endblock %}
+{% block body %}
+    <main class="single" role="main">
+
+        <div class="jumbotronZ clearfix">
+            <div class="container text-left">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="jumboZ_in_2 jumboZ_in">
+                            <div class="text-center">
+                                <h2>{{entity.title }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_main_content col-md-12 clearfix">
+                        <div class="home_content_A">
+                            <p>{{ entity.content|raw }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

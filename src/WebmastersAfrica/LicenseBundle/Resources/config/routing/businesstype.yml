@@ -1,0 +1,29 @@
+managebusinesstypes:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:index" }
+
+managebusinesstypes_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:show" }
+
+managebusinesstypes_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:new" }
+
+managebusinesstypes_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:create" }
+    requirements: { _method: post }
+
+managebusinesstypes_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:edit" }
+
+managebusinesstypes_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:update" }
+    requirements: { _method: post|put }
+
+managebusinesstypes_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:delete" }

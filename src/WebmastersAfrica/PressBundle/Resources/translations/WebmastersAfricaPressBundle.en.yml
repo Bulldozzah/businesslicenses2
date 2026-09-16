@@ -1,0 +1,578 @@
+deleted_item_notice: Your have successfully deleted the item
+updated_item_notice: Your have successfully updated the item
+unpublish_item_notice: Your have successfully unpublished the item
+publish_item_notice: Your have successfully published the item
+created_item_notice: Your have successfully created the item
+notice_title: Republic of Zambia - Unified Notice-and-Comment Consultation Portal
+#common labels
+welcome: Welcome
+language: Language
+edit_profile: Edit Profile
+administration: Administration
+savedlicenses: My Saved Licenses
+signout: Sign Out
+signin: Sign-in and Subscribe
+selectall: Select All
+
+#Organization labels
+org-orgnization: Business Regulatory Review Agency
+org-country: Republic of Zambia
+org-city: Plot No. 2251 Fairley Road, ridgeway ,Lusaka
+org-address: P.O.Box 50593, Lusaka-Zambia
+org-telephone: +260 211 259165
+org-postaladdress: +260 211 259165
+org-emailaddress: Email: e-registry@brra.org.zm
+org-website: http://www.brra.org.zm/
+
+#Banner Labels
+bannertitle1: Your Business Licensing starts Here
+bannerdesc1: Amongst the World's Richest coffee
+bannertitle2: Infrastructure Developments
+bannerdesc2: Africa's Thriving Economies
+bannertitle3: Impeccable Beauty
+bannerdesc3: Heart of Africa's finest wildlife Heritage
+
+#Breadcrumb
+home: Home
+licenses1: Licenses
+licensedetails: License Details
+backtolist: Back to List of License Results
+
+
+#Breadcrumb
+capture: Enter the words as shown in the image below
+
+#search box
+select: Select
+businesslocation: Jurisdiction
+industry: Industry
+businesstype: Business type
+locationdescription: Select the Jurisdiction in which your business operates
+industrydescription: Then select the Industry in which your business operates
+businesstypedescription: Now select the type of Sector you will undertake
+getresults: Get Results
+searchlicense: Search Licenses
+advancedsearchlicense: Advanced Search
+searchlicensehmdesc: Search by Location, Industry and Business type
+findsearchdesc: Find Licenses quickly by typing here ..
+searchplaceholdertable: Search Licenses by Keyword e.g. Trade License or Agency e.g. Ministry of Education
+showing: Showing
+firstpager: First
+lastpager: Last
+nextpager: Next
+previouspager: Previous
+emptytable:  No Licenses available in table
+
+#sidebar
+commonbusiness: Common Businesses
+newsletter_sign_up: Sign Up for Newsletter
+newsletter_name: Your Name
+newsletter_email: Your Email
+newsletter_submit: Submit
+subscription_successful: You have successfully signed up for our newsletters. An email has been sent to your account with a confirmation link.
+subscription_fail: Could not subscribe you to our newsletters. Please try again
+subscription_confirmation_successful: You have successfully confirmed your subscription for our newsletters
+un_subscription_confirmation_successful: You have successfully unsubscribed from receiving our newsletters.
+subscription_confirmation_fail: Could not confirm your subscription to our newsletters. Please try again
+unsubscribe: "Newsletters Unsubscribe"
+subscription_exists: This email is already subscribed to out newsletter
+subscription_subject: Welcome %name%!
+subscription_message: |
+
+            To confirm your newsletter subscription - please visit %confirmationUrl%
+
+            Regards,
+            the BBRA Team.
+
+mostviewed: Most Viewed
+recentupdates: Recent Updates
+viewmore: View More
+
+#footer
+copyright: Copyright
+allrightsreserved: All rights reserved
+privacypolicy: Privacy Policy
+about: About
+newsletters3: Newsletters
+languages: Languages
+browsemorelicense: Browse More Licenses
+popular: Popular
+populardesc: Most Viewed Licenses
+
+#sigin and subscribe
+title1: Sign-in or Subscribe
+title2: Sign in or Subscribe if you do not have an account
+register: Create an Account
+signin: Sign in
+username: Username
+password: Password
+rememberme: Remember Me
+forgotpassword: Forgot Password?
+login: Login
+error: Invalid Username or Password
+
+newuser: New User? Create Account
+firstname: First Name
+lastname: Last Name
+email: Email
+password: Password
+enterpassword: Enter a Password
+confirmpassword: Confirm Password
+reset: Reset
+signup: Sign-Up
+
+#frequently asked questions
+faq_title: Frequently Asked Questions
+faqs: FAQs
+ask: Didn't find the answer to your question? Click
+here: here
+
+#contactus
+contactus: Contact Us
+title1: Feel free to contact us
+title2: Contact detail
+address: Address
+phone: Phone
+fax: Fax
+email: Email
+agency: Select an Agency
+message: Contact Us
+submit: Submit
+reset: Reset
+contact_success: Contact message sent successfully
+
+#my saved licenses
+my_saved_licenses: My Saved Licenses
+no_saved_licenses: You have no saved any licenses.
+remove: Remove
+share: Share your Search
+delete: Delete
+days: days
+are_you_sure_delete: Are you sure you want to delete this saved licenses?
+
+#save search or share licenses
+save_licenses: Share Licenses
+enter_search_name: Enter a name for your new search e.g. My Grocery Shop Licenses, Bank Licenses.
+new_search_title: New search title
+add_to_existing: OR Add to existing search
+please_enter_title_or_select_existing_search: Please enter a title for your search or select and existing search
+please_enter_an_email: Please enter an email address
+save_search: Save Licenses
+share_licenses: Share Licenses
+brlicenses: Licenses
+enter_email: Enter email address where you would like to send this information to
+email_address: Email Address
+licenses_shared: Licenses have been shared successfully.
+hi: Hi,
+the_following: The following licenses have been shared with you via the Zambia Business Licensing Portal.
+regards: Regards,
+team: Business Licensing Team.
+
+#news
+news: News
+news_articles: News Articles
+by: By
+posted_by: Posted By
+posted_on: Posted On
+read_more: Read More
+
+#activities
+licenses2: Licenses
+businessactivities: Business Activities
+findlicenses: Find Licenses
+chooseone: Please choose atleast one activity
+pleaseselect: Please select the activities you will be undertaking in your business
+resultsfound: Result(s) found
+selectactivity: Select Activity
+viewlicenses: View Licenses Needed
+
+#advanced search
+search: Search
+advancedsearch: Advanced Search
+filterlicense: Filter Licenses
+or: OR
+save: Save Search
+Share: Share
+name: Name
+moreinfo: More Info
+issuingagency: Issuing Agency
+licensename: License Name
+time: Processing Time
+associatedcosts: Associated Costs
+pleaseprovide: Please provide a search term
+pleaselogin: Please Login to Save Licenses
+pleasechooseshare: Please choose the licenses you want to share first
+pleasechoosesave: Please choose the licenses you want to save first
+nolicenses: No Licenses are required for your selection
+browselicenses: Browse Licenses
+browse_regulations: Browse Laws & Consultations
+
+#issuingagency
+headoffice: Head Office
+physicaladdress: Physical Address
+postaladdress: Postal Address
+city: City
+email: Email Address
+website: Website
+operatinghours: Operating Hours
+directions: Directions
+
+#faqs ask
+feedback: feedback
+feedback_name: Name
+feedback_email: Email
+feedback_organization: Organization
+feedback_question: Question
+feedback_reset: Reset
+feedback_submit: Submit
+feedback_captcha: Enter the words as shown in the image below
+feedback_sent: Feedback sent successfully!
+
+# licenses
+licenses:
+    fieldnames:
+        agency: Agency
+        browselicenses: Browse Licenses
+        activities: Activities
+        downloadablecontent: Downloads
+        licensingagency: Agencies
+        licensestatutes: Licenses Statutes
+        licenserequirements: Requirements
+        licensedetails: Details
+        licensename: License Name
+        licensestatus: License Status
+        purpose: Purpose
+        description: Description
+        licenseno: License No
+        jurisdiction: Jurisdiction
+        universal: Universal
+        applicationfee: Application Fees
+        licensefee: License Fee
+        maximumprocessingtime: Maximum Processing Time
+        validity: Validity
+        gazettedon: Gazetted On
+        enactment: Enactment
+        contactoffice: Contact Office
+        relatedwebsites: Related Websites
+        resolutioncriteria: Resolution Criteria
+        keywords: Keywords
+        legal_basis: Legal Basis
+        updated: Item Updated Successfully
+
+# Manage Pages
+pages:
+    manage_pages: Manage Pages
+    pages: Pages
+    deleted_pages: Deleted Pages
+    pages_description: Manage web pages for the frontend
+
+    add_page: Add New Page
+    add_page_description: Create a new web page
+    edit_page: Edit A Page
+    edit_page_description: Edit A Web Page
+    add_menu: Add New Menu
+    list_menus: List Of Menus
+
+    list_pages: List Of Pages
+    page_title: Page Title
+    published: Published
+    page_order: Page Order
+    actions: Actions
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    publish: Publish
+    unpublish: Unpublish
+    delete: Delete
+    edit: Edit
+
+    page_title: Page Title
+    page_breadcrumb_title: Page Breadcrumb Title
+    page_content: Page Content
+    seo_keywords: SEO Keywords
+    seo_description: SEO Description
+    page_layout: Page Layout
+    parent: Parent Page
+    more: Read More
+    url: URL
+
+    back_to_list: Back To List
+    update: Update
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Manage banners
+banners:
+    manage_banners: Manage Banners
+    banners: Banners
+    banners_description: Manage banners for the frontend
+    add_banner_description: Add a banner for the frontend
+    edit_banner_description: Edit a banner for the frontend
+
+    edit_banner: Edit Banner
+    add_new_banner: Add New Banner
+    add_page_description: Create a new web page
+    edit_page: Edit A Page
+    edit_page_description: Edit A Web Page
+    add_menu: Add New Menu
+    list_menus: List Of Menus
+
+    add_new_banner: Add New Banner
+    add_page_description: Create a new web page
+    edit_page: Edit A Page
+    edit_page_description: Edit A Web Page
+    add_menu: Add New Menu
+    list_menus: List Of Menus
+
+    list_banners: List of Banners
+    title: Title
+    description: Description
+    image: Image(size - 1600x520px )
+    actions: Actions
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    publish: Publish
+    unpublish: Unpublish
+    delete: Delete
+    edit: Edit
+
+    page_title: Page Title
+    page_breadcrumb_title: Page Breadcrumb Title
+    page_content: Page Content
+    seo_keywords: SEO Keywords
+    seo_description: SEO Description
+    page_layout: Page Layout
+    parent: Parent Page
+    more: Read More
+    url: URL
+
+    back_to_list: Back To List
+    update: Update
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Manage Business Start Procedure
+procedure:
+    procedure: Business Startup Procedure
+    manage_startup: Manage Business StartUp Procedure
+    procedure_description: Manage Business Startup Procedure for the Frontend User
+    add_new_procedure: Add New Business Startup Procedure
+    list_procedure: List Business Procedures
+    list_of_procedures: List Of Business Procedures
+    procedure_title: Procedure Title
+    procedure_description: Procedure Description
+    procedure_published: Published
+    procedure_actions: Actions
+    procedure_edit: Edit Business Procedure
+
+# Manage Site Policy
+policy:
+    policy: Site Policies
+    manage_policy: Manage NC Site policies
+    manage_policy_description: Manage NC Site Policies
+    add_new_policy: Add New site Policy
+    list_policies: List NC Site Policies
+    list_of_policies: List Of NC Site Policies
+    policy_title: Policy Title
+    policy_description: Policy Description
+    policy_published: Published
+    policy_actions: Actions
+    policy_edit: Edit Site Policy
+# Manage News
+news:
+    manage_news: Manage News
+
+    news: News
+    news_description: Manage news articles for the frontend
+
+    add_news_article: Add New News Article
+    edit_news_article: Edit News Article
+    add_news_description: Add a new news article
+    edit_news_description: Edit news article details
+    add_subscriber: Add New Subscriber
+    list_subscribers: List Of Subscribers
+
+    list_news_articles: List Of News Articles
+    news_title: News Title
+    hits: Hits
+    published: Published
+    actions: Actions
+
+    title: Title
+    article: Article
+    back_to_list: Back To List
+    update: Update
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    publish: Publish
+    unpublish: Unpublish
+    delete: Delete
+    edit: Edit
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Manage Newsletters
+newsletters:
+    manage_newsletters: Manage Newsletters
+
+    newsletters: Newsletters
+    newsletters_description: Manage Newsletters
+
+    add_newsletter: Add New Newsletter
+    edit_newsletter: Edit Newsletter
+    add_subscriber: Add New Subscriber
+    list_subscribers: List Of Subscribers
+
+    content: Content
+    update: Update
+    back_to_list: Back To List
+
+    add_newsletter_description: Add new newsletter details
+    edit_newsletter_description: Edit newsletter details
+
+    list_newsletters: List Of Newsletters
+    subject: Subject
+    sent: Send
+    actions: Actions
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    delete: Delete
+    edit: Edit
+    send: Send
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Manage Newsletter Subscribers
+subscribers:
+    manage_subscribers: Manage Subscribers
+
+    subscribers: Newsletter Subscribers
+    subscribers_description: Manage people who have subscribed for the newsletters
+
+    add_new_subscribers: Add New Subscriber
+    add_new_newsletter: Add New Newsletter
+    list_of_newsletters: List Of Newsletters
+
+    add_subscribers_description: Add new newsletter subscriber
+    edit_subscribers: Edit Newsletter Subscriber
+    edit_subscribers_description: Edit newsletter subscriber details
+
+    update: Update
+    back_to_list: Back To List
+
+    organisation: Organisation
+
+    list_of_subscribers: List Of Subscribers
+    name: Name
+    email: Email Address
+    confirmed: Confirmed
+    confirm: Confirm
+    unconfirm: Unconfirm
+    actions: Actions
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    delete: Delete
+    edit: Edit
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Manage Frequently Asked Question
+faqs:
+    manage_faqs: Manage FAQs
+
+    faqs: FAQs
+    faqs_description: Manage Frequently Asked Questions
+
+    add_new_faq: Add New FAQ
+    add_faq_description: Add new frequently asked question
+
+    edit_faq: Edit FAQ
+    edit_faq_description: Edit frequently asked question details
+
+    list_faqs: List Of FAQs
+    question: Question
+    answer: Answer
+    published: Published
+    actions: Actions
+
+    update: Update
+    back_to_list: Back To List
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    delete: Delete
+    publish: Publish
+    unpublish: Unpublish
+    edit: Edit
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Feedback
+feedback:
+    manage_feedback: Manage Feedback
+
+    feedback: Feedback
+    feedback_description: Manage User Feedback
+
+    add_new_feedback: Add New Feedbck
+    add_faq_description: Add new feedback
+
+    edit_feedback: Edit Feedback
+    edit_feedback_description: Edit feedback
+
+    first_name: First Name
+    last_name: Last Name
+    subject: Subject
+    message: Message
+    site: From Website
+
+    list_feedback: List Of Feedback
+    published: Published
+    actions: Actions
+
+    update: Update
+    back_to_list: Back To List
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    delete: Delete
+    publish: Publish
+    unpublish: Unpublish
+    edit: Edit
+    are_you_sure_delete: Are you sure you want to delete this?
+
+# Manage Languages
+languages:
+    manage_languages: Manage Languages
+
+    languages: Languages
+    languages_description: Manage languages for the system
+
+    add_new_language: Add New Language
+    edit_language: Edit Language
+    edit_language_description: Edit language details
+    add_language_description: Create a new language
+
+    back_to_list: Back To List
+
+    list_of_languages: List Of Languages
+    title: Title
+    locale_code: Locale Code
+    enable: Enable
+    disable: Disable
+    enabled: Enabled
+    actions: Actions
+
+    is_default: Is Default
+    update: Update
+
+    select_batch: Select Batch Action
+    batch_confirm_1: Are you sure you want to
+    batch_confirm_2: the selected items?
+    delete: Delete
+    edit: Edit

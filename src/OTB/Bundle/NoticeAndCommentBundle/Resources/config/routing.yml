@@ -1,0 +1,221 @@
+notice_faqs:
+  pattern: /notices/faqs
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:noticeFaqs" }
+  requirements: { _method: GET }
+
+notice_faq_feedback:
+  pattern: /notices/faqs/ask
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:noticeFaqask" }
+
+notice_press_view:
+  pattern: /notices/pages/{slug}
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:noticePressview" }
+
+notice_faq_save:
+  pattern: notices/faqs/save
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:noticeFaqsave" }
+  requirements: { _method: post }
+
+notice_contact_us:
+  pattern: notices/contactus
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:noticeContactUs" }
+  requirements: { _method: get }
+
+notice_contact_us_save:
+  pattern: notices/contactus/save
+  defaults: { _controller: "WebmastersAfricaPressBundle:Press:noticeContactSend" }
+  requirements: { _method: post }
+
+manage_regulations:
+  resource: "@NoticeCommentBundle/Resources/config/routing/regulation.yml"
+  prefix: /login-admin/manageregulations
+
+manage_comment_list:
+  pattern: /login-admin/managecomments/{id}/list
+  defaults: { _controller: "NoticeCommentBundle:Regulation:commentList" }
+  requirements: { _method: GET, id: \d+}
+
+comments_reply:
+  pattern: /login-admin/managecomments/{comment_id}/reply
+  defaults: { _controller: "NoticeCommentBundle:Comment:reply" }
+  requirements: { _method: POST, comment_id: \d+ }
+
+abusive_comments_reply:
+  pattern: /login-admin/managecomments/marked/abusive/comments/{comment_id}/reply
+  defaults: { _controller: "NoticeCommentBundle:Comment:abusiveCommentReply" }
+  requirements: { _method: POST, comment_id: \d+ }
+  
+manageabusiveterms_create:
+  pattern: /login-admin/manageabusiveterms_create/create/
+  defaults: { _controller: "NoticeCommentBundle:Comment:createAbusiveTerms" }
+  requirements: { _method: POST }
+
+manageabusiveterms_index:
+  pattern: /login-admin/manageabusiveterms_create/list/
+  defaults: { _controller: "NoticeCommentBundle:Comment:listOfAbusiveTerms" }
+  requirements: { _method: get }
+
+manageabusiveterms_check_activity:
+  pattern: /manageabusiveterms_create/check_activity/
+  defaults: { _controller: "NoticeCommentBundle:Comment:checkForAbusiveComments" }
+  requirements: { _method: get }
+
+regulation_comments_reply:
+  pattern: /login-admin/managecomments/{regulation_id}/admin/regulation/reply
+  defaults: { _controller: "NoticeCommentBundle:Comment:RegulationReplyModerator" }
+  requirements: { _method: POST }
+
+managecomments_upvote_comments:
+  pattern: /login-admin/managecomments/upvotecomments/{comment_id}/admin
+  defaults: { _controller: "NoticeCommentBundle:Comment:upvoteComment" }
+  requirements: { _method: GET }
+
+managecomments_downvote_comments:
+  pattern: /login-admin/managecomments/downvotecomments/{comment_id}/admin
+  defaults: { _controller: "NoticeCommentBundle:Comment:downvoteComment" }
+  requirements: { _method: GET }
+
+managecomments_1_delete:
+  pattern: /login-admin/managecomments/{id}/delete/{entity}
+  defaults: { _controller: "NoticeCommentBundle:Comment:deleteReply1" }
+
+managecomments_2_delete:
+  pattern: /login-admin/managecomments/parent/{id}/delete/{entity}
+  defaults: { _controller: "NoticeCommentBundle:Comment:deleteReply2" }
+
+managecomments_1_publish:
+  pattern: /login-admin/managecomments/{id}/publish/{comment_id}
+  defaults: { _controller: "NoticeCommentBundle:Comment:publishReply" }
+
+managecomments_1_unpublish:
+  pattern: /login-admin/managecomments/parent/{id}/unpublish/{comment_id}
+  defaults: { _controller: "NoticeCommentBundle:Comment:unPublishReply" }
+
+comments_abusive_comments:
+  pattern: /login-admin/managecomments/comments/marked/abusive
+  defaults: { _controller: "NoticeCommentBundle:Comment:getAbusiveComments" }
+
+comments_abusive_terms_delete_comments:
+  pattern: /login-admin/managecomments/comments/abusiveterms/delete
+  defaults: { _controller: "NoticeCommentBundle:Comment:listOfAbusiveTermsDelete" }
+  requirements: { _method: post }
+
+comments_show:
+  pattern: /login-admin/managecomments/{id}/show
+  defaults: { _controller: "NoticeCommentBundle:Comment:showCommentDetails" }
+
+frontend_survey:
+  pattern: /take/survey/{slug}/{survey_id}
+  defaults: { _controller: "NoticeCommentBundle:Survey:showFrontendSurvery" }
+  requirements: { _method: get }
+
+frontend_survey_2:
+  pattern: /take/survey/{slug}/{survey_id}/
+  defaults: { _controller: "NoticeCommentBundle:Survey:showFrontendSurvery" }
+  requirements: { _method: get }
+
+thank_you_survey_response:
+  pattern: /response/survey/thank-you/{survey_id}
+  defaults: { _controller: "NoticeCommentBundle:Survey:frontEndSurverThankYou" }
+  requirements: { _method: get }
+
+survey_send_response:
+  pattern: /take/survey/submit/response
+  defaults: { _controller: "NoticeCommentBundle:Survey:frontEndSurveyResponse" }
+  requirements: { _method: post }
+
+batch_comments:
+  pattern:  /login-admin/managecomments/batch/comments/abusive
+  defaults: { _controller: "NoticeCommentBundle:Comment:markAbusiveAdmin" }
+  requirements: { _method: post|put }
+
+managecomments_unpublish:
+  pattern:  /login-admin/managecomments/{id}/unpublish/comments/{regulation_id}
+  defaults: { _controller: "NoticeCommentBundle:Comment:unpublishComments" }
+
+managecomments_publish_main:
+  pattern:  /login-admin/managecomments/{id}/publish/comments/{regulation_id}/main
+  defaults: { _controller: "NoticeCommentBundle:Comment:publishMainComments" }
+
+pending_review_comment_regulation:
+  pattern:  /login-admin/managecomments/{regulation_id}/pending/review/comments
+  defaults: { _controller: "NoticeCommentBundle:Comment:getCommentsPendingReviewForRegulation" }
+
+user_deleted_comments_list:
+  pattern:  /login-admin/managecomments/{regulation_id}/deleted/user/comments
+  defaults: { _controller: "NoticeCommentBundle:Comment:getUserDeletedComments" }
+
+comments_reported_abusive_manage:
+  pattern:  /login-admin/managecomments/{regulation_id}/reported/abusive/comments
+  defaults: { _controller: "NoticeCommentBundle:Comment:getCommentsReportedAbusiveForRegulation" }
+
+un_published_comment_regulation:
+  pattern: /login-admin/managecomments/{regulation_id}/unpublished/comments
+  defaults: { _controller: "NoticeCommentBundle:Comment:unpublishedCommentList" }
+
+managecomments_publish:
+  pattern:  /login-admin/managecomments/publish/{id}/comments/{regulation_id}
+  defaults: { _controller: "NoticeCommentBundle:Comment:publishComments" }
+  requirements: { _method: get }
+
+managecomments_publish_ajax:
+  pattern:  /login-admin/ajax/managecomments/publishcomment/comments
+  defaults: { _controller: "NoticeCommentBundle:Comment:publishCommentsAjax" }
+  requirements: { _method: post }
+
+managecomments_un_publish_ajax:
+  pattern:  /login-admin/ajax/managecomments/unpublishcomment/comments
+  defaults: { _controller: "NoticeCommentBundle:Comment:unpublishCommentsAjax" }
+  requirements: { _method: post }
+
+managecomments_reported_abusive_un_publish_ajax:
+  pattern:  /login-admin/ajax/managecomments/unpublish/comment/marked/abusive
+  defaults: { _controller: "NoticeCommentBundle:Comment:unpublishReportedAbusiveCommentsAjax" }
+  requirements: { _method: post }
+
+managecomments_reported_abusive_publish_ajax:
+  pattern:  /login-admin/ajax/managecomments/publish/comment/marked/abusive
+  defaults: { _controller: "NoticeCommentBundle:Comment:publishReportedAbusiveCommentsAjax" }
+  requirements: { _method: post }
+
+manage_forward_plans:
+  resource: "@NoticeCommentBundle/Resources/config/routing/forward_plans.yml"
+  prefix: /login-admin/manageforwardplans
+
+manage_regulation_fixed_fields:
+  resource: "@NoticeCommentBundle/Resources/config/routing/regulation_fixed_fields.yml"
+  prefix: /login-admin/manageregulationfixedfields/
+
+manage_surveys:
+  resource: "@NoticeCommentBundle/Resources/config/routing/manage_surveys.yml"
+  prefix: /login-admin/managesurveys/
+
+manage_regulation_custom_fields:
+  resource: "@NoticeCommentBundle/Resources/config/routing/regulationfields.yml"
+  prefix: /login-admin/manageregulationcustomfields/
+
+manage_regulation_banners:
+  resource: "@NoticeCommentBundle/Resources/config/routing/banners.yml"
+  prefix: /login-admin/managerenoticeandcommentbanners/
+
+manage_comments:
+  resource: "@NoticeCommentBundle/Resources/config/routing/comment.yml"
+  prefix: /comments
+
+manage_notifications:
+  resource: "@NoticeCommentBundle/Resources/config/routing/notifications.yml"
+  prefix: /notifications
+
+
+browse_regulations:
+  resource: "@NoticeCommentBundle/Resources/config/routing/browse_regulation.yml"
+  prefix: /consultation/regulations
+
+browse_forward_plans:
+  resource: "@NoticeCommentBundle/Resources/config/routing/browse_forward_plans.yml"
+  prefix: /consultation/forward-plans
+
+nc_admin_routes:
+  resource: "@NoticeCommentBundle/Resources/config/routing/admin_routes.yml"
+  prefix: /
+

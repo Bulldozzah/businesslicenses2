@@ -1,0 +1,23 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<!--widget categories-->
+<div class="widget-content widget_categories">
+<h3 class="widget-title">{{ 'newsletter_sign_up'|trans }}</h3>
+	<ul>
+	<li>
+    <div class="widget_login">
+        <form id="form-comments"  action="{{ app.request.basepath }}/newsletter/subscriptioncheck" method="post" autocomplete="off">
+        	<input type="text" name="subscriber_name" placeholder="{{ 'newsletter_name'|trans }}">
+        	<br>
+        	<input type="email" name="subscriber_email" placeholder="{{ 'newsletter_email'|trans }}">
+        	<br>
+            <p class="submit">
+        	 <input type="submit" name="wp-submit" id="wp-submit" class="btn-submit"  name="submitbuttonname" value="{{ 'feedback_submit'|trans }}" tabindex="100">
+            </p>
+		</form> 
+    </div>
+    </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--/widget categories-->

@@ -1,0 +1,59 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+    {{ entity.keywords }}
+{% endblock %}
+{% block sitetitle %}
+    {{ entity.title }}
+{% endblock %}
+{% block sitedescription %}
+    {{ survey.surveyName }}
+{% endblock %}
+{% block sitetwitterdescription %}
+    {{ survey.surveyName }}
+{% endblock %}
+{% block sitetwittertitle %}
+    {{ survey.surveyName }}
+{% endblock %}
+{% block sitetwitterurl %}
+    {{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}
+{% endblock %}
+{% block page_title %}
+    {{ survey.surveyName }}
+{% endblock %}
+
+{% block body %}
+    <main class="single" role="main">
+        <div class="jumbotronZ clearfix">
+            <div class="container text-left">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="jumboZ_in_2 jumboZ_in">
+                            <div class="text-center">
+                                Survey Completed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_main_content col-md-12 clearfix">
+                        <div class="home_content_A">
+                            <div class="box_style_2  info">
+                            	<h1>Thank you for completing the survey!</h1>
+												      <div id="content">
+												        <p>Thank you for taking the time to complete the survey. Your feedback is very valuable to us.</p>
+												      </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,139 @@
+/* LIST
+----------------------------------------*/
+a#add_new {
+    display: inline-block;
+    padding: 2px 8px 2px 5px;
+    font-size: 1.167em;
+    line-height: 1.2em;
+    border-radius: 3px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #34b452;
+}
+
+a#add_new:hover {
+    background-color: #4bc468;
+}
+
+#polls_list table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 15px;
+}
+
+#polls_list th {
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1px solid #d1e0eb;
+    border-left: 1px solid #d1e0eb;
+}
+#polls_list th:first-child {
+    border-left: 0;
+}
+#polls_list thead th {
+    background-color: #f1f9ff;
+}
+#polls_list tbody th {
+    font-weight: normal;
+    width: 500px;
+}
+
+#polls_list td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #d1e0eb;
+    border-left: 1px solid #d1e0eb;
+}
+
+#polls_list .integer,
+#polls_list .boolean,
+#polls_list .delete {
+    text-align: center;
+}
+
+
+/* EDIT
+----------------------------------------*/
+a#back {
+    float: right;
+    margin: 6px 10px 0 0;
+}
+
+form table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 15px;
+}
+
+form th {
+    background-color: #f1f9ff;
+    padding: 6px 10px;
+    text-align: right;
+    border-bottom: 1px solid #d1e0eb;
+}
+
+form td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #d1e0eb;
+}
+
+input[type=text] {
+    width: 400px;
+    border: 1px solid #c0c0c0;
+    padding: 5px 3px;
+    font: 1em/1.2em Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+form table table {
+    width: auto;
+    margin: 0 0 5px 10px;
+}
+
+form table table th {
+    background-color: transparent;
+    padding: 0 8px 5px 0;
+    border-bottom: 0;
+}
+
+form table table td {
+    padding: 0 0 5px 0;
+    border-bottom: 0;
+}
+
+a#add_choice {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+    color: #3a9750;
+}
+
+a#add_choice span {
+    text-decoration: underline;
+}
+
+a#add_choice:hover {
+    color: #4bc468;
+}
+
+form .delete_choice {
+    font-size: 0.917em;
+    line-height: 1.2em;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#submit {
+    margin-top: 10px;
+    text-align: right;
+}
+
+#success {
+    font-size: 1.167em;
+    line-height: 1.2em;
+    margin: 10px 0;
+    border:1px solid #21c548;
+    padding: 10px;
+    color: #34b452;
+    font-weight: bold;
+    background-color: #f1fff4;
+}

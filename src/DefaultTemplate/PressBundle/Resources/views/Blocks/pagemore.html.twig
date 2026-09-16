@@ -1,0 +1,14 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% if pages | length > 0 %}
+<div>
+    <div id="cart_box">
+        <h3>{{ 'pages.more'|trans }}<i class="icon_tags_alt pull-right"></i></h3>
+        <ul class="side-menu-list" >
+            {% for page in pages %}
+                <li><div data-icon="=" aria-hidden="true" class="fs1"> <a href="{{ app.request.basepath }}/press/{{ page.id}}">{{ page.pageTitle }}</a></div> </li>
+            {% endfor %}
+        </ul>
+    </div><!-- End cart_box -->
+</div>
+{% endif %}

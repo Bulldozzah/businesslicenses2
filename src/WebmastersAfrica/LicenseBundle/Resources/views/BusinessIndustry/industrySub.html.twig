@@ -1,0 +1,13 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{{ 'hi'|trans }}
+{% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+
+<p>Thank you for subscribing to {{ industry.name }}. You will be notified immediately a consultation affecting this sector is created.</p>
+<p>
+	Follow this <a class="btn btn-sm btn-primary" href="{{ path ~ path('show_regulations_per_industry', {'id': industry.id }) }}">Path to unsubscribe.</a>
+</p>
+
+{{ 'regards'|trans }}
+{{ 'team'|trans }}

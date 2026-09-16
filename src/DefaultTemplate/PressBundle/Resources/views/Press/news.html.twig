@@ -1,0 +1,63 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+  {{ 'news'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li>
+    <a href="{{ app.request.basepath }}">{{ 'home'|trans }}</a>
+  </li>
+  <li>{{ 'news_articles'|trans }}</li>
+  {% endblock%}
+
+  {% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+      <h4>{{ 'news_articles'|trans }}</h4>
+    </div>
+    <!-- End sub_content -->
+  {% endblock %}
+
+  {% block body %}
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('bundles/webmastersafricapress/new/css/blog.css') }}" rel="stylesheet">
+
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      {% if pagination|length > 0 %}
+        {% for article in pagination %}
+          <div class="post">
+            <div class="post_info clearfix">
+              <div class="post-left">
+                <ul>
+                  <li>
+                    <i class="icon-calendar-empty"></i>
+                    {{ article.created|date('Y-m-d') }}
+                    {% if article.createdBy %}
+                    {% endif %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.article | truncate(600) | raw }}</p>
+            <p stylesheet="margin-top: 30px;">
+              <a href="{{ app.request.basePath }}/news/article/{{ article.id }}" class="btn_1">{{ 'read_more'|trans }}</a>
+            </p>
+          </div>
+          <!-- end post -->
+        {% endfor %}
+      {% else %}
+        <img alt="News Comming Soon" src="https://static.wixstatic.com/media/08d171_055efb0c667d4c66bf893d146fe50044~mv2.png/v1/fit/w_742,h_600,al_c,q_80/file.png"/>
+      {% endif %}
+
+
+      <div class="news-pager text-center">
+        {{ knp_pagination_render(pagination) }}
+      </div>
+    </div>
+
+
+  {% endblock %}

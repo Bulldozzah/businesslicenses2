@@ -1,0 +1,62 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}{{ site_title }}, Edit | {{ entity.surveyName }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Manage Surveys</h5>
+            <span>Survey List</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+{% block body %}
+	<div class="widget">
+		<div class="title">
+	    <img class="titleIcon" alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/cog.png') }}">
+	    <h6>Edit Survey Details</h6>
+	    <div class="num">
+        <a href="{{ path('manage_surveys_index') }}" title="{{ 'custom_regulation_fields.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'custom_regulation_fields.back_to_list' | trans }}</a>
+      </div>
+	  </div>
+
+	  <div class="body nopadding ">
+	  	{{ form_start(edit_form, {'attr': {'class': 'form','id':'demoform','novalidate': 'novalidate'}}) }}
+	  	{{ form_row(edit_form.surveyName) }}
+	  	{{ form_row(edit_form.published) }}
+	  	{{ form_row(edit_form.regulation) }}
+	  	{{ form_row(edit_form.submit) }}
+	  	{{ form_end(edit_form) }}
+	  </div>
+	</div>
+	<script type="text/javascript">
+	$("#js_hide_this_forever").hide();
+	$("#otb_survey_surveyName").addClass('w3-input w3-border');
+	$("#otb_question_questionType").addClass('w3-input w3-border');
+	</script>
+
+	<style type="text/css">
+	input[type='text'] {
+		padding:8px;
+		display:block;
+		border:1px solid #ccc;
+		width:100%;
+	}
+
+	select.form-control {
+		padding:9px 0;width:100%;border:none;border-bottom:1px solid #ccc;
+	}
+	input[type='checkbox'] {
+		width:24px;height:24px;position:relative;top:6px;
+	}
+	.choices {
+		margin-left: 10%;
+	}
+	</style>
+{% endblock %}

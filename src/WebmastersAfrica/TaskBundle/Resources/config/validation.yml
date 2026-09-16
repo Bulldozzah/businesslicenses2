@@ -1,0 +1,10 @@
+WebmastersAfrica\TaskBundle\Entity\User:
+    properties:
+        taskDescription:
+            - NotBlank: ~
+        taskStartDate:
+            - NotBlank: ~
+        taskEndDate:
+            - NotBlank: ~
+        License:
+            - NotBlank: ~

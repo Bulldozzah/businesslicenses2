@@ -1,0 +1,30 @@
+managenewsletters:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:index" }
+
+managenewsletters_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:show" }
+
+managenewsletters_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:new" }
+
+managenewsletters_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:create" }
+    requirements: { _method: post }
+
+managenewsletters_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:edit" }
+
+managenewsletters_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:update" }
+    requirements: { _method: post|put }
+
+managenewsletters_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:Newsletter:delete" }
+    requirements: { _method: post|delete }

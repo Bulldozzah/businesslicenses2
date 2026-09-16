@@ -1,0 +1,33 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block page_title %}Uganda - Edit Menu{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Edit Menu</h5>
+            <span>Edit a menu.</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('managemenus') }}" title="Back To List" class="wButton redwB ml15 m10"><span>Back To List</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+ <form action="{{ path('managemenus_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form">
+        <input type="hidden" name="_method" value="PUT" />
+		{{ form_widget(edit_form) }}
+	</form>
+    <br>
+    <div>
+    	{{ form(delete_form) }}
+	</div>
+{% endblock %}

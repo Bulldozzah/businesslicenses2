@@ -1,0 +1,149 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}{{ site_title }}, {{ 'agencies.license_agencies' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'agencies.license_agencies' | trans }}</h5>
+            <span>{{ 'agencies.license_agencies_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+
+<div class="wrapper w3-center">
+    <div class="w3-show-inline-block">
+        {% if is_expr_granted("hasRole('AGENCY_CREATE')") %}
+        <div class="controlC">
+            <a href="{{ path("manageagencies_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+                <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+                <span>{{ 'agencies.add_new_agency' | trans }}</span>
+            </a>
+            <a href="{{ path("manageagencies_deleted") }}" title="" class="w3-button w3-hover-red w3-round-large w3-red w3-medium" title="" href="#">
+                <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit-column.png') }}" alt="" />
+                <span>Deleted Issuing Authorities</span>
+            </a>
+            <div class="clear"></div>
+        </div>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block body %} 
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('unsuccessdelete') %}
+    <div class="nNote nFailure hideit">
+        <p>
+            <strong>Error: </strong>
+        {{ flashMessage }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('agency_create_success') %}
+    <div class="nNote nSuccess hideit">
+        <p>
+            <strong>Success: </strong>
+        {{ flashMessage }}
+        </p>
+    </div>
+{% endfor %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/home2.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'agencies.list_of_agencies' | trans }}</h6></div>
+            <form id="batch_form" name="batch_form" action="{{ path("batch_agencies") }}" method="post">
+                <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable mTable w3-table" id="business_agency">
+                    <thead>
+                        <tr>
+                            <td width="40"><div>&middot;&middot;&middot;</div></td>
+                            <td>{{ 'agencies.name' | trans }}</td>
+                            <td>{{ 'agencies.address' | trans }}</td>
+                            <td>Agency offices</td>
+                            <td>{{ 'agencies.actions' | trans }}</td>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="itemActions">
+                                    <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'agencies.batch_confirm_1' | trans }} ' + this.value + ' {{ 'agencies.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                        <option>{{ 'agencies.select_batch' | trans }}...</option>
+                                        <option value="delete">{{ 'agencies.delete' | trans }}</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for entity in pagination %}
+                        <tr>
+                            <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                            {# <td align="center"><a href="{{ path('manageagencies_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td> #}
+                            <td>{{ entity.title }}</td>
+                            <td>{{ entity.address }}</td>
+                            <td><a href="{{ path('manageagencies_show', { 'id': entity.id }) }}">{{ entity.agencyoffices|length}}</a></td>
+                            <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('manageagencies_edit', { 'id': entity.id }) }}" class="smallButton"  title="">
+                                        <img alt="{{ 'agencies.edit' | trans }}" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+                                    </a> |
+                                    <a href="{{ path('manageagencies_show', { 'id': entity.id }) }}" class="smallButton"  title="List Agency Offices">
+                                        <i class="fa fa-list"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            
+            </form>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block stylesheet_2 %}
+    <script>
+    $(document).ready( function () {
+        $('#business_agency').DataTable();
+        // $.prompt('Please Confirm Action?',{ buttons: { Ok: true, Cancel: false }, focus: 1 });
+    });
+    </script>
+{% endblock %}

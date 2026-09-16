@@ -1,0 +1,254 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}{{ regulation.keywords }}{% endblock %}
+{% block sitetitle %}{{ regulation.title }} Forward Plans {% endblock %}
+{% block sitedescription %}{{ regulation.title }}{% endblock %}
+{% block sitetwitterdescription %}{{ regulation.slug }}{% endblock %}
+{% block sitetwittertitle %}{{ regulation.slug }}{% endblock %}
+{% block sitetwitterurl %}{{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}{% endblock %}
+
+{% block page_title %}
+  Notice-and-Comment |
+  {{ regulation.title }}
+{% endblock %}
+{% block body %}
+
+
+  <main class="single" role="main">
+
+    <div class="jumbotronZ clearfix">
+      <div class="container text-left">
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <div class="jumboZ_in_2 jumboZ_in">
+              <div class="single_post_details">
+                <p>
+                  <span>Agency</span>
+                  —
+                  <a href="#nogo">{{ regulation.agency.name }}</a>
+                </p>
+                <p>
+                  <span>Period</span>
+                  &mdash;
+                  {{ regulation.publishDate | date("M d Y", false) }}
+                  TO
+                  {{ regulation.closingDate | date("M d Y", false)}}</p>
+              </p>
+              <p>
+                <span>Stage</span>
+                &mdash;
+                {{ regulation.consultationStage }}</p>
+              <p>
+                <span>Industry</span>
+                &mdash;
+                {{ regulation.industry.name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+          <div class="jumboZ_in_1 jumboZ_in">
+            <h1 class="display-3">{{regulation.title}}</h1>
+            <ul class="share_icons_A">
+              <li class="s_title">SHARE:
+              </li>
+              <li class="s_fb">
+                <div class="fb-share-button" data-href="http://www.businesslicenses.gov.zm{{ currentPath }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.businesslicenses.gov.zm{{ currentPath }}" class="fb-xfbml-parse-ignore">Share</a></div>
+              </li>
+              <li class="s_tw">
+                <a href="https://twitter.com/intent/tweet?text=http://www.businesslicenses.gov.zm{{ currentPath }}" data-size="large">
+                  <ion-icon aria-label="logo twitter" class="hydrated" name="logo-twitter" role="img"></ion-icon>
+                </a>
+              </li>
+              <li class="s_mail">
+                {% set regulation_body = regulation.description|raw %}
+                <a href="mailto:?Subject={{ regulation.title }}&amp;Body={{ regulation_body }}" target="_blank">
+                  <ion-icon aria-label="mail" class="hydrated" name="mail" role="img"></ion-icon>
+                </a>
+              </li>
+              <li class="s_copy">
+                <div class="share_whatsapp">
+                  <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm{{ currentPath }}" target="_blank">
+                    <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home_content full_width">
+    {% if open_for_comments == false %}
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong>
+        This Regulation is no longer available for making comments
+      </div>
+    {% endif %}
+    <div class="container">
+      <div class="row clearfix">
+        <div class="side_content_C col-md-3 clearfix">
+          <div class="list-group" id="navbarFix">
+            <a class="list-group-item list-group-item-action active js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#description">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Description</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#documents">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Consultation Documents</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#sectors">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Sector Affected</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#instructions">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Specific Instructions</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#materials">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Supporting Materials</p>
+              </div>
+            </a>
+
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#offline">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Offline Consultations</p>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.id}}#contact">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Contact Office</p>
+              </div>
+            </a>
+            <a class="comments_link_A list-group-item list-group-item-action js-scroll-trigger" href="/consultation/regulations/{{regulation.slug}}/comments">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Comments</p>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="archive_main_content col-md-9 clearfix">
+          <div class="home_content_A">
+            <div class="home_content_A_in">
+              <div class="single_box_main box_1">
+
+                <section id="description">
+                  <div class="regulation_in">
+                    <h2>Description</h2>
+                    <p>{{ regulation.description|raw }}</p>
+                  </div>
+                </section>
+
+                <section id="documents">
+                  <div class="regulation_in">
+                    <h2>Documents & Supporting Materials</h2>
+                    <a href="{{ asset('uploads/documents/' ~ regulation.document)}}">
+                      {{ regulation.title }}
+                    </a>
+                    <br/>
+                    <hr/>
+                    {% if regulation.supportingMaterials %}
+                      <p>{{ regulation.supportingMaterials|raw }}</p>
+
+                      {# <ul> #}
+                    {# {% for item in regulation.supportingMaterials %}
+                                            <li>
+                                              <a href="{{ asset('uploads/documents/' ~ regulation.supportingMaterials)}}">
+                                                {{ regulation.supportingMaterials }}
+                                              </a>
+                                            </li>
+                                          {% endfor %} #}
+                      {# <ul> #}
+                    {% endif %}
+                  </div>
+                </section>
+
+                <section id="sectors">
+                  <div class="regulation_in">
+                    <h2>Affected Sector(s)</h2>
+                    <p class="">{{regulation.industry }}</p>
+                  </section>
+
+                  <section id="instructions">
+                    <div class="regulation_in">
+                      <h2>Specific Instructions</h2>
+                      <p class="">{{regulation.specificInstructions|raw }}</p>
+                    </div>
+                  </section>
+
+                  <section id="offline">
+                    <div class="regulation_in">
+                      <h2>Offline Consultations</h2>
+                      <p>-</p>
+                    </div>
+                  </section>
+
+                  <section id="contact">
+                    <div class="regulation_in">
+                      <h2>Contact &amp; Office Address</h2>
+                      <ul class="contact_items">
+                        <li>
+                          Name:
+                          {{ regulation.agency.title}}</li>
+                        <li>
+                          {{ regulation.agency.name}}</li>
+                        <li>Fax:
+                          {{ regulation.agency.fax}}</li>
+                        <li>Address:
+                          {{ regulation.agency.address}}</li>
+                        <li>Telephone:
+                          {{ regulation.agency.telephone}}</li>
+                        <li>Email:
+                          {{ regulation.agency.email}}</li>
+                        <li>Website:
+                          {{ regulation.agency.website}}</li>
+                        <li>Working Hours:
+                          {{ regulation.agency.hours}}</li>
+                      </ul>
+                    </section>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+    {% block custom_js %}
+      <script type="text/javascript">
+        /* $( document ).ready(function() { */
+        $(window).on('scroll', function (event) {
+          var scrollValue = $(window).scrollTop();
+          if (scrollValue == settings.scrollTopPx || scrollValue > 100) {
+            $('#navbarFix').addClass('fixed-top');
+          }
+        });
+        $(document).ready(function(){
+          if (typeof window.orientation == 'undefined') {
+            $("#share_whatsapp").html('<div class="share_whatsapp">\
+                      <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm/consultation/regulations/{{regulation.id}}/comments" target="_blank">\
+                        <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>\
+                      </a>\
+              </div>');
+          }
+        });
+        
+      </script>
+
+    {% endblock %}

@@ -1,0 +1,30 @@
+manageroles:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:index" }
+
+manageroles_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:show" }
+
+manageroles_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:new" }
+
+manageroles_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:create" }
+    requirements: { _method: post }
+
+manageroles_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:edit" }
+
+manageroles_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:update" }
+    requirements: { _method: post|put }
+
+manageroles_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaUserBundle:Role:delete" }
+    requirements: { _method: post|delete }

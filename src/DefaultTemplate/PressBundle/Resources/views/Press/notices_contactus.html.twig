@@ -1,0 +1,176 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+    {{ page.seoKeywords }}
+{% endblock %}
+{% block sitetitle %}
+    {{ page.pageTitle }}
+{% endblock %}
+{% block sitedescription %}
+    {{ page.seoDescription }}
+{% endblock %}
+{% block sitetwitterdescription %}
+    {{ page.seoDescription }}
+{% endblock %}
+{% block sitetwittertitle %}
+    {{ page.pageTitle }}
+{% endblock %}
+{% block sitetwitterurl %}
+    {{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}
+{% endblock %}
+{% block page_title %}
+    {{ page.pageTitle }}
+{% endblock %}
+
+
+{% block body %}
+    <main class="notice_contact_wrapper single" role="main">
+        <div class="jumbotronZ clearfix">
+            <div class="container text-left">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="jumboZ_in_2 jumboZ_in">
+                            <div class="text-center">
+                                <h2>{{page.pageTitle }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="home_content full_width">
+            <div class="row">
+
+                <div class="col-6 notice_contact_box">
+
+                    <div class="box_style_2 info">
+                        <h3 class="nomargin_top">{{ 'title1'|trans }}<i class="icon_lock_alt pull-right"></i>
+                        </h3>
+                        <form class="ajax_form contacts" id="contact_us" action="{{ app.request.basepath }}/notices/contactus/save" method="post" autocomplete="off">
+                            {% if capture_error %}
+                                <p class="alert alert-danger">Your message has not been sent. Please try again</p>
+                            {% endif %}
+                            {{ form_errors(form) }}
+                            <div class="form-group">
+                                {{ form_widget(form.firstname, { 'attr': {'placeholder': 'firstname'|trans,'class':'form-control', 'required':'true'} }) }}
+                                <div class="error">
+                                    {{ form_errors(form.firstname) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.lastname, { 'attr': {'placeholder': 'lastname'|trans,'class':'form-control required'} }) }}
+                                <div class="error">
+                                    {{ form_errors(form.lastname) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_widget(form.email, { 'attr': {'placeholder': 'Email'|trans,'class':'form-control required'} }) }}
+                                <div class="error">
+                                    {{ form_errors(form.email) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.subject, { 'attr': {'placeholder': 'Subject'|trans,'class':'form-control', 'required':'true'} }) }}
+                                <div class="error">
+                                    {{ form_errors(form.subject) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.message, { 'attr': {'placeholder': 'Your message...'|trans,'class':'form-control required'} }) }}
+                                <div class="error">
+                                    {{ form_errors(form.message) }}
+                                </div>
+                            </div>
+
+                            {{ form_rest(form) }}
+                            
+                        <div class="clearfix"></div>
+                            <div>
+                                <input type="submit" id="send-notices" value="Send" class="btn btn-primary">
+                                <input type="hidden" name="g-recaptcha-response" value="1">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="col-6 notice_contact_box" id="sidebar">
+                    <div class="box_style_2  info">
+                        <h4 class="nomargin_top">Business Regulatory Review Agency<i class="icon_lock_alt pull-right"></i>
+                        </h4>
+                        <iframe allowfullscreen frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.1002294918435!2d28.30666735024512!3d-15.42514078922906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19408d054419187f%3A0x6dcdad1e367ca5bc!2sBusiness+Regulatory+Review+Agency!5e0!3m2!1sen!2ske!4v1558607482754!5m2!1sen!2ske" style="width: 100%; height: 500px;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <style>
+        #main_menu.box_style_2,
+        .box_style_2.info {
+            padding-bottom: 25px;
+        }
+        .box_style_2#main_menu,
+        .box_style_2.info {
+            padding-bottom: 10px;
+        }
+        .box_style_2 {
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
+        }
+        #cart_box,
+        .box_style_2 {
+            border: 1px solid #d5d3bb;
+            border-bottom-color: #d5d3bb;
+            border-bottom-width: 2px;
+        }
+        .modal-popup #cart_box,
+        .box_style_2 {
+            border: 0 !important;
+        }
+        #cart_box,
+        .box_style_2 {
+            background: #fff;
+            border-radius: 3px;
+            border: 1px solid #ededed;
+            margin-bottom: 25px;
+            padding: 25px;
+        }
+        #cart_box,
+        .box_style_1,
+        .box_style_2 {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block google_captacha %}
+    <script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('send-notices');
+        btn.disabled = true;
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ recaptacha_client_site }}').then(function(token) {
+                // add token
+                document.querySelector('[name="g-recaptcha-response"]').value = token;
+                btn.disabled = false;
+            });
+        });
+    });
+        
+    </script>
+{% endblock %}
+
+{% block comments %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#form_email').clone().attr('type', 'email').insertAfter('#form_email').prev().remove();
+        });
+    </script>
+{% endblock %}

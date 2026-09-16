@@ -1,0 +1,36 @@
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
+<link href="{{ asset('bundles/webmastersafricapress/css/style.css') }}" media="screen" rel="stylesheet">
+<link href="{{ asset('bundles/webmastersafricapress/css/screen.css') }}" media="screen" rel="stylesheet">
+<!-- custom CSS -->
+<link rel="stylesheet" href="{{ asset('bundles/webmastersafricapress/css/custom.css') }}">
+<link href="{{ asset('bundles/webmastersafricapress/css/flexslider.css') }}" media="screen" rel="stylesheet" type="text/css">
+<!--mains-->
+
+<link rel="shortcut icon" href="{{ asset('bundles/webmastersafricapress/favicon.ico') }}" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".dropdown img.flag").addClass("flagvisibility");
+
+		$(".dropdown dt a").click(function() {
+			$(".dropdown dd ul").toggle();
+		});
+					
+		$(".dropdown dd ul li a").click(function() {
+			var text = $(this).html();
+			$(".dropdown dt a span").html(text);
+			$(".dropdown dd ul").hide();
+			$("#result").html("Selected value is: " + getSelectedValue("sample"));
+		});
+		$(document).bind('click', function(e) {
+			var $clicked = $(e.target);
+			if (! $clicked.parents().hasClass("dropdown"))
+				$(".dropdown dd ul").hide();
+		});
+
+
+		$("#flagSwitcher").click(function() {
+			$(".dropdown img.flag").toggleClass("flagvisibility");
+		});
+	});
+</script>

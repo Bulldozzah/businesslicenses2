@@ -1,0 +1,66 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<form action="{{ app.request.basepath }}/search/save"  method="post" id='licenseform' name='licenseform'>                                  
+                                                                                    
+     <div class="styled_table">
+               <table>
+                 <thead>
+                    <tr>
+                      <th colspan="4">                                      
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <button class="button_link btn_blue"  name="save" value="{{ 'save'|trans }}" id="save" style="outline: medium none; opacity: 1; margin-right:10px;"  onclick="if(atLeastOneRadio()){ return true; }else{ alert('{{ 'pleasechoosesave'|trans }}.'); return false; }" class="btn pull-left"><i class="icon icon-hdd"></i><span>{{ 'save'|trans }}</span></button>
+                        {% else %}
+                        <button class="button_link btn_blue"  name="save" value="{{ 'save'|trans }}" id="save" style="outline: medium none; opacity: 1; margin-right:10px;" onClick="alert('{{ 'pleaselogin'|trans }}'); return false;" class="btn btn_blue"><span>{{ 'save'|trans }}</span></button>
+                        {% endif %}
+                        
+                        <button class="button_link btn_green" name="share" value="{{ 'share'|trans }}" id="share" style="outline: medium none; opacity: 1; margin-right:10px;"  onclick="if(atLeastOneRadio()){ return true; }else{ alert('{{ 'pleasechooseshare'|trans }}.'); return false; }" class="btn btn_blue"><span>{{ 'share'|trans }}</span></button>
+                   </th>
+
+                  </tr>
+      </thead>
+      <thead>
+          <tr>
+             <th colspan="2" width="5%"><div align="right">#</div></th>
+            <th>{{ 'name'|trans }}</th>
+            <th class="hidden-mobile" width="20%">{{ 'moreinfo'|trans }}</th>
+          </tr>
+      </thead>
+   
+<tbody>
+{% set count = 0 %}
+{% for license in pagination %}
+    {% set count = count + 1 %}
+    
+    <tr>
+      <td><input type="checkbox" class="sf_admin_batch_checkbox" value="{{ license.id }}" id="sf_admin_batch_selection_{{ license.id }}" name="sf_admin_batch_selection[]"></td>
+      <td><p>{{ count }}</p></td>
+<td><a href='{{ app.request.basepath }}/license/id/{{ license.id }}'>{{ license.name }}</a>
+<p>{{ license.purpose }} </p>
+<strong>{{ 'issuingagency'|trans }}</strong>
+<p>{{ license.agency.name }}</p>
+
+</td>
+<td class="hidden-mobile">
+<p><strong>{{ 'time'|trans }}</strong><br>{{ license.maxProcessingTime }} days</p>
+<p><strong>{{ 'associatedcosts'|trans }}</strong><br>{{ license.applicationFee }}</p>
+</td>
+</tr>
+
+
+{% endfor %}
+
+{% if pagination|length == 0 %}
+<tr class="gradeX">
+    
+      <td colspan='6' align='center'><h3>{{ 'nolicenses'|trans }}</h3></td>
+    
+</tr>
+{% endif %}  
+
+</tbody>
+</table>
+<div class="navigation">
+{{ knp_pagination_render(pagination) }}
+</div>
+</div><!--End Clearance content -->
+</form>

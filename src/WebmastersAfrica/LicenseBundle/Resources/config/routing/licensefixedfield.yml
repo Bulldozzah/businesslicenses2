@@ -1,0 +1,30 @@
+managefixedfields:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:index" }
+
+managefixedfields_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:show" }
+
+managefixedfields_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:new" }
+
+managefixedfields_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:create" }
+    requirements: { _method: post }
+
+managefixedfields_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:edit" }
+
+managefixedfields_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:update" }
+    requirements: { _method: post|put }
+
+managefixedfields_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseFixedField:delete" }
+    requirements: { _method: post|delete }

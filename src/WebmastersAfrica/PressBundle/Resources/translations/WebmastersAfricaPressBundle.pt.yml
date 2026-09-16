@@ -1,0 +1,205 @@
+deleted_item_notice: Your have successfully deleted the item
+updated_item_notice: Your have successfully updated the item
+
+#common labels
+welcome: Vindo
+language: Língua
+edit_profile: Editar Perfil
+administration: Administração
+savedlicenses: Meus Licenças guardadas
+signout: Sair
+signin: Cadastre-se e Assinar
+
+#search box
+select: Selecionar
+businesslocation: Negócio Localização
+industry: Indústria
+businesstype: Negócio Tipo
+locationdescription: Selecione a localização geográfica a sua empresa irá operar
+industrydescription: Em seguida, selecione a indústria em que sua empresa opera
+businesstypedescription: Agora, selecione o tipo de negócio que você vai realizar
+getresults: Obter Resultados
+
+#sidebar
+commonbusiness: As empresas comuns
+newsletter_sign_up: Assine o boletim
+newsletter_name: Seu Nome
+newsletter_email: Seu Email
+newsletter_submit: Enviar
+subscription_successful: You have successfully signed up for our newsletters. An email has been sent to your account with a confirmation link.
+subscription_fail: Could not subscribe you to our newsletters. Please try again
+subscription_confirmation_successful: You have successfully confirmed your subscription for our newsletters
+subscription_confirmation_fail: Could not confirm your subscription to our newsletters. Please try again
+subscription_exists: This email is already subscribed to out newsletter
+subscription_subject: Welcome %name%!
+subscription_message: |
+
+            To confirm your newsletter subscription - please visit %confirmationUrl%
+
+            Regards,
+            the Team.
+
+mostviewed: Mais Vista
+recentupdates: Atualizações Recentes
+viewmore: Ver Mais
+
+#footer
+copyright: Direitos autorais
+allrightsreserved: Todos os direitos reservados
+privacypolicy: Política de Privacidade
+
+#sigin and subscribe
+register: Registrar
+signin: Cadastre-se
+username: Nome de Usuário
+password: Senha
+rememberme: Lembrar de Mim
+forgotpassword: Esqueceu a senha?
+login: Submeter
+
+newuser: Novo Usuário? criar Conta
+firstname: Nome
+lastname: Sobrenome
+email: Email 
+password: Senha 
+enterpassword: Digite uma senha
+confirmpassword: Confirme sua senha 
+reset: Restabelecer
+signup: Inscreva-Up
+
+#frequently asked questions
+faq_title: Perguntas Frequentes
+faqs: PF
+ask: Não encontrou a resposta à sua pergunta? clique
+here: aqui
+search: Pesquisa PF para
+
+#common business
+commonbusinesses: As empresas comuns
+mostviewed: Mais Vista
+recentupdates: Atualizações recentes
+viewmore: Ver mais
+
+#contactus
+contactus: Fale Conosco
+title1: Sinta-se livre para contactar-nos
+title2: Contato detalhes
+address: Endereço
+phone: Telefone 
+fax: Fax 
+email: Email
+agency: Selecione uma Agência
+message: Fale Conosco
+submit: Submeter 
+reset: Restabelecer 
+contact_success: Contato mensagem enviada com sucesso!
+
+#my saved licenses
+my_saved_licenses: Meus Licenças guardadas
+no_saved_licenses: Você não tiver guardado quaisquer licenças.
+remove: Remover
+delete: Excluir
+days: dias
+are_you_sure_delete: Tem certeza de que quer apagar este licenças salvos?
+
+#save search or share licenses
+save_licenses: Licenças Salvar / Compartilhar
+enter_search_name: Digite um nome para a sua pesquisa nova, por exemplo, Meus Licenças Supermercados, Licenças Banco.
+new_search_title: Nova busca título
+add_to_existing: OU Adicionar à pesquisa existente
+please_enter_title_or_select_existing_search: Por favor, digite um título para a sua pesquisa ou selecione e pesquisa existente
+please_enter_an_email: Por favor insira um endereço de e-mail
+save_search: Economize Licenças
+share_licenses: Licenças Compartilhar
+brlicenses: Licenças
+enter_email: Digite o endereço de e-mail onde você gostaria de enviar essa informação para
+email_address: Endereço de E-mail
+licenses_shared: Licenças foram compartilhados com sucesso.
+hi: Oi,
+the_following: Os seguintes licenças foram compartilhados com você através do portal de licenciamento são-tomense.
+regards: Saudações,
+team: Equipe de Licenciamento de Empresas.
+
+#news
+news: Notícia
+news_articles: Notícias 
+by: Por 
+posted_by: Postado por
+posted_on: Postado em
+read_more: Leia mais
+
+#advanced search
+search: Pesquisa 
+advancedsearch: Pesquisa Avançada
+or: OU 
+save: Salvar 
+share: Ação 
+name: Nome 
+moreinfo: mais informações
+issuingagency: emissão de Agência
+time: tempo 
+associatedcosts: Custos Associados
+pleaseprovide: Por favor, forneça um termo de pesquisa
+pleaselogin: Por favor, entra para salvar Licenças
+pleasechooseshare: Por favor, escolha as licenças que você deseja compartilhar primeiro
+pleasechoosesave: Por favor, escolha as licenças que você deseja salvar primeiro
+nolicenses: Nenhuma Licença são necessários para a sua seleção.
+
+#activities
+licenses: Licenças 
+businessactivities: Atividades comerciais
+findlicenses: Encontre Licenças
+chooseone: Por favor, escolha pelo menos uma atividade
+pleaseselect: Por favor seleccione as atividades que você irá realizar em seu negócio
+resultsfound: Resultado(s) encontrado
+selectactivity: SELECIONE ACTIVIDADE
+viewlicenses: Exibir licenças necessárias
+
+#issuingagency
+headoffice: Head Office
+physicaladdress: Physical Address
+postaladdress: Postal Address
+city: City
+email: Email Address
+website: Website
+operatinghours: Operating Hours
+directions: Directions
+
+#faqs ask
+feedback: Comentários
+feedback_name: Nome
+feedback_email: Email
+feedback_organization: Organização 
+feedback_question: Pergunta 
+feedback_reset: Restabelecer 
+feedback_submit: Submeter 
+feedback_captcha: Inserir as palavras, como mostrado na imagem abaixo:
+
+# licenses
+licenses:
+    fieldnames:
+        browselicenses: Procurar Licenças
+        activities: Atividades
+        downloadablecontent: Conteúdo para download
+        licensingagency: Agência de Licenciamento
+        licensestatutes: Licenças Estatutos
+        licenserequirements: Requisitos de licença
+        licensedetails: Detalhes da licença
+        licensename: Nome License
+        licensestatus: Status da licença
+        purpose: Propósito
+        description: Descrição
+        licenseno: Não Licença
+        jurisdiction: Jurisdição
+        universal: Universal
+        applicationfee: Taxa de Inscrição
+        licensefee: Taxa de Licença
+        maximumprocessingtime: Tempo Máximo de Processamento
+        validity: Validade
+        gazettedon: No concursado
+        enactment: Secreto
+        contactoffice: Contate o Escritório
+        relatedeebsites: Sites Relacionados
+        resolutioncriteria: Critérios Resolução
+        keywords: Palavras-chave
+        updated: Item Actualizado com sucesso

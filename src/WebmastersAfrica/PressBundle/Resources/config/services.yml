@@ -1,0 +1,9 @@
+parameters:
+#    webmasters_africa_press.example.class: WebmastersAfrica\PressBundle\Example
+
+services:
+    webmasters_africa_press.locale_listener:
+        class: WebmastersAfrica\PressBundle\EventListener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }

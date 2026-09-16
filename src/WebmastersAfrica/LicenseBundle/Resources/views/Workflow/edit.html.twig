@@ -1,0 +1,104 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+                                            Edit |
+    {{entity.title }}
+
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>Edit Stage</h5>
+
+                <span>Edit
+                    {{entity.title }}
+                    Workflow Stage</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block w3_style %}
+    <link href="{{ asset('bundles/webmastersafricaadmin/css/w3.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+    <div class="widget">
+        <div class="title">
+            <img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>
+                Edit Stage
+            </h6>
+
+            <div class="num">
+                <a href="{{ path('license_workflow') }}" title="{{ 'licenses.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'licenses.back_to_list' | trans }}</a>
+            </div>
+        </div>
+        <div class="w3-card">
+            {{ form(edit_form) }}
+                {{ form_start(edit_form, {'attr': {'class': 'w3-form form', 'novalidate':'novalidate'}}) }}
+                <input name="_method" type="hidden" value="PUT"/>
+                <div class="widget">
+                    {{ form_errors(edit_form) }}
+                    {{ form_row(edit_form.title, { 'attr': {'class': 'w3-input w3-border form-control'} }) }}
+                    {{ form_row(edit_form.taskDescription )}}
+                    {{ form_row(edit_form.nextStage )}}
+                    {{ form_row(edit_form.sendEmails)}}
+                    {{ form_row(edit_form.agency, { 'attr': {'class': 'chzn-select form-control', 'multiple':'multiple'} }) }}
+                    {{ form_row(edit_form.assignee)}}
+                    {{ form_row(edit_form.notificationsUser, { 'attr': {'class': 'chzn-select form-control', 'multiple':'multiple'} }) }}
+                    {{ form_rest(edit_form) }}
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheet_2 %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+            var agencyList = $("#webmastersafrica_licensebundle_workflow_agency").bootstrapDualListbox({
+              nonSelectedListLabel: 'Non-selected',
+              selectedListLabel: 'Selected',
+              preserveSelectionOnMove: 'moved',
+              moveOnSelect: true
+            });
+        $(document).ready(function () {
+            $("#webmastersafrica_licensebundle_workflow_notificationsUser").bootstrapDualListbox();
+            $('#webmastersafrica_licensebundle_workflow_sendEmails').click(function() {
+               if($('#webmastersafrica_licensebundle_workflow_sendEmails').is(':checked')) {
+                 $("#webmastersafrica_licensebundle_workflow_notificationsUser").prop('required',true);
+                }
+            });
+        });
+        $("#webmastersafrica_licensebundle_workflow_title").addClass("w3-input w3-border");
+        $("#webmastersafrica_licensebundle_workflow_taskDescription").addClass("w3-input w3-border");
+        $("#webmastersafrica_licensebundle_workflow_numberOfDays").addClass("w3-input w3-border");
+        $("#webmastersafrica_licensebundle_workflow_type").addClass("w3-input w3-border");
+        $("#webmastersafrica_licensebundle_workflow_sendEmails").addClass("w3-check");
+        $("#webmastersafrica_licensebundle_workflow_orderLevel").addClass("w3-input w3-border");
+
+        $(".form").validate();
+    </script>
+    <style type="text/css">
+        .error {
+          color: red;
+        }
+    </style>
+{% endblock %}

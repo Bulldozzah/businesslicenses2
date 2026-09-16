@@ -1,0 +1,68 @@
+regulations:
+  pattern: /
+  defaults: { _controller: "NoticeCommentBundle:Regulation:index" }
+
+regulations_unpublished:
+  pattern: /unpublished
+  defaults: { _controller: "NoticeCommentBundle:Regulation:indexUnpublished" }
+
+regulations_open_admin:
+  pattern: /open
+  defaults: { _controller: "NoticeCommentBundle:Regulation:openForConsultation" }
+
+regulations_with_large_number_comments:
+  pattern: /comment/largest
+  defaults: { _controller: "NoticeCommentBundle:Regulation:regulationsWithLargeNumberComments" }
+
+comment_with_large_number_expressions:
+  pattern: /comment/expressions
+  defaults: { _controller: "NoticeCommentBundle:Regulation:commentWithLargeNumberExpressions" }
+
+regulations_complete_admin:
+  pattern: /complete
+  defaults: { _controller: "NoticeCommentBundle:Regulation:completeConsultation" }
+
+regulations_internal_admin:
+  pattern: /internal
+  defaults: { _controller: "NoticeCommentBundle:Regulation:internalConsultation" }
+
+regulations_completing_admin:
+  pattern: /completing
+  defaults: { _controller: "NoticeCommentBundle:Regulation:completingConsultation" }
+
+regulations_show:
+  pattern: /{id}/show
+  defaults: { _controller: "NoticeCommentBundle:Regulation:show" }
+
+regulations_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "NoticeCommentBundle:Regulation:edit" }
+  
+batch_regulations_delete:
+  pattern:  /batch/regulations
+  defaults: { _controller: "NoticeCommentBundle:Regulation:batchDelete" }
+  requirements: { _method: post|put }
+
+regulations_new:
+  pattern: /new
+  defaults: { _controller: "NoticeCommentBundle:Regulation:new" }
+
+regulations_create:
+  pattern: /create
+  defaults: { _controller: "NoticeCommentBundle:Regulation:create" }
+  requirements: { _method: post }
+
+regulation_publish:
+  pattern: /publish/{regulation_id}/regulation
+  defaults: { _controller: "NoticeCommentBundle:Regulation:publishRegulation" }
+  requirements: { _method: post }
+
+regulations_update:
+  pattern: /{id}/update
+  defaults: { _controller: "NoticeCommentBundle:Regulation:update" }
+  requirements: { _method: post|put }
+
+regulations_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: "NoticeCommentBundle:Regulation:delete" }
+

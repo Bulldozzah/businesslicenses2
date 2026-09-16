@@ -1,0 +1,29 @@
+manageindustries:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:index" }
+
+manageindustries_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:show" }
+
+manageindustries_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:new" }
+
+manageindustries_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:create" }
+    requirements: { _method: post }
+
+manageindustries_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:edit" }
+
+manageindustries_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:update" }
+    requirements: { _method: post|put }
+
+manageindustries_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:delete" }

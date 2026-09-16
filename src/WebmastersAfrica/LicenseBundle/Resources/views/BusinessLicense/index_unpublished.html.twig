@@ -1,0 +1,217 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'licenses.business_licenses' | trans }}
+{% endblock %}
+
+{% block w3_style %}
+    <link href="{{ asset('bundles/webmastersafricaadmin/css/w3.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <style>
+        .dataTables_filter {
+            width: 400px;
+            font-size: 10px;
+            padding: 3px;
+            vertical-align: top;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'licenses.business_licenses' | trans }}</h5>
+                <span>{{ 'licenses.business_licenses_description' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="statsRow">
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    {% if is_expr_granted("hasRole('LICENSE_CREATE')") %}
+                        <a href="{{ path("managelicenses_new") }}" title="" class="w3-button w3-round-large w3-green w3-hover-teal w3-medium" title="" href="#">
+                            <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                            <span>{{ 'licenses.add_new_business_license' | trans }}</span>
+                        </a>
+                    {% endif %}                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="w3-bar"></div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block body_2 %}
+
+    <div class="w3-container">
+        {% for flashMessage in app.session.flashbag.get('update') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong>Success:
+                    </strong>
+                    {{ 'licenses.updated_item_notice' | trans }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('update_application') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong></strong>
+                    {{ flashMessage }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('access') %}
+            <div class="nNote nFailure hideit">
+                <p>
+                    {{ flashMessage }}
+                </p>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('license_created') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong>Success:
+                    </strong>
+                    {{ flashMessage }}
+                </p>
+            </div>
+        {% endfor %} 
+        {% for flashMessage in app.session.flashbag.get('delete') %}
+            <div class="nNote nSuccess hideit">
+                <p>
+                    <strong>Success:
+                    </strong>
+                    {{ 'licenses.deleted_item_notice' | trans }}
+                </p>
+            </div>
+        {% endfor %}
+        <div class="tab">
+        	<a class="w3-bar-item w3-btn w3-blue w3-medium"  href="{{ path('managelicenses_all') }}" {% if workflow_id == 'all_licences' %} {% endif %}>All Licenes  <span class="w3-badge w3-black">{{ license_count }}</span> |
+            </a>
+            {% for item in workflow %}
+                {% if is_expr_granted("hasRole('LICENSE_AGENCY')") %}
+                    <a class="w3-bar-item w3-btn w3-blue w3-medium"  href="{{ path('managelicense_workflow', { 'id': item.id }) }}" {% if workflow_id == item.id %} id="current_link" {% endif %}>{{ item.title }}  <span class="w3-badge w3-black">{{ item.licensesCount|length }}</span> |
+                </a>
+                {% else %}
+                    <a class="w3-bar-item w3-btn w3-blue w3-medium"  href="{{ path('managelicense_workflow', { 'id': item.id }) }}" {% if workflow_id == item.id %} id="current_link" {% endif %}>{{ item.title }}  <span class="w3-badge w3-black">{{ item.licensesCount|length }}</span> |
+                </a>
+                {% endif %}
+            {% endfor %}
+            <a class="w3-bar-item w3-btn w3-blue w3-medium"  href="{{ path('managelicenses_all_unpublished') }}" id="current_link">Unpublished Licenses  <span class="w3-badge w3-black">{{ licenses|length }}</span>
+            </a>
+        </div>
+
+        <div class="w3-container">
+            <header class="w3-lime">
+                <h3>Business Licenses -
+                    {{ workflow_title }}
+                </h3>
+            </header>
+            <div class="w3-border">
+                <form id="batch_form" name="batch_form" action="{{ path("batch_licenses") }}" method="post">
+                    <div id="new-search-area"></div>
+                    <div class="w3-responsive">
+                        <table class="w3-table-all w3-centered w3-hoverable w3-card-4" id="business_license_table">
+                            <thead>
+                                <tr class="w3-black">
+                                    <td width="40">
+                                        <div>&middot;&middot;&middot;</div>
+                                    </td>
+                                    <td>{{ 'licenses.name' | trans }}</td>
+                                    <td>Created On</td>
+                                    <td>Agency</td>
+                                    <td width="100">Publishing Status</td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="itemActions">
+                                            <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){ if(confirm('{{ 'licenses.batch_confirm_1' | trans }} ' + this.value + ' {{ 'licenses.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                                <option>{{ 'licenses.select_batch' | trans }}...</option>
+                                                {% if is_expr_granted("hasRole('LICENSE_PUBLISH')") %}
+                                                    <option value="publish">{{ 'licenses.publish' | trans }}</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for entity in licenses %}
+                                    <tr style="font-size: 15px">
+                                        <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                                        <td align="center">
+                                          	{{ entity.name }}
+                                        <td>
+                                            {{ entity.created is empty ? "" : entity.created|date("d M Y") }}
+                                        </td>
+                                        <td>{{ entity.agency }}</td>
+                                        <td>{{ entity.statusDescription }}</td>
+                                        {# <td> #}
+                                            {# {% if accessGranted %}
+                                                    {% if is_expr_granted("hasRole('LICENSE_EDIT')") and entity.status == 2 %}
+                                                    <span>
+                                                        <a href="{{path('managelicenses_edit',{'id':entity.id})}}" class="smallButton" title=""><img alt="{{'licenses.edit'|trans}}"src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}"></a>
+                                                    </span> |
+                                                    {% endif %}
+                                                    {% if entity.status == 3 %}
+                                                    <span>
+                                                        <a href="{{path('managelicenses_show',{'id':entity.id})}}" class="smallButton" title=""><i class="fa fa-eye"></i></a>
+                                                    </span> 
+                                                    {% endif %}
+
+                                                    {% if is_expr_granted("hasRole('LICENSE_EDIT')") and entity.status == 5 and entity.stage.type == "corrections" %}
+                                                    <span>
+                                                        <a href="{{path('managelicenses_edit',{'id':entity.id})}}" class="smallButton" title=""><img alt="{{'licenses.edit'|trans}}"src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}"></a>
+                                                    </span> |
+                                                    {% endif %}
+                                                    {% if is_expr_granted("hasRole('BRRA_AGENCY_EDIT')") and entity.status == 5 and entity.stage.type == "assess" %}
+                                                    <span>
+                                                        <a href="{{ path('managelicenses_show',{'id':entity.id})}}" class="smallButton" title=""><i class="fa fa-eye"></i></a>
+                                                    </span> 
+                                                    {% endif %}
+                                                    {% if is_expr_granted("hasRole('BRRA_AGENCY_EDIT')") and entity.status == 5 and entity.stage.type == "assess" %}
+                                                    <span>
+                                                        <a href="{{ path('managelicenses_edit',{'id':entity.id})}}" class="smallButton" title="">
+                                                            <img alt="{{'licenses.edit'|trans}}"src="{{asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png')}}">
+                                                        </a>
+                                                    </span> 
+                                                    {% endif %}
+                                        {% endif %} #}
+                                        {# </td> #}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#business_license_table').DataTable({"pagingType": "full_numbers"});
+            $("#current_link").addClass("w3-pale-blue");
+        });
+    </script>
+{% endblock %}

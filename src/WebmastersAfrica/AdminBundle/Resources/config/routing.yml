@@ -1,0 +1,83 @@
+webmasters_africa_admin_checker:
+  pattern: /admin
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:router }
+
+webmasters_africa_admin_login:
+  pattern: login-admin/external/login
+  defaults: { _controller: WebmastersAfricaAdminBundle:Reports:login }
+
+webmasters_africa_admin_user:
+  pattern: login-admin/external/user
+  defaults: { _controller: WebmastersAfricaAdminBundle:Reports:user }
+
+webmasters_africa_admin_group:
+  pattern: login-admin/external/group
+  defaults: { _controller: WebmastersAfricaAdminBundle:Reports:group }
+
+webmasters_africa_admin_reports:
+  pattern: login-admin/admin/reports/{dash}
+  defaults: { _controller: WebmastersAfricaAdminBundle:Reports:reports }
+
+webmasters_africa_admin_homepage:
+  pattern: login-admin/admin/dashboard
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboard }
+
+webmasters_africa_notice_homepage:
+  pattern: login-admin/regulations/admin
+  defaults: { _controller: NoticeCommentBundle:Default:index }
+
+webmasters_africa_admin_homepage_stats_1:
+  pattern: login-admin/admin/dashboard-starts_1
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsIndustries }
+  
+webmasters_africa_admin_homepage_stats_2:
+  pattern: login-admin/admin/dashboard-starts_2
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsLocations }
+
+webmasters_africa_admin_homepage_stats_3:
+  pattern: login-admin/admin/dashboard-starts_3
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsAgencies }
+
+webmasters_africa_admin_homepage_stats_4:
+  pattern: login-admin/admin/dashboard-starts_4
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsUsers }
+
+webmasters_africa_admin_homepage_stats_5:
+  pattern: login-admin/admin/dashboard-starts_5
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsGroups }
+
+webmasters_africa_admin_homepage_stats_6:
+  pattern: login-admin/admin/dashboard-starts_6
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsSubscribers }
+
+webmasters_africa_admin_homepage_stats_7:
+  pattern: login-admin/admin/dashboard-starts_7
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsNews }
+
+webmasters_africa_admin_homepage_stats_8:
+  pattern: login-admin/admin/dashboard-starts_8
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsLicenses }
+
+webmasters_africa_admin_homepage_stats_9:
+  pattern: login-admin/admin/dashboard-starts_9
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsFeedback }
+
+webmasters_africa_admin_homepage_stats_10:
+  pattern: login-admin/admin/dashboard-starts_10
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsBusinessActivities }
+
+webmasters_africa_admin_homepage_stats_11:
+  pattern: login-admin/admin/dashboard-starts_11
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:dashboardStatsBusinessTypes }
+
+search:
+  pattern: /login-admin/search
+  defaults: { _controller: WebmastersAfricaAdminBundle:Default:search }
+
+help_manuals:
+  pattern: login-admin/help/manuals
+  defaults: { _controller: WebmastersAfricaAdminBundle:Help:manuals }
+
+help_videos:
+  pattern: login-admin/help/videos
+  defaults: { _controller: WebmastersAfricaAdminBundle:Help:videos }

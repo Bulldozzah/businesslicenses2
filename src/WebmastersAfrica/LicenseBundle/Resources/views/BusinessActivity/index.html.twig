@@ -1,0 +1,159 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}{{ site_title }}, {{ 'activities.business_activities' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'activities.business_activities' | trans }}</h5>
+            <span>{{ 'activities.business_activities_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+
+<div class="line"></div>
+
+
+
+
+<div class="statsRow">
+<div class="wrapper w3-center">
+  <div class="w3-show-inline-block">
+    <div class="w3-bar">
+
+          <a href="{{ path("manageactivities_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+						<img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+						<span>{{ 'activities.add_business_activity' | trans }}</span>
+						</a>
+			    
+              <div class="clear"></div>
+          </div>
+        <div class="clear"></div>
+      </div>
+</div>
+</div>
+
+
+
+{% endblock %}
+
+{% block body %} 
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+       			 {{ 'licenses.updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('unsuccessdelete') %}
+    <div class="nNote nFailure hideit">
+        <p>
+            <strong>Error: </strong>
+        {{ flashMessage }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('create') %}
+    <div class="nNote nSuccess hideit">
+        <p>
+            <strong>Success: </strong>
+        {{ 'licenses.created_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/runningMan.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'activities.list_business_activities' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_activities") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable" id="activity_business">
+        <thead>
+            <tr>
+                <td width="40"><div>&middot;&middot;&middot;</div></td>
+                <td width="40"><div>#</div></td>
+                <td>{{ 'activities.name' | trans }}</td>
+                <td>{{ 'activities.description' | trans }}</td>
+                <td>{{ 'activities.business_types' | trans }}</td>
+                <td>{{ 'activities.licenses' | trans }}</td>
+                <td width="40">{{ 'activities.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                	<div class="itemActions">
+                        <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'activities.batch_confirm_1' | trans }} ' + this.value + ' {{ 'activities.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                       		<option>{{ 'activities.select_batch' | trans }}...</option>
+                       		<option value="delete">{{ 'activities.delete' | trans }}</option>
+                  		</select>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+        {% for entity in business_activity %}
+            <tr>
+                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                <td align="center"><a href="{{ path('manageactivities_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.description }}</td>
+                <td>
+                {% for businesstype in entity.businesstypes %}
+                {{ businesstype.name }},
+                {% endfor %}
+                </td>
+                <td>
+                {% for license in entity.licenses %}
+                {{ license.name }},
+                {% endfor %}
+                </td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('manageactivities_edit', { 'id': entity.id }) }}" class="smallButton"  title="">
+							<img alt="{{ 'activities.edit' | trans }}" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+						</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+   
+    </table>
+    </form>
+</div>
+
+</div>
+    {% endblock %}
+
+
+{% block stylesheet_2 %}
+<script>
+    $(document).ready( function () {
+      $('#activity_business').DataTable();
+      // $(".dataTables_filter input").addClass("w3-input w3-border w3-animate-input");
+    } );
+  </script>
+{% endblock %}

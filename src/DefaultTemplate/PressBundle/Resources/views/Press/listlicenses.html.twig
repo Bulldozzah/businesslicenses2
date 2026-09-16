@@ -1,0 +1,91 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+
+<link href="{{ asset('bundles/webmastersafricapress/new/dt/jquery.dataTables.min.css') }}" rel="stylesheet">
+
+<style type="text/css">
+	.agency_filter.dataTables_wrapper {
+		width: 400px;
+		top: 35px;
+		left: 110px;
+		position: absolute;
+		z-index: 1;
+	}
+	div#dtable_wrapper {
+		padding-top: 60px;
+	}
+	div#dtable_length {
+		position: absolute;
+		top: 0;
+	}
+	div#dtable_filter {
+		position: absolute;
+		top: 0;
+		right: 0;
+		max-width: 605px;
+	}
+</style>
+
+<form action="{{ app.request.basepath }}/search/save" method="post" id='licenseform' name='licenseform'>
+
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="box_style_2">
+			<div class="agency_filter dataTables_wrapper">
+				<div id="tools">
+					<span class="styled-select">
+						<select id="filter">
+							<option selected="selected" value="">Filter Licenses by issuing Agency</option>
+							{% for agency in agencies %}
+								<option value='{{ agency.name }}'>{{ agency.name }}</option>
+							{% endfor %}
+						</select>
+					</span>
+				</div>
+			</div>
+
+			<table cellspacing="0" class="table table-striped table-hover" id="dtable" width="100%">
+				{% set count = 0 %}
+				<thead>
+					<tr>
+						<th nowrap="nowrap"><input class="icheck" onclick="check(this.checked);" type="checkbox"></th>
+						<th class="hidden-sm hidden-xs" nowrap="nowrap">#</th>
+						<th nowrap="nowrap">{{ 'licensename'|trans }}</th>
+						<th class="hidden-sm hidden-xs">{{ 'issuingagency'|trans }}<a rel="" title="Issuing Agency">
+								<i class="icon icon-question-sign" title="Issuing Agency"></i>
+							</a>
+						</th>
+						{# <th class="hidden-sm hidden-xs" nowrap="nowrap">{{ 'time'|trans }}</th> #}
+					</tr>
+				</thead>
+				<tbody>
+					{% for license in pagination %}
+						{% set count = count + 1 %}
+						<tr>
+							<td><input type="checkbox" value="{{ license.id }}" id="sf_admin_batch_selection_{{ license.id }}" name="sf_admin_batch_selection[]"></td>
+							<td class="hidden-sm hidden-xs">
+								<p>{{ count }}</p>
+							</td>
+							<td>
+								<a href='{{ app.request.basepath }}/license/id/{{ license.id }}'>{{ license.name }}</a>
+								<p>{{ license.purpose | raw }}</p>
+							</td>
+							<td class="hidden-xs hidden-sm">{{ license.agency.name }}</td>
+                                                        {# <td class="hidden-xs hidden-sm">{{ license.maxProcessingTime }}</td> #}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-12 col-sm-12 col-xs-12 m-t-20">
+		<div class="p-t-10 p-b-10">
+			<button class="btn btn-primary btn-md" name="share" value="{{ 'share'|trans }}" id="share" style="outline: medium none; opacity: 1; margin-right:10px;" onclick="if(atLeastOneRadio()){ return true; }else{ alert('{{ 'pleasechooseshare'|trans }}.'); return false; }" class="btn btn_blue">
+				<span>
+					{{ 'share'|trans }}
+				</span>
+			</button>
+		</div>
+	</div>
+
+</form>

@@ -1,0 +1,47 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+  {{ site_title }},
+        Edit|
+  {{ entity.title }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>Edit -
+          {{ entity.title }}</h5>
+        <span>Edit Business Category Details</span>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+  <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+      <h6>
+        Edit -
+        {{ entity.title }}
+      </h6>
+
+      <div class="num">
+        <a href="{{ path('manage_procedure_category') }}" title="{{ 'news.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'news.back_to_list' | trans }}</a>
+      </div>
+    </div>
+
+    {{ form(edit_form) }}
+      {{ form(delete_form) }}
+
+
+      <div class="clear"></div>
+      </div>
+    {% endblock %}

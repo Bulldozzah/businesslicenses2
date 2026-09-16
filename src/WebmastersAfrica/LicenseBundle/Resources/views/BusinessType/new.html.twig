@@ -1,0 +1,64 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'business_types.add_business_type' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'business_types.add_business_type' | trans }}</h5>
+            <span>{{ 'business_types.add_business_type_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+<div class="title">
+<img class="titleIcon" alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/home.png') }}">
+<h6>{{ 'business_types.add_business_type_description' | trans }}</h6>
+
+<div class="num">
+<a href="{{ path('managebusinesstypes') }}" title="{{ 'business_types.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'business_types.back_to_list' | trans }}</a>
+</div>
+</div>
+<div class="body nopadding ">
+<form action="{{ path('managebusinesstypes_create') }}" method="post" {{ form_enctype(form) }} class="form" novalidate="novalidate">
+{{ form_row(form.name) }}
+{{ form_row(form.description) }}
+{{ form_row(form.industries) }}
+{{ form_row(form.activities) }}
+{{ form_row(form.show_in_browse) }}
+<div class="formSubmit">
+{{ form_row(form.submit) }}
+</div>
+<div class="clear"></div>
+<div style="display: none;">
+{{ form_rest(form) }}
+</div>
+</form>
+
+</div>
+</div>
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+
+jQuery(document).ready(function() {
+    var demo1 = $('select[name="webmastersafrica_licensebundle_businesstype[industries][]"]').bootstrapDualListbox();
+    var demo2 = $('select[name="webmastersafrica_licensebundle_businesstype[activities][]"]').bootstrapDualListbox();
+});
+</script>
+
+{% endblock %}

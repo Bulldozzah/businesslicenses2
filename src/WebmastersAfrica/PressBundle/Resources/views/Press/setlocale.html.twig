@@ -1,0 +1,3 @@
+{% for locale in locales %}
+	<li id="wp-admin-bar-edit-profile"><a class="ab-item"  href="#"  onClick="window.location = '/setlocalefront/{{ locale.localeCode }}';">{{ locale.title }}</a></li>
+{% endfor %}

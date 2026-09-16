@@ -1,0 +1,120 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+                                            Policy Types
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>Policy Type</h5>
+                <span>List of Policy</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <div class="line"></div>
+
+
+<div class="statsRow">
+    <div class="wrapper w3-center">
+        <div class="w3-show-inline-block">
+            <div class="w3-bar">
+                <a href="{{ path("manage_policy_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium">
+                    <i class="fa fa-plus"></i>
+                    <span>Add Site Policy</span>
+                </a>
+
+                <a href="{{ path("manage_policy_category_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-blue w3-medium">
+                    <i class="fa fa-plus"></i>
+                    <span>Add Policy Type</span>
+                </a>
+                <a href="{{ path("manage_policy_category") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-red w3-medium">
+                    <i class="fa fa-bars"></i>
+                    <span>Policy Types</span>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>List Policy Types</h6>
+        </div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_policy_category") }}" method="post">
+            <table cellpadding="0" cellspacing="0" class="sTable mTable w3-table-all w3-card-4" id="policytypetable" width="100%">
+                <thead>
+                    <tr>
+                        <td width="3%">
+                            <div>&middot;&middot;&middot;</div>
+                        </td>
+                        <td width="3%">
+                            <div>#</div>
+                        </td>
+                        <td class="sortCol">
+                            <div>{{ 'policy.policy_title' | trans }}<span></span>
+                            </div>
+                        </td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                            <td align="center">
+                                <a href="{{ path('manage_policy_category_edit',{'id':entity.id}) }}">{{ entity.id }}</a>
+                            </td>
+                            <td align="center">{{ entity.title }}</td>
+                            <td>
+                                <ul>
+                                    <li><a href="{{path('manage_policy_category_edit',{'id':entity.id})}}" class="smallButton"title="{{ 'news.edit' | trans }}"><img alt="Edit"src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}"></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+
+</div>{% endblock %}
+
+{% block stylesheet_2 %}
+<script>
+    $(document).ready( function () {
+      $('#policytypetable').DataTable();
+    } );
+  </script>
+{% endblock %}
+

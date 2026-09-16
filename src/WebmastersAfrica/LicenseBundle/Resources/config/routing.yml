@@ -1,0 +1,89 @@
+webmasters_africa_license_manageactivities:
+    resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businessactivity.yml"
+    prefix:   /login-admin/manageactivities
+
+WebmastersAfricaLicenseBundle_mangeagencies:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businessagency.yml"
+        prefix:   /login-admin/manageagencies
+
+WebmastersAfricaLicenseBundle_mangeagencies_officee:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businessagencyoffice.yml"
+        prefix:   /login-admin/manageagenciesoffice
+
+WebmastersAfricaLicenseBundle_manageindustries:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businessindustry.yml"
+        prefix:   /login-admin/manageindustries
+
+WebmastersAfricaLicenseBundle_managelicenses:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businesslicense.yml"
+        prefix:   /login-admin/managelicenses
+
+WebmastersAfricaLicenseBundle_managelocations:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businesslocation.yml"
+        prefix:   /login-admin/managelocations
+
+WebmastersAfricaLicenseBundle_managebusinesstypes:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/businesstype.yml"
+        prefix:   /login-admin/managebusinesstypes
+
+WebmastersAfricaLicenseBundle_managefields:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/licensefield.yml"
+        prefix:   /login-admin/managefields
+
+WebmastersAfricaLicenseBundle_managefixedfields:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/licensefixedfield.yml"
+        prefix:   /login-admin/managefixedfields
+        
+WebmastersAfricaLicenseBundle_licenseworkflow:
+        resource: "@WebmastersAfricaLicenseBundle/Resources/config/routing/licenseworkflow.yml"
+        prefix:   /login-admin/manageworkflow
+
+batch_licenses:
+    pattern:  /batch/licenses
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:batch" }
+    requirements: { _method: post|put }
+
+batch_locations:
+    pattern:  /batch/main/locations
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:batch" }
+    requirements: { _method: post|put }
+
+batch_locations_category:
+    pattern:  /batch/locations/category
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocationCategory:batch" }
+    requirements: { _method: post|put }
+
+batch_industries:
+    pattern:  /batch/industries
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessIndustry:batch" }
+    requirements: { _method: post|put }
+
+batch_businesstypes:
+    pattern:  /batch/businesstypes
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessType:batch" }
+    requirements: { _method: post|put }
+
+batch_activities:
+    pattern:  /batch/activities
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessActivity:batch" }
+    requirements: { _method: post|put }
+
+batch_agencies:
+    pattern:  /batch/agencies
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:batch" }
+    requirements: { _method: post|put }
+
+batch_businessagency_offices:
+    pattern:  /batch/{agency_id}/agencies/offices
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgencyOffice:batch" }
+    requirements: { _method: post|put }
+
+batch_customfields:
+    pattern:  /batch/customfields
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:batch" }
+    requirements: { _method: post|put }
+
+batch_regulation_customfields:
+    pattern:  /batch/regulations/customfields
+    defaults: { _controller: "NoticeCommentBundle:RegulationField:batch" }
+    requirements: { _method: post|put }

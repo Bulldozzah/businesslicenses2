@@ -1,0 +1,94 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+
+{% block page_title %}{{ site_title }}, Survey Response| {{ survey.surveyName }} {% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>Survey Responses</h5>
+            <span style="font-weight: bold;">{{ survey.surveyName }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+
+<div class="wrapper w3-center">
+    <div class="w3-show-inline-block">
+  <div class="controlC">
+  	<a href="{{ path("manage_surveys_responses_download", {'survey_id': survey.id }) }}" title="" class="w3-button w3-hover-green w3-round-large w3-green w3-medium" title="" href="#">
+    <span><i class="fa fa-download"></i> Download Excel Document</span>
+    </a>
+
+    <a href="{{ path("manage_surveys_index")}}" title="" class="w3-button w3-hover-red w3-round-large w3-red w3-medium" title="Back to Manage Surveys">
+    <span><i class="fa fa-bars"></i> Manage Surveys</span>
+    </a>
+
+    <div class="clear"></div>
+  </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+{% block body %}
+  {% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('create') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+  {% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+      <p>
+        <strong>Success:
+        </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+      </p>
+    </div>
+  {% endfor %}
+    <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/home2.png') }}" alt="" class="titleIcon" />
+    <h6>Survey Reponse Details</h6></div>
+        <table style="width:100%" class="w3-table w3-border w3-bordered">
+        	{% for question in survey.questions %}
+             <tr> <th style="font-weight:bold;">{{question.questionText|raw }}</th>        	
+	          {% for answer in question.surveyAnswers %}
+	          		<td>{{ answer.answerValue|raw }}</td>
+	          {% endfor %}
+	        </tr>
+          {% endfor %}
+    </table>
+</div>
+</div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#surver_response_list').DataTable();
+        });
+    </script>
+{% endblock %}

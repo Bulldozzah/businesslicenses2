@@ -1,0 +1,47 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{{ 'hi'|trans }}
+
+{{ 'the_following'|trans }}
+{% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+
+<table rules='all' style='border-color: #666;' cellpadding='10'>
+    <thead>
+        <tr style='background: #eee;'>
+            <th>
+                <strong>#</strong>
+            </th>
+            <th>
+                <strong>{{ 'name'|trans }}</strong>
+            </th>
+            <th>
+                <strong>{{ 'issuingagency'|trans }}</strong>
+            </th>
+{#            <th>
+                <strong>{{ 'time'|trans }}</strong>
+            </th> #}
+            <th>
+                <strong>{{ 'associatedcosts'|trans }}</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set count = 0 %}
+        {% for license in licenses %}
+            {% set count = count + 1 %}
+            <tr>
+                <td>{{ count }}</td>
+                <td>
+                    <a href="http://eregistry.otbafrica.com/license/id/{{ license.id }}">{{ license.name }}</a>
+                </td>
+                <td>{{ license.agency.name }}</td>
+                {# <td>{{ license.maxProcessingTime }}</td> #}
+                <td>{{ license.applicationFee }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{{ 'regards'|trans }}
+{{ 'team'|trans }}

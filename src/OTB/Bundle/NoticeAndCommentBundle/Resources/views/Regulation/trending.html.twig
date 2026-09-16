@@ -1,0 +1,134 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block page_title %}
+  Notice-and-Comment | Regulations List
+{% endblock %}
+{% block body %}
+  <main class="archive" role="main">
+    <div class="jumbotronX">
+
+      <div class="container">
+        {# {% include "NoticeCommentBundle:Regulation:regulation_search_form.html.twig" %} #}
+        {# {{ include ( "NoticeCommentBundle:Regulation:regulation_search_form.html.twig", {"agencies": agencies, 'industries': industries}) }} #}
+        {{ include ( "NoticeCommentBundle:Regulation:regulation_search_form.html.twig", {"agencies": agencies, 'industries': industries, 'keywords': "", 'search_agency': "", 'search_industry': "" }) }}
+      </div>
+
+    </div>
+
+    <div class="home_content full_width">
+      <div class="container">
+        <div class="archive_wrapper row clearfix">
+
+          <div class="col-md-12 clearfix">
+            <div class="home_content_A_in archive_content_A">
+              <div class="home_right pull_right pagination_B">
+                <ul class="archive_nav_pills nav nav-pills">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/consultation/regulations">All
+                      <i class="count_all badge badge-danger badge-pill"></i>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/consultation/regulations/open">Ongoing<i class="open_all badge badge-danger badge-pill"></i>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/consultation/regulations/closing">Consultations Due in {{ closing_date_value }} Days
+                      <i class="seven_all badge badge-danger badge-pill"></i>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/consultation/regulations/completed">Completed Consultations
+                      <i class="closed_all badge badge-danger badge-pill"></i>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link active" href="/consultation/regulations/trending">Trending Consultations
+                          <i class="trending_all badge badge-danger badge-pill"></i>
+                      </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="archive_main_content col-md-9 clearfix">
+            <div class="home_content_A">
+              <div class="tab-content">
+                <div class="tab-pane container active" id="all">
+                  {% for regulation in trending_regulations %}
+                    <div class="box_1">
+                      <a href="/consultation/regulations/{{regulation.slug}}/comments">
+                        <ul class="box_heading">
+                          <li class="box_title">
+                            <h3>{{ regulation.title }}</h3>
+                          </li>
+                          <li class="box_comments">
+                            <h4>
+                              <ion-icon name="chatboxes"></ion-icon>
+                            </h4>
+                            <p>{{regulation.comments|length }}</p>
+                          </li>
+                        </ul>
+                      
+
+                        <div class="box_1_items row clearfix">
+                          <div class="box_1_A col-md-1">
+                            <figure class="box_1_image">
+                              <img src="{{ asset('bundles/OTB/notice/img/holder.png') }}">
+                            </figure>
+                          </div>
+                          <div class="box_1_B col-md-11">
+                            <table class="box_details">
+                              <tr>
+                                <th>Agency</th>
+                                <td class="text-primary">
+                                  {{ regulation.agency.name }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th>Period</th>
+                                <td>{{ regulation.publishDate | date("M d Y", false) }}
+
+                                  -
+                                  {{ regulation.closingDate | date("M d Y", false)}}</td>
+
+                              </tr>
+                            </table>
+                            <table class="box_details">
+                              <tr>
+                                <th>Status</th>
+                                <td class="badge badge-danger badge-pill">{{ regulation.consultationStage }}</td>
+                              </tr>
+                              <tr>
+                                <th>Industry</th>
+                                {% if regulation.industry %}
+                                  <td>{{ regulation.industry.name }}</td>
+                                {% endif %}
+                              </tr>
+                            </table>
+                          </div>
+                          <div class="col-md-6"></div>
+                        </div>
+                      </a>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="home_right pull_right pagination_B">
+                  {{ knp_pagination_render(trending_regulations) }}
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {{ include ("NoticeCommentBundle:Regulation:side_stats.html.twig", {"closing_date_value": closing_date_value }) }}
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+{% endblock %}

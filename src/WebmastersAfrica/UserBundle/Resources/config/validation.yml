@@ -1,0 +1,31 @@
+WebmastersAfrica\UserBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+    properties:
+        first_name:
+            - NotBlank: ~
+        last_name:
+            - NotBlank: ~
+        email:
+            - Email: ~
+        username:
+            - NotBlank: ~
+WebmastersAfrica\UserBundle\Entity\Setting:
+    properties:
+        siteTitle:
+            - NotBlank: ~
+        siteDescription:
+            - NotBlank: ~
+        siteOwner:
+            - NotBlank: ~
+        siteAddress:
+            - NotBlank: ~
+        footer:
+            - NotBlank: ~
+        siteEmailTitle:
+            - NotBlank: ~
+        siteEmailAddress:
+            - NotBlank: ~
+        siteKeywords:
+            - NotBlank: ~

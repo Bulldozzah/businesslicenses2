@@ -1,0 +1,12 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% block subject %}
+{% autoescape false %}
+{{ 'subscription_subject'|trans({'%name%': name, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'subscription_message'|trans({'%name%': name, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

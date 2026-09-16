@@ -1,0 +1,112 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="nojq nojs" id="saotome-loggedin-adminbar" role="navigation">
+        <div aria-label="Top navigation toolbar." class="quicklinks" id="wp-toolbar" role="navigation" tabindex="0">
+            <div class="container">
+                <ul class="ab-top-menu" id="wp-admin-bar-root-default">
+                    <li class="hide-320" id="wp-admin-bar-wp-logo">
+                        <a class="ab-item" title="Business Licensing Information Portal" href="{{ app.request.basepath }}" aria-haspopup="true">
+                            <span class="ab-icon"></span>
+                        </a>
+                    </li>
+                    {% if is_expr_granted("hasRole('ACCESS_BACKEND')") %}
+                        <li id="wp-admin-bar-updates">
+                            <a class="ab-item" href="{{ app.request.basepath }}/admin" title="Administration">
+                                <span class="ab-administration hide-990"></span>
+                                <span class="hide-320">{{ 'administration'|trans }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li id="wp-admin-bar-updates">
+                        <a class="ab-item" href="{{ app.request.basepath }}/my/licenses" title="My Saved Licenses">
+                            <span class="ab-licenses hide-990"></span>
+                            <span class="hide-320">{{ 'savedlicenses'|trans }}</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="ab-top-secondary ab-top-menu" id="wp-admin-bar-top-secondary">
+                    <li class="menupop with-language" id="wp-admin-bar-my-account">
+                        <a aria-haspopup="true" class="ab-item" href="#" title="Language">{{ 'language'|trans }}</a>
+                        <div class="ab-sub-wrapper">
+                            <ul class="ab-submenu" id="wp-admin-bar-user-actions">
+                                {{ render(controller("WebmastersAfricaPressBundle:Press:chooselocale")) }}
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menupop" id="wp-admin-bar-my-account">
+                        <a aria-haspopup="true" class="ab-item" href="#" title="My Account">
+                            <span class="hide-320">{{ 'welcome'|trans }},</span>
+                            {{ app.user.firstname }}
+                            {{ app.user.lastname }}</a>
+                        <div class="ab-sub-wrapper">
+                            <ul class="ab-submenu" id="wp-admin-bar-user-actions">
+                                <li id="wp-admin-bar-edit-profile">
+                                    <a class="ab-item" href="{{ app.request.basepath }}/editprofile">{{ 'edit_profile'|trans }}</a>
+                                </li>
+                                <li id="wp-admin-bar-logout">
+                                    <a class="ab-item" href="{{ app.request.basepath }}/logout">{{ 'signout'|trans }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="nojq nojs" id="saotomeadminbar" role="navigation">
+        <div aria-label="Top navigation toolbar." class="quicklinks" id="wp-toolbar" role="navigation" tabindex="0">
+            <div class="container">
+                <ul class="ab-top-secondary ab-top-menu" id="wp-admin-bar-top-secondary">
+                    <li class="menupop with-language" id="wp-admin-bar-my-account">
+                        <a aria-haspopup="true" class="ab-item" href="#" title="Language">{{ 'language'|trans }}</a>
+                        <div class="ab-sub-wrapper">
+                            <ul class="ab-submenu" id="wp-admin-bar-user-actions">
+                                {{ render(controller("WebmastersAfricaPressBundle:Press:chooselocale")) }}
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="wp-admin-bar-my-account">
+                        <a class="ab-item" href="{{ app.request.basepath }}/register" title="Sign-in or Subscribe">{{ 'signin'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="white-background">
+    <div class="container">
+        <div class="header">
+            <div
+                class="header-nav box_white">
+                <!--logo-->
+                <div class="logo">
+                    <a href="{{ app.request.basepath }}"><img src="{{ asset('bundles/webmastersafricapress/images/logo.png') }}" alt=""/></a>
+                </div>
+                <!--/logo-->
+
+                <!--top search-->
+                <div class="topsearch">
+                    <form action="{{ path("search_advanced") }}" method="POST">
+                        <div class="header-search">
+                            <input autocomplete="off" class="s white" name="keywords" type="text"/>
+                        </div>
+                    </form>
+                </div>
+                <!--/top search-->
+
+                <!--Top Menu-->
+                {% block menu %}
+                    {{ include("WebmastersAfricaPressBundle:Blocks:menu.html.twig", {'pages':[]}) }}
+                {% endblock %}
+                <!--/Top menu-->
+
+                <select id="responsive-main-nav-menu" onchange="javascript:window.location.replace(this.value);"></select>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

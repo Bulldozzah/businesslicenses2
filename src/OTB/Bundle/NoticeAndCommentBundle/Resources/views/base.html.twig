@@ -1,0 +1,535 @@
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <!-- BEGIN HEAD -->
+    <head>
+      <meta charset="utf-8"/>
+      <title>
+        {% block page_title %}Home| Dashboard
+        {% endblock %}
+      </title>
+      <meta content="IE=edge" http-equiv="X-UA-Compatible">
+      <meta content="width=device-width, initial-scale=1" name="viewport"/>
+      <meta content="" name="description"/>
+      <meta content="" name="author"/>
+      <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css"/>
+      <link rel="stylesheet" type="text/css" href="{{ asset('bundles/OTB/global/plugins/clockface/css/clockface.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ asset('bundles/OTB/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ asset('bundles/OTB/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ asset('bundles/OTB/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ asset('bundles/OTB/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ asset('bundles/OTB/global/plugins/bootstrap-datetimepicker/css/datetimepicker.css') }}"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/gritter/css/jquery.gritter.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/fullcalendar/fullcalendar/fullcalendar.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/jqvmap.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/jquery-multi-select/css/multi-select.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('bundles/OTB/global/plugins/bootstrap-summernote/summernote.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('bundles/OTB/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/admin/pages/css/tasks.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/css/components.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/admin/layout/css/layout.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/admin/layout/css/themes/default.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/select2/select2.css') }}" rel="stylesheet" type="text/css"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css') }}" rel="stylesheet"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/css/jquery.fileupload.css') }}" rel="stylesheet"/>
+      <link href="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css') }}" rel="stylesheet"/>
+      <link href="{{ asset('bundles/OTB/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css"/>
+      <!-- END THEME STYLES -->
+      <link href="favicon.ico" rel="shortcut icon"/>
+      {% block STYLES %}{% endblock %}
+    </head>
+  <!-- END HEAD -->
+  <!-- BEGIN BODY -->
+  <body class="page-header-fixed page-quick-sidebar-over-content">
+      <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+          <!-- BEGIN LOGO -->
+          <div class="page-logo">
+            <a href="index.html">
+              <img alt="logo" style="margin-top: -10px;" class="logo-default" src="{{ asset('/bundles/webmastersafricapress/new/img/logo.png') }}"/>
+            </a>
+          </div>
+          <!-- END LOGO -->
+          <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+          <a class="menu-toggler responsive-toggler" data-target=".navbar-collapse" data-toggle="collapse" href="javascript:;"></a>
+          <!-- END RESPONSIVE MENU TOGGLER -->
+          <!-- BEGIN TOP NAVIGATION MENU -->
+          <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+              <!-- BEGIN INBOX DROPDOWN -->
+              <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
+                <i class="icon-envelope-open"></i>
+                  {% if fos_message_nb_unread() > 0 %}
+                    <span class="badge badge-default">  {{ fos_message_nb_unread() }} </span>
+                  {% endif %}
+                </a>
+                <ul class="dropdown-menu">
+                  {% if fos_message_nb_unread() > 0 %}
+                    <li>
+                      <p>You have {{ fos_message_nb_unread() }} Messages</p>
+                    <li>
+                  {% endif %}
+                  <li> 
+                    <ul class="dropdown-menu-list scroller" style="height: 250px;">
+                      <li>
+                        <a href="{{ path("fos_message_thread_new") }}" title="{{ 'topbar.messages.new_message'|trans }}" class="sAdd">{{ 'topbar.messages.new_message'|trans }}</a>
+                      </li>
+                      <li>
+                      <a href="{{ path("fos_message_inbox") }}" title="{{ 'topbar.messages.inbox'|trans }}" class="sInbox">
+                        {{ 'topbar.messages.inbox'|trans }}
+                      </a>
+                      </li>
+                      <li>
+                      <a href="{{ path("fos_message_sent") }}" title="{{ 'topbar.messages.outbox'|trans }}" class="sOutbox">{{ 'topbar.messages.outbox'|trans }}
+                          </a>
+                      </li>
+                      <li>
+                        <a href="{{ path("fos_message_deleted") }}" title="{{ 'topbar.messages.trash'|trans }}" class="sTrash">{{ 'topbar.messages.trash'|trans }}
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <!-- END INBOX DROPDOWN -->
+              <!-- BEGIN TODO DROPDOWN -->
+              <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+                <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="{{ path("managetasks") }}">
+                  <i class="icon-calendar"></i>
+                </a>
+              </li>
+              <!-- END TODO DROPDOWN -->
+              <!-- BEGIN USER LOGIN DROPDOWN -->
+              <li class="dropdown dropdown-user">
+                <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
+                  <img alt="" class="img-circle hide1" src="{{ asset('bundles/webmastersafricaadmin/images/userPic.png') }}"/>
+                  <span class="username username-hide-on-mobile">
+                    {{ app.security.getToken().getUser().getUsername() }}
+                  </span>
+                  <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{{ path('fos_user_profile_edit') }}">
+                      <i class="icon-user"></i>
+                      {{ 'topbar.profile'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ path("fos_user_security_logout") }}">
+                      <i class="icon-key"></i>
+                      {{ 'topbar.logout'|trans }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              {% if is_granted('ACCESS_SETTINGS') %}
+                <li><a href="{{ path("setting_edit", {'id':'1'}) }}" title="{{ 'topbar.settings'|trans }}"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/topnav/settings.png') }}" alt="" /><span>{{ 'topbar.settings'|trans }}</span></a></li>
+                {% endif %}
+              <!-- END USER LOGIN DROPDOWN -->
+              <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+              <li class="dropdown dropdown-quick-sidebar-toggler">
+                <a class="dropdown-toggle" href="javascript:;">
+                  <i class="icon-logout"></i>
+                </a>
+              </li>
+              <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+          </div>
+          <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+      </div>
+      <div class="clearfix">
+      </div>
+      <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+          <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+          <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse"> <!-- BEGIN SIDEBAR MENU -->
+              <ul class="page-sidebar-menu " data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                  <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                  <div class="sidebar-toggler"></div>
+                  <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+                <li class="sidebar-search-wrapper">
+                  <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                  <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+                  <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+                    <form action="extra_search.html" class="sidebar-search " method="POST"> <a class="remove" href="javascript:;">
+                      <i class="icon-close"></i>
+                    </a>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="Search..." type="text">
+                      <span class="input-group-btn">
+                        <a class="btn submit" href="javascript:;">
+                          <i class="icon-magnifier"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </form>
+                  <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                </li>
+                <li class="">
+                  <a href="{{ path('webmasters_africa_admin_homepage') }}" title="{{ 'sidebar.dashboard'|trans }}">
+
+                    <i class="icon-home"></i>
+                    <span class="title">{{ 'sidebar.dashboard'|trans }}</span>
+                    <span class="selected"></span>
+                    <span class="arrow open"></span>
+                  </a>
+                </li>
+                {% if is_expr_granted("hasRole('MANAGE_LICENSE')") %}
+                  <li>
+                    <a href="javascript:;">
+                      <i class="icon-basket"></i>
+                      <span class="title">{{ 'sidebar.manage_licenses.title'|trans }}</span>
+                      <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                      {% if is_expr_granted("hasRole('LICENSE_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managelicenses') }}" title="{{ 'sidebar.manage_licenses.licenses'|trans }}">
+                            <i class="icon-basket"></i>
+                            {{ 'sidebar.manage_licenses.licenses'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+
+                      {% if is_expr_granted("hasRole('LOCATIONS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managelocations') }}" title="{{ 'sidebar.manage_licenses.locations'|trans }}">
+                            <i class="icon-tag"></i>
+                            {{ 'sidebar.manage_licenses.locations'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('INDUSTRIES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('manageindustries') }}" title="{{ 'sidebar.manage_licenses.industries'|trans }}">
+                            <i class="icon-handbag"></i>
+                            {{ 'sidebar.manage_licenses.industries'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('BUSINESSTYPES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managebusinesstypes') }}" title="{{ 'sidebar.manage_licenses.business_types'|trans }}">
+                            <i class="icon-pencil"></i>
+                            {{ 'sidebar.manage_licenses.business_types'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('ACTIVITIES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('manageactivities') }}" title="{{ 'sidebar.manage_licenses.activities'|trans }}">
+                            <i class="icon-pencil"></i>
+                            {{ 'sidebar.manage_licenses.activities'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('AGENCIES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('manageagencies') }}" title="{{ 'sidebar.manage_licenses.agencies'|trans }}">
+                            <i class="icon-pencil"></i>
+                            {{ 'sidebar.manage_licenses.agencies'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+
+                      {% if is_expr_granted("hasRole('FIXEDFIELDS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managefixedfields') }}" title="{{ 'sidebar.manage_licenses.fixed_license_fields'|trans }}">
+                            <i class="icon-pencil"></i>
+                            {{ 'sidebar.manage_licenses.fixed_license_fields'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+
+                      {% if is_expr_granted("hasRole('CUSTOMFIELDS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managefields') }}" title="{{ 'sidebar.manage_licenses.custom_license_fields'|trans }}">
+                            <i class="icon-pencil"></i>
+                            {{ 'sidebar.manage_licenses.custom_license_fields'|trans }}
+                          </a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                {% endif %}
+                {% if is_expr_granted("hasRole('MANAGE_REGULATIONS')") %}
+                  <li class="start active open">
+                    <a href="javascript:;">
+                      <i class="icon-star"></i>
+                      <span class="title">
+                        {{ 'sidebar.manage_regulations.title'|trans }}
+                      </span>
+                      <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        {% if is_expr_granted("hasRole('MANAGE_REGULATIONS')") %}
+
+                        <li class="tooltips" data-container="body" data-html="true" data-original-title="{{ 'sidebar.manage_regulations.title'| trans }}" data-placement="right">
+
+                            <a href="{{ path('regulations') }}" title="{{ 'sidebar.manage_regulations.title'|trans }}">
+                              <span class="title">
+                                {{ 'sidebar.manage_regulations.title'|trans }}
+                            </span>
+                          </a>
+                        </li>
+                        {% endif %}
+                        {% if is_expr_granted("hasRole('MANAGE_COMMENTS')") %}
+
+                        <li class="tooltips" data-container="body" data-html="true" data-original-title="{{ 'sidebar.manage_comments.title'| trans }}" data-placement="right">
+
+                          <a href="{{ path('regulations') }}" title="{{ 'sidebar.manage_comments.title'|trans }}">
+                            <span class="title">
+                              {{ 'sidebar.manage_comments.title'|trans }}
+                          </span>
+                        </a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                {% endif %}
+                {% if is_expr_granted("hasRole('MANAGE_CONTENT')") %}
+                  <li>
+                    <a href="javascript:;">
+                      <i class="icon-rocket"></i>
+                      <span class="title">{{ 'sidebar.manage_content.title'|trans }}</span>
+                      <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                      {% if is_expr_granted("hasRole('PAGES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managepages') }}" title="{{ 'sidebar.manage_content.pages'|trans }}">{{ 'sidebar.manage_content.pages'|trans }}</a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('PAGES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managebanners') }}" title="{{ 'sidebar.manage_content.banners'|trans }}">{{ 'sidebar.manage_content.banners'|trans }}</a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('NEWS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managenews') }}" title="{{ 'sidebar.manage_content.news'|trans }}">{{ 'sidebar.manage_content.news'|trans }}</a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('NEWSLETTERS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managenewsletters') }}" title="{{ 'sidebar.manage_content.newsletters'|trans }}">{{ 'sidebar.manage_content.newsletters'|trans }}</a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('SUBSCRIBERS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managesubscribers') }}" title="{{ 'sidebar.manage_content.subscribers'|trans }}">{{ 'sidebar.manage_content.subscribers'|trans }}</a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('FAQS_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('managefaq') }}" title="{{ 'sidebar.manage_content.faqs'|trans }}">{{ 'sidebar.manage_content.faqs'|trans }}</a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('LANGUAGES_MANAGE')") %}
+                        <li>
+                          <a href="{{ path('locale') }}" title="{{ 'sidebar.manage_content.languages'|trans }}">{{ 'sidebar.manage_content.languages'|trans }}</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                {% endif %}
+                <!-- BEGIN MANAGE SECURITY -->
+                {% if is_expr_granted("hasRole('MANAGE_SECURITY')") %}
+                  <li>
+                    <a href="javascript:;">
+                      <i class="icon-star"></i>
+                      <span class="title">
+                        {{ 'sidebar.manage_security.title'|trans }}
+                      </span>
+                      <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                      {% if is_expr_granted("hasRole('USERS_MANAGE')") %}
+                        <li class="tooltips" data-container="body" data-html="true" data-original-title="{{ 'sidebar.manage_security.users'|trans }}" data-placement="right">
+                          <a href="{{ path('manageusers') }}" title="{{ 'sidebar.manage_security.users'|trans }}">
+                            <span class="title">
+                              {{ 'sidebar.manage_security.users'|trans }}
+                            </span>
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('GROUPS_MANAGE')") %}
+                        <li class="tooltips" data-container="body" data-html="true" data-original-title="{{ 'sidebar.manage_security.groups'|trans }}" data-placement="right">
+                          <a href="{{ path('managegroups') }}" title="{{ 'sidebar.manage_security.groups'|trans }}">
+                            <span class="title">
+                              {{ 'sidebar.manage_security.groups'|trans }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('SETTINGS_MANAGE')") %}
+                        <li class="tooltips" data-container="body" data-html="true" data-original-title="{{ 'sidebar.manage_security.settings' |trans }}" data-placement="right">
+                          <a href="{{ path('setting_edit', {'id':'1'}) }}" title="{{ 'sidebar.manage_security.logs'|trans }}">
+                            <span class="title">
+                              {{ 'sidebar.manage_security.settings' |trans }}
+                            </span>
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if is_expr_granted("hasRole('LOGS_VIEW')") %}
+                        <li class="tooltips" data-container="body" data-html="true" data-original-title="{{ 'sidebar.manage_security.logs'|trans }}" data-placement="right">
+                          <a href="{{ path('manageuserslogs') }}" title="{{ 'sidebar.manage_security.logs'|trans }}">
+                            <span class="title">
+                              {{ 'sidebar.manage_security.logs'|trans }}
+                            </span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                {% endif %}
+                <!-- END MANAGE SECURITY -->
+                <li>
+                  <a href="javascript:;">
+                    <i class="icon-diamond"></i>
+                    <span class="title">{{ 'sidebar.help.title'|trans }}</span>
+                    <span class="arrow "></span>
+                  </a>
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="{{ path("help_manuals") }}" title="{{ 'sidebar.help.manuals'|trans }}">{{ 'sidebar.help.manuals'|trans }}</a>
+                    </li>
+                    <li>
+                      <a href="{{ path("help_videos") }}" title="{{ 'sidebar.help.videos'|trans }}">{{ 'sidebar.help.videos'|trans }}</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+        </div>
+      
+        {% block CONTENT %}
+        <div class="page-content-wrapper">
+          <div class="page-content"></div>
+        </div>
+        {% endblock %}
+      </div>
+      <div class="page-footer">
+        <div class="page-footer-inner">
+          {{ "now"|date('Y') }}
+          Zambia E-Registry. All rights reserved.
+        </div>
+        <div class="scroll-to-top">
+          <i class="icon-arrow-up"></i>
+        </div>
+      </div>
+  <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+  <!-- BEGIN CORE PLUGINS -->
+  <!--[if lt IE 9]>
+    <script src="{{ asset('bundles/OTB/global/plugins/respond.min.js') }}"></script>
+    <script src="{{ asset('bundles/OTB/global/plugins/excanvas.min.js') }}"></script> 
+    <![endif]-->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-1.11.0.min.js') }}" type="text/javascript"> </script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-migrate-1.2.1.min.js') }}" type="text/javascript"></script>
+  <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+  <!-- END CORE PLUGINS -->
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/jquery.vmap.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/flot/jquery.flot.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/flot/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery.pulsate.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/bootstrap-daterangepicker/moment.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/clockface/js/clockface.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/OTB/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+  <script src="{{ asset('bundles/OTB/admin/pages/scripts/components-pickers.js') }}"></script>
+  <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+  <script src="{{ asset('bundles/OTB/global/plugins/fullcalendar/fullcalendar/fullcalendar.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/global/plugins/gritter/js/jquery.gritter.js') }}" type="text/javascript"></script>
+
+  <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/vendor/load-image.min.js') }}"></script>
+  <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js') }}"></script>
+  <!-- blueimp Gallery script -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js') }}"></script>
+  <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js') }}"></script>
+  <!-- The basic File Upload plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload.js') }}"></script>
+  <!-- The File Upload processing plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js') }}"></script>
+  <!-- The File Upload image preview & resize plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js') }}"></script>
+  <!-- The File Upload audio preview plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js') }}"></script>
+  <!-- The File Upload video preview plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js') }}"></script>
+  <!-- The File Upload validation plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js') }}"></script>
+  <!-- The File Upload user interface plugin -->
+  <script src="{{ asset('bundles/OTB/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js') }}"></script>
+  <!-- END PAGE LEVEL PLUGINS -->
+  <script src="{{ asset('bundles/OTB/global/scripts/metronic.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/admin/pages/scripts/index.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/admin/pages/scripts/tasks.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/OTB/admin/pages/scripts/form-fileupload.js') }}"></script>
+  
+      <!-- END JAVASCRIPTS -->
+      {% block JAVASCRIPTS %}
+        <script>
+          JQuery(document).ready(function () {
+            Metronic.init(); // init metronic core componets
+            Layout.init(); // init layout
+          });
+        </script>
+
+      {% endblock %}
+  </body>
+<!-- END BODY -->
+</html>
+

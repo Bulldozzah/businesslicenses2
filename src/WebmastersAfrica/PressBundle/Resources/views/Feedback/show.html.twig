@@ -1,0 +1,114 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'feedback.manage_feedback' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'feedback.feedback' | trans }}</h5>
+            <span>Show Reply</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+            <a href="{{ path('managefeedback_replied') }}" title="back to list" class="w3-button w3-round-large w3-grey w3-hover-red">
+                <span>Replied Feeback</span>
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('email_error') %}
+    <div class="nNote nFailure hideit">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>Feedback</h6></div>
+    <div class="tab_container">
+        <div id="tab1" class="tab_content nopadding">
+            <div class="w3-row">
+                <div class="w3-col s2">
+                   <b>From:</b>
+                </div>
+                <div class="w3-col s10 text-align">
+                    <div class="w3-col s2">
+                        {{ pagination.firstName }}
+                    </div>
+                    <div class="w3-col s2">
+                        {{ pagination.lastName }}
+                    </div>
+                    <div class="w3-col s2">
+                        {{ pagination.email }}
+                    </div>
+                    
+                </div>
+            </div>
+
+           <div class="clear"></div>
+            <div class="cLine"></div>
+            <div class="w3-row">
+                <div class="w3-col s2">
+                   <b>Content:</b>
+                </div>
+                <div class="w3-col s10 text-align">
+                    <div class="w3-col s2">
+                       <b>Subject: </b> {{ pagination.subject|raw }}
+                    </div>
+                    <div class="w3-col s8">
+                    <b>Message: </b>{{ pagination.message|raw }}
+                    </div>
+                </div>
+            </div>
+           <div class="clear"></div>
+            <div class="cLine"></div>
+            <div class="w3-row">
+                <div class="w3-col s2">
+                   <b>Reply:</b>
+                </div>
+                <div class="w3-col s10 text-align">
+                    {{ pagination.replyMessage|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#eregistry_feedback_table').DataTable();
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% block page_title %}Uganda - Manage Users{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>New Message</h5>
+            <span>Send a new message to another user</span>
+        </div>
+        <div class="controlB">
+                <ul>
+                    <li><a href="{{ path("fos_message_inbox") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>Inbox</span></a></li>
+                    <li><a href="{{ path("fos_message_sent") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>Outbox</span></a></li>
+                    <li><a href="{{ path("fos_message_deleted") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>Deleted</span></a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}{% endblock %}

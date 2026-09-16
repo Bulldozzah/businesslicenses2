@@ -1,0 +1,124 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<style type="text/css">
+/* 5 Columns */
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+</style>
+<div class="col-md-12 col-sm-12 col-xs-12 license_filter">
+    <form id="frm_search" action="{{ path('search_advanced') }}" method="post">
+        <div id="tools">
+            <div class="tool_in toolA col-md-4 col-sm-4 col-xs-12">
+                <div class="styled-select">
+                    <select id="speedB" name="speedB">
+                        <option selected="selected" value="0">{{ 'select'|trans }}
+                            {{ 'businesslocation'|trans }}</option>
+                        {% set selected = '' %}
+                        {% for location in locations %}
+                            {% if location.location|length > 0 %}
+                            <optgroup label="{{ location.name }}">
+                            {% for item in location.location %}
+                                {% if (item.deleted == 0) and item.licenses|length > 0 %}
+                                    {% if item.id == speedB %}
+                                        {% set selected = 'selected' %}
+                                    {% endif %}
+                                    <option value="{{ item.id }}" {{ selected }}>{{ item.name }}</option>
+                                    {% set selected = '' %}
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            </optgroup>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="tool_in toolA col-md-4 col-sm-4 col-xs-12 license_filter">
+                <div class="styled-select" id='industries'>
+                    <select id="speedC" name="speedC" onchange='getBusinesstypes("{{ app.request.basepath }}/browse/listbusinesstypes", this.value)'>
+                        <option value="0">{{ 'select'|trans }}
+                            {{ 'industry'|trans }}</option>
+                        {% set selected = '' %}
+                        {% for industry in industries %}
+                            {% if industry.id == speedC %}
+                                {% set selected = 'selected' %}
+                                <option value='{{ industry.id }}' {{ selected }}>{{ industry.name }}</option>
+                            {% else %}
+                            {% set selected = '' %}
+                                <option value='{{ industry.id }}'>{{ industry.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="tool_in toolA col-md-4 col-sm-4 col-xs-12">
+                <div class="styled-select" id="businesstypes">
+                    <select id="speedD" name="speedD" onchange='getBusinessactivities("{{ app.request.basepath }}/browse/listbusinessactivities", this.value)'>
+                        <option value="0">{{ ''|trans }}
+                            {{ 'businesstype'|trans }}</option>
+                        {% for businesstype in businesstypes %}
+                            {% if businesstype.id == speedD %}
+                                {% set selected = 'selected' %}
+                                <option value='{{ businesstype.id }}' {{ selected }}>{{ businesstype.name }}</option>
+                            {% else %}
+                                <option value='{{ businesstype.id }}'>{{ businesstype.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="tool_in toolA toolA2 col-md-12 col-sm-12 col-xs-12">
+                {% set count = 0 %}
+                <div class="styled-select" id="businessactivities">
+                    <select id="speedE" name="speedE[]" multiple="multiple">
+                        <option></option>
+                        {% for businessactivity in businessactivities %}
+                            {% if businessactivity.id in speedE %}
+                                {% set selected = 'selected' %}
+                                <option value='{{ businessactivity.id }}' {{ selected }}>{{ businessactivity.name }}</option>
+                            {% else %}
+                                <option value='{{ businessactivity.id }}'>{{ businessactivity.name }}</option>
+                                {% set selected = '' %}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="tool_in toolB col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-12">
+                <div class="tools_btn">
+                    <button class="btn_map" name="submit" type="submit">{{ 'getresults'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

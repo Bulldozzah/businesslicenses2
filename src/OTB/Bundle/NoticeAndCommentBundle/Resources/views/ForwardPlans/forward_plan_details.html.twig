@@ -1,0 +1,374 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+  Forward Plan,
+  {{forward_plan.title }}
+{% endblock %}
+{% block sitetitle %}
+  {{ forward_plan.title }}
+{% endblock %}
+{% block sitedescription %}
+  {{ forward_plan.title }}
+{% endblock %}
+{% block sitetwitterdescription %}
+  {{ forward_plan.title }}
+{% endblock %}
+{% block sitetwittertitle %}
+  {{ forward_plan.title }}
+{% endblock %}
+{% block sitetwitterurl %}
+  {{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}
+{% endblock %}
+
+{% block page_title %}
+  Notice-and-Comment |
+  {{ forward_plan.title }}
+{% endblock %}
+{% block body %}
+
+
+  <main class="single" role="main">
+
+    <div class="jumbotronZ clearfix">
+      <div class="regulation_container_B container">
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <div class="jumboZ_in_1 jumboZ_in">
+              <div class="single_post_details">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Agency</th>
+                      <td><a href="{{ path('show_forward_plans', {'slug': forward_plan.forwardPlanCategory.agency.slug })}}">{{ forward_plan.forwardPlanCategory.agency.name }}</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Period</th>
+                      <td>{{ forward_plan.forwardPlanCategory.period }} to {{ forward_plan.forwardPlanCategory.period2 }}</td>
+                    </tr>                               
+                  </tbody>
+                </table>                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+            <div class="jumboZ_in_1 jumboZ_in">
+              <h1 class="display-3">{{forward_plan.title}}</h1>
+              <ul class="share_icons_A">
+                <li class="s_title">SHARE:
+                </li>
+                <li class="s_fb">
+                  <div class="fb-share-button" data-href="http://www.businesslicenses.gov.zm{{ currentPath }}" data-layout="button_count" data-size="large">
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.businesslicenses.gov.zm{{ currentPath }}" class="fb-xfbml-parse-ignore">Share</a>
+                  </div>
+                </li>
+                <li class="s_tw">
+                  <a href="https://twitter.com/intent/tweet?text=http://www.businesslicenses.gov.zm{{ currentPath }}" data-size="large">
+                    <ion-icon aria-label="logo twitter" class="hydrated" name="logo-twitter" role="img"></ion-icon>
+                  </a>
+                </li>
+                <li class="s_mail">
+                  {% set regulation_body = forward_plan.description|raw %}
+                  <a href="mailto:?Subject={{ forward_plan.title }}&amp;Body={{ regulation_body }}" target="_blank">
+                    <ion-icon aria-label="mail" class="hydrated" name="mail" role="img"></ion-icon>
+                  </a>
+                </li>
+                <li class="s_copy">
+                  <div class="share_whatsapp">
+                    <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm{{ currentPath }}" target="_blank">
+                      <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="home_content full_width">
+      <div class="regulation_container_B container">
+
+
+
+          <div class="regulation_accordion">
+            <div id="accordion">
+
+              {% if forward_plan.description %}                
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Description <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      <!--<h5>Description</h5>-->
+                      <div class="accordion_description">{{ forward_plan.description|raw }}</div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if forward_plan.problemAddressed %}
+                <div class="card">
+                  <div class="card-header" id="headingProblem">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapseProblem" aria-expanded="false" aria-controls="collapseProblem">
+                        Problem Addressed <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseProblem" class="collapse" aria-labelledby="headingProblem" data-parent="#accordion">
+                    <div class="card-body">
+                      <!--<h5>Early Indication of Possible Impacts on Citizens and Businesses</h5>-->
+                      <div class="accordion_description">{{ forward_plan.problemAddressed|raw }}</div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              {% if forward_plan.impact %}
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Possible Impacts on Citizens and Businesses <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                      <!--<h5>Early Indication of Possible Impacts on Citizens and Businesses</h5>-->
+                      <div class="accordion_description">{{ forward_plan.impact|raw }}</div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if forward_plan.publicConsultation %}
+                <div class="card">
+                  <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Consultation Opportunities<ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                      <!--<h5>Public Consultation Opportunities</h5>-->
+                      <p class="">{{ forward_plan.publicConsultation|raw }}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if forward_plan.attachments or forward_plan.relatedLinks %}
+                <div class="card">
+                  <div class="card-header" id="heading4">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        Related Attachments $ Other Resources <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+                    <div class="card-body">
+                      <section id="attachment">
+                        <div class="regulation_in">
+                          <!--<h5>Related Attachments $ Other Resources</h5>-->
+                          <ul>
+                            {% for item in forward_plan.attachments %}
+                              <li>
+                                <a href="{{ asset('uploads/documents/' ~ item.filepath)}}">{{ item.name }}</a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                          <hr/>
+                          <p class="">{{ forward_plan.relatedLinks|raw }}</p>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              <div class="card">
+                <div class="card-header" id="heading7">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                      Department Point of Contact <ion-icon name="arrow-dropdown"></ion-icon>
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion">
+                  <div class="card-body">
+                    <section id="office">
+                      <div class="regulation_in">
+                        
+                        {% if forward_plan.offlineOffice %}
+                          <h5>Contact &amp; Office Address</h5>
+                          <span class="contact_items">
+                            {{ forward_plan.offlineOffice|raw }}
+                          </span>
+                        {% endif %}
+
+                          
+                          <ul class="contact_items list-group">
+                            <li class="list-group-item active">{{ forward_plan.forwardPlanCategory.agency.title}}</li>
+                            <li class="list-group-item">Address: {{ forward_plan.forwardPlanCategory.agency.address}}</li>
+                            <li class="list-group-item">Telephone: <a href="tel:{{ forward_plan.forwardPlanCategory.agency.telephone }}">{{ forward_plan.forwardPlanCategory.agency.telephone }}</a></li>
+                            <li class="list-group-item">Email: <a href="mailto:{{ forward_plan.forwardPlanCategory.agency.email }}" target="_blank">{{ forward_plan.forwardPlanCategory.agency.email }}</a></li>
+                            <li class="list-group-item">Website: 
+                              <a href="{% if 'http' in forward_plan.forwardPlanCategory.agency.website %}{{ forward_plan.forwardPlanCategory.agency.website }}{% else %}http://{{ forward_plan.forwardPlanCategory.agency.website }}
+                              {% endif %}" target="_blank">{{ forward_plan.forwardPlanCategory.agency.website}}</a></li>
+                            <li class="list-group-item">Fax: {{ forward_plan.forwardPlanCategory.agency.fax}}</li>
+                            <li class="list-group-item">Working Hours: {{ forward_plan.forwardPlanCategory.agency.hours}}</li>
+                          </ul>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--
+        <div class="row">
+          <div class="side_content_C col-md-3 clearfix">
+            <div class="side_D nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                {% if forward_plan.description %}
+                  Description
+                {% endif %}
+              </a>
+              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                {% if forward_plan.impact %}
+                  Possible Impacts on Citizens and Businesses
+                {% endif %}
+              </a>
+              <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                {% if forward_plan.publicConsultation %}
+                  Consultation Opportunities
+                {% endif %}
+              </a>
+              <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                {% if forward_plan.attachments or forward_plan.relatedLinks %}
+                  Related Attachments $ Other Resources
+                {% endif %}
+              </a>
+              
+              <a class="nav-link" id="v-pills-five-tab" data-toggle="pill" href="#v-pills-five" role="tab" aria-controls="v-pills-five" aria-selected="false">
+                Department Point of Contact
+              </a>              
+            </div>
+          </div>
+
+
+
+          <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                {% if forward_plan.description %}
+
+                  <section id="description" class="single_box_main box_1">
+                    <div class="regulation_in">
+                      <h2>{# forward_plan.title #}Description</h2>
+                      <p>{{ forward_plan.description|raw }}</p>
+                    </div>
+                  </section>
+                {% endif %}                
+              </div>
+              <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                {% if forward_plan.impact %}
+
+                  <section id="impact">
+                    <div class="regulation_in">
+                      <h2>Early Indication of Possible Impacts on Citizens and Businesses</h2>
+                      {% if forward_plan.impact %}
+                        <p>{{ forward_plan.impact|raw }}</p>
+                      {% endif %}
+                    </div>
+                  </section>
+                {% endif %}                
+              </div>
+              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                {% if forward_plan.publicConsultation %}
+
+                  <section id="opportunities">
+                    <div class="regulation_in">
+                      <h2>Public Consultation Opportunities</h2>
+                      <p class="">{{ forward_plan.publicConsultation|raw }}</p>
+                    </div>
+                  </section>
+                {% endif %}               
+              </div>
+              <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                {% if forward_plan.attachments or forward_plan.relatedLinks %}
+
+                  <section id="attachment">
+                    <div class="regulation_in">
+                      <h2>Related Attachments $ Other Resources</h2>
+                      <ul>
+                        {% for item in forward_plan.attachments %}
+                          <li>
+                            <a href="{{ asset('uploads/documents/' ~ item.filepath)}}">{{ item.name }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      <hr/>
+                      <p class="">{{ forward_plan.relatedLinks|raw }}</p>
+                    </div>
+                  </section>
+                {% endif %}
+              </div>
+              <div class="tab-pane fade" id="v-pills-five" role="tabpanel" aria-labelledby="v-pills-five-tab">
+                <section id="office">
+                  <div class="regulation_in">
+                    <h2>Contact &amp; Office Address</h2>
+                    {% if forward_plan.offlineOffice %}
+                      <span class="contact_items">
+                        {{ forward_plan.offlineOffice|raw }}
+                      </span>
+                    {% else %}
+                      <ul class="contact_items">
+                        <li>
+                          Name:
+                          {{ forward_plan.forwardPlanCategory.agency.title}}</li>
+                        <li>
+                          {{ forward_plan.forwardPlanCategory.agency.name}}</li>
+                        <li>Fax:
+                          {{ forward_plan.forwardPlanCategory.agency.fax}}</li>
+                        <li>Address:
+                          {{ forward_plan.forwardPlanCategory.agency.address}}</li>
+                        <li>Telephone:
+                          <a href="tel:{{ forward_plan.forwardPlanCategory.agency.telephone }}">{{ forward_plan.forwardPlanCategory.agency.telephone }}</a></li>
+                        <li>Email:
+                          <a href="mailto:{{ forward_plan.forwardPlanCategory.agency.email }}" target="_blank">{{ forward_plan.forwardPlanCategory.agency.email }}</a></li>
+                        <li>Website:
+                          <a href="{{ forward_plan.forwardPlanCategory.agency.website}}" target="_blank">{{ forward_plan.forwardPlanCategory.agency.website}}</a></li>
+                        <li>Working Hours:
+                          {{ forward_plan.forwardPlanCategory.agency.hours}}</li>
+                      </ul>
+                    {% endif %}
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+{% block custom_js %}
+{% endblock %}

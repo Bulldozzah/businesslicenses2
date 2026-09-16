@@ -1,0 +1,288 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ entity.taskDescription|slice(0, 15) }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ entity.taskDescription }}</h5>
+                <h5>{{ entity.license.stage.type }}</h5>
+
+                <p>
+                    {% if entity.license.stage.type == 'assess' %}
+                        <a href="{{ path('my_task_approve', {'id': entity.id }) }}" class="wButton bluewB" style="width: 120px;">Approve</a>
+                        <a href="{{ path('managetask_reject', {'id': entity.id }) }}" class="wButton redwB" style="width: 120px;">Reject</a>
+                    {% endif %}
+                    {% if entity.license.stage.type == 'Publish' or entity.license.stage.type == "publish" %}
+                        <a href="{{ path('my_task_approve', {'id': entity.id }) }}" class="wButton bluewB" style="width: 120px;">Approve</a>
+                    {% endif %}
+                    <span style="padding-left : 100px;">
+                        <span style="font-size: 25px;">Stage:
+                        </span>
+                        <span style="font-size: 25px; color: red;">{{ entity.license.stage }}</span>
+                    </span>
+                </p>
+            </div>
+            <div class="middleNav" style="border: none;">
+                <a href="{{ path('my_task') }}" title="back to list" class="wButton redwB ml15 m10">
+                    <span>BACK TO TASK LIST</span>
+                </a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </p>
+    </div>
+</div>{% endblock %}{% block body %}
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/webmastersafricaadmin/css/bootstrap-duallistbox.css') }}">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/webmastersafricaadmin/js/jquery.bootstrap-duallistbox.js') }}"></script>
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+        <h6>
+            View License Details
+        </h6>
+
+        <div
+            class="num">{# <a href="{{ path('manageindustries') }}" title="{{ 'licenses.back_to_list' | trans }}" class="redNum">{{ 'licenses.back_to_list' | trans }}</a> #}
+        </div>
+    </div>
+    <ul class="tabs">
+        <li>
+            <a href="#tab1">{{ 'licenses.license_details' | trans }}</a>
+        </li>
+        <li>
+            <a href="#tab5">License Legal Basis</a>
+        </li>
+        <li>
+            <a href="#tab4">{{ 'licenses.license_additional_details' | trans }}</a>
+        </li>
+        <li>
+            <a href="#tab2">{{ 'licenses.license_requirements' | trans }}</a>
+        </li>
+        <li>
+            <a href="#tab3">{{ 'licenses.license_downloads' | trans }}</a>
+        </li>
+    </ul>
+    <div class="tab_container">
+        <div class="tab_content nopadding" id="tab1">
+            <p>
+                License Title :
+                <span style="text-weight: bold; color: black;">{{ entity.license.name }}</span>
+            </p>
+            <p>
+                Agency :
+                <span style="text-weight: bold; color: black;">
+                    {% if ('19' in custom_fields) %}
+                        {{ entity.license.agency }}
+                    {% endif %}
+                </span>
+            </p>
+
+            <p>
+                Jurisdiction :
+                <span style="text-weight: bold; color: black;">
+                    {% if ('19' in custom_fields) %}
+                        {{ entity.license.location }}
+                    {% endif %}
+                </span>
+            </p>
+            <p>
+                Keywords :
+                <span style="text-weight: bold; color: black;">{{ entity.license.keywords }}</span>
+            </p>
+            <p>
+                Business Activities:
+                <ul style="list-style-type:square;">
+                    {% for activity in entity.license.activities %}
+                        <li style="text-weight: bold; color: black;">
+                            {{ activity.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+            {% if ('3' in custom_fields) %}
+                <p>
+                    Purpose :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.purpose|raw }}</span>
+                </p>
+            {% endif %}
+            {% if ('7' in custom_fields) %}
+                <p>
+                    Application Fee :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.applicationFee|raw }}</span>
+                </p>
+            {% endif %}
+            {% if ('8' in custom_fields) %}
+                <p>
+                    License Fee :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.licenseFee|raw }}</span>
+                </p>
+            {% endif %}
+            {% if ('4' in custom_fields) %}
+                <p>
+                    Description :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.description|raw }}</span>
+                </p>
+            {% endif %}
+            {% if ('6' in custom_fields) %}
+                <p>
+                    License Number :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.license_no|date('Y-m-d') }}</span>
+                </p>
+            {% endif %}
+            {% if ('9' in custom_fields) %}
+                <p>
+                    Max Processing Time :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.maxProcessingTime }}</span>
+                </p>
+            {% endif %}
+            {% if ('10' in custom_fields) %}
+                <p>
+                    Gazetted On :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.gazettedOn }}</span>
+                </p>
+            {% endif %}
+            {% if ('14' in custom_fields) %}
+                <p>
+                    Gazetted  Reference:
+                    <span style="text-weight: bold; color: black;">{{ entity.license.gazetting_ref }}</span>
+                </p>
+            {% endif %}
+
+            {% if ('11' in custom_fields) %}
+                <p>
+                    Related Websites :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.relatedWebsites }}</span>
+                </p>
+            {% endif %}
+            {% if ('12' in custom_fields) %}
+                <p>
+                    License Validity :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.validity }}</span>
+                </p>
+            {% endif %}
+            {% if ('13' in custom_fields) %}
+                <p>
+                    Enactment:
+                    <span style="text-weight: bold; color: black;">{{ entity.license.enactment }}</span>
+                </p>
+            {% endif %}
+            {% if ('15' in custom_fields) %}
+                <p>
+                    Contact Offices :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.contactOffice }}</span>
+                </p>
+            {% endif %}
+            {% if ('16' in custom_fields) %}
+                <p>
+                    Resolution Criteria :
+                    <span style="text-weight: bold; color: black;">{{ entity.license.resolutionCriteria }}</span>
+                </p>
+            {% endif %}
+            <p>
+                License Status :
+                <span style="text-weight: bold; color: black;">{{ entity.license.status }}</span>
+            </p>
+            <p>
+                License Stage :
+                <span style="text-weight: bold; color: black;">{{ entity.license.stage.title }}</span>
+            </p>
+            {% if ('18' in custom_fields) %}
+                {{ entity.license.universal }}
+            {% endif %}
+        </div>
+        <div class="tab_content nopadding" id="tab2">
+            {% if entity.license.requirements|length > 0 %}
+                {% for requirement in entity.license.requirements %}
+                    <div class="w3-container w3-cell">
+                        {{ requirement.description|raw }}
+                    </div>
+                    <hr/>
+                    <div class="clear"></div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="tab_content nopadding" id="tab3">
+            <div class="w3-panel">
+                <div class="w3-cell-row">
+                    {% for download in entity.license.downloads %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="show-icon text-center" style="width:100%">
+                                    <i aria-hidden="true" class="fa fa-file fa-5x text-success"></i>
+                                </div>
+                                <div class="card-container">
+                                    <a target="_blank" href="{{ app.request.basepath }}/uploads/documents/{{ download.filepath }}">{{ download.name }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="tab_content nopadding" id="tab4">
+            <p></p>
+        </div>
+        <div class="tab_content nopadding" id="tab5">
+            <p>
+                Principle Legislation:
+                <span style="text-weight: bold; color: black;">{{ entity.license.principleLegislation}}</span>
+            </p>
+            <p>
+                Principle Legislation Download:
+                <a style="fa fa-download fa-2x" href="{{ app.request.basepath }}/uploads/documents/{{ entity.license.PrincipleLegislationAttachment }}">{{ entity.license.principleLegislation}}</a>
+            </p>
+            <p>
+                <ul>
+                    Subsidiary Legislation:
+                    {% for docs in entity.license.SubsidiaryLegislation %}
+                        <li>
+                            <a style="fa fa-download fa-2x" href="{{ app.request.basepath }}/uploads/documents/{{ docs.filepath }}">{{ docs.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        </div>
+    </div>
+    <style>
+        div i.fa {
+            display: none;
+        }
+        div img {
+            display: block;
+        }
+
+        div.show-icon i.fa {
+            display: inline-block;
+        }
+        div.show-icon img {
+            display: none;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .card-container {
+            padding: 2px 16px;
+        }
+    </style>
+{% endblock %}

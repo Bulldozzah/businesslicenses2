@@ -1,0 +1,59 @@
+managelocations:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:index" }
+
+managelocationsdeleted_list:
+    pattern:  /deleted-locations
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:indexDeletedLocations" }
+
+managelocations_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:show" }
+
+managelocations_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:new" }
+
+managelocations_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:create" }
+    requirements: { _method: post }
+
+managelocations_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:edit" }
+
+managelocations_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:update" }
+    requirements: { _method: post|put }
+
+managelocations_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:delete" }
+    
+businesslocationcategory_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocation:delete" }
+
+managebusinesslocationcategory:
+    pattern:  category/
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocationCategory:index" }
+
+businesslocationcategory_new:
+    pattern:  /category/new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocationCategory:new" }
+
+businesslocationcategory_create:
+    pattern:  category/create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocationCategory:create" }
+    requirements: { _method: post }
+
+businesslocationcategory_edit:
+    pattern:  category/{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocationCategory:edit" }
+
+businesslocationcategory_update:
+    pattern:  category/{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLocationCategory:update" }
+    requirements: { _method: post|put }

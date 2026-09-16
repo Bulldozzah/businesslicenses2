@@ -1,0 +1,149 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ site_title }},
+    {{ 'news.manage_news' | trans }}
+{% endblock %}
+
+{% block header %}
+    <!-- Title area -->
+    <div class="titleArea">
+        <div class="wrapper">
+            <div class="pageTitle">
+                <h5>{{ 'news.news' | trans }}</h5>
+                <span>{{ 'news.news_description' | trans }}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <div class="line"></div>
+
+
+    <div class="statsRow">
+
+        <div class="wrapper w3-center">
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+
+                    <a href="{{ path("managenews_new") }}" title="" class="w3-button w3-round-large w3-green w3-hover-teal w3-large" href="#">
+                        <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                        <span>{{ 'news.add_news_article' | trans }}</span>
+                    </a>
+
+                    <a href="{{ path("managesubscribers_new") }}" title="" class="w3-button w3-round-large w3-hover-teal w3-blue w3-large" href="#">
+                        <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+                        <span>{{ 'news.add_subscriber' | trans }}</span>
+                    </a>
+
+                    <a href="{{ path("managesubscribers") }}" title="" class="w3-button w3-round-large w3-hover-teal w3-red w3-large" href="#">
+                        <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/edit-column.png') }}" alt=""/>
+                        <span>{{ 'news.list_subscribers' | trans }}</span>
+                    </a>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'updated_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('delete') %}
+        <div class="nNote nSuccess hideit">
+            <p>
+                <strong>Success:
+                </strong>
+                {{ 'deleted_item_notice' | trans }}
+            </p>
+        </div>
+    {% endfor %}
+
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon"/>
+            <h6>{{ 'news.list_news_articles' | trans }}</h6>
+        </div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_news") }}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable w3-table-all w3-card-4" id="eregistry_news_table">
+                <thead>
+                    <tr>
+                        <td width="3%">
+                            <div>&middot;&middot;&middot;</div>
+                        </td>
+                        <td width="3%">
+                            <div>#</div>
+                        </td>
+                        <td class="sortCol">
+                            <div>{{ 'news.news_title' | trans }}<span></span>
+                            </div>
+                        </td>
+                        <td width="40px" align="center">{{ 'news.hits' | trans }}</td>
+                        <td width="60px" align="center">{{ 'news.published' | trans }}</td>
+                        <td width="40px" align="center">{{ 'news.actions' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in pagination %}
+                        <tr>
+                            <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                            <td align="center">
+                                <a href="{{ path('managenews_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            </td>
+                            <td>{{ entity.title }}</td>
+                            <td align="center">{{ entity.hits }}</td>
+                            <td align="center">
+                                {% if entity.published == true %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Published"></span>
+                                {% else %}
+                                    <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Published"></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><a href="{{path('managenews_edit',{'id':entity.id})}}" class="smallButton"title="{{ 'news.edit' | trans }}"><img alt="Edit"src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}"></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr style="border-top:1px solid #CDCDCD">
+                        <td colspan="6" style="padding:10px;">
+                            <select id="batch_select" name="batch_select" onchange="if(atLeastOne()){  if(confirm('{{ 'news.batch_confirm_1' | trans }} ' + this.value + ' {{ 'news.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                                <option>{{ 'news.select_batch' | trans }}...</option>
+                                <option value="publish">{{ 'news.publish' | trans }}</option>
+                                <option value="unpublish">{{ 'news.unpublish' | trans }}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+
+        <div class="navigation">{{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#eregistry_news_table').DataTable();
+        });
+    </script>
+{% endblock %}

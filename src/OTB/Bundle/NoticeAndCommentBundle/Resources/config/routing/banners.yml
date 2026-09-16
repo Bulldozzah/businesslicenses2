@@ -1,0 +1,34 @@
+regulations_managebanners:
+    pattern:  /
+    defaults: { _controller: "NoticeCommentBundle:Banner:index" }
+
+regulations_managebanners_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NoticeCommentBundle:Banner:show" }
+
+regulations_managebanners_new:
+    pattern:  /new
+    defaults: { _controller: "NoticeCommentBundle:Banner:new" }
+
+regulations_managebanners_create:
+    pattern:  /create
+    defaults: { _controller: "NoticeCommentBundle:Banner:create" }
+    requirements: { _method: post }
+
+regulations_managebanners_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NoticeCommentBundle:Banner:edit" }
+
+regulations_managebanners_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NoticeCommentBundle:Banner:update" }
+    requirements: { _method: post|put }
+
+regulations_managebanners_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NoticeCommentBundle:Banner:delete" }
+
+regulations_managebanners_batch_banners:
+  pattern: /batch/banners
+  defaults: { _controller: "NoticeCommentBundle:Banner:batch" }
+  requirements: { _method: post|put }

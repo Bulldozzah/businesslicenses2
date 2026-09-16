@@ -1,0 +1,20 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<!--widget categories-->
+<div class="widget-content widget_categories">
+<h3 class="widget-title">{{ 'commonbusinesses'|trans }}</h3>
+    <ul>
+        <li class="first"><select name="businesstype" id="businesstype">
+{% for city in cities %}
+<option {% if city.isDefault is odd %}selected{% endif %} value="{{ city.id }}">{{ city.name }}</option>
+{% endfor %}
+</select></li> 
+        {% for businesstype in businesstypes %}
+<li><a onClick="window.location='{{ app.request.basepath }}/search/businesstype/' + document.getElementById('businesstype').value + '/{{ businesstype.id }}';" href="#">{{ businesstype.name }}</a></li>
+{% endfor %}
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--/widget categories-->
+
+                 

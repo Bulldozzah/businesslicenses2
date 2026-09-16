@@ -1,0 +1,86 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+    {{ 'faq_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+</li>
+<li>
+    <a href="#0">{{ 'Faqs'|trans }}</a>
+</li>
+<li>{{ 'Feedback'|trans }}</li>
+
+{% endblock %}
+
+{% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>{{ 'Feedback'|trans }}</h4>
+    </div>
+    <!-- End sub_content -->
+{% endblock %}
+
+{% block genemu_captcha_javascript %}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ recaptacha_client_site }}"></script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script>
+        $('#form_email').clone().attr('type', 'email').insertAfter('#form_email').prev().remove();
+        $("#form-comments").validate();
+    </script>
+
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-9 col-sm-6 col-xs-12">
+        <div class="box_style_2 info">
+            <form id="form-comments" action="{{ app.request.basepath }}/faq/save" method="post" autocomplete="off">
+                <div class="error">
+                    {% if capture_error %}
+                        <p class="alert alert-danger">Your message has not been sent. Please try again</p>
+                    {% endif %}
+
+                    {{ form_errors(form) }}
+                </div>
+                {{form_rest(form)}}
+                <div>
+                    <input type="submit" name="wp-submit" id="send_contact_form" class="btn btn-primary"  name="submitbuttonname" value="{{ 'feedback_submit'|trans }}" tabindex="100">
+                    <input type="hidden" name="redirect_to" value="">
+                    <input type="hidden" name="testcookie" value="1">
+                    <input type="hidden" name="g-recaptcha-response" value="1">
+                    <input type='reset' class="form-button form-button-red" value="{{ 'feedback_reset'|trans }}">
+                </div>
+            </form>
+        </div>
+    </div>
+   
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block google_captacha %}
+    <script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('send_contact_form');
+        btn.disabled = true;
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ recaptacha_client_site }}').then(function(token) {
+                // add token
+                document.querySelector('[name="g-recaptcha-response"]').value = token;
+                btn.disabled = false;
+            });
+        });
+    });
+        
+    </script>
+{% endblock %}

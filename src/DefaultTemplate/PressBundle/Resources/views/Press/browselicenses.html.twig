@@ -1,0 +1,169 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% block page_title %}
+  {{ 'browselicenses'|trans }}
+{% endblock %}
+
+
+  {% block breadcrumb %}
+  <li>
+    <a href="{{ app.request.basepath }}/index.php">
+      {{ 'home'|trans }}
+    </a>
+  </li>
+
+  <li>{{ 'browselicenses'|trans }}</li>
+  {% endblock%}
+
+
+{% block pageheader %}
+<style type="text/css">
+div#position {
+    margin-top: 98px;
+    background: #f5f5f5;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+
+  </div>
+</div>
+
+
+<div class="browselicenses_A_out">
+  <div class="container browselicenses_A">
+    <script language="javascript">
+      function atLeastOneRadio() {
+        return($('input[type=checkbox]:checked').size() > 0);
+      }
+
+      function check(checked) {
+        if (checked) {
+          checkAll($('input[type=checkbox]'));
+        } else {
+          uncheckAll($('input[type=checkbox]'));
+        }
+      }
+
+      function checkAll(field) {
+        for (i = 0; i < field.length; i ++) 
+          field[i].checked = true;
+        
+
+
+      }
+
+      function uncheckAll(field) {
+        for (i = 0; i < field.length; i ++) 
+          field[i].checked = false;
+        
+
+
+      }
+    </script>
+  </div>
+</div>
+
+
+
+
+<div class="browselicenses_B_out">
+  <div class="container browselicenses_B">
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h4>{{ 'filterlicense'|trans }}</h4>
+  </div>
+  <!-- End sub_content -->
+  {{ render(controller("WebmastersAfricaPressBundle:Press:search")) }}
+
+  {{ include("WebmastersAfricaPressBundle:Press:listlicenses.html.twig", {'pagination': licenses, 'agencies': agencies}) }}
+
+
+  <script language="javascript">
+    function getIndustries(url, location) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("industries").innerHTML = self.xmlHttpRequest.responseText;
+        } else {
+          document.getElementById("industries").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("location=" + location);
+    }
+
+    function getBusinesstypes(url, industry) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businesstypes").innerHTML = self.xmlHttpRequest.responseText;
+          $('#speedD').select2();
+        } else {
+          document.getElementById("businesstypes").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("industry=" + industry);
+    }
+
+    function getBusinessactivities(url, business_type) {
+      var xmlHttpRequest = false;
+      var self = this;
+
+      // Mozilla/Safari
+      if (window.XMLHttpRequest) {
+        self.xmlHttpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        self.xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      self.xmlHttpRequest.open('POST', url, true);
+      self.xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      self.xmlHttpRequest.onreadystatechange = function () {
+
+        if (self.xmlHttpRequest.readyState == 4) {
+          document.getElementById("businessactivities").innerHTML = self.xmlHttpRequest.responseText;
+          $('#speedE').select2({multiple: true});
+        } else {
+          document.getElementById("businessactivities").innerHTML = "Loading...";
+        }
+
+      }
+
+      self.xmlHttpRequest.send("businesstype=" + business_type);
+    }
+  </script>
+{% endblock %}

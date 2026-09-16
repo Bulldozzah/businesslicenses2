@@ -1,0 +1,75 @@
+managetasks:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:index" }
+
+managetasks_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:show" }
+
+managetasks_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:new" }
+
+managetasks_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:create" }
+    requirements: { _method: post }
+
+managetasks_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:edit" }
+
+managetasks_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:update" }
+    requirements: { _method: post|put }
+
+managetasks_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:delete" }
+    requirements: { _method: post|delete }
+
+task_count:
+    pattern:  /count
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:individualTaskCount" }
+    requirements: { _method: get }
+
+my_task:
+    pattern:  /my-task/list
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:myTaskList" }
+    requirements: { _method: get }
+
+managetasks_start:
+    pattern:  /my-task/{id}/{stage_id}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:startTask" }
+    requirements: { _method: GET, id: \d+, stage_id: \d+ }
+
+managetask_reject:
+    pattern:  /my-task/reject/{id}/reject/{stage_id}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:startDeclineTask" }
+    requirements: { _method: GET, id: \d+, stage_id: \d+}
+
+managetask_reject_post:
+    pattern:  /my-task/reject/{id}/reject/{stage_id}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:declineTask" }
+    requirements: { _method: post|put, id: \d+, stage_id: \d+}
+
+my_task_approve:
+    pattern: /my-task/approve/{id}/approve/{stage_id}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:approveTask" }
+    requirements: { _method: GET, id: \d+, stage_id: \d+}
+
+my_task_approve_unpublish:
+    pattern: /my-task/unpublish/{id}/approve/{stage_id}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:unpublishTask" }
+    requirements: { _method: GET, id: \d+, stage_id: \d+}
+
+my_task_approve_publish:
+    pattern: /my-task/publish/{id}/approve/{stage_id}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:publishTask" }
+    requirements: { _method: GET, id: \d+, stage_id: \d+}
+
+my_task_send_email:
+    pattern: /my-task/send-email/{stage}
+    defaults: { _controller: "WebmastersAfricaTaskBundle:Task:sendEmailTest" }
+    requirements: { _method: GET, stage: \d+}

@@ -1,0 +1,42 @@
+manageagencies:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:index" }
+
+manageagencies_deleted:
+    pattern:  /deleted
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:indexDeleted" }
+
+manageagencies_title_update:
+    pattern:  /update/slug/title
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:updateSlugForAgencyTitle" }
+
+manageagencies_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:show" }
+
+manageagencies_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:new" }
+
+manageagencies_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:create" }
+    requirements: { _method: post }
+
+manageagencies_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:edit" }
+
+manageagencies_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:update" }
+    requirements: { _method: post|put }
+
+manageagencies_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:delete" }
+
+manageagencies_slug_update:
+    pattern:  /slug/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessAgency:updateBusinessAgencySlug" }
+    requirements: { _method: get }

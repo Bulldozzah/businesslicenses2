@@ -1,0 +1,164 @@
+{% for reply in replies|slice(0,5) %}
+  <div class="comment_reply_body" style="margin-left: 40px;">
+    <div id="content">
+      <div id="result_para">
+        <header class="comments_header_section text-left">
+          <div class="comment-user"><ion-icon name="contact"></ion-icon></div>
+          <div class="comment-user-name">Guest</div>
+          <time class="comment-date" datetime="{{ comment.createAt|time_diff}}">
+            {{ reply.createAt|time_diff }}
+          </time>
+        </header>
+        <div class="comment-post">
+          {{reply.comment}}
+        </div>
+        <div class="comment_actions">
+          <ul class="comment_action_list">
+            <li class="comment_like card-link" id="reply_like_comment_action" onclick="likeReplyFunction({{ reply.id }})"> <ion-icon name="thumbs-up"></ion-icon> <span id="like_count_{{ comment.id }}">
+                {% if reply.likes != 0 %}
+                  <span id="reply_like_count_{{reply.id}}">{{ reply.likes }}</span>
+                {% endif %}
+              </span>
+            </li>
+            <li class="comment_mark">
+              <div class="card-link" href="#">
+                <ion-icon name="close"></ion-icon> Mark Abusive
+              </div>
+            </li>
+            <li class="comment_undo">
+              <div class="card-link">
+                <ion-icon name="undo"></ion-icon> Undo
+              </div>
+            </li>
+            <!--
+            <li class="comment_mark">
+              <div class="card-link">
+                <ion-icon name="close"></ion-icon> Mark Abusive
+              </div>
+            </li>
+            <li class="comment_reply">
+              <div class="card-link" data-toggle="modal" href="#static">
+                <ion-icon name="add"></ion-icon> Reply
+              </div>
+            </li>
+            
+
+            {% if comment.document %}
+            <li class="comment_downloads">
+              <div class="card-link">
+                <a href="{{ asset('uploads/documents/' ~ comment.document)}}">
+                  <ion-icon name="arrow-down"></ion-icon> Downloads
+                </a>                                            
+              </div>
+            </li>
+            -->
+
+            {% endif %}
+        </div>
+
+
+
+
+
+      
+
+    {# <a class="card-link" href="#" id="like_comment_action">Like</a> #}
+    <!--
+    {% if reply.likes != 0 %}
+      <p>
+        Likes:
+        <span id="reply_like_count_{{reply.id}}">{{ reply.likes }}</span>
+      </p>
+    {% endif %}
+    <button class="card-link" id="reply_like_comment_action" onclick="likeReplyFunction({{ reply.id }})">Like</button>
+
+    <a class="card-link" href="#">Mark Abusive</a>
+    -->
+    </div>
+     </div>
+
+  </div>
+{% endfor %}
+
+<input type="button" id="load" value="Load More Results" onClick="$('.extra_comments').show(); $(this).hide();">
+{% for reply in replies|slice(5) %}
+  <div class="comment_reply_body extra_comments" style="margin-left: 40px; display:none;">
+    <div id="content">
+      <div id="result_para">
+        <header class="comments_header_section text-left">
+          <div class="comment-user"><ion-icon name="contact"></ion-icon></div>
+          <div class="comment-user-name">Guest</div>
+          <time class="comment-date" datetime="{{ comment.createAt|time_diff}}">
+            {{ reply.createAt|time_diff }}
+          </time>
+        </header>
+        <div class="comment-post">
+          {{reply.comment}}
+        </div>
+        <div class="comment_actions">
+          <ul class="comment_action_list">
+            <li class="comment_like card-link" id="reply_like_comment_action" onclick="likeReplyFunction({{ reply.id }})"> <ion-icon name="thumbs-up"></ion-icon> <span id="like_count_{{ comment.id }}">
+                {% if reply.likes != 0 %}
+                  <span id="reply_like_count_{{reply.id}}">{{ reply.likes }}</span>
+                {% endif %}
+              </span>
+            </li>
+            <li class="comment_mark">
+              <div class="card-link" href="#">
+                <ion-icon name="close"></ion-icon> Mark Abusive
+              </div>
+            </li>
+            <li class="comment_undo">
+              <div class="card-link">
+                <ion-icon name="undo"></ion-icon> Undo
+              </div>
+            </li>
+            <!--
+            <li class="comment_mark">
+              <div class="card-link">
+                <ion-icon name="close"></ion-icon> Mark Abusive
+              </div>
+            </li>
+            <li class="comment_reply">
+              <div class="card-link" data-toggle="modal" href="#static">
+                <ion-icon name="add"></ion-icon> Reply
+              </div>
+            </li>
+            
+
+            {% if comment.document %}
+            <li class="comment_downloads">
+              <div class="card-link">
+                <a href="{{ asset('uploads/documents/' ~ comment.document)}}">
+                  <ion-icon name="arrow-down"></ion-icon> Downloads
+                </a>                                            
+              </div>
+            </li>
+            -->
+
+            {% endif %}
+        </div>
+
+
+
+
+
+      
+
+    {# <a class="card-link" href="#" id="like_comment_action">Like</a> #}
+    <!--
+    {% if reply.likes != 0 %}
+      <p>
+        Likes:
+        <span id="reply_like_count_{{reply.id}}">{{ reply.likes }}</span>
+      </p>
+    {% endif %}
+    <button class="card-link" id="reply_like_comment_action" onclick="likeReplyFunction({{ reply.id }})">Like</button>
+
+    <a class="card-link" href="#">Mark Abusive</a>
+    -->
+    </div>
+     </div>
+
+  </div>
+{% endfor %}

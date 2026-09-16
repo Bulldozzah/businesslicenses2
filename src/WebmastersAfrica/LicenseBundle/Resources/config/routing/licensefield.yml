@@ -1,0 +1,29 @@
+managefields:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:index" }
+
+managefields_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:show" }
+
+managefields_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:new" }
+
+managefields_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:create" }
+    requirements: { _method: post }
+
+managefields_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:edit" }
+
+managefields_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:update" }
+    requirements: { _method: post|put }
+
+managefields_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:LicenseField:delete" }

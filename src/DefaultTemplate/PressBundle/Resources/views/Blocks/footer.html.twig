@@ -1,0 +1,123 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+<!-- Footer ================================================== -->
+<footer class="footer_sectionA">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                <h3>{{ 'org-orgnization'|trans }}</h3>
+                <p>
+                    {{ 'org-city'|trans }}.
+                    {{ 'org-address'|trans }}<br>
+                    BRRA General Line: <a href="tel:{{ 'org-telephone'|trans }}">{{ 'org-telephone'|trans }}.</a><br>
+                    Call Center:  <a href="tel:{{ 'org-postaladdress'|trans }}">{{ 'org-postaladdress'|trans }}</a><br>
+                    Website: <a href="http://www.brra.org.zm/" target="_blank">http://www.brra.org.zm</a>
+                </p>
+                <p>
+                    {{ 'copyright'|trans }}
+                    {{ "now"|date('Y') }}
+                    © {{ 'org-orgnization'|trans }}
+                    <br>
+                    {{ 'allrightsreserved'|trans }}.
+                    <a href="/press/29">{{ 'privacypolicy'|trans }}</a>
+                </p>
+                <div id="social_footer">
+                    <ul>
+                        <li class="facebook">
+                            <a href="https://www.facebook.com/businessregulatoryreview2019" target="_blank">
+                                <i class="icon-facebook"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4" id="newsletter">
+                <h3>{{ 'newsletters3'|trans }}</h3>
+                {{ render(controller("WebmastersAfricaPressBundle:Blocks:newsletters")) }}
+            </div>
+            <div class="footer_3 col-md-3 col-sm-3">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li class=""><a href="/contactus">Contact Us</a></li>
+                    <li class=""><a href="/faqs">FAQs</a></li>
+                    <li class=""><a href="/press/10">Useful Links</a></li>
+                    <li>
+                    	<a href="{{path('unsubscription_check')}}">Unsubscribe to Newsletter</a>
+                		</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <!-- The modal -->
+                <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="wm-banner">
+                                    <div class="wm-banner-wrap">
+                                      <div class="rarara">
+                                        <div class="rerere">
+                                          <form action="/search/advanced" class="" method="post" id="search_form" name="search_form">
+                                            <div id="custom-search-input">
+                                              <div class="input-group">
+                                                <button class="close-modal" aria-label="close modal" data-close>✕</button>
+                                                <h3>{{ "License Search"| trans}} </h3>
+                                                <input type="text" name="keywords" class="search-query" id="myTextInput" placeholder="{{ 'findsearchdesc'|trans }}" autofocus="autofocus" autofocus />
+                                                <span class="input-group-btn">
+                                                  <input class="btn_search" type="submit" value="submit"> Search
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                <div class="modal" id="modal1" data-animation="slideInOutLeft">
+                  <div class="modal-dialog">
+                    <section class="modal-content">
+
+                    </section>
+                  </div>
+                </div>
+                -->
+
+            </div>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+</footer>
+<!-- End Footer =============================================== -->
+
+
+<div class="layer"></div>
+<!-- Mobile menu overlay mask -->
+<!--<script type="text/javascript">
+    (document).ready(function(){
+        setFocus();
+        function setFocus () {
+            var input = document.getElementById ("myTextInput");
+            input.focus ();
+            }
+    });
+</script> -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.carousel').carousel({
+      interval: 1200
+    })
+  });
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta name="author" content="{% block siteauthor %}{% endblock %}">
+    <meta name="keywords" content="{% block sitekeywords %}{% endblock %}">
+    <title>{{ site_title }}: {% block page_title %}{% endblock %}</title>
+
+    {% block css %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:css")) }} {% endblock %}
+  </head>
+    <body>
+
+    <!--[if lte IE 8]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
+    <![endif]-->
+
+        <div id="preloader">
+            <div class="sk-spinner sk-spinner-wave" id="status">
+                <div class="sk-rect1"></div>
+                <div class="sk-rect2"></div>
+                <div class="sk-rect3"></div>
+                <div class="sk-rect4"></div>
+                <div class="sk-rect5"></div>
+            </div>
+        </div><!-- End Preload -->
+      <!-- header -->
+      {% block header %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:header")) }} {% endblock %}
+      <!--/header-->
+
+      <!-- Breadcrumb -->
+      <div id="position">
+      <div class="container">
+        <ul>
+          {% block breadcrumb %} {% endblock %}
+        </ul>
+      </div>
+      </div>
+
+      <!-- Content ================================================== -->
+      <div class="container">
+      <div class="row">
+
+      <!-- Page header -->
+      {% block pageheader %} {% endblock %}
+
+      <!-- Content -->
+      {% block fos_user_content %} {% endblock %}
+
+      </div><!-- End row -->
+      </div><!-- End container -->
+      <!-- End Content =============================================== -->
+
+     <!-- footer -->
+      {% block footer %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:footer")) }} {% endblock %}
+      <!--/footer -->
+
+      <!-- js -->
+      {% block js %} {{ render(controller("WebmastersAfricaPressBundle:Blocks:js")) }} {% endblock %}
+      {% block genemu_captcha_javascript %}  {% endblock %}
+
+      <!-- /js -->
+
+  </div>
+<!--/middle-->
+
+  </body>
+</html>

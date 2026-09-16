@@ -1,0 +1,62 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+  {{ site_title }},
+  {{ 'pages.manage_pages' | trans }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>{{ 'pages.pages' | trans }}</h5>
+        <span>{{ 'pages.pages_description' | trans }}</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+
+  <div class="line"></div>
+
+
+  <div class="statsRow">
+
+    <div class="wrapper">
+      <div class="controlC">
+        <ul>
+          <li>
+            <a href="{{ path("managepages_new") }}" title="" class="sButton sGreen" title="" href="#">
+              <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt=""/>
+              <span>{{ 'pages.add_page' | trans }}</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{ path("managepages_deleted") }}" title="" class="sButton sBlue" title="" href="#">
+              <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sTrash.png') }}" alt=""/>
+              <span>{{ 'pages.deleted_pages' | trans }}</span>
+            </a>
+          </li>
+          <!--
+                              <li><a href="{{ path("managemenus_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/hire-me.png') }}" alt="" /><span>{{ 'pages.add_menu' | trans }}</span></a></li>
+                              <li><a href="{{ path("managemenus") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>{{ 'pages.list_menus' | trans }}</span></a></li>
+          					-->
+        </ul>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+

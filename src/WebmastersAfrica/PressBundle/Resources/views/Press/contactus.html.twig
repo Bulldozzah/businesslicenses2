@@ -1,0 +1,120 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+{% block page_title %}
+    {{ 'contactus'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}">{{ 'home'|trans }}</a>
+</li>
+<li>{{ 'contactus'|trans }}</li>
+{% endblock%}
+
+
+{% block pageheader %}
+    <!-- 
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>{{ 'contactus'|trans }}</h4>
+    </div>
+    -->
+{% endblock %}
+
+
+{% form_theme form _self %}
+
+
+{% block body %}
+    <!-- middle -->
+    <div class="col-md-6 col-sm-6 col-xs-12">
+
+        <div class="box_style_2 info flex_in">
+            <h3 class="nomargin_top">{{ 'title1'|trans }}<i class="icon_lock_alt pull-right"></i>
+            </h3>
+            <form class="ajax_form contacts" id="contact_us" action="{{ app.request.basepath }}/contact/send" method="post" autocomplete="off">
+                {% if capture_error %}
+                    <p class="alert alert-danger">Your message has not been sent. Please try again</p>
+                {% endif %}
+                {{ form_errors(form) }}
+                <div class="form-group">
+                    {{ form_widget(form.firstname, { 'attr': {'placeholder': 'Firstname'|trans,'class':'form-control', 'required':'true'} }) }}
+                    <div class="error">
+                        {{ form_errors(form.firstname) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.lastname, { 'attr': {'placeholder': 'Lastname'|trans,'class':'form-control required'} }) }}
+                    <div class="error">
+                        {{ form_errors(form.lastname) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.email, { 'attr': {'placeholder': 'email'|trans,'class':'form-control required'} }) }}
+                    <div class="error">
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.subject, { 'attr': {'placeholder': 'Subject'|trans,'class':'form-control required'} }) }}
+                    <div class="error">
+                        {{ form_errors(form.subject) }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    {{ form_widget(form.message, { 'attr': {'placeholder': 'Your Message ...','class':'form-control required'} }) }}
+                    <div class="error">
+                        {{ form_errors(form.message) }}
+                    </div>
+                </div>
+
+                {{ form_rest(form) }}
+               
+                {# <input type="hidden" name="g-recaptcha-response" id="capture_" value=""> #}
+
+                <div class="clearfix"></div>
+                <input type="submit" id="send_contact_form" value="Send" class="btn btn-primary" />
+                <input type="hidden" name="g-recaptcha-response" value="1">
+            </form>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-6 col-sm-6 col-xs-12" id="sidebar">
+        <div class="box_style_3  map3">
+            <!--<h4 class="nomargin_top">Business Regulatory Review Agency<i class="icon_lock_alt pull-right"></i>
+            </h4>-->
+            <iframe allowfullscreen frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.1002294918435!2d28.30666735024512!3d-15.42514078922906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19408d054419187f%3A0x6dcdad1e367ca5bc!2sBusiness+Regulatory+Review+Agency!5e0!3m2!1sen!2ske!4v1558607482754!5m2!1sen!2ske" style="width: 100%; height: 500px;"></iframe>}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#form_email').clone().attr('type', 'email').insertAfter('#form_email').prev().remove();
+        });
+    </script>
+
+{% endblock %}
+
+{% block google_captacha %}
+    <script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('send_contact_form');
+        btn.disabled = true;
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ recaptacha_client_site }}').then(function(token) {
+                // add token
+                document.querySelector('[name="g-recaptcha-response"]').value = token;
+                btn.disabled = false;
+            });
+        });
+    });
+        
+    </script>
+{% endblock %}

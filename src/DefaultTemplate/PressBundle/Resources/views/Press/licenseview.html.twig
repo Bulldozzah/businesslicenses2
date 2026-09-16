@@ -1,0 +1,523 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% block page_title %}Licenses
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+  <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+</li>
+<li>
+  <a href="/browse/licenses">{{ 'browselicenses'|trans }}</a>
+</li>
+
+<li>{{ 'licensedetails'|trans }}</li>
+{% endblock%}
+
+{% block pageheader %}
+  <div class="col-md-12 col-sm-12 col-xs-12 m-t-20 m-b-20">
+    <a class="form-button form-button-green form-button-small" href="#" onclick="history.go(-1);">
+      <i class="arrow_back"></i>
+      {{ 'backtolist'|trans }}</a>
+  </div>
+  <!-- End sub_content -->
+{% endblock %}
+
+{% block body %}
+  <div class="col-md-9 col-sm-7 col-xs-12">
+    <div class="single-license-box box_style_2 info">
+      <span class="typography">
+        <h3 class="nomargin_top">
+          <a target="_blank" href="{{ app.request.basepath }}/printlicense/id/{{ license.id }}" title="Print" class="anicon">
+            <i class="icon_printer pull-right"></i>
+          </a>
+        </h3>
+        <h3>{{ license.name }}</h3>
+        <div>{{ license.purpose | raw }}</div>
+      </span>
+      <ul class="responsive-tabs nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#collapseOne">{{ 'licenses.fieldnames.licensedetails'|trans }}</a>
+        </li>
+        {% if license.PrincipleLegislation  %}
+        <li>
+            <a data-toggle="tab" href="#collapseFive">{{ 'licenses.fieldnames.legal_basis'|trans }}</a>
+        </li>
+        {% endif %}
+        {% if license.requirements %}
+          <li>
+            <a data-toggle="tab" href="#collapseTwo">{{ 'licenses.fieldnames.licenserequirements'|trans }}</a>
+          </li>
+        {% endif %}
+        {% if license.downloads|length > 0 %}
+        <li>
+          <a data-toggle="tab" href="#collapseThree">{{ 'licenses.fieldnames.downloadablecontent'|trans }}</a>
+        </li>
+        {% endif %}
+        <li>
+          <a data-toggle="tab" href="#collapseFour">{{ 'licenses.fieldnames.licensingagency'|trans }}</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="collapseOne">
+          <div class="panel-group m-b-0">
+            <div class="panel panel-default">
+              <div class="panel-body p-0">
+                <ul class="licensedetailslist">
+                  {% if ('6' in showedfields) and licenseNo|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">{{ 'licenses.fieldnames.licenseno'|trans }}:
+                        </span>
+                        {{ license.licenseNo }}
+                      </div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('20' in showedfields) and license.agency|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.licensingagency'|trans }}:
+                        </span>
+                        {{ license.agency }}
+                      </div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('3' in showedfields) and license.purpose|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.purpose'|trans }}:
+                        </span>
+                        {{ license.purpose | raw }}
+                      </div>
+                    </li>
+                    {% for field in licensefields %}
+                      {% if (field.id == 3 or field.id == 2) and (field.fielddatas|length > 0) %}
+                        <li>
+                          <div aria-hidden="true" class="fs1" data-icon="=">
+                            <span class="license-details-label">
+                              {{ field.fieldlabel }}:
+                            </span>
+                            {% for datafield in fielddatas %}
+                              {% if (datafield.fieldId == field.id) %}
+                                <span>{{ datafield.fielddata }}</span>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+
+                  {% if ('19' in showedfields) and license.location.name|length > 0 %}
+                    {% if license.location is sameas("") %}
+                      <li>
+                        <div aria-hidden="true" class="fs1" data-icon="=">
+                          <span class="license-details-label">
+                            {{ 'licenses.fieldnames.jurisdiction'|trans }}:
+                          </span>
+                          {{ license.location.name }}
+                        </div>
+                      </li>
+                    {% endif %}
+                  {% endif %}
+
+                  {% if ('7' in showedfields) or ('8' in showedfields) %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">Fees And Charges:
+                        </span>
+                      </div>
+                      <ul>
+                        <li>
+                          <div aria-hidden="true" class="fs1" data-icon="=">
+                            <span class="license-details-label">
+                              {{ 'licenses.fieldnames.applicationfee'|trans }}:
+                            </span>
+                            <div class="content-txt">{{ license.applicationFee | raw }}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div aria-hidden="true" class="fs1" data-icon="=">
+                            <span class="license-details-label">
+                              {{ 'licenses.fieldnames.licensefee'|trans }}:
+                            </span>
+                            <div class="content-txt">{{ license.licenseFee | raw }}</div>
+                          </div>
+                        </li>
+                        {% for field in licensefields %}
+                          {% if field.id == 4 and field.fielddatas|length > 0 %}
+                            <li>
+                              <div aria-hidden="true" class="fs1" data-icon="=">
+                                <span class="license-details-label">
+                                  {{ field.fieldlabel }}:
+                                </span>
+                                {% for datafield in fielddatas %}
+                                  {% if (datafield.fieldId == field.id) %}
+                                    <div class="content-txt">{{ datafield.fielddata }}</div>
+                                  {% endif %}
+                                {% endfor %}
+                              </div>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% endif %}
+
+                  {% if ('12' in showedfields) and license.validity|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.validity'|trans }}:
+                        </span>
+                        <div class="content-txt">{{ license.validity }}</div>
+                      </div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('9' in showedfields) and license.maxProcessingTime|length > 0 %}
+                   {# <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">{{ 'licenses.fieldnames.maximumprocessingtime'|trans }}:
+                        </span>
+                        <div class="content-txt">{{ license.maxProcessingTime }}</div>
+                      </div>
+                    </li> #}
+                  {% endif %}
+
+                  {% if ('10' in showedfields) and license.gazettedOn|length > 0 %}
+                    <li>
+                      <span class="license-details-label">
+                        {{ 'licenses.fieldnames.gazettedon'|trans }}:
+                      </span>
+                      <div class="content-txt">{{ license.gazettedOn | date("d-m-Y") }}</div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('11' in showedfields) and license.relatedWebsites|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.relatedwebsites'|trans }}:
+                        </span>
+                        <div class="content-txt">{{ license.relatedWebsites | raw }}</div>
+                      </div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('13' in showedfields) and license.enactment|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.enactment'|trans }}:
+                        </span>
+                        <div class="content-txt">{{ license.enactment | date("d-m-Y") }}</div>
+                      </div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('15' in showedfields) and license.contactOffice|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.contactoffice'|trans }}:
+                        </span>
+                        <div class="content-txt">{{ license.contactOffice  | raw }}</div>
+                      </div>
+                    </li>
+                  {% endif %}
+
+                  {% if ('16' in showedfields) and license.resolutionCriteria|length > 0 %}
+                    <li>
+                      <div aria-hidden="true" class="fs1" data-icon="=">
+                        <span class="license-details-label">
+                          {{ 'licenses.fieldnames.resolutioncriteria'|trans }}:
+                        </span>
+                        <div class="content-txt">{{ license.resolutionCriteria }}</div>
+                      </div>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade in" id="collapseFive">
+          <div class="panel-body">
+            <ul class="licensedetailslist">
+              <li>
+                <div aria-hidden="true" class="fs1" data-icon="=">
+                  <span class="license-details-label">Principle Legislation:
+                  </span>
+                  
+                  {{ license.principleLegislation }}
+
+                  {% if license.principleLegislationAttachment %}
+                  
+                    <span class="pull-right">
+                    <a target="_blank" href="{{ app.request.basepath }}/uploads/documents/{{ license.principleLegislationAttachment }}">Download</a>
+                    </span>
+                  {% endif %}
+                </div>
+              </li>
+              <li>
+                <div aria-hidden="true" class="fs1" data-icon="=">
+                  <span class="license-details-label">Subsidiary Legislation:
+                  </span>
+                  <div class="otb-z">
+                    {% for docs in license.SubsidiaryLegislation %}
+                      {% if docs.filepath %}
+                        <a target="_blank" style="margin-top: 20px;" href="{{ app.request.basepath }}/uploads/documents/{{ docs.filepath }}">
+                          <div class="col-md-4" style="margin-top: 35px;">
+                            <div class="card">
+                              <div class="show-icon text-center" style="width:100%">
+                                  <i class="fa fa-file fa-5x text-success" aria-hidden="true"></i>
+                              </div>
+                              <div class="card-container">
+                                  <p class="text-center">{{ docs.name }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      {% else %}
+                        <div class="content-txt">
+                          {{ docs.name }}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>        
+        <div class="tab-pane fade in" id="collapseTwo">
+          <div class="panel-body">
+            <div aria-hidden="true" class="fs1" data-icon="=">
+              {% if license.requirements %}
+                {{ license.requirements|raw }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade in" id="collapseThree">
+          <div class="panel-body">
+            <div class="row">
+                {% for download in license.downloads %}
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="show-icon text-center" style="width:100%">
+                          <i class="fa fa-file fa-5x text-success" aria-hidden="true"></i>
+                      </div>
+                      <div class="card-container">
+                        <a target="_blank" href="{{ app.request.basepath }}/uploads/documents/{{ download.filepath }}">{{ download.name }}</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade in" id="collapseFour">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="panel-group m-b-0">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a class="accordion-toggle" data-parent="#payment" data-toggle="collapse" href="#collapse{{ license.agency.id }}">{{ license.agency.name }}<i class="indicator icon_plus_alt2 pull-right"></i>
+                      </a>
+                    </h4>
+                  </div>
+                  <div class="panel-collapse collapse in p-10" id="collapse{{ license.agency.id }}">
+                    <ul>
+                      <li>{{ 'phone'|trans }}:
+                        <a href="tel:{{ license.agency.telephone }}">{{ license.agency.telephone }}</a>
+                      </li>
+                      <li>{{ 'physicaladdress'|trans }}:
+                        {{ license.agency.address }}
+                      </li>
+                      <li>{{ 'postaladdress'|trans }}:
+                        {{ license.agency.postalAddress }}
+                      </li>
+                      <li>Jurisdiction:
+                        {{ license.agency.location.name }}
+                      </li>
+                      <li>
+                        <div id='basic-modal'>Email Address:
+                          <a href="mailto:{{ license.agency.email }}" target="_blank">{{ license.agency.email }}</a></div>
+                      </li>
+                      <li>{{ 'website'|trans }}:
+                        <a href="{% if 'http' in license.agency.website %}{{ license.agency.website }}{% else %}http://{{ license.agency.website }}{% endif %}" target="_blank">{{ license.agency.website }}</a>
+                      </li>
+                      <li>{{ 'operatinghours'|trans }}:
+                        {{ license.agency.hours }}
+                      </li>
+
+                      {% if license.agency.mapScan %}
+
+                        <li>{{ 'directions'|trans }}:
+                          <a target="_blank" href="{{ app.request.basepath }}/uploads/map_scans/{{ license.agency.mapScan }}" title="Get Directions" alt="Get Directions" target="_blank">View Directions</a>
+                        </li>
+
+                      {% endif %}
+
+
+                      {% if license.agency.latitude and license.agency.longitude %}
+
+                        <li>{{ 'directions'|trans }}:
+                          <a href="{{ app.request.basepath }}/agency/viewmap/{{ license.agency.id }}" title="View Directions" onclick="Modalbox.show(this.href, {title: this.title, width: 460, afterLoad: function(){initialize({{ license.agency.latitude }}, {{ license.agency.longitude }});}}); return false;">View Directions</a>
+                        </li>
+
+                      {% endif  %}
+                    </ul>
+                  </div>
+                </div>
+
+                {% for agencyoffice in license.agency.agencyoffices %}
+                  <div style="margin-left: 1%;">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a class="accordion-toggle" data-parent="#payment" data-toggle="collapse" href="#collapse{{ agencyoffice.id }}">{{ agencyoffice.name }}<i class="indicator icon_plus_alt2 pull-right"></i>
+                          </a>
+                        </h4>
+                      </div>
+                      <div class="panel-collapse collapse  p-10" id="collapse{{ agencyoffice.id }}">
+                        <div class="tbbd-acc_acc-section">
+                          <div class="tbbd-acc_acc-content">
+                            <ul>
+                              <li>{{ 'phone'|trans }}:
+                                <a href="tel:{{ agencyoffice.telephone }}">{{ agencyoffice.telephone }}</a>
+                              </li>
+                              <li>{{ 'physicaladdress'|trans }}:
+                                {{ agencyoffice.address }}
+                              </li>
+                              <li>{{ 'postaladdress'|trans }}:
+                                {{ agencyoffice.postalAddress }}
+                              </li>
+
+                              <li>
+                                <div id='basic-modal'>{{ 'email'|trans }}:
+                                  <a href="mailto:{{ agencyoffice.email }}" target="_blank">{{ agencyoffice.email }}</a></div>
+                              </li>
+                              <li>{{ 'website'|trans }}:
+                                <a href="{{ agencyoffice.website }}" target="_blank">{{ agencyoffice.website }}</a>
+                              </li>
+                              <li>{{ 'operatinghours'|trans }}:
+                                {{ agencyoffice.hours }}
+                              </li>
+
+
+                              {% if license.agency.mapScan!= '' %}
+
+                                <li>{{ 'directions'|trans }}:
+                                  <a href="{{ app.request.basepath }}/uploads/map_scans/{{ agencyoffice.mapScan }}" title="Get Directions" alt="Get Directions" target="_blank">View Directions</a>
+                                </li>
+
+                              {% endif %}
+
+                              {% if license.agency.latitude and license.agency.longitude %}
+
+                                <li>{{ 'directions'|trans }}:
+                                  <a href="{{ app.request.basepath }}/agency/viewmapoffice/{{ agencyoffice.id }}" title="View Directions" onclick="
+                                  Modalbox.show(this.href, {title: this.title, width: 460, afterLoad: function(){initialize({{ agencyoffice.latitude }}, {{ agencyoffice.longitude }});}}); return false;">View Directions</a>
+                                </li>
+
+                              {% endif  %}
+                            </ul>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+      div i.fa { display: none; }
+      div img { display: block; }
+
+      div.show-icon i.fa {
+        display: inline-block; 
+      }
+      div.show-icon img { display: none; }
+
+      .card {
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.3s;
+          width: 100%;
+          border-radius: 15px;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      }
+
+      .card-container {
+        padding: 2px 16px;
+      }
+      .responsive-tabs-container .tab-pane {
+        margin-bottom: 15px;
+      }
+      .responsive-tabs-container .accordion-link {
+          display: none;
+          margin-bottom: 2px;
+          padding: 10px 15px;
+          background-color: #797979;
+          border-radius: 3px;
+          border: 0px solid #ddd;
+          color: #fff;
+      }
+      @media (max-width: 767px) {
+        .responsive-tabs-container.accordion-xs .nav-tabs {
+          display: none;
+        }
+        .responsive-tabs-container.accordion-xs .accordion-link {
+          display: block;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 991px) {
+        .responsive-tabs-container.accordion-sm .nav-tabs {
+          display: none;
+        }
+        .responsive-tabs-container.accordion-sm .accordion-link {
+          display: block;
+        }
+      }
+      @media (min-width: 992px) and (max-width: 1199px) {
+        .responsive-tabs-container.accordion-md .nav-tabs {
+          display: none;
+        }
+        .responsive-tabs-container.accordion-md .accordion-link {
+          display: block;
+        }
+      }
+      @media (min-width: 1200px) {
+        .responsive-tabs-container.accordion-lg .nav-tabs {
+          display: none;
+        }
+        .responsive-tabs-container.accordion-lg .accordion-link {
+          display: block;
+        }
+      }
+
+  </style>
+
+{% endblock %}
+
+{% block sidebar %}
+  {{ render(controller("WebmastersAfricaPressBundle:Blocks:sidebar")) }}
+{% endblock %}

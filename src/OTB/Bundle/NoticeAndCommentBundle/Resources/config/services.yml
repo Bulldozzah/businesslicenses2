@@ -1,0 +1,7 @@
+parameters:
+#    notice_comment.example.class: OTB\Bundle\NoticeAndCommentBundle\Example
+
+services:
+#    notice_comment.example:
+#        class: %notice_comment.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

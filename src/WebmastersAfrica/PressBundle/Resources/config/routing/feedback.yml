@@ -1,0 +1,46 @@
+managefeedback:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:index" }
+
+managefeedback_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:show" }
+
+managefeedback_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:new" }
+
+managefeedback_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:create" }
+    requirements: { _method: post }
+
+# managefeedback_edit:
+#     pattern:  /{id}/edit
+#     defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:edit" }
+
+managefeedback_reply:
+    pattern:  /{id}/reply
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:reply" }
+
+managefeedback_replied:
+    pattern:  replied
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:replied" }
+
+managefeedback_send:
+    pattern:  /{id}/send
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:send" }
+
+managefeedback_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:update" }
+    requirements: { _method: post|put }
+
+managefeedback_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:delete" }
+    requirements: { _method: post|delete }
+
+batch_feedback:
+    pattern:  /batch
+    defaults: { _controller: "WebmastersAfricaPressBundle:Feedback:batch" }

@@ -1,0 +1,60 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}
+  {{ site_title }},
+                              Edit |
+  {{ entity.name }}
+{% endblock %}
+
+{% block header %}
+  <!-- Title area -->
+  <div class="titleArea">
+    <div class="wrapper">
+      <div class="pageTitle">
+        <h5>Edit -
+          {{ entity.name }}</h5>
+        <span>Edit Business Procedure Details</span>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block body %}
+  <div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon">
+      <h6>
+        Edit -
+        {{ entity.name }}
+      </h6>
+    </div>
+
+    <div class="num">
+      <a href="{{ path('manage_procedures') }}" title="{{ 'news.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red"> {{ 'news.back_to_list' | trans }}</a>
+    </div>
+    {{ form(edit_form) }}
+    </div>
+    <div class="clear"></div>
+  </div>
+
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+      $(document).ready(function () {
+      CKEDITOR.replace("startup_description");
+      CKEDITOR.replace("startup_links");
+      $("#startup_name").addClass("w3-input w3-border w3-round");
+      $("#startup_submit").addClass("w3-button w3-white w3-border w3-border-blue");
+
+    });
+  </script>
+
+{% endblock %}

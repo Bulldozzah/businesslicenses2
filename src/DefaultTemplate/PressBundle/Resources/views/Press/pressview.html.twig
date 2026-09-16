@@ -1,0 +1,46 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% block page_title %}{{ entity.pageTitle }}{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a></li>
+<li>{{ entity.pageTitle }}</li>
+{% endblock%}
+
+{% block pageheader %}
+
+<style type="text/css">
+	div#position {
+	    margin-top: 98px;
+	    background: #002e5b;
+	}
+	div#sidebar {
+	    margin-top: 20px;
+	}	
+	div#position ul li a, div#position ul li {
+	    color: #FFF !important;
+	}
+	#position ul li:first-child::before {
+	    color: rgba(255, 255, 255, 0.52);
+	}	
+</style>
+
+<!-- 
+<div class="col-md-12 col-sm-12 col-xs-12 title">
+    <h4>{{ entity.pageTitle }}</h4>
+</div>
+-->
+{% endblock %}
+
+{% block body %}
+
+<div class="col-md-9 col-sm-7 col-xs-12">
+	<div class="page_content">
+	{{ entity.pageContent | raw }}
+	</div>
+
+</div>
+{% endblock %}

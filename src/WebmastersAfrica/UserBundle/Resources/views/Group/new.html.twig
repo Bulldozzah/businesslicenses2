@@ -1,0 +1,58 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'groups.add_group' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'groups.add_group' | trans }}</h5>
+            <span>{{ 'groups.add_group_description' | trans }}</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+                <a href="{{ path('managegroups') }}" title="Back To List" class="w3-button w3-round-large w3-green w3-hover-teal"><span>{{ 'groups.back_to_list' | trans }}</span></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %} 
+
+<form action="{{ path('managegroups_create') }}" method="post" {{ form_enctype(form) }} class="form">
+{{ form_errors(form) }}
+{{ form_row(form.name) }}
+
+<div class="formRow">
+  <label for="group_roles">{{ 'groups.group_roles' | trans }}</label>  
+  <div class="formRight">
+      <ul>
+          {% for role in roles %}
+              <li><input type="checkbox" name="roles[]" id="role_{{ role.id }}" value="{{ role.roleCode }}"> {{ role.title }} ({{ role.roleCode }})</li>
+          {% endfor %}
+      </ul>
+  </div>
+  <div class="clear"></div>
+</div>
+{{ form_row(form.update, { 'attr': {'class':'w3-right w3-center w3-button w3-blue w3-round-medium', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'} }) }}
+<div style="display: none;">
+  {{ form_rest(form) }}
+</div>
+</form>
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+   <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+    
+</script>
+
+{% endblock %}

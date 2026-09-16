@@ -1,0 +1,76 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Page</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Page_title</th>
+                <td>{{ entity.pagetitle }}</td>
+            </tr>
+            <tr>
+                <th>Page_breadcrumb_title</th>
+                <td>{{ entity.pagebreadcrumbtitle }}</td>
+            </tr>
+            <tr>
+                <th>Page_content</th>
+                <td>{{ entity.pagecontent }}</td>
+            </tr>
+            <tr>
+                <th>Seo_keywords</th>
+                <td>{{ entity.seokeywords }}</td>
+            </tr>
+            <tr>
+                <th>Seo_description</th>
+                <td>{{ entity.seodescription }}</td>
+            </tr>
+            <tr>
+                <th>Page_layout</th>
+                <td>{{ entity.pagelayout }}</td>
+            </tr>
+            <tr>
+                <th>Page_order</th>
+                <td>{{ entity.pageorder }}</td>
+            </tr>
+            <tr>
+                <th>Published</th>
+                <td>{{ entity.published }}</td>
+            </tr>
+            <tr>
+                <th>Deleted</th>
+                <td>{{ entity.deleted }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Contentchanged</th>
+                <td>{{ entity.contentChanged|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('managepages') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('managepages_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

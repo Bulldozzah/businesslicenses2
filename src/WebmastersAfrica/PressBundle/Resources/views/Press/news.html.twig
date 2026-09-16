@@ -1,0 +1,55 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ 'news'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'news_articles'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'news_articles'|trans }}{% endblock %}
+
+{% block body %}
+
+    {% for article in pagination %}
+
+                 <div class="post-item">
+                       
+                        <div class="post_title">
+                            <h3><a href="{{ app.request.basePath }}/news/article/{{ article.id }}">{{ article.title }}</a></h3>
+                        </div>
+                        
+                         <div class = "entry-meta">
+                                                    <span class = "author">{{ 'by'|trans }}: <a href = "#">{{ article.createdBy  }}</a></span>
+                                                    <span class = "separator">|</span>
+                                                    <span class = "tags">{{ 'posted_on'|trans }}:<a href = "#">{{ article.created|date('Y-m-d') }}</a></span>
+                                                </div><!-- .entry-meta -->
+                        
+                         <div class="post-descr">
+                        <p>{{ article.article | truncate(600) | raw }}</p>
+                        <a class="alignright" href="{{ app.request.basePath }}/news/article/{{ article.id }}" class = "more-link">{{ 'read_more'|trans }}...</a>
+                        </div>
+                        
+                        <div class="divider"></div>
+                     
+                   </div>
+
+    {% endfor %}
+
+    <br>
+
+    <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+    </div>
+
+{% endblock %}

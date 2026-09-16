@@ -1,0 +1,68 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'pages.add_page' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'pages.add_page' | trans }}</h5>
+            <span>{{ 'pages.add_page_description' | trans }}</span>
+        </div>
+        <div class="middleNav" style="border: none;">
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>
+      {{ 'pages.add_page' | trans }}
+    </h6>
+
+    <div class="num">
+      <a href="{{ path('managencpages') }}" title="{{ 'pages.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red"><span>{{ 'pages.back_to_list' | trans }}</span></a>
+	  </div>
+    </div>
+
+<form action="{{ path('managencpages_create') }}" method="post" {{ form_enctype(form) }} class="form">
+    {{ form_row(form.page_title) }}
+    {{ form_row(form.page_breadcrumb_title) }}
+    {{ form_row(form.page_content) }}
+    {{ form_row(form.seo_keywords) }}
+    {{ form_row(form.seo_description) }}
+    {{ form_row(form.page_layout) }}
+    {{ form_row(form.url) }}
+    {{ form_row(form.page_order) }}
+    {{ form_row(form.published) }}
+   
+    {{ form_row(form.submit, { 'attr': {'class':'w3-right w3-center w3-button w3-blue w3-round-medium', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'} }) }}
+    <div style="display: none;">
+        {{ form_rest(form) }}
+    </div>
+</form>
+<div class="clear"></div>
+</div>
+<style>
+.error {
+    color: red;
+    font-weight: bold;
+}
+</style>
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+</script>
+{% endblock %}

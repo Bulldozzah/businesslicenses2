@@ -1,0 +1,80 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block page_title %}
+    Login
+{% endblock %}
+{% block body %}
+    <main role="main">
+        <div class="main_auth home_content">
+            <div class="container">
+                <div class="auth_container">
+
+                    <div class="box_style_2 info m-t-20">
+                        <div class="auth-header">
+                            <h3 class="nomargin_top">{{ 'signin'|trans }}
+                                <i class="icon_lock-open_alt pull-right"></i>
+                            </h3>
+                        </div>
+
+                        {% if error %}
+                            <div style="color: #FF0000;">{{ 'error'|trans }}</div>
+                        {% endif %}
+                        <form class="m-t-20 loginform" action="{{ app.request.basepath }}/login_check" method="post">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                            <div class="form-group">
+                                <input name="_username" id="user_login" class="form-control" value="" placeholder="{{ 'username'|trans }}" size="20" tabindex="10" type="text">
+                            </div>
+                            <div class="form-group m-b-5">
+                                <input name="_password" id="user_pass" class="form-control" placeholder="{{ 'password'|trans }}" value="" size="20" tabindex="20" type="password">
+                            </div>
+
+                            <div>
+                                <input class="btn btn-primary " type="submit" name="signin" id="wp-submit" class="btn-submit" value="{{ 'login'|trans }}" tabindex="100">
+                                <a class="btn btn-primary" href="{{ app.request.basepath }}/register" class="btn btn-default my-2 my-sm-0">{{ 'register'|trans }}</a>
+
+
+                                <p class="forget_password text-left">
+                                    <a href="{{ path('fos_user_resetting_request') }}">{{ 'forgotpassword'|trans }}</a>
+                                </p>
+
+                                {# <h4>Or Login using</h4> #}
+
+                                <ul class="login_options">
+                                    {# <li>
+                                        <a class="fb btn btn-primary my-2 my-sm-0" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+                                            <ion-icon name="logo-facebook"></ion-icon> <span>Facebook</span>
+                                        </a>
+                                    </li> #}
+                                   {#  <li>
+                                        <a class="fb btn btn-primary my-2 my-sm-0" href="#">
+                                            <ion-icon name="logo-facebook"></ion-icon> <span>Facebook</span>
+                                        </a>
+                                    </li> #}
+                                    {# <!--
+                                    <li>
+                                        <a class="btn btn-danger my-2 my-sm-0" href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+                                            <span>Google</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-primary my-2 my-sm-0" href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+                                            <span>Twitter</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-primary my-2 my-sm-0" href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+                                            <span>LinkedIn</span>
+                                        </a>
+                                    </li>
+                                    --> #}
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

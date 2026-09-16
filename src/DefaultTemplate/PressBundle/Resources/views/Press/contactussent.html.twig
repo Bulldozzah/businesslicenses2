@@ -1,0 +1,33 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}{{ 'contactus'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a></li>
+<li>{{ 'contactus'|trans }}</li>
+{% endblock%}
+
+
+{% block body %}
+
+	<div class="contact_success_wrapper">
+		<div class="col-md-offset-3 col-md-6">
+			<div class="box_style_2 m-t-20">
+        		<h3 class="nomargin_top align-center">Thank you!</i></h3>
+
+				<div id="confirm">
+					<i class="icon_check_alt2"></i>
+					<h3>Success!</h3>
+					<p>
+						{{ 'contact_success' | trans }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

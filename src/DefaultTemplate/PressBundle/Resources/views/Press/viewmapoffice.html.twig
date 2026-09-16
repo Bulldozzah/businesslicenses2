@@ -1,0 +1,50 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}Agency Map{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a></li>
+<li>{{ agency.name }}</li>
+{% endblock%}
+
+{% block pageheader %}
+<div class="col-md-12 col-sm-12 col-xs-12 title">
+    <h4>{{ agency.name }}</h4>
+</div><!-- End sub_content -->
+{% endblock %}
+
+{% block body %}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="license_panel">
+
+  <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        var myLatLng = {lat: {{ agency.latitude }}, lng: {{ agency.longitude }}};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 16
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: "{{ agency.name }}"
+        });
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANDTHaul50qaZJjOGR0Uecsc_DHRWJ9-E&callback=initMap"
+    async defer></script>
+
+  </div>
+</div>
+
+{% endblock %}

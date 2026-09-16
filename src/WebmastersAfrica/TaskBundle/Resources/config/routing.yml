@@ -1,0 +1,3 @@
+WebmastersAfricaTaskBundle_managetasks:
+        resource: "@WebmastersAfricaTaskBundle/Resources/config/routing/task.yml"
+        prefix:   /login-admin/managetasks

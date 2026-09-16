@@ -1,0 +1,22 @@
+{% extends 'WebmastersAfricaAdminBundle:Default:metronic_base.html.twig' %}
+
+{% block metronic_title %}
+<title>Zambia | Eregistry portal - Password Reset Successful </title>
+{% endblock %}
+
+{% block metronic_content %}
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="content">
+	<!-- password already sent -->
+    <div class="alert alert-info">
+			<span>
+    <p>Password Changed successfuly. Take me to
+  <a href="{{ app.request.basepath }}/login-admin/login" id="login-password" class="btn btn-warning">login</a>
+			
+    </p>
+    </span>
+    </div>
+    	
+	
+</div>
+{% endblock %}

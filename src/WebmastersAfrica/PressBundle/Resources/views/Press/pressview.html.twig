@@ -1,0 +1,23 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% block page_title %}{{ entity.pageTitle }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">{{  'home' | trans }}</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ entity.pageTitle }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ entity.pageTitle }}{% endblock %}
+
+{% block body %}   
+{{ entity.pageContent | raw }}
+{% endblock %}

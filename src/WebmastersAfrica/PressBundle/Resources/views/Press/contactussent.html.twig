@@ -1,0 +1,39 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.full.html.twig' %}
+
+{% block page_title %}{{ 'contactus'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'contactus'|trans }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ 'contactus'|trans }}{% endblock %}
+
+{% block body %}
+<!-- middle -->
+<div class="white-background">
+    <div class="container ">
+        <div id="middle" class="cols2 sidebar_left box_white">
+            <!-- content -->
+            <div class="content" role="main">
+            
+				{{ 'contact_success' | trans }}
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}{{ page.seoKeywords }}{% endblock %}
+{% block sitetitle %}{{ page.pageTitle }}{% endblock %}
+{% block sitedescription %}{{ page.seoDescription }}{% endblock %}
+{% block sitetwitterdescription %}{{ page.seoDescription }}{% endblock %}
+{% block sitetwittertitle %}{{ page.pageTitle }}{% endblock %}
+{% block sitetwitterurl %}{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}{% endblock %}
+{% block page_title %}{{ page.pageTitle }}{% endblock %}
+
+{% block body %}
+  <main class="single" role="main">
+    <div class="jumbotronZ clearfix">
+      <div class="container text-left">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <div class="jumboZ_in_2 jumboZ_in">
+              <div class="text-center">
+                <h2>{{page.pageTitle }}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home_content full_width">
+      <div class="container">
+        <div class="row clearfix">
+          <div class="archive_main_content col-md-12 clearfix">
+              <div class="home_content_A">
+
+                <div class="accordion" id="accordionExample">
+                {% for faq in pagination %}
+                  <div class="card">
+                    <div class="card-header" id="heading{{ faq.id }}">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ faq.id }}" aria-expanded="true" aria-controls="collapseOne">
+                          <b> {{ faq.question }}</b>
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div id="collapse{{ faq.id }}" class="collapse" aria-labelledby="heading{{ faq.id }}" data-parent="#accordionExample">
+                      <div class="card-body">
+                        {{ faq.answer | raw }}
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+                <div class="alert alert-tip m-b-0">
+                  <i class="icon_error-oct_alt"></i> {{ 'ask'|trans }}
+                  <a href="{{ app.request.basepath }}/notices/faqs/ask" onclick="Modalbox.show(this.href, {title: this.title, width: 600}); return false;">
+                    <font color='blue'>{{ 'here'|trans }}</font>
+                  </a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+{% endblock %}

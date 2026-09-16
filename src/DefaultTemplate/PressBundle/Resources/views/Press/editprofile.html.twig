@@ -1,0 +1,44 @@
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+{% block page_title %}
+    {{ 'edit_profile'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+<li>
+    <a href="{{ app.request.basepath }}/index.php">{{ 'home'|trans }}</a>
+</li>
+<li>{{ 'edit_profile'|trans }}</li>
+{% endblock%}
+
+
+{% block pageheader %}
+    <div class="col-md-12 col-sm-12 col-xs-12 title">
+        <h4>{{ 'edit_profile'|trans }}</h4>
+    </div>
+    {% for flashMessage in app.session.flashbag.get('update') %}
+        <div>
+            <p class="alert alert-success">
+                {{ flashMessage}}
+            </p>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-9 col-sm-6 col-xs-12">
+        <div class="box_style_2 info">
+            <form id="form-comments" action="{{ app.request.basepath }}/editprofile" {{ form_enctype(form) }} method="POST">
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.lastName) }}
+                {{ form_widget(form) }}
+                <div>
+                    <input type="submit" id="wp-submit" class="form-button form-button-default" value="{{ 'profile.edit.submit'|trans }}">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock body %}

@@ -1,0 +1,8 @@
+{% trans_default_domain 'WebmastersAfricaUserBundle' %}
+
+<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form">
+    {{ form_widget(form) }}
+    <div class="formRow">
+        <button type="submit"  class="basic mr5 mb15">{{ 'profile.edit.submit'|trans }}</button>
+    </div>
+</form>

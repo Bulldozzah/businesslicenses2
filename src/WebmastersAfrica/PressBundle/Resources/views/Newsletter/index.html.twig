@@ -1,0 +1,112 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'newsletters.manage_newsletters' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'newsletters.newsletters' | trans }}</h5>
+            <span>{{ 'newsletters.newsletters_description' | trans }}</span>
+        </div>
+        <div class="controlB"> 
+                <div>       
+                    <a href="{{ path("managenewsletters_new") }}" title="" class="w3-button w3-round-large w3-teal w3-large"><i class="fa fa-plus"></i><span> {{ 'newsletters.add_newsletter' | trans }}</span></a>
+                    </div>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'newsletters.list_newsletters' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_newsletters") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable w3-table-all w3-card-4" id="news_letter_table">
+        <thead>
+            <tr class="w3-pale-blue">
+                <td width="3%"><div>&middot;&middot;&middot;</div></td>
+                <td width="3%"><div>#<span></span></div></td>
+                <td class="sortCol"><div>{{ 'newsletters.subject' | trans }}</div></td>
+                <td align="center" width="40px">{{ 'newsletters.sent' | trans }}</td>
+                <td align="center" width="40px">{{ 'newsletters.actions' | trans }}</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                <td><a href="{{ path('managenewsletters_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.subject }}</td>
+                <td align="center">{% if entity.sent == true %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Sent"></span>
+                {% else %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Sent"></span>
+                {% endif %}
+                </td>
+                <td>
+              <ul>
+                  <li>
+                       <a href="{{ path('managenewsletters_edit', { 'id': entity.id }) }}" title="{{ 'newsletters.edit' | trans }}" class="smallButton">
+                       <img alt="Edit" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+                       </a>
+                  </li>
+              </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <thead>
+             <tr style="border-top:1px solid #CDCDCD">
+                <td colspan="5" style="padding:10px;">
+                    <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){  if(confirm('{{ 'newsletters.batch_confirm_1' | trans }} ' + this.value + ' {{ 'newsletters.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                        <option>{{ 'newsletters.select_batch' | trans }}...</option>
+                        <option value="delete">{{ 'newsletters.delete' | trans }}</option>
+                    </select>
+                </td>
+            </tr>
+        </thead>
+    </table>
+    </form>
+</div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+    {% endblock %}
+
+{% block stylesheet_2 %}
+    <script>
+        $(document).ready(function () {
+            $('#news_letter_table').DataTable();
+        });
+    </script>
+{% endblock %}
+
+

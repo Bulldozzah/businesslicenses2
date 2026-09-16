@@ -1,0 +1,172 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block page_title %}
+    Notice-and-Comment | Regulations List
+{% endblock %}
+{% block body %}
+    <main class="archive" role="main">
+        <div class="jumbotronX">
+
+            <div class="container">
+                <div class="jumboZ_in_2 jumboZ_in">
+                    <div class="single_post_details">
+                    <h1 class="display-3 text-center">
+                        <span>{{ agency.name }}</span>
+                    </h1>
+                    <p class="text-center"><span>Email: - {{ agency.email }}</span> / 
+                        <span>Website - <a href="{{ agency.website }}" target="_blank">{{ agency.website }}</a></span> / 
+                       <span>Address - {{ agency.address }}</span></p>
+                      
+                      {% if subscribed %}
+                        <p id="subscribe_button_area" class="text-center">
+                          <a href="#" id="subscribe_button" class="btn btn-danger btn-sm" title="unsubscribe from this agency to stop receiving updates for new regulations">Unsubcribe from this agency</a>
+                        </p>
+                      {% else %}
+                        <p id="subscribe_button_area" class="text-center">
+                          <a href="#" id="subscribe_button" class="btn btn-success btn-sm" title="subscribe to this agency to receive updates for new regulations">Subscribe to this agency</a>
+                        </p>
+                      {% endif %}
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_main_content col-md-12 clearfix">
+                        <div
+                            class="home_content_A">
+                            {# End top Trending Regulation #}
+                            <div class="home_content_A_in">
+                                <div class="home_right pull_right pagination_B">
+                                    <ul class="nav nav-pills nav-pills_C">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#">Consultations<i class="badge badge-danger badge-pill">{{ agency.regulations|length }}</i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('show_forward_plans', {'slug': agency.slug })}}">Forward Plans
+                                              <i class="badge badge-danger badge-pill">{{ agency.forwardPlans|length }}</i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('agency_business_licenses', {'slug': agency.slug}) }}">Business Licenses
+                                              <i class="badge badge-danger badge-pill">{{ agency.licenses|length }}</i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <div class="archive_main_content col-md-12 clearfix">
+                                <div class="home_content_A">
+                                    <div class="tab-content">
+                                    <div class="tab-pane container active" id="all">
+                                       
+                                        {% if agency.regulations|length > 0 %}
+                                            {% for regulation in agency.regulations %}
+                                                <div class="box_1">
+                                                    <a href="/consultation/regulations/{{regulation.slug}}/comments">
+                                                        <ul class="box_heading">
+                                                          <li class="box_title">
+                                                            <h3>{{ regulation.title }}</h3>
+                                                          </li>
+                                                          <li class="box_comments">
+                                                            <h4>
+                                                              <ion-icon name="chatboxes"></ion-icon>
+                                                            </h4>
+                                                            <p>{{regulation.comments|length }}</p>
+                                                          </li>
+                                                        </ul>
+                                                      
+
+                                                        <div class="box_1_items row clearfix">
+                                                          <div class="box_1_A col-md-1">
+                                                            <figure class="box_1_image">
+                                                              <img src="{{ asset('bundles/OTB/notice/img/holder.png') }}">
+                                                            </figure>
+                                                          </div>
+                                                          <div class="box_1_B col-md-11">
+                                                            <table class="box_details">
+                                                              <tr>
+                                                                <th>Agency</th>
+                                                                <td class="text-primary">
+                                                                  {{ regulation.agency.name }}
+                                                                </td>
+                                                              </tr>
+                                                              <tr>
+                                                                <th>Period</th>
+                                                                <td>{{ regulation.publishDate | date("M d Y", false) }}
+
+                                                                  -
+                                                                  {{ regulation.closingDate | date("M d Y", false)}}</td>
+
+                                                              </tr>
+                                                            </table>
+                                                            <table class="box_details">
+                                                              <tr>
+                                                                <th>Status</th>
+                                                                <td class="badge badge-danger badge-pill">{{ regulation.consultationStage }}</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <th>Industry</th>
+                                                                {% if regulation.industry %}
+                                                                  <td>{{ regulation.industry.name }}</td>
+                                                                {% endif %}
+                                                              </tr>
+                                                            </table>
+                                                          </div>
+                                                          <div class="col-md-6"></div>
+                                                        </div>
+                                                      </a>
+                                                    </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p class="alert alert-danger">No Results Found</p>
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block comments %}
+    <script type="text/javascript">
+    $("#subscribe_button").click(function () {
+          let loading = `<a href="#" class="btn btn-success btn-sm disabled" title="Thank you for subscribing"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+          $("#subscribe_button_area").html(loading);
+          let url = "{{ path('agency_subscribe_for_regulations') }}";
+          let agency = "{{ agency.id }}";
+          $.ajax({
+            type: "post",
+            url: url,
+            data: {"agency": agency},
+            success: function(response) {
+              let response_obj = JSON.parse(response);
+              if (response_obj.success) {
+                console.log(response_obj.success);
+                let success = '';
+                if (response_obj.sub) {
+                  success = `<a href="#" class="btn btn-success btn-sm disabled" title="Thank you for subscribing"><ion-icon name="checkbox-outline"></ion-icon> Thank you for subscribing</a>`;
+                  $("#subscribe_button_area").html(success);
+                } else {
+                  success = `<a href="#" class="btn btn-success btn-sm disabled" title="Unsubscribed Successfully"><ion-icon name="checkbox-outline"></ion-icon> Unsubscribed Successfully</a>`;
+                  $("#subscribe_button_area").html(success);
+                }
+                
+              } else {
+                $("#subscribe_button_area").html(response_obj.message);
+              }
+            }
+          });
+        });
+    </script>
+{% endblock %}

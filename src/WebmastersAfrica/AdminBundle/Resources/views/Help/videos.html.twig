@@ -1,0 +1,34 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaAdminBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'help.help_videos' | trans }} {% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'help.help_videos' | trans }}</h5>
+            <span>{{ 'help.help_videos_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}   
+<!-- Widgets -->
+<div class="widgets">
+     <!-- Headings -->
+    <div class="widget">
+        <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/clipboard.png') }}" alt="" class="titleIcon" /><h6>{{ 'help.help' | trans }}</h6></div>
+        <div class="body">
+            <h1 class="pt10">MasterLMIS Video Tutorials</h1><p>Vivamus non <a href="#" title="">massa eu massa</a> ornare vulputate id ac velit. <strong>Pellentesque nunc nulla</strong>, faucibus at pretium eu, fringilla ut dui. </p>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

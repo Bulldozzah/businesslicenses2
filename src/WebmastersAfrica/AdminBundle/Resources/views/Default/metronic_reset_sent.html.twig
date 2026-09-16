@@ -1,0 +1,20 @@
+{% extends 'WebmastersAfricaAdminBundle:Default:metronic_base.html.twig' %}
+
+{% block metronic_title %}
+<title>Zambia | Eregistry portal - Password recovery instructions </title>
+{% endblock %}
+
+{% block metronic_content %}
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="content">
+	<!-- password already sent -->
+    <div class="alert alert-info">
+			<span>
+    <p>We have sent reset instructions to {{email}}. Please check this email for instructions on changing your password.</p>
+    </span>
+    </div>
+    	<a href="{{ app.request.basepath }}/login-admin/login" id="forget-password" class="btn btn-warning">Take me to Homepage</a>
+			
+	
+</div>
+{% endblock %}

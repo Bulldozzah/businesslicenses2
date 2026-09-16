@@ -1,0 +1,143 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'custom_regulation_fields.custom_regulation_fields' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'custom_regulation_fields.custom_regulation_fields' | trans }}</h5>
+            <span>{{ 'custom_regulation_fields.custom_field_description' | trans }}</span>
+        </div>
+		<div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="line"></div>
+
+
+<div class="statsRow">
+<div class="wrapper w3-center">
+  <div class="w3-show-inline-block">
+    <div class="w3-bar">
+                 
+		<a href="{{ path("manageregulationcustomfields_new") }}" title="" class="w3-button w3-hover-teal w3-round-large w3-green w3-medium" title="" href="#">
+	    <img alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/sPlus.png') }}" alt="" />
+		<span>{{ 'custom_regulation_fields.add_new_custom_field' | trans }}</span>
+		</a>
+		    
+        <div class="clear"></div>
+    </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</div>
+
+
+
+{% endblock %}
+
+{% block body %} 
+
+{% for flashMessage in app.session.flashbag.get('update') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.updated_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('delete') %}
+    <div class="nNote nSuccess hideit">
+		<p>
+			<strong>Success: </strong>
+        {{ 'licenses.deleted_item_notice' | trans }}
+        </p>
+    </div>
+{% endfor %}
+
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>{{ 'custom_regulation_fields.list_of_fields' | trans }}</h6></div>
+        <form id="batch_form" name="batch_form" action="{{ path("batch_regulation_customfields") }}" method="post">
+        <table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable" id="license_field">
+        <thead>
+            <tr>
+                <td width="40"><div>&middot;&middot;&middot;</div></td>
+                <td width="40"><div>#</div></td>
+                <td>{{ 'custom_regulation_fields.label' | trans }}</td>
+                <td>{{ 'custom_regulation_fields.type' | trans }}</td>
+                <td width="40">{{ 'custom_regulation_fields.order' | trans }}</td>
+                <td width="40">{{ 'custom_regulation_fields.showed' | trans }}</td>
+                <td width="40">{{ 'custom_regulation_fields.actions' | trans }}</td>
+            </tr>
+        </thead>
+         <tfoot>
+            <tr>
+                <td colspan="7">
+                	<div class="itemActions">
+					  <select id="batch_select" name="batch_select" onChange="if(atLeastOne()){ if(confirm('{{ 'custom_regulation_fields.batch_confirm_1' | trans }} ' + this.value + ' {{ 'custom_regulation_fields.batch_confirm_2' | trans }}')){ document.getElementById('batch_form').submit(); } }">
+                        <option>{{ 'custom_regulation_fields.select_batch' | trans }}...</option>
+                        <option value="delete">{{ 'custom_regulation_fields.delete' | trans }}</option>
+                      </select>
+                    </div>
+                    {{ knp_pagination_render(pagination) }}
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+        {% for entity in pagination %}
+            <tr>
+                <td><input type="checkbox" name="batch_items[]" value="{{ entity.id }}"></td>
+                <td align="center"><a href="{{ path('manageregulationcustomfields_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.fieldlabel }}</td>
+                <td>
+                {% if entity.fieldtype == 1 %}
+                Text
+                {% elseif entity.fieldtype == 2 %}
+                Dropdown
+                {% elseif entity.fieldtype == 3 %}
+                Textarea
+                {% endif %}
+                </td>
+                <td align="center"><span class="smallButton"><strong>{{ entity.order }}</strong></span></td>
+                <td align="center">
+                {% if entity.showed == true %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/check.png') }}" alt="Showed"></span>
+                {% else %}
+                <span class="smallButton"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/close.png') }}" alt="Not Showed"></span>
+                {% endif %}
+                </td>
+                <td>
+                <ul>
+                    <li>                        
+                         <a href="{{ path('manageregulationcustomfields_edit', { 'id': entity.id }) }}" class="smallButton">
+							<img alt="{{ 'custom_regulation_fields.edit' | trans }}" src="{{ asset('bundles/webmastersafricaadmin/images/icons/color/pencil.png') }}">
+						</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+       
+        </tbody>
+    </table>
+    </form>
+</div>
+</div>
+    {% endblock %}
+
+{% block stylesheet_2 %}
+<script>
+    $(document).ready( function () {
+      $('#license_field').DataTable();
+      // $(".dataTables_filter input").addClass("w3-input w3-border w3-animate-input");
+    } );
+  </script>
+{% endblock %}

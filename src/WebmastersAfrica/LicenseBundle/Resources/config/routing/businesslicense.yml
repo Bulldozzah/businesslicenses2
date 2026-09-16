@@ -1,0 +1,53 @@
+managelicenses:
+    pattern:  /
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:index" }
+
+managelicenses_all:
+    pattern:  /all/licenses
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:showAllLicenses" }
+
+managelicenses_all_unpublished:
+    pattern:  /unpublished/licenses
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:showUnpublishedLicenses" }
+
+managelicenses_show_details:
+    pattern:  /my-licenses
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:index" }
+
+managelicenses_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:show" }
+
+managelicenses_new:
+    pattern:  /new
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:new" }
+
+managelicenses_create:
+    pattern:  /create
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:create" }
+    requirements: { _method: post }
+
+managelicenses_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:edit" }
+
+managelicenses_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:update" }
+    requirements: { _method: post|put }
+
+managelicenses_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:delete" }
+
+managelicense_workflow:
+    pattern: /workflow/{id}/licenses
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:index" }
+
+managelicense_decline_task:
+    pattern: /declined/{id}/gettask
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:getDeclinedTaskForThisLicense" }
+
+managelicense_move_license_to:
+    pattern: /move/license/{id}/to/{stage_id}
+    defaults: { _controller: "WebmastersAfricaLicenseBundle:BusinessLicense:moveLicenseToAnotherStage"}

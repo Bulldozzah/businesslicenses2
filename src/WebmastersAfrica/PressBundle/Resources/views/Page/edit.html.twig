@@ -1,0 +1,68 @@
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'pages.edit_page' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'pages.edit_page' | trans }}</h5>
+            <span>{{ 'pages.edit_page_description' | trans }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="widget">
+    <div class="title"><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/frames.png') }}" alt="" class="titleIcon" />
+    <h6>
+      {{ 'pages.edit_page' | trans }}
+    </h6>
+    <div class="num">
+	     <a href="{{ path('managepages') }}" title="Back to list" class="greyNum w3-button w3-round-large w3-hover-red">Back to web pages</a>
+	  </div>
+    </div>
+
+ <form action="{{ path('managepages_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form">
+        <input type="hidden" name="_method" value="PUT" />
+        {{ form_errors(edit_form) }}
+		{{ form_row(edit_form.page_title) }}
+        {{ form_row(edit_form.page_breadcrumb_title) }}
+        {{ form_row(edit_form.page_content) }}
+        {{ form_row(edit_form.seo_keywords) }}
+        {{ form_row(edit_form.seo_description) }}
+        {{ form_row(edit_form.page_layout) }}
+        {{ form_row(edit_form.url) }}
+        {{ form_row(edit_form.page_order) }}
+        {{ form_row(edit_form.published) }}
+
+        {{ form_row(edit_form.update, { 'attr': {'class':'w3-right w3-center w3-button w3-blue w3-round-medium', 'style':'padding: 10px 30px 30px 30px; margin-right:15px;'} }) }}
+        <div style="display: none;">
+            {{ form_rest(edit_form) }}
+        </div>
+</form>
+        <div>
+		{% if entity.deleted == 1 %}
+			<a href="{{ path('managepages_restore', { 'id': entity.id }) }}" class='w3-left w3-center w3-button w3-red w3-round-medium'>Restore Page</a>
+		{% else %}
+			<a href="{{ path('managepages_delete', { 'id': entity.id }) }}" onClick="return confirm('{{ 'pages.are_you_sure_delete' | trans }}');" class='w3-left w3-center w3-button w3-red w3-round-medium'>Delete Page</a>
+		{% endif %}
+    	</div>
+<div class="clear"></div>
+</div>
+
+<script src="{{ asset('bundles/webmastersafricapress/new/assets/validate.js') }}"></script>
+      <script language="javascript">
+
+      $(".label-required").append("<i style='color: red;'>*</i> ")
+      $(".form").validate();
+    // Requirements
+</script>
+{% endblock %}

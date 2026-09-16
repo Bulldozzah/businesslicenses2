@@ -1,0 +1,30 @@
+setting:
+  pattern: /
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:index" }
+
+setting_show:
+  pattern: /{id}/show
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:show" }
+
+setting_new:
+  pattern: /new
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:new" }
+
+setting_create:
+  pattern: /create
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:create" }
+  requirements: { _method: post }
+
+setting_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:edit" }
+
+setting_update:
+  pattern: /{id}/update
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:update" }
+  requirements: { _method: post|put }
+
+setting_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: "WebmastersAfricaUserBundle:Setting:delete" }
+  requirements: { _method: post|delete }

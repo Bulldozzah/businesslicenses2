@@ -1,0 +1,184 @@
+#Top Navigation Bar
+topbar:
+    #Non-Responsive
+    welcome: Bem-vindo
+    profile: Perfil
+    tasks: Tarefas
+    messages:
+        messages_title: Mensagens
+        new_message: Nova Mensagem
+        inbox: Caixa de entrada
+        outbox: Caixa de saída
+        trash: Lixo
+    languages: Língua
+    settings: Configurações
+    logout: Sair
+
+dashboard:
+    page_title: Painel de instrumentos
+
+    header_title: Painel de instrumentos
+    header_description: Bem-vindo ao seu portal de informação de licenciamento comercial.
+
+    website_statistics:
+        title: Estatísticas do site
+        stats: Estatísticas
+        description: Descrição
+        changes: Mudanças
+
+        published_licenses: Published Licenses
+        unpublished_licenses: Unpublished Licenses
+        locations: Locations
+        industries: Industries
+        business_types: Business Types
+        activities: Activities
+        agencies: Agencies
+        feedback: Feedback
+        news: News
+        newsletters: Newsletters
+        newsletter_subscribers: Newsletter Subscribers
+        users: Users
+        groups: Groups
+
+    my_tasks:
+        title: Minhas Tarefas
+        description: Descrição
+        status: Estado
+        acts: Ação
+
+    new_licenses: As novas licenças
+
+    new_users: Novos usuários
+
+    latest_updates:
+        title: Últimas atualizações
+        create: Criar
+        update: Atualizar
+        remove: Remover
+        action: Ação
+        by: Por
+
+    search: Digite o texto de pesquisa ...
+
+sidebar:
+    search: Pesquisar ...
+
+    dashboard: Painel de instrumentos
+    manage_licenses:
+        title: Gerenciar Licenças
+        licenses: Licenses
+        published: Publicado
+        unpublished: inédito
+        locations: Locais
+        industries: Indústrias
+        business_types: Tipos de negócios
+        activities: Atividades
+        agencies: Agências
+        feedback: Feedback
+        fixed_license_fields: Campos Licença Fixa
+        custom_license_fields: Campos Licença Personalizada
+
+    manage_regulations:
+        title: Manage Regulations
+
+    manage_content:
+        title: Gerenciar conteúdos
+        pages: Páginas
+        menus: Menus
+        news: Notícia
+        newsletters: Boletim informativo
+        subscribers: Boletim informativo de Inscritos
+        faqs: Perguntas Frequentes
+        languages: Idiomas
+
+    manage_security:
+        title: Gerenciar segurança
+        users: Usuários
+        groups: Grupos
+        logs: Logs
+        settings: Configurações
+
+    help:
+        title: Ajudar
+        manuals: Manuais do usuário
+        videos: Tutoriais em vídeo
+
+help:
+    help_manuals: Help Manuals
+    help_manuals_description: Read the official MasterLMIS user manual
+    help: Help
+
+    help_videos: Help Videos
+    help_manuals_description: Watch step-by-step video tutorials to help you learn the system
+
+search:
+    search: Search
+    search_description: Search items in the backend portal
+    enter_search_term: Enter Search Term
+
+    licenses:
+        licenses: Licenses
+        name: Name
+        purpose: Purpose
+        description: Description
+        agency: Agency
+        status: Status
+        universal: Universal
+        views: Views
+        actions: Actions
+    locations:
+        locations: Locations
+        name: Name
+        is_default: Is Default
+        actions: Actions
+    industries:
+        industries: Industries
+        name: Name
+        description: Description
+        business_types: Business Types
+        actions: Actions
+    business_types:
+        business_types: Business Types
+        name: Name
+        description: Description
+        industry: Industry
+        is_common: Is Common
+        actions: Actions
+    activities:
+        activities: Activities
+        name: Name
+        description: Description
+        business_types: Business Types
+        licenses: Licenses
+        actions: Actions
+    frequently_asked_questions:
+        frequently_asked_questions: Frequently Asked Questions
+        question: Question
+        answer: Answer
+        published: Published
+        actions: Actions
+    pages:
+        pages: Pages
+        page_title: Page Title
+        published: Published
+        actions: Actions
+    news:
+        news: News
+        title: Title
+        hits: Hits
+        published: Published
+        actions: Actions
+    newsletters:
+        newsletters: Newsletters
+        subject: Subject
+        sent: Sent
+        actions: Actions
+    users:
+        users: Users
+        first_name: First Name
+        last_name: Last Name
+        email: Email Address
+        username: Username
+        actions: Actions
+    no_results: No Results Found
+    could_not_find: Sorry. Could not find any records matching

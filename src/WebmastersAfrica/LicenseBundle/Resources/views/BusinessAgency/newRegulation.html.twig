@@ -1,0 +1,14 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{{ 'hi'|trans }} {{ user }}, 
+{% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+
+<p><b>{{ agency.name }}</b>, Has created a new regulation. <b>{{ regulation.title }}</b></p>
+<p><a class="btn btn btn-success" href="{{ path ~ path('regulation_comments', {'slug': regulation.slug })}}">Link to Consultation </a></p>
+<p>
+	Click <a class="btn btn-sm btn-primary" href="{{ path ~ path('show_regulations_per_agency', {'slug': agency.slug }) }}">Here</a> to learn see more consultations for this agency.
+</p>
+
+{{ 'regards'|trans }}
+{{ 'team'|trans }}

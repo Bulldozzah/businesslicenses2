@@ -1,0 +1,32 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaMessageBundle' %}
+
+{% block page_title %}{{ site_title }}, {{ 'messages.outbox' | trans }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{ 'messages.outbox' | trans }}</h5>
+            <span>{{ 'messages.outbox_description' | trans }}</span>
+        </div>
+        <div class="controlB">
+                <ul>
+                    <li><a href="{{ path("fos_message_thread_new") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/plus.png') }}" alt="" /><span>{{ 'messages.new_message' | trans }}</span></a></li>
+                    <li><a href="{{ path("fos_message_inbox") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>{{ 'messages.inbox' | trans }}</span></a></li>
+                    <li><a href="{{ path("fos_message_deleted") }}" title=""><img src="{{ asset('bundles/webmastersafricaadmin/images/icons/control/32/order-149.png') }}" alt="" /><span>{{ 'messages.deleted' | trans }}</span></a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+{% include 'FOSMessageBundle:Message:threads_list.html.twig' with {'threads': threads} %}
+
+{% endblock %}

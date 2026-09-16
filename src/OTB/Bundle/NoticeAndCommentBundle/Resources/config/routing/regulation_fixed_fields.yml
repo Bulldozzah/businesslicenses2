@@ -1,0 +1,30 @@
+regulation_managefixedfields_index:
+    pattern:  /
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:index" }
+
+regulation_managefixedfields_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:show" }
+
+regulation_managefixedfields_new:
+    pattern:  /new
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:new" }
+
+regulation_managefixedfields_create:
+    pattern:  /create
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:create" }
+    requirements: { _method: post }
+
+regulation_managefixedfields_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:edit" }
+
+regulation_managefixedfields_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:update" }
+    requirements: { _method: post|put }
+
+regulation_managefixedfields_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NoticeCommentBundle:RegulationFixedFields:delete" }
+    requirements: { _method: post|delete }

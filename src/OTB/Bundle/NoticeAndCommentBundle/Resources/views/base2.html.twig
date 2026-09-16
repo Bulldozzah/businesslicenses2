@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+  <html
+  class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta property="og:url" content="http://www.businesslicenses.gov.zm{{ currentPath }}"/>
+    <meta property="og:type" content="website"/>
+    <meta name="description" content="Unified Notice-and-Comment Consultation Portal"/>
+    <meta property="og:title" content="{% block sitetitle %}{% endblock %}"/>
+    <meta property="og:description" content="{% block sitedescription %}{% endblock %}"/>
+    <meta property="og:image" content="http://www.businesslicenses.gov.zm/bundles/OTB/notice/img/banner.jpg"/>
+    <meta property="og:locale" content=""/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@otbafrica"/>
+    <meta name="twitter:creator" content="@otbafrica"/>
+    <meta property="twitter:title" content="{% block sitetwittertitle %}{% endblock %}"/>
+    <meta property="twitter:description" content="{% block sitetwitterdescription %}{% endblock %}"/>
+    <meta property="twitter:url" content="{% block sitetitleurl %}{% endblock %}"/>
+    <meta property="twitter:image" content="http://www.businesslicenses.gov.zm/bundles/OTB/notice/img/banner.jpg"/>
+    <meta name="keywords" content="{% block sitekeywords %}{% endblock %}">
+    <title>
+      {% block page_title %}{% endblock %}
+    </title>
+    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      @media(min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    {% block css %}
+      {% include "WebmastersAfricaPressBundle:Blocks:notice_css.html.twig" %}
+    {% endblock %}
+    {% block custom_css %}
+    {% endblock %}
+  </head>
+  <body>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d6e59c5b9f3a686"></script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=2452940924995125&autoLogAppEvents=1"></script>
+
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5"></script>
+
+    {% block header %}
+      {{ include("WebmastersAfricaPressBundle:Blocks:notice_header.html.twig") }}
+    {% endblock %}
+
+    <!-- Content -->
+    {% block body %}{% endblock %}
+    {% block fos_user_content %}{% endblock %}
+
+    <!-- End Content =============================================== -->
+
+    <!-- footer -->
+    {% block footer %}
+      {{ render(controller("WebmastersAfricaPressBundle:Blocks:noticeFooter")) }}
+    {% endblock %}
+    <!--/footer -->
+
+    <!-- js -->
+    <script src="{{ asset('bundles/OTB/notice/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('bundles/OTB/notice/js/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('bundles/OTB/notice/js/request.js') }}"></script>
+    <script src="{{ asset('bundles/OTB/notice/js/comments.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
+    {% block js %}
+
+      {% include "WebmastersAfricaPressBundle:Blocks:notice_js.html.twig" %}
+    {% endblock %}
+    {% block genemu_captcha_javascript %}{% endblock %}
+    {% block custom_js %}
+      <script>
+        var placeholder = "Search By Keyword";
+        $(".select2-single").select2({placeholder: placeholder, width: null, containerCssClass: ':all:'});
+      </script>
+    {% endblock %}
+
+    {% block comments %}{% endblock %}
+
+    <!-- /js -->
+
+    <script>
+      $(document).ready(function() {
+        // $("#regulation_search_agency_id").select2();
+      });
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        },
+        i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', '', 'auto');
+      ga('send', 'pageview');
+
+      window.twttr = (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+        if (d.getElementById(id)) 
+          return t;
+        
+
+
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function (f) {
+          t._e.push(f);
+        };
+
+        return t;
+      }(document, "script", "twitter-wjs"));
+
+      function checkOnline() {
+        setTimeout("doOnlineCheck()", 20000);
+      }
+
+      function doOnlineCheck() {
+          //if the server can be reached it returns 1, other wise it times out
+          var submitURL = ""  + "{{ path('check_is_online') }}"  + "";
+
+          $.ajax({
+              url : submitURL,
+              type : "post",
+              dataType : "msg",
+              timeout : 5000,
+              success : function(msg) {
+                  msg = JSON.parse(msg).success;
+                  if(msg) {
+                      $("#online").addClass("online");
+                      $("#online").removeClass("offline");
+                  } else {
+                      $("#online").addClass("offline");
+                      $("#online").removeClass("online");
+                  }
+                  checkOnline();
+              },
+              error : function() {
+                  $("#online").addClass("offline");
+                  $("#online").removeClass("online");
+                  checkOnline();
+              }
+          });
+      }
+      $(".label-required").append(`<i style='color: black;'>*</i> `);
+    </script>
+
+    {% block google_captacha %}
+      
+    {% endblock %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175633985-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-175633985-1');
+        </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,79 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}{{ page.seoKeywords }}{% endblock %}
+{% block sitetitle %}{{ page.pageTitle }}{% endblock %}
+{% block sitedescription %}{{ page.seoDescription }}{% endblock %}
+{% block sitetwitterdescription %}{{ page.seoDescription }}{% endblock %}
+{% block sitetwittertitle %}{{ page.pageTitle }}{% endblock %}
+{% block sitetwitterurl %}{{ path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) }}{% endblock %}
+{% block page_title %}{{ page.pageTitle }}: Ask{% endblock %}
+{% block google_captacha %}
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdRKbkUAAAAANK7fLPe3fECT8rnmeal-3kYt1g5"></script>
+{% endblock %}
+{% block body %}
+  <main class="single" role="main">
+    <div class="jumbotronZ clearfix">
+      <div class="container text-left">
+        <div class="row clearfix">
+          <div class="col-md-12">
+            <div class="jumboZ_in_2 jumboZ_in">
+              <div class="text-center">
+                <h2>{{page.pageTitle }}: Ask</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home_content full_width">
+      <div class="container">
+        <div class="row clearfix">
+          <div class="archive_main_content col-md-12 clearfix">
+              <div class="home_content_A">
+                <form class="form"  action="{{ app.request.basepath }}/notices/faqs/save" method="post" autocomplete="off" id="noticesform-comments">
+                    <div class="error">
+                      {% if capture_error %}
+                          <p class="alert alert-danger">Your message has not been sent. Please try again</p>
+                      {% endif %}
+                        {{ form_errors(form) }}
+                    </div>
+                        {{form_rest(form)}}
+                    <div>
+                        <input type="submit" name="wp-submit" id="wp-submit-notices" class="btn btn-primary" name="submitbuttonname" value="{{ 'feedback_submit'|trans }}" tabindex="100">
+                        <input type="hidden" name="redirect_to" value="">
+                        <input type="hidden" name="g-recaptcha-response" value="1">
+                        <input type="hidden" name="testcookie" value="1">
+                    </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+  .error {
+      color: red;
+  }
+  </style>
+    <script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('wp-submit-notices');
+        btn.disabled = true;
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ recaptacha_client_site }}').then(function(token) {
+                // add token
+                document.querySelector('[name="g-recaptcha-response"]').value = token;
+                btn.disabled = false;
+            });
+        });
+    });
+        
+    </script>
+{% endblock %}
+

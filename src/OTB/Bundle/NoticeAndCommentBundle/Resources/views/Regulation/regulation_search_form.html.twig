@@ -1,0 +1,43 @@
+
+<form action="{{ path('regulation_advanced_search') }}" class="form_A" method="GET">
+    <div class="form-row">
+    	 <div class="form-group col-md-15">
+            <h3>Consultations</h3>
+        </div>
+        <div class="form-group col-md-15">
+            <select class="form-control" name="agency" id="regulation_search_agency_id">
+                <option value="0">All Agencies</option>
+                {% for agency in agencies %}
+                    {% if agency.name == search_agency %}
+                        {% set selected = 'selected' %}
+                        <option value="{{ agency.name }}" {{ selected }}>{{ agency.name }}</option>
+                        {% set selected = '' %}
+                    {% else %}
+                        <option value="{{ agency.name }}">{{ agency.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-15">
+            <select class="form-control" id="selectIndustries" name="industry">
+                <option value="0">All Industries</option>
+                {% for industry in industries %}
+                    {% if industry.name == search_industry %}
+                        {% set selected = 'selected' %}
+                        <option value="{{ industry.name }}" {{ selected }}>{{ industry.name }}</option>
+                        {% set selected = '' %}
+                    {% else %}
+                        <option value="{{ industry.name }}">{{ industry.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-15">
+            <input class="form-control col-md-12" id="selectKeywords" value="{{ keywords }}" name="keywords" placeholder="Search By Keywords" type="text"/>
+
+        </div>
+        <div class="search_form_A form-group col-md-15">
+            <button class="btn btn-primary text-center" type="submit">Search</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,7 @@
+parameters:
+#    webmasters_africa_admin.example.class: WebmastersAfrica\AdminBundle\Example
+
+services:
+#    webmasters_africa_admin.example:
+#        class: %webmasters_africa_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

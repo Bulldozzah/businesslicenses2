@@ -1,0 +1,133 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+
+{% block sitekeywords %}
+    Zambia Forward Plans, Agency Forward Plans, Agency List, Plans
+{% endblock %}
+{% block sitedescription %}
+    A forward regulatory plan is a publicly available list of planned or potential regulatory changes to be introduced by a regulatory agency in a specified time frame.
+{% endblock %}
+
+{% block page_title %}
+    Forward Plans | Agency List
+{% endblock %}
+{% block body %}
+    <main class="archive" role="main">
+        <div class="jumbotronX">
+            <div class="container text-justify" style="color: white;">
+                <div action="#" class="form_A" method="POST">
+                    <div class="form-row">
+                        <div class="forward_description form-group col-md-12">
+                            <h2 class="">Forward Plans</h2>
+                            <p>A forward regulatory plan is a publicly available list of planned or potential regulatory changes to be introduced by a regulatory agency in a specified time frame. Forward regulatory plans are intended to help businesses in Zambia to plan for:
+                                <ul class="banner_list">
+                                    <li>(i) Opportunities to provide their feedback during the development new or amendment existing regulation,</li>
+                                    <li>
+                                        (ii) Future regulatory changes.
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <form class="form_A" action="{{path('forward_plans_quick_search')}}" method="POST">
+                              <div class="form_A_in form-row">
+                                <div class="input-group mb-3">
+                                  <input type="text" class="form-control" id="quick_search_terms" name="search_key_agency" placeholder="Search agency forward plans by typing here">
+                                  <div class="input-group-append">
+                                    <button class="nc_search btn btn-primary" id=""><ion-icon name="search"></ion-icon> Search</button>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </form>                            
+                        </div>
+                    </div>
+
+
+
+                 </div>               
+
+            </div>
+        </div>
+
+        <div class="section_content_E full_width">
+            <div class="container">
+                <div class="home_content_A">
+                    <div class="table-responsive">
+                        <div align="center">
+                            <ul class="pagination alpha_pagination alpha_pagination_A">
+                                <li class="page-item first-page-item">
+                                    <a class="page-link" href="/notices/forward-planning">ALL</a>
+                                </li>
+                                {% set active_al = "" %}
+                                {% for alphabet in 'A'..'Z' %}
+                                    {% if alphabet == active_alphabet %}
+                                        {% set active_al = "active" %}
+                                    {% endif %}
+                                    <li class="page-item {{ active_al }}">
+                                        <a class="page-link" href="{{ path('filter_forward_plans', {'character': alphabet })}}">{{ alphabet }}
+                                        </a>
+                                    </li>
+                                    {% set active_al = "" %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home_content full_width">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="archive_main_content col-md-12 clearfix">
+                        <div class="boxes_out tab-pane container active" id="all">
+                            <div class="row clearfix">
+                                {% if agency_list|length > 0 %}
+                                    {% for agency in agency_list %}
+                                        <div class="boxes_in col-md-3 clearfix">
+                                            <div class="box_1">
+                                                <a href="{{ path('show_forward_plans', {'slug': agency.slug })}}">
+                                                    <h5>
+                                                        {% set count = 0 %}
+                                                        {% for item in agency.forwardPlans %}
+                                                            {% if item.published %}
+                                                                {% if item.forwardPlansCount.count > 0 %}
+                                                                    {% set count = count + 1 %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        {% if count > 0 %}
+                                                            <span class="badge badge-warning">{{ count }}</span>
+                                                            {{ agency.title }}
+                                                        {% else %}
+                                                            {{ agency.title }}
+                                                        {% endif %}
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="box_X col-md-12 clearfix text-center">
+                                        <p>No Result Found</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section_content_E section_content_E2 full_width">
+                <div class="container">
+                    <div class="pagination_container alpha_pagination_B">
+                        {{ knp_pagination_render(agency_list) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

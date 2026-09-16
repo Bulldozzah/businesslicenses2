@@ -1,0 +1,141 @@
+{% extends 'WebmastersAfricaAdminBundle::adminlayout.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaLicenseBundle' %}
+
+{% block page_title %}{{ site_title }}, Edit | {{ entity.questionText }}{% endblock %}
+
+{% block header %}
+<!-- Title area -->
+<div class="titleArea">
+    <div class="wrapper">
+        <div class="pageTitle">
+            <h5>{{entity.questionText}}</h5>
+            <span>Survey Question</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+{% endblock %}
+{% block body %}
+	<div class="widget">
+		<div class="title">
+	    <img class="titleIcon" alt="" src="{{ asset('bundles/webmastersafricaadmin/images/icons/dark/cog.png') }}">
+	    <h6>Edit Question Details</h6>
+	    <div class="num">
+        <a href="{{ path('manage_surveys_show', {'id': entity.survey.id }) }}" title="{{ 'custom_regulation_fields.back_to_list' | trans }}" class="greyNum w3-button w3-round-large w3-hover-red">{{ 'custom_regulation_fields.back_to_list' | trans }}</a>
+      </div>
+	  </div>
+
+	  <div class="body nopadding ">
+	  		  <div class="body nopadding ">
+	  	
+	    {{ form_start(edit_form, {'attr': {'class': 'form', 'novalidate':'novalidate'}}) }}
+	    <input type="hidden" name="_method" value="PUT"/>
+	    <div id="errors">
+	      {{ form_errors(edit_form) }}
+	    </div>
+		  	{{ form_row(edit_form.survey) }}
+		  	{{ form_row(edit_form.questionText) }}
+		  	{{ form_row(edit_form.questionsType) }}
+		  	<div class="js-class-toggle-choices" id="js-id-toggle-choices">
+			  	<ul class="choices" id="choices"  data-prototype="{{ form_widget(edit_form.choices.vars.prototype)|e }}">
+			  	{% set count = 0 %}
+			  		{% for choice in edit_form.choices %}
+			  			{% set count = count + 1 %}
+			  			<li id="choice_list_{{ count }}">
+			  				<div class="formRow">
+			  					{{ form_label(choice.choiceText) }}
+			  					<div class="formRight">
+			  						{{ form_widget(choice.choiceText) }}
+			  					</div>
+			  					<div class="clear"></div>
+			  				</div>
+			  				<div style="float: right;">
+	                  <a class="w3-button w3-hover-red w3-round-large w3-red w3-small floatR" onclick="document.getElementById('choice_list_{{ count }}').parentNode.removeChild(document.getElementById('choice_list_{{ count }}'));"><i class="fa fa-trash">Delete</i></a>
+	              </div>
+			  			</li>
+			  		{% endfor %}
+			  	</ul>
+		  	</div>
+		  	{{ form_row(edit_form.isRequired) }}
+		  	{{ form_rest(edit_form) }}
+		  	{{ form_end(edit_form) }}
+	  </div>
+	  </div>
+	</div>
+	<script type="text/javascript">
+
+	</script>
+
+	<style type="text/css">
+	input[type='text'] {
+		padding:8px;
+		display:block;
+		border:1px solid #ccc;
+		width:100%;
+	}
+
+	select.form-control {
+		padding:9px 0;width:100%;border:none;border-bottom:1px solid #ccc;
+	}
+	input[type='checkbox'] {
+		width:24px;height:24px;position:relative;top:6px;
+	}
+	.choices {
+		margin-left: 10%;
+	}
+	.error {
+		color: red;
+	}
+	</style>
+	<script>
+	// Choices
+  var $choiceCollectionHolder;
+
+  var $addChoiceLink = $(`<a href="#" class="w3-button w3-hover-green w3-round-large w3-green w3-small add_download_link"><i class="fa fa-plus"> Add new Choice </i></a>`);
+  var $newChoiceLinkLi = $('<li></li>').append($addChoiceLink);
+
+  function addChoiceForm($choiceCollectionHolder, $newChoiceLinkLi) {
+    var prototype = $choiceCollectionHolder.data('prototype');
+
+    var index = $choiceCollectionHolder.data('index');
+
+    var newForm = prototype.replace(/__name__/g, index);
+
+    $choiceCollectionHolder.data('index', index + 1);
+
+    var $newFormLi = $('<li></li>').append(newForm);
+    addChoiceFormDeleteLink($newFormLi);
+    $newChoiceLinkLi.before($newFormLi);
+	}
+
+	function addChoiceFormDeleteLink($choiceFormLi) {
+    var $removeFormA = $('<a href="#" class="w3-button w3-hover-red w3-round-large w3-red w3-small floatR"><i class="fa fa-trash"> {{ 'licenses.delete_this_download' | trans }}</i></a><div class="clear"></div><div class="cLine"></div>');
+    $choiceFormLi.append($removeFormA);
+
+    $removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // remove the li for the tag form
+        $choiceFormLi.remove();
+    });
+	}
+
+	jQuery(document).ready(function () {
+		$choiceCollectionHolder = $('ul.choices');
+
+    $choiceCollectionHolder.append($newChoiceLinkLi);
+
+    addChoiceFormDeleteLink($(this));
+
+    $choiceCollectionHolder.data('index', $choiceCollectionHolder.find(':input').length);
+
+    $addChoiceLink.on('click', function (e) {
+        e.preventDefault();
+
+        addChoiceForm($choiceCollectionHolder, $newChoiceLinkLi);
+    });
+
+	});
+
+	</script>
+{% endblock %}

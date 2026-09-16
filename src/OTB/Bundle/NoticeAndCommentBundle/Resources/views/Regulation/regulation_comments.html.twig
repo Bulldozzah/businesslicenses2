@@ -1,0 +1,906 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+{# src/WebmastersAfrica/PressBundle/Resources/views/Default/index.html.twig #}
+{% extends 'NoticeCommentBundle::base2.html.twig' %}
+{% block sitekeywords %}
+  {{ regulation.keywords }}
+{% endblock %}
+{% block sitetitle %}
+  {{ regulation.title }}
+  comments
+{% endblock %}
+{% block sitedescription %}
+  {{ regulation.title }}
+{% endblock %}
+
+{% block page_title %}
+  Notice-and-Comment |
+  {{ regulation.title }}
+{% endblock %}
+
+{% block body %}
+  <main class="single" role="main">
+    <div class="jumbotronZ clearfix">
+      <div class="regulation_container_B container text-left">
+        <div class="row clearfix">
+          <div class="col-md-9">
+            {% set currentPath = path(app.request.attributes.get('_route'),
+              app.request.attributes.get('_route_params')) %}
+            <div class="jumboZ_in_1 jumboZ_in">
+              <h1 class="display-3">{{regulation.title}}</h1>
+              <ul class="share_icons_A">
+                <li class="s_title">SHARE:
+                </li>
+                <li class="s_fb">
+                   <div class="fb-share-button" data-href="http://www.businesslicenses.gov.zm{{ currentPath }}" data-layout="button_count" data-size="large">
+                      <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.businesslicenses.gov.zm{{ currentPath }}" class="fb-xfbml-parse-ignore">Share</a>
+                    </div>
+                </li>
+                <li class="s_tw">
+                  <a href="https://twitter.com/intent/tweet?text=http://www.businesslicenses.gov.zm{{ currentPath }}" data-size="large">
+                    <ion-icon aria-label="logo twitter" class="hydrated" name="logo-twitter" role="img"></ion-icon>
+                  </a>
+                </li>
+                <li class="s_tw">
+                </li>
+                <li class="s_mail">
+                  {% set regulation_body = regulation.description|raw %}
+                  <a href="mailto:?Subject={{ regulation.title }} Comments &amp;Body={{ regulation_body }}" target="_blank">
+                    <ion-icon aria-label="mail" class="hydrated" name="mail" role="img"></ion-icon>
+                  </a>
+                </li>
+                <li class="s_copy">
+                  <div class="share_whatsapp">
+                    <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm{{ currentPath }}" target="_blank">
+                      <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>
+                    </a>
+                  </div>
+                </li>
+                <li class="s_tw">
+                  <div class="share_whatsapp">
+                    <a href="{{ path('print_regulation_details', {'slug': regulation.slug }) }}" target="_blank">
+                      <ion-icon aria-label="copy" class="hydrated" name="print" role="img"></ion-icon>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+              <figure class="button_subscription">
+                {% if subscribed_button %}
+                  <div class="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Subscribe/Unsubscribe
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <span id="subscribe_agency_button_area">
+                          <a class="dropdown-item text-dark" id="subscribe_button_area" href="#">Agency &nbsp;&nbsp;&nbsp;{% if subscribed_agency %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}
+                          </a>
+                      </span>
+                      <span id="subscribe_industry_button_area">
+                        <a class="dropdown-item text-dark" id="subscribe_button_area_industry" href="#">Industry &nbsp;&nbsp;&nbsp;{% if subscribed_industry %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}</a>
+                      </span>
+                    </div>
+                  </div>
+                {% else %}
+                  <div class="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Subscribe/Unsubscribe
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item text-dark" href="/login">Agency</a>
+                      <a class="dropdown-item text-dark" href="/login">Industry</a>
+                    </div>
+                  </div>
+                {% endif %}
+              </figure>
+              <figure>
+              	{% if regulation.surveys|length > 0 %}
+              	{% set count = 1 %}
+              		{% for survey in regulation.surveys %}
+              				{% if (count == 1) and (survey.published) %}
+              					<a class="btn btn-primary btn-md" href="{{ path('frontend_survey', {'slug': regulation.slug, 'survey_id': survey.id}) }}">Take a quick survey.</a>
+              			{% endif %}
+              		{% endfor %}
+              	{% endif %}
+              </figure>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="jumboZ_in_1 jumboZ_in">
+              <div class="single_post_details">
+
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Agency</th>
+                      <td><a href="{{ path('show_regulations_per_agency', {'slug': regulation.agency.slug }) }}">{{ regulation.agency.name }}</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Period</th>
+                      <td>{{ regulation.publishDate | date("M d Y", false) }} {% if ('6' in showedfields) %} TO {{ regulation.closingDate | date("M d Y", false)}} {% endif %}</td>
+                    </tr>
+
+                    {% if ('13' in showedfields) %}    
+                    <tr>
+                      <th scope="row">Status</th>
+                      <td>{{ regulation.consultationStage }}</td>
+                    </tr>    
+                    {% endif %}
+
+                    <tr>
+                      <th scope="row">Industry</th>
+                      <td>{{ regulation.industry.name }}</td>
+                    </tr>    
+                  </tbody>
+                </table>
+
+                {#{% if subscribed_button %}
+                  {% if subscribed %}
+                    <p id="subscribe_button_area">
+                      <a href="#" id="subscribe_button" class="btn btn-danger btn-sm" title="unsubscribe from this agency to stop receiving updates for new regulations">Unsubcribe from this agency</a>
+                    </p>
+                  {% else %}
+                    <p id="subscribe_button_area">
+                      <a href="#" id="subscribe_button" class="btn btn-success btn-sm" title="subscribe to this agency to receive updates for new regulations">Subscribe to this agency</a>
+                    </p>
+                  {% endif %}
+                {% else %}
+                  <p><a class="btn btn-success btn-sm" href="/login">Subscribe for updates</a></p>
+                {% endif %} #}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home_content full_width">
+
+    <div class="regulation_container_B container">
+      <div class="row clearfix">
+
+        <div class="side_content_C col-md-7 clearfix" data-spy="" data-offset-top="">
+          <div class="regulation_accordion">
+            <div id="accordion">
+              {% if ('2' in showedfields) %}
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Summary <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      <h5>{{ regulation.title }}</h5>
+                      <div class="accordion_description">{{ regulation.description|raw }}</div>
+                      
+                      <h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              {% if ('8' in showedfields) or ('11' in showedfields) or ('12' in showedfields) %}
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Documents &amp; Supporting Materials <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                      {% if ('11' in showedfields) %}
+                        {% if regulation.document %}
+                          <a href="{{ asset('uploads/documents/' ~ regulation.document)}}" target="_blank">
+                            <h6><ion-icon name="document"></ion-icon> {{ regulation.document }}</h6>
+                          </a>
+                        {% endif %}
+                      {% endif %}
+                      
+                      {% if ('12' in showedfields) %}
+                        <div>
+                          {% if regulation.supportingAttachments %}
+                            {% for attachment in regulation.supportingAttachments %}
+                              {% if attachment.filepath %}
+                                <h6><a target="_blank" href="{{ asset('uploads/documents/' ~ attachment.filepath) }}"><ion-icon name="document"></ion-icon> {{ attachment.name }}</a></h6>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                      
+                      {% if ('8' in showedfields) %}
+                        <div>
+                          {% if regulation.supportingMaterials %}
+                            <p>{{ regulation.supportingMaterials|raw }}</p>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if ('4' in showedfields) %}
+              <div class="card">
+                  <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Affected Sector(s) And Expected Impact <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                      <h5>{{ regulation.industry }}</h5>
+                    </div>
+                    
+                    {% if regulation.expectedOutcome %}
+                      <div class="card-body">
+                        {{ regulation.expectedOutcome|raw }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+            {% endif %}
+            {% if ('7' in showedfields) %}
+              <div class="card">
+                <div class="card-header" id="heading4">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                      Specific Instructions <ion-icon name="arrow-dropdown"></ion-icon>
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+                  <div class="card-body">
+                    
+                    {{regulation.specificInstructions|raw }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            {% if fielddatas|length > 0 %}
+                <div class="card">
+                  <div class="card-header" id="headingCustom">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapseCustom" aria-expanded="false" aria-controls="collapseCustom">
+                        Additional Details <ion-icon name="arrow-dropdown"></ion-icon>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseCustom" class="collapse" aria-labelledby="headingCustom" data-parent="#accordion">
+                    <div class="card-body">
+                      <ul>
+                      {% for field in regulationfields %}
+                        <li>
+                          <p>{{ field.fieldlabel|raw }}</p>
+                          {% for datafield in fielddatas %}
+                            {% if (datafield.fieldId == field.id) and datafield.fielddata|length > 0 %}
+                              <span>{{ datafield.fielddata|raw }}</span>
+                            {% endif %}
+                          {% endfor %}
+                        </li>
+                      {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            {% endif %}
+            {% if ('14' in showedfields) %}
+              <div class="card">
+                <div class="card-header" id="heading6">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                      Offline Consultations <ion-icon name="arrow-dropdown"></ion-icon>
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion">
+                  <div class="card-body">
+                    {{ regulation.offlineConsultations|raw }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+              <div class="card">
+                <div class="card-header" id="heading7">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link btn-block collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                      Contact &amp; Office Address <ion-icon name="arrow-dropdown"></ion-icon>
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion">
+                  <div class="card-body">
+                    <ul class="contact_items">
+                      <li>
+                        Name:
+                        {{ regulation.agency.title}}</li>
+                      <li>
+                        {{ regulation.agency.name}}</li>
+                      <li>Fax:
+                        {{ regulation.agency.fax}}</li>
+                      <li>Address:
+                        {{ regulation.agency.address}}</li>
+                      <li>Telephone:
+                        <a href="tel:{{ regulation.agency.telephone }}">{{ regulation.agency.telephone }}</a></li>
+                      <li>Email:
+                        <a href="mailto:{{ regulation.agency.email }}" target="_blank">{{ regulation.agency.email }}</a></li>
+                      <li>Website:
+                        <a href="{{ regulation.agency.website}}" target="_blank">{{ regulation.agency.website}}</a></li>
+                      <li>Working Hours:
+                        {{ regulation.agency.hours}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="archive_main_content col-md-5 clearfix">
+          {% if open_for_comments %}
+            <figure class="noti_feedback">
+              <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#exampleModal" >
+                  <i class="fas fa-question-circle"></i> Do you agree with this regulation?
+              </button>
+            </figure>
+          {% endif %}
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">State Your Position?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="stating_my_position">
+                          <div id="position_stating_area">
+                          <div class="modal-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" class="positionButtons" name="positionRadios" id="exampleRadios1" value="option1" required>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Agree
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" class="positionButtons" name="positionRadios" id="exampleRadios2" value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Agree with reservations
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" class="positionButtons" name="positionRadios" id="exampleRadios2" value="option3">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Disagree
+                                </label>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <span id="submit_my_response_button_area">
+                                <button type="button" id ="submit_my_position_button" class="btn btn-primary" data-dismiss="modal">Submit my Response</button>
+                              </span>
+                          </div>
+                        </form>
+                    </div>
+            </div>
+          </div>
+
+          <div class="home_content_A">
+            <div class="header_A">
+              <h2 class="style_A">Comments</h2>
+              <p class="policy">You can submit your comment as a guest user or sign up to give your comment. Signing up allows you to like comments and make attachments along with your comment.  <a href="/policy/comment-policy" target="_blank">Read our Comment Policy here</a>.</p>
+              <div id="comment_area"></div>
+              {% if open_for_comments == false %}
+                <div class="comment-alert alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <!--<strong>Warning!</strong>-->
+                  This Consultation is no longer available for commenting
+                </div>
+              {% endif %}
+
+              <span id="error_message"></span>
+            </div>
+            <div class="global_content_A_in home_content_A_in">
+              <div class="single_box_main box_1">
+                <div class="comment_in_B">
+                  <div class="comment-error-section"></div>
+                  <section id="comments">
+                    <div class="container">
+                      <div class="mx-auto">
+                        <div id="wait"></div>
+                        <div id="comments-container"></div>
+                      </div>
+                      {# <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;">
+                          <img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon"/><br>Loading..
+                      </div> #}
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
+
+{% block comments %}
+<script>
+$('#submit_my_position_button').click(function () {
+    var ckbox = $("input[name='positionRadios']");
+    var chkId = '';
+    if (ckbox.is(':checked')) {
+      $("input[name='positionRadios']:checked").each ( function() {
+        chkId = $(this).val();
+        $.ajax({
+            url: `/consultation/regulations/{{ regulation.slug }}/votting/position`,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              'position': chkId,
+            },
+            success: function (data) {
+              $("#position_stating_area").html(`<p class='alert alert-success'>${data.message}</p>`);
+              $("#submit_my_response_button_area").html('');
+              // $("#submit_my_position_button").disabled = true;
+            }  
+        }); 
+      });
+    }
+    return false;
+});
+</script>
+<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (typeof window.orientation == 'undefined') {
+            $("#share_whatsapp").html('<div class="share_whatsapp">\
+                  <a href="https://web.whatsapp.com/send?text=http://www.businesslicenses.gov.zm/consultation/regulations/{{ regulation.slug }}/comments" target="_blank">\
+                    <ion-icon aria-label="copy" class="hydrated" name="logo-whatsapp" role="img"></ion-icon>\
+                  </a>\
+          </div>');
+        }
+
+        $(".marked-abusive").addClass("text-success");
+        $("#subscribe_button_area").click(function (e) {
+          e.stopPropagation();
+          let loading = `<a href="#" class="disabled" title="Thank you for subscribing"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+          $("#subscribe_button_area").html(loading);
+          let url = "{{ path('agency_subscribe_for_regulations') }}";
+          let agency = "{{ regulation.agency.id }}";
+          let regulation = "{{ regulation.id }}";
+          $.ajax({
+            type: "post",
+            url: url,
+            data: {"agency": agency, 'regulation': regulation},
+            success: function(response) {
+              let response_obj = JSON.parse(response);
+              if (response_obj.success) {
+                let success = '';
+                if (response_obj.sub) {
+                  $("#subscribe_agency_button_area").html('');
+                  success = `<a class="dropdown-item text-dark" id="subscribe_button_area" href="#">To Agency &nbsp;&nbsp;&nbsp <i class="fa fa-check" aria-hidden="true"></i></a>`;
+                  $("#subscribe_agency_button_area").html(success);
+                } else {
+                  $("#subscribe_agency_button_area").html('');
+                  success = `<a class="dropdown-item text-dark" id="subscribe_button_area" href="#">To Agency</a>`;
+                  $("#subscribe_agency_button_area").html(success);
+                }
+                
+              } else {
+                $("#subscribe_button_area").html(response_obj.message);
+              }
+            }
+          });
+        });
+        $("#subscribe_button_area_industry").click(function (e) {
+          e.stopPropagation();
+          let loading = `<a href="#" class="disabled"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+          $("#subscribe_button_area_industry").html(loading);
+          let url = "{{ path('industry_subscribe_for_regulations') }}";
+          let industry = "{{ regulation.industry.id }}";
+          let regulation = "{{ regulation.id }}";
+          $.ajax({
+            type: "post",
+            url: url,
+            data: {"industry": industry, 'regulation': regulation},
+            success: function(response) {
+              let response_obj = JSON.parse(response);
+              if (response_obj.success) {
+                console.log(response_obj.success);
+                let success = '';
+                if (response_obj.sub) {
+                  $("#subscribe_industry_button_area").html('');
+                  success = `<a class="dropdown-item text-dark" id="subscribe_button_area" href="#">To Industry&nbsp;&nbsp;&nbsp<i class="fa fa-check" aria-hidden="true"></i></a>`;
+                  $("#subscribe_industry_button_area").html(success);
+                } else {
+                  $("#subscribe_industry_button_area").html('');
+                  success = `<a class="dropdown-item text-dark" id="subscribe_button_area" href="#">To Industry</a>`;
+                  $("#subscribe_industry_button_area").html(success);
+                }
+                
+              } else {
+                $("#subscribe_button_area_industry").html(response_obj.message);
+              }
+            }
+          });
+        });
+    });
+    let replying = $.getJSON(`/consultation/regulations/api/{{ regulation.id }}/comments/enabled`);
+    replying.done(function (response) {
+        let reply = response.open;
+        let login_required = response.login_required
+
+        var saveComment = function (data) { // Convert pings to human readable format
+            $(Object.keys(data.pings)).each(function (index, userId) {
+                var fullname = data.pings[userId];
+                var pingText = '@' + fullname;
+                data.content = data.content.replace(new RegExp('@' + userId, 'g'), pingText);
+            });
+            return data;
+        }
+      function doOnlineCheck() {
+          //if the server can be reached it returns 1, other wise it times out
+          var submitURL = ""  + "{{ path('check_is_online') }}"  + "";
+
+          $.ajax({
+              url : submitURL,
+              type : "post",
+              dataType : "msg",
+              timeout : 5000,
+              success : function(msg) {
+                  msg = JSON.parse(msg).success;
+                  if(msg) {
+                      $("#online").addClass("online");
+                      $("#online").removeClass("offline");
+                  } else {
+                      $("#online").addClass("offline");
+                      $("#online").removeClass("online");
+                  }
+                  checkOnline();
+              },
+              error : function() {
+                  $("#online").addClass("offline");
+                  $("#online").removeClass("online");
+                  checkOnline();
+              }
+          });
+      }
+        $('#comments-container').comments({
+
+            profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: response.enable_attachment,
+            enableHashtags: true,
+            enablePinging: true,
+            textareaPlaceholderText: 'Leave a comment..',
+            editText: 'Edit',
+            enableUpvoting: response.open,
+            enableDeleting: response.user_logged_in,
+            enableDeletingCommentWithReplies: false,
+            enableEditing: response.user_logged_in,
+            enableHashtags: false,
+            postCommentOnEnter: response.review_comments,
+            enableShare: reply,
+            maxRepliesVisible: 1,
+            enableMarkAbusive: reply,
+            enableReplying: reply,
+            enableNavigation: true,
+            searchUsers: function (term, success, error) {
+                setTimeout(function () {
+                    success(usersArray.filter(function (user) {
+                        var containsSearchTerm = user.fullname.toLowerCase().indexOf(term.toLowerCase()) != -1;
+                        var isNotSelf = user.id != 1;
+                        return containsSearchTerm && isNotSelf;
+                    }));
+                }, 500);
+            },
+            getComments: function (success, error) {
+                $.ajax({
+                    type: 'get',
+                    url: `/consultation/regulations/api/{{ regulation.slug }}/comments`,
+                    success: function (commentList) {
+                        let commentsArray = JSON.parse(atob(commentList));
+                        success(commentsArray.comments);
+                    },
+                    error: error
+                });
+
+            },
+            postComment: function (commentPost, success, error) {
+              function createSpinner() {
+                  var spinner = $('<div/>', {
+                      'class': 'spinner'
+                  });
+                  var spinnerIcon = $('<i/>', {
+                      'class': 'fa fa-spinner fa-spin'
+                  });
+                  spinner.html(spinnerIcon);
+                  return spinner;
+              }
+                if (commentPost.content.split(' ').length > 300) {
+                  return;
+                }
+                var formData = new FormData();
+                let can_post = true;
+                  if ('file' in commentPost) {
+                    let i = response.file_size * 1024 * 1024;
+                    if (commentPost.file.size > i) {
+                        can_post = false;
+                        $(".comment-error-section").html(`<p style="color: red;">You're required to upload a maximum of ${response.file_size} MB size </p>`);
+                    } else {
+                      can_post = true;
+                      //$(".comment-error-section").html(`<p style="color: red;">You're required to upload a ${response.file_type['file_type']} </p>`);
+                    }
+                  }
+                  if (can_post) {
+                    let loading = `<a href="#" class="disabled"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon" /></a>`;
+                    $("#wait").html(loading);
+                    console.log("clicked to display");
+                    $(Object.keys(commentPost)).each(function (index, key) {
+                      var value = commentPost[key];
+                      if (value) {
+                        formData.append(key, value)
+                      }
+                    });
+                    $.ajax({
+                      type: "post",
+                      url: `/consultation/regulations/api/{{ regulation.id }}/comments`,
+                      data: formData,
+                      cache: false,
+                      contentType: false,
+                      processData: false,
+                      success: function (comment) {
+                          let this_comment = JSON.parse(comment)
+                          if (this_comment.success) {
+                            success(this_comment.comment);
+                          } else {
+                            $(".comment-error-section").html(`<p style="color: red;">${this_comment.message}</p>`);
+                          }
+                          console.log("clicked to display after");
+                          $("#wait").html('');
+                      },
+                      error: error
+                    });
+                  }
+
+              //}
+                /** $(Object.keys(commentPost)).each(function (index, key) {
+                    var value = commentPost[key];
+                    if (value) {
+                      formData.append(key, value)
+                    }
+                });
+                $.ajax({
+                  type: "post",
+                  url: `/consultation/regulations/api/{{ regulation.id }}/comments`,
+                  data: formData,
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  success: function (comment) {
+                      let this_comment = JSON.parse(comment)
+                      if (this_comment.success) {
+                        success(this_comment.comment);
+                      } else {
+                        $(".comment-error-section").html(`<p style="color: red;">${this_comment.message}</p>`);
+                        $(".textarea").html('');
+                      }
+                  },
+                  error: error
+                });
+              
+                /** grecaptcha.ready(function () {
+                    grecaptcha.execute('{{ recaptacha_client_site }}', {action: 'social'}).then(function (token) {
+                        var data = {
+                            "response": token
+                        };
+                        var url = `/comments/api/${token}/verify`;
+                        $.ajax({
+                            type: "get",
+                            url: url,
+                            data: data,
+                            success: function (data) {
+                                let response = JSON.parse(data)
+                                if (response.success) {
+                                    var commentSend = commentPost
+                                    $.ajax({
+                                        type: "post",
+                                        url: `/consultation/regulations/api/{{ regulation.id }}/comments`,
+                                        data: commentSend,
+                                        success: function (comment) {
+                                            let this_comment = JSON.parse(comment)
+                                            if (this_comment.success) {
+                                              success(this_comment.comment);
+                                            } else {
+                                              $(".comment-error-section").html(`<p style="color: red;">${this_comment.message}</p>`);
+                                            }
+                                        },
+                                        error: error
+                                    });
+                                } else {
+                                    $(".comment-error-section").html(`<p class="alter alert-danger">Error! Reload Page to post a comment </p>`);
+                                }
+                            }
+                        });
+                    });
+                });**/
+              //}
+            },
+            putComment: function (data, success, error) {
+                let loading = `<a href="#" class="disabled"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon"/></a>`;
+	              $("#wait").html(loading);
+                $.ajax({
+                  type: 'post',
+                  url: `/consultation/regulations/api/${data.id}/comments/update`,
+                  data: data,
+                  success: function(comment) {
+                    let commentUpdate = JSON.parse(atob(comment));
+                    if (commentUpdate.success) {
+                      success(commentUpdate.comment);
+                    } else {
+                      $(".comment-error-section").html(`<p style="color: red;">${commentUpdate.message}</p>`);
+                    }
+                    $("#wait").html('');
+                  }
+                });
+                // setTimeout(function () {
+                //     success(saveComment(data));
+                // }, 500);
+            },
+            deleteComment: function (data, success, error) {
+              let loading = `<a href="#" class="disabled"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon"/></a>`;
+	            $("#wait").html(loading);
+              $.ajax({
+                  type: 'delete',
+                  url: `/consultation/regulations/api/${data.id}/comments/delete`,
+                  success: success,
+                  error: error
+              });
+              $("#wait").html('');
+                // setTimeout(function () {
+                //     success();
+                // }, 500);
+            },
+            upvoteComment: function (commentJSON, success, error) {
+                let loading = `<a href="#" class="disabled"><img src="{{ asset('bundles/webmastersafricaadmin/images/loaders/loader.gif') }}" alt="" class="titleIcon"/></a>`;
+                var commentUrl = "/comments/api/" + commentJSON.id + "/like";
+                if (response.user_logged_in) {
+                  $("#wait").html(loading);
+                  $.ajax({
+                      type: 'post',
+                      url: commentUrl,
+                      data: {
+                          comment: commentJSON.id
+                      },
+                      success: function (data) {
+                          let comment = JSON.parse(data);
+                          if (comment.success == false) {
+                              $("#error_message").html("<div class='alert alert-danger' role='alert'>" + comment.error + "</div>");
+                              alert(comment.error);
+                          } else {
+                              success(comment.like_count)
+                          }
+                          $("#wait").html('');
+                      },
+                      error: function (data) {
+                          let errorData = JSON.parse(data);
+                          if (errorData.success == false) {
+                              $("#error_message").html("<div class='alert alert-danger' role='alert'>" + errorData.error + "</div>");
+                          }
+                          $("#wait").html('');
+                      }
+                  });
+                }
+            },
+            /**uploadAttachments: function (commentArray, success, error) {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('{{ recaptacha_client_site }}', {action: 'social'}).then(function (token) {
+                        var responseData = {
+                            "response": token
+                        };
+                        var url = `/comments/api/${token}/verify`;
+                        $.ajax({
+                            type: "get",
+                            url: url,
+                            data: responseData,
+                            success: function (serverResponse) {
+                                let serverResponseData = JSON.parse(serverResponse)
+                                if (serverResponseData.success) {
+                                    var responses = 0;
+                                    var successfulUploads = [];
+
+                                    var serverResponded = function () {
+                                        responses++;
+
+                                        if (responses == commentArray.length) {
+                                            if (successfulUploads.length == 0) {
+                                                error();
+                                            } else {
+                                                success(successfulUploads);
+                                            }
+                                        }
+                                    }
+
+                                    $(commentArray).each(function (index, commentJSON) {
+                                        var formData = new FormData();
+                                        $(Object.keys(commentJSON)).each(function (index, key) {
+                                            var value = commentJSON[key];
+                                            if (value) {
+                                                formData.append(key, value)
+                                            }
+                                        });
+                                        $.ajax({
+                                            url: `/consultation/regulations/api/{{ regulation.id }}/comments`,
+                                            type: 'POST',
+                                            data: formData,
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (commentJSON) {
+                                                let commentCreated = JSON.parse(commentJSON);
+                                                successfulUploads.push(commentCreated);
+                                                serverResponded();
+                                            },
+                                            error: function (data) {
+                                                serverResponded()
+                                            }
+                                        });
+                                    });
+                                } else {
+                                    $(".textarea").html(`<p class="alter alert-danger">Error! Reload Page to post a comment </p>`);
+                                }
+                            }
+                        });
+                    });
+                });
+            }, **/
+            refresh: function () {
+                $('#comments-container').addClass('rendered');
+            }
+        });
+
+        // Hide this
+        if (!reply) {
+            $(".commenting-field").hide();
+        } else {
+          if (response.required_to_login && response.required_to_login != response.user_logged_in) {
+              $(".commenting-field").html(`<p style="color:red;">
+                Unfortunately! You can't make your comments anonymously. Login to Make your comments. Your Comments are highly valuable</p>`
+              );
+          }
+        }
+          
+        
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.collapse').on('shown.collapse', function(){
+            $(this).parent().find(".arrow-dropdown").removeClass("arrow-drodown").addClass("arrow-dropup");
+        }).on('hidden.collapse', function(){
+            $(this).parent().find(".arrow-dropup").removeClass("arrow-dropup").addClass("arrow-dropdown");
+        });
+    });
+</script>
+<style type="text/css">
+.hidden {
+  color: red;
+  border: solid;
+}
+</style>
+{% endblock %}

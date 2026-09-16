@@ -1,0 +1,14 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+
+<div class="">
+<div id="cart_box">
+<h3>{{ 'mostviewed'|trans }}<i class="icon_search-2 pull-right"></i></h3>
+<ul class="side-menu-list">
+  {% for license in licenses %}
+      <li><div data-icon="=" aria-hidden="true" class="fs1"> <a class="tooltip-1" data-toggle="tooltip" data-placement="left" title="{{ license.name }}" href="{{ app.request.basepath }}/license/id/{{ license.id }}">{{ license.name }}</a> </li>
+  {% endfor %}
+</ul>
+<div class="view-more"> <a <a class="btn_more" href="{{ app.request.basepath }}/browse/licenses">{{ 'viewmore'|trans }}</a></div>
+</div><!-- End cart_box -->
+</div>

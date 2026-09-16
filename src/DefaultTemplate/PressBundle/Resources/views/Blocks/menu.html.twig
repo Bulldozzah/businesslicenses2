@@ -1,0 +1,11 @@
+{% for page in pages %}
+  {% if page.pageLayout == 2  %}
+    <li {% if page.url == route %} class="active navbar-text" {% endif %}>
+      <a href="{{ app.request.basepath }}{{ page.url }}">{{ page.pageTitle }}</a>
+    </li>
+  {% else %}
+    <li {% if "/press/" ~ page.id == route %} class="active" {% endif %}>
+      <a href="{{ app.request.basepath }}/press/{{ page.id}}">{{ page.pageTitle }}</a>
+    </li>
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,148 @@
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+<header>
+
+<style type="text/css">
+  .zopim { display: none !important; }
+</style>
+
+  <div class="row langbar">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 align-right">
+          <div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+    <!-- HEADER- SIGN IN - REGISTER -  when logged in ================================================== -->
+
+    <div class="container-fluid register-signin">
+      <div class="container xs-p-r-0 xs-p-l-0 xs-p-t-10 xs-p-b-10">
+        <div class="row">
+          <div class="ere_logo col-md-3 col-sm-3 col-xs-2">
+            <a href="{{ app.request.basepath }}/index.php" id="logo">
+              <img src="{{ asset('bundles/webmastersafricapress/new/img/logo.png') }}" alt="" data-retina="true" class="hidden-xs">
+              <img src="{{ asset('bundles/webmastersafricapress/new/img/logo_mobile.png') }}" width="59" alt="" data-retina="true" class="hidden-lg hidden-md hidden-sm">
+            </a>
+          </div>
+          <div class="col-md-9 col-sm-9 col-xs-10 align-right">
+            <div class="logged_in_nav card_box">
+              <div class="main-menu">
+                <ul class="logged_in_not">
+                  {{ render(controller("WebmastersAfricaPressBundle:Blocks:menu")) }}
+                
+
+                  <li>
+                    <a class="" href="/notices" target="_blank"> Notice and Comments
+                      <!--<i class="icon-fast-forward"></i>-->
+                    </a>
+                  </li>
+
+                  <li class="header_search heaar_search1">
+                    <a href="#search" class="open-modal" id="modalSearch2" data-toggle="modal" data-target="#flipFlop">
+                      <ion-icon name="search"></ion-icon>
+                    </a>
+                  </li>                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End row -->
+    </div>
+    <!-- End container -->
+
+    <!-- /HEADER- SIGN IN - REGISTER -  when logged in ================================================== -->
+
+  {% else %}
+
+    <!-- HEADER- SIGN IN - REGISTER -  when not logged in ================================================== -->
+
+    <div class="container-fluid register-signin">
+      <div class="container xs-p-r-0 xs-p-l-0 xs-p-t-10 xs-p-b-10">
+        <div class="row">
+          <div class="ere_logo2 col-md-4 col-sm-4 col-xs-2">
+            <a href="{{ app.request.basepath }}/index.php" id="logo">
+              <img src="{{ asset('bundles/webmastersafricapress/new/img/logo.png') }}" alt="" data-retina="true" class="hidden-xs">
+              <img src="{{ asset('bundles/webmastersafricapress/new/img/logo_mobile.png') }}" width="59" alt="" data-retina="true" class="hidden-lg hidden-md hidden-sm">
+            </a>
+          </div>
+          <div class="ere_content2 col-md-8 col-sm-8 col-xs-8">
+
+            <div class="ere_content2B">
+              <ul class="ere_content2B_in logged_in_not">
+                <li class="header_search heaar_search2">
+                  <a href="#search"  id="modalSearch" class="open-modal" data-toggle="modal" data-target="#flipFlop">
+                    <ion-icon name="search"></ion-icon>
+                  </a>
+                </li> 
+
+                <li class="ere_gtr" id="wp-admin-bar-updates">
+                  <div id="google_translate_element"></div>
+                    <script type="text/javascript">
+                      function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({
+                          pageLanguage: 'en',
+                          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                        }, 'google_translate_element');
+                      }
+                    </script>
+                    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+                </li>
+                <li class="ere_nav">
+                  <nav class="col--md-12 col-sm-12 col-xs-12">
+                    <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);">
+                      <span>Menu mobile</span>
+                    </a>
+                    <div class="main-menu">
+                      <div id="header_menu">
+                        <img<i <img src="{{ asset('bundles/webmastersafricapress/new/img/logo.png') }}" alt="" data-retina="true" class="hidden-xs"> <img src="{{ asset('bundles/webmastersafricapress/new/img/logo_mobile.png') }}" width="59" alt="" data-retina="true" class="hidden-lg hidden-md hidden-sm"> </div> <a href="#" class="open_close" id="close_in"> <i class="icon_close"></i>
+                      </a>
+                      <ul class="logged_in_not">
+                        <!--Top Menu-->
+                        {# {% block menu %} {{ include("WebmastersAfricaPressBundle:Blocks:menu.html.twig", {'pages':[]}) }} {% endblock %} #}
+                        
+                        {% block menu %}
+                        {{ render(controller("WebmastersAfricaPressBundle:Blocks:menu")) }}
+                        {% endblock %}
+
+                        <!--/Top menu-->
+                          <li>
+                            <a class="navbar-btn btn-primary" href="/notices" target="_blank"> Notice and Comments
+                            <i class="icon-fast-forward"></i>
+                          </a>
+
+                        </li>
+
+
+                      </ul>
+
+                    </div>
+                    <!-- End main-menu -->
+
+                  </nav>
+                </li>
+              </ul>
+            </div>
+
+          </div>  
+        </div>
+      </div>
+      <!-- End row -->
+    </div>
+    <!-- End container -->
+
+    <!-- HEADER- SIGN IN - REGISTER -  when not logged in ================================================== -->
+
+  {% endif %}
+
+  <!-- MAIN NAVIGATION ================================================== -->
+
+  <!-- /MAIN NAVIGATION ================================================== -->
+
+</header>
+<!-- End Header =============================================== -->

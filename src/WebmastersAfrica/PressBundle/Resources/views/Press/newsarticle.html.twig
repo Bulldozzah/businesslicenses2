@@ -1,0 +1,46 @@
+{# src/Webmasters/ContentBundle/Resources/views/Content/index.html.twig #}
+{% extends 'WebmastersAfricaPressBundle:Layouts:base.html.twig' %}
+
+{% trans_default_domain 'WebmastersAfricaPressBundle' %}
+
+{% block page_title %}News{% endblock %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li>
+        <a href="{{ app.request.basepath }}">Home</a>
+    </li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ 'news_articles'|trans }}</li>
+    <li>
+        /
+    </li>
+    <li class="last-child">{{ entity.title }}</li>
+</ul><!--breadcrumb-->
+{% endblock%}
+
+{% block pageheader %}{{ entity.title }}{% endblock %}
+
+{% block body %}
+
+ <div class="post-item">
+                   
+                    
+                     <div class = "entry-meta">
+                                                <span class = "author">{{ 'by'|trans }}: <a href = "#">{{ entity.createdBy  }}</a></span>
+                                                <span class = "separator">|</span>
+                                                <span class = "tags">{{ 'posted_on'|trans }}: <a href = "#">{{ entity.created|date('Y-m-d') }}</a></span>
+                                            </div><!-- .entry-meta -->
+                    
+                     <div class="post-descr">
+                    <p>{{ entity.article | raw }}</p>
+                    </div>
+                    
+                    <div class="divider"></div>
+                 
+               </div>
+
+
+{% endblock %}
