@@ -1,15 +1,19 @@
 # Legacy Symfony 2.3 app - needs PHP 7.4 (fatals on PHP 8).
-FROM php:7.4-apache
+# Alpine base: the Debian 11 (bullseye) php:7.4 images can no longer apt-get their -dev packages.
+FROM php:7.4-fpm-alpine3.16
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libicu-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libxml2-dev libgmp-dev \
+RUN apk add --no-cache nginx icu-libs libzip libpng libjpeg-turbo freetype gmp gnu-libiconv \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev libzip-dev libpng-dev libjpeg-turbo-dev freetype-dev gmp-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" pdo_mysql intl zip gd gmp opcache \
-    && a2enmod rewrite headers \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del .build-deps
+
+# musl's iconv cannot transliterate; GNU libiconv keeps slug/translit code working.
+ENV LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 
 COPY docker/php.ini /usr/local/etc/php/conf.d/app.ini
-COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/php-fpm.conf /usr/local/etc/php-fpm.d/zz-app.conf
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /var/www/html
 COPY . .
